@@ -5,9 +5,11 @@
  * The Storefront API lets you integrate your store into custom front-ends or games. It manages product catalogue displaying, VAT rate calculation, carts, checkout sessions, and more. This API can be safely called directly from customer browsers or client-side applications without requiring an API key.
  * OpenAPI spec version: v1
  */
-
-import type { AxiosRequestConfig, AxiosResponse } from "axios";
-import axios from "axios";
+import axios from 'axios';
+import type {
+  AxiosRequestConfig,
+  AxiosResponse
+} from 'axios';
 
 /**
  * Represents a customer's shopping cart
@@ -73,9 +75,7 @@ export interface CartLineDto {
 Do not store any sensitive information here.
  * @nullable
  */
-export type CreateCartCheckoutSessionDtoMetadata = {
-  [key: string]: string;
-} | null;
+export type CreateCartCheckoutSessionDtoMetadata = {[key: string]: string} | null;
 
 /**
  * Request to create a new checkout session from a cart
@@ -112,18 +112,14 @@ Do not store any sensitive information here.
 Do not store any sensitive information here.
  * @nullable
  */
-export type CreateCheckoutSessionLineDtoMetadata = {
-  [key: string]: string;
-} | null;
+export type CreateCheckoutSessionLineDtoMetadata = {[key: string]: string} | null;
 
 /**
  * Key-value pair mapping custom variable identifiers to their selected values.
 Required only when the product includes custom variables.
  * @nullable
  */
-export type CreateCheckoutSessionLineDtoCustomVariables = {
-  [key: string]: string;
-} | null;
+export type CreateCheckoutSessionLineDtoCustomVariables = {[key: string]: string} | null;
 
 /**
  * Represents a line item in a checkout session request
@@ -156,9 +152,7 @@ Required only when the product includes custom variables.
 Do not store any sensitive information here.
  * @nullable
  */
-export type CreateCheckoutSessionRequestDtoMetadata = {
-  [key: string]: string;
-} | null;
+export type CreateCheckoutSessionRequestDtoMetadata = {[key: string]: string} | null;
 
 /**
  * Request to create a new checkout session
@@ -212,20 +206,20 @@ export interface CreateCheckoutSessionResponseDto {
 /**
  * Defines the type of input method for a custom variable.
  */
-export type CustomVariableType =
-  (typeof CustomVariableType)[keyof typeof CustomVariableType];
+export type CustomVariableType = typeof CustomVariableType[keyof typeof CustomVariableType];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CustomVariableType = {
-  dropdown: "dropdown",
-  text: "text",
-  number: "number",
+  dropdown: 'dropdown',
+  text: 'text',
+  number: 'number',
 } as const;
 
 /**
  * Additional custom data associated with the customer.
  */
-export type CustomerDtoMetadata = { [key: string]: string };
+export type CustomerDtoMetadata = {[key: string]: string};
 
 /**
  * Represents a customer in the PayNow system with their associated profiles and metadata.
@@ -270,14 +264,14 @@ and the profile is a bedrock account, this will be a UUID generated from the Xbo
   metadata: CustomerDtoMetadata;
 }
 
-export type CustomerMinecraftPlatform =
-  (typeof CustomerMinecraftPlatform)[keyof typeof CustomerMinecraftPlatform];
+export type CustomerMinecraftPlatform = typeof CustomerMinecraftPlatform[keyof typeof CustomerMinecraftPlatform];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CustomerMinecraftPlatform = {
-  unknown: "unknown",
-  java: "java",
-  bedrock: "bedrock",
+  unknown: 'unknown',
+  java: 'java',
+  bedrock: 'bedrock',
 } as const;
 
 /**
@@ -292,15 +286,15 @@ export interface CustomerPlatformAccountDto {
 /**
  * A customer platform type used while gifting
  */
-export type CustomerProfilePlatform =
-  (typeof CustomerProfilePlatform)[keyof typeof CustomerProfilePlatform];
+export type CustomerProfilePlatform = typeof CustomerProfilePlatform[keyof typeof CustomerProfilePlatform];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CustomerProfilePlatform = {
-  invalid: "invalid",
-  steam: "steam",
-  minecraft: "minecraft",
-  paynow_name: "paynow_name",
+  invalid: 'invalid',
+  steam: 'steam',
+  minecraft: 'minecraft',
+  paynow_name: 'paynow_name',
 } as const;
 
 export type FlakeId = string;
@@ -382,27 +376,27 @@ export interface ProductGameServerDto {
   enabled: boolean;
 }
 
-export type ProductRemoveAfterIntervalScale =
-  (typeof ProductRemoveAfterIntervalScale)[keyof typeof ProductRemoveAfterIntervalScale];
+export type ProductRemoveAfterIntervalScale = typeof ProductRemoveAfterIntervalScale[keyof typeof ProductRemoveAfterIntervalScale];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ProductRemoveAfterIntervalScale = {
-  invalid: "invalid",
-  day: "day",
-  week: "week",
-  month: "month",
+  invalid: 'invalid',
+  day: 'day',
+  week: 'week',
+  month: 'month',
 } as const;
 
-export type ProductSubscriptionIntervalScale =
-  (typeof ProductSubscriptionIntervalScale)[keyof typeof ProductSubscriptionIntervalScale];
+export type ProductSubscriptionIntervalScale = typeof ProductSubscriptionIntervalScale[keyof typeof ProductSubscriptionIntervalScale];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ProductSubscriptionIntervalScale = {
-  invalid: "invalid",
-  day: "day",
-  week: "week",
-  month: "month",
-  year: "year",
+  invalid: 'invalid',
+  day: 'day',
+  week: 'week',
+  month: 'month',
+  year: 'year',
 } as const;
 
 export interface ProductTagDto {
@@ -413,13 +407,13 @@ export interface ProductTagDto {
   name: string;
 }
 
-export type SaleDiscountType =
-  (typeof SaleDiscountType)[keyof typeof SaleDiscountType];
+export type SaleDiscountType = typeof SaleDiscountType[keyof typeof SaleDiscountType];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const SaleDiscountType = {
-  percent: "percent",
-  amount: "amount",
+  percent: 'percent',
+  amount: 'amount',
 } as const;
 
 /**
@@ -498,7 +492,7 @@ export interface StorefrontNavLinkDto {
  * Additional metadata for the product.
  * @nullable
  */
-export type StorefrontProductDtoMetadata = { [key: string]: string } | null;
+export type StorefrontProductDtoMetadata = {[key: string]: string} | null;
 
 export interface StorefrontProductDto {
   id: FlakeId;
@@ -766,91 +760,85 @@ export interface VatRateDto {
   readonly percentage: number;
 }
 
-export type GetStorefrontCartParams = {
-  /**
-   * The ISO three-letter lowercase currency code (e.g., usd, eur, gbp) to display prices in. If not provided, the store's default currency will be used.
-   */
-  currency?: string;
+export type GetCartParams = {
+/**
+ * The ISO three-letter lowercase currency code (e.g., usd, eur, gbp) to display prices in. If not provided, the store's default currency will be used.
+ */
+currency?: string;
 };
 
-export type PutStorefrontCartLineParams = {
-  /**
-   * The ID of the product that should be added to the cart.
-   */
-  product_id: number;
-  /**
-   * The quantity to set or increment.
-   */
-  quantity?: number;
-  /**
-   * Set to either '1' or 'true' to store as a subscription line item.
-   */
-  subscription?: string;
-  /**
-   * A game server ID, required if single_game_server_only is enabled for the product.
-   */
-  gameserver_id?: number;
-  /**
-   * Set to either '1' or 'true' to increment (add quantity instead of setting).
-   */
-  increment?: string;
-  /**
+export type PutCartLineParams = {
+/**
+ * The ID of the product that should be added to the cart.
+ */
+product_id: number;
+/**
+ * The quantity to set or increment.
+ */
+quantity?: number;
+/**
+ * Set to either '1' or 'true' to store as a subscription line item.
+ */
+subscription?: string;
+/**
+ * A game server ID, required if single_game_server_only is enabled for the product.
+ */
+gameserver_id?: number;
+/**
+ * Set to either '1' or 'true' to increment (add quantity instead of setting).
+ */
+increment?: string;
+/**
  * Dictionary of product custom variables where each entry consists of a string key (identifier) 
 and its corresponding selected value. Use the following URL parameter format: 
 ?custom_variables[IDENTIFIER]=VALUE
  */
-  custom_variables?: { [key: string]: string };
+custom_variables?: {[key: string]: string};
 };
 
-export type GetV1StoresStoreIdProductVersionsDiscordActionsParams = {
-  product_version_id?: number[];
+export type GetProductsParams = {
+/**
+ * Tags to filter by. Each tag is a separate query parameter.
+ */
+tag?: string[];
+/**
+ * The ISO three-letter lowercase currency code (e.g., usd, eur, gbp) to display prices in. If not provided, the store's default currency will be used.
+ */
+currency?: string;
 };
 
-export type GetV1StoresStoreIdProductVersionsDiscordActions200 = {
-  [key: string]: boolean;
-};
-
-export type GetStorefrontProductsParams = {
-  /**
-   * Tags to filter by. Each tag is a separate query parameter.
-   */
-  tag?: string[];
-  /**
-   * The ISO three-letter lowercase currency code (e.g., usd, eur, gbp) to display prices in. If not provided, the store's default currency will be used.
-   */
-  currency?: string;
-};
-
-export type GetStorefrontProductParams = {
-  /**
-   * The ISO three-letter lowercase currency code (e.g., usd, eur, gbp) to display prices in. If not provided, the store's default currency will be used.
-   */
-  currency?: string;
+export type GetProductParams = {
+/**
+ * The ISO three-letter lowercase currency code (e.g., usd, eur, gbp) to display prices in. If not provided, the store's default currency will be used.
+ */
+currency?: string;
 };
 
 /**
  * Retrieves the current customer's shopping cart.
  * @summary Get cart
  */
-export const getStorefrontCart = <TData = AxiosResponse<CartDto>>(
-  params?: GetStorefrontCartParams,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(`https://api.paynow.gg/v1/store/cart`, {
+export const getCart = <TData = AxiosResponse<CartDto>>(
+    params?: GetCartParams, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/store/cart`,{
     ...options,
-    params: { ...params, ...options?.params },
-  });
-};
+        params: {...params, ...options?.params},}
+    );
+  }
 
 /**
  * Clears all items from the customer's shopping cart.
  * @summary Clear cart
  */
-export const deleteStorefrontCart = <TData = AxiosResponse<void>>(
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.delete(`https://api.paynow.gg/v1/store/cart`, options);
-};
+export const deleteCart = <TData = AxiosResponse<void>>(
+     options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.delete(
+      `https://api.paynow.gg/v1/store/cart`,options
+    );
+  }
 
 /**
  * Adds a product to the cart or updates the quantity of an existing product.
@@ -858,157 +846,129 @@ When increment parameter is "true" or "1", the specified quantity will be added 
 Otherwise, the quantity will be set to the specified value, replacing any existing quantity.
  * @summary Add product to cart
  */
-export const putStorefrontCartLine = <TData = AxiosResponse<void>>(
-  params: PutStorefrontCartLineParams,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.put(`https://api.paynow.gg/v1/store/cart/lines`, undefined, {
+export const putCartLine = <TData = AxiosResponse<void>>(
+    params: PutCartLineParams, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.put(
+      `https://api.paynow.gg/v1/store/cart/lines`,undefined,{
     ...options,
-    params: { ...params, ...options?.params },
-  });
-};
+        params: {...params, ...options?.params},}
+    );
+  }
 
 /**
  * Creates a checkout session from the contents of the cart.
 After creating the checkout session, redirect the customer to the `url` returned.
  * @summary Create a cart checkout session
  */
-export const postStorefrontCartCheckoutSession = <
-  TData = AxiosResponse<CreateCheckoutSessionResponseDto>,
->(
-  createCartCheckoutSessionDto: CreateCartCheckoutSessionDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/store/cart/checkout`,
-    createCartCheckoutSessionDto,
-    options,
-  );
-};
+export const postCartCheckoutSession = <TData = AxiosResponse<CreateCheckoutSessionResponseDto>>(
+    createCartCheckoutSessionDto: CreateCartCheckoutSessionDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/store/cart/checkout`,
+      createCartCheckoutSessionDto,options
+    );
+  }
 
 /**
  * Creates a checkout session using a Customer token.
 After creating the checkout session, redirect the customer to the `url` returned.
  * @summary Create a checkout session
  */
-export const postStorefrontCheckoutSession = <
-  TData = AxiosResponse<CreateCheckoutSessionResponseDto>,
->(
-  createCheckoutSessionRequestDto: CreateCheckoutSessionRequestDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/checkouts`,
-    createCheckoutSessionRequestDto,
-    options,
-  );
-};
+export const postCheckoutSession = <TData = AxiosResponse<CreateCheckoutSessionResponseDto>>(
+    createCheckoutSessionRequestDto: CreateCheckoutSessionRequestDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/checkouts`,
+      createCheckoutSessionRequestDto,options
+    );
+  }
 
 /**
  * Retrieves the current customer from the passed Customer token.
  * @summary Get current customer
  */
-export const getStorefrontCurrentCustomer = <
-  TData = AxiosResponse<CustomerDto>,
->(
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(`https://api.paynow.gg/v1/store/customer`, options);
-};
-
-export const getV1StoresStoreIdProductVersionsDiscordActions = <
-  TData = AxiosResponse<GetV1StoresStoreIdProductVersionsDiscordActions200>,
->(
-  storeId: number,
-  params?: GetV1StoresStoreIdProductVersionsDiscordActionsParams,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/product_versions/discord_actions`,
-    {
-      ...options,
-      params: { ...params, ...options?.params },
-    },
-  );
-};
+export const getCurrentCustomer = <TData = AxiosResponse<CustomerDto>>(
+     options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/store/customer`,options
+    );
+  }
 
 /**
  * Retrieves the store's navlink structure used for navigation.
  * @summary Get navlinks
  */
-export const getStorefrontNavlinks = <
-  TData = AxiosResponse<StorefrontNavLinkDto[]>,
->(
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(`https://api.paynow.gg/v1/store/navlinks`, options);
-};
+export const getNavlinks = <TData = AxiosResponse<StorefrontNavLinkDto[]>>(
+     options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/store/navlinks`,options
+    );
+  }
 
 /**
  * Retrieves the available products. To make sure all VAT rates are properly displayed, pass in the IP headers as instructed.
  * @summary Get products
  */
-export const getStorefrontProducts = <
-  TData = AxiosResponse<StorefrontProductDto[]>,
->(
-  params?: GetStorefrontProductsParams,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(`https://api.paynow.gg/v1/store/products`, {
+export const getProducts = <TData = AxiosResponse<StorefrontProductDto[]>>(
+    params?: GetProductsParams, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/store/products`,{
     ...options,
-    params: { ...params, ...options?.params },
-  });
-};
+        params: {...params, ...options?.params},}
+    );
+  }
 
 /**
  * Retrieves a product by an ID or a slug. To make sure all VAT rates are properly displayed, pass in the IP headers as instructed.
  * @summary Get product by ID or slug
  */
-export const getStorefrontProduct = <
-  TData = AxiosResponse<StorefrontProductDto>,
->(
-  idOrSlug: string,
-  params?: GetStorefrontProductParams,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(`https://api.paynow.gg/v1/store/products/${idOrSlug}`, {
+export const getProduct = <TData = AxiosResponse<StorefrontProductDto>>(
+    idOrSlug: string,
+    params?: GetProductParams, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/store/products/${idOrSlug}`,{
     ...options,
-    params: { ...params, ...options?.params },
-  });
-};
+        params: {...params, ...options?.params},}
+    );
+  }
 
 /**
  * Retrieves a store by the passed in x-paynow-store-id or Customer token.
  * @summary Get current store
  */
-export const getStorefrontStore = <TData = AxiosResponse<StorefrontStoreDto>>(
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(`https://api.paynow.gg/v1/store`, options);
-};
+export const getStore = <TData = AxiosResponse<StorefrontStoreDto>>(
+     options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/store`,options
+    );
+  }
 
 /**
  * Retrieves the store's tags.
  * @summary Get tags
  */
-export const getStorefrontTags = <TData = AxiosResponse<StorefrontTagDto[]>>(
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(`https://api.paynow.gg/v1/store/tags`, options);
-};
+export const getTags = <TData = AxiosResponse<StorefrontTagDto[]>>(
+     options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/store/tags`,options
+    );
+  }
 
-export type GetStorefrontCartResult = AxiosResponse<CartDto>;
-export type DeleteStorefrontCartResult = AxiosResponse<void>;
-export type PutStorefrontCartLineResult = AxiosResponse<void>;
-export type PostStorefrontCartCheckoutSessionResult =
-  AxiosResponse<CreateCheckoutSessionResponseDto>;
-export type PostStorefrontCheckoutSessionResult =
-  AxiosResponse<CreateCheckoutSessionResponseDto>;
-export type GetStorefrontCurrentCustomerResult = AxiosResponse<CustomerDto>;
-export type GetV1StoresStoreIdProductVersionsDiscordActionsResult =
-  AxiosResponse<GetV1StoresStoreIdProductVersionsDiscordActions200>;
-export type GetStorefrontNavlinksResult = AxiosResponse<StorefrontNavLinkDto[]>;
-export type GetStorefrontProductsResult = AxiosResponse<StorefrontProductDto[]>;
-export type GetStorefrontProductResult = AxiosResponse<StorefrontProductDto>;
-export type GetStorefrontStoreResult = AxiosResponse<StorefrontStoreDto>;
-export type GetStorefrontTagsResult = AxiosResponse<StorefrontTagDto[]>;
+export type GetCartResult = AxiosResponse<CartDto>
+export type DeleteCartResult = AxiosResponse<void>
+export type PutCartLineResult = AxiosResponse<void>
+export type PostCartCheckoutSessionResult = AxiosResponse<CreateCheckoutSessionResponseDto>
+export type PostCheckoutSessionResult = AxiosResponse<CreateCheckoutSessionResponseDto>
+export type GetCurrentCustomerResult = AxiosResponse<CustomerDto>
+export type GetNavlinksResult = AxiosResponse<StorefrontNavLinkDto[]>
+export type GetProductsResult = AxiosResponse<StorefrontProductDto[]>
+export type GetProductResult = AxiosResponse<StorefrontProductDto>
+export type GetStoreResult = AxiosResponse<StorefrontStoreDto>
+export type GetTagsResult = AxiosResponse<StorefrontTagDto[]>

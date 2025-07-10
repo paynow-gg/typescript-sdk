@@ -5,9 +5,11 @@
  * The Management API provides tools for store administration, accessible by a store API key. It enables operations such as updating product prices, creating promotional coupons, managing customer inventories, and other backend store management functions.This API must be called from a secure server and requires proper authentication.
  * OpenAPI spec version: v1
  */
-
-import type { AxiosRequestConfig, AxiosResponse } from "axios";
-import axios from "axios";
+import axios from 'axios';
+import type {
+  AxiosRequestConfig,
+  AxiosResponse
+} from 'axios';
 
 /**
  * Represents the store-level configuration for abandoned checkout settings.
@@ -78,24 +80,24 @@ export interface ActorDto {
   id: FlakeId;
 }
 
-export type AffiliateLinkCommissionType =
-  (typeof AffiliateLinkCommissionType)[keyof typeof AffiliateLinkCommissionType];
+export type AffiliateLinkCommissionType = typeof AffiliateLinkCommissionType[keyof typeof AffiliateLinkCommissionType];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const AffiliateLinkCommissionType = {
-  none: "none",
-  fixed: "fixed",
-  percentage: "percentage",
+  none: 'none',
+  fixed: 'fixed',
+  percentage: 'percentage',
 } as const;
 
-export type AffiliateLinkDiscountType =
-  (typeof AffiliateLinkDiscountType)[keyof typeof AffiliateLinkDiscountType];
+export type AffiliateLinkDiscountType = typeof AffiliateLinkDiscountType[keyof typeof AffiliateLinkDiscountType];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const AffiliateLinkDiscountType = {
-  none: "none",
-  fixed: "fixed",
-  percentage: "percentage",
+  none: 'none',
+  fixed: 'fixed',
+  percentage: 'percentage',
 } as const;
 
 export interface AffiliateLinkDto {
@@ -118,14 +120,14 @@ export interface AffiliateLinkDto {
   updated_at?: string | null;
 }
 
-export type AffiliateLinkRefererType =
-  (typeof AffiliateLinkRefererType)[keyof typeof AffiliateLinkRefererType];
+export type AffiliateLinkRefererType = typeof AffiliateLinkRefererType[keyof typeof AffiliateLinkRefererType];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const AffiliateLinkRefererType = {
-  invalid: "invalid",
-  first_referer: "first_referer",
-  last_referer: "last_referer",
+  invalid: 'invalid',
+  first_referer: 'first_referer',
+  last_referer: 'last_referer',
 } as const;
 
 export interface BanDto {
@@ -148,16 +150,17 @@ export interface BanIdentityDto {
   ban_type_value: string;
 }
 
-export type BanType = (typeof BanType)[keyof typeof BanType];
+export type BanType = typeof BanType[keyof typeof BanType];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const BanType = {
-  unknown: "unknown",
-  steam: "steam",
-  ip: "ip",
-  customer: "customer",
-  customer_name: "customer_name",
-  email: "email",
+  unknown: 'unknown',
+  steam: 'steam',
+  ip: 'ip',
+  customer: 'customer',
+  customer_name: 'customer_name',
+  email: 'email',
 } as const;
 
 export interface CheckForBanIDByIdentitiesRequestDto {
@@ -167,14 +170,14 @@ export interface CheckForBanIDByIdentitiesRequestDto {
 /**
  * Specifies the type of discount applied by a coupon.
  */
-export type CouponDiscountTypeEnum =
-  (typeof CouponDiscountTypeEnum)[keyof typeof CouponDiscountTypeEnum];
+export type CouponDiscountTypeEnum = typeof CouponDiscountTypeEnum[keyof typeof CouponDiscountTypeEnum];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CouponDiscountTypeEnum = {
-  unspecified: "unspecified",
-  percent: "percent",
-  amount: "amount",
+  unspecified: 'unspecified',
+  percent: 'percent',
+  amount: 'amount',
 } as const;
 
 /**
@@ -254,14 +257,14 @@ export interface CouponDto {
 /**
  * Defines the duration for which a coupon remains valid.
  */
-export type CouponDurationEnum =
-  (typeof CouponDurationEnum)[keyof typeof CouponDurationEnum];
+export type CouponDurationEnum = typeof CouponDurationEnum[keyof typeof CouponDurationEnum];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CouponDurationEnum = {
-  once: "once",
-  forever: "forever",
-  repeating: "repeating",
+  once: 'once',
+  forever: 'forever',
+  repeating: 'repeating',
 } as const;
 
 export interface CreateAffiliateLinkDto {
@@ -282,18 +285,14 @@ export interface CreateAffiliateLinkDto {
 Do not store any sensitive information here.
  * @nullable
  */
-export type CreateCheckoutSessionLineDtoMetadata = {
-  [key: string]: string;
-} | null;
+export type CreateCheckoutSessionLineDtoMetadata = {[key: string]: string} | null;
 
 /**
  * Key-value pair mapping custom variable identifiers to their selected values.
 Required only when the product includes custom variables.
  * @nullable
  */
-export type CreateCheckoutSessionLineDtoCustomVariables = {
-  [key: string]: string;
-} | null;
+export type CreateCheckoutSessionLineDtoCustomVariables = {[key: string]: string} | null;
 
 /**
  * Represents a line item in a checkout session request
@@ -326,18 +325,14 @@ Required only when the product includes custom variables.
 Do not store any sensitive information here.
  * @nullable
  */
-export type CreateCheckoutSessionLineManagementDtoMetadata = {
-  [key: string]: string;
-} | null;
+export type CreateCheckoutSessionLineManagementDtoMetadata = {[key: string]: string} | null;
 
 /**
  * Key-value pair mapping custom variable identifiers to their selected values.
 Required only when the product includes custom variables.
  * @nullable
  */
-export type CreateCheckoutSessionLineManagementDtoCustomVariables = {
-  [key: string]: string;
-} | null;
+export type CreateCheckoutSessionLineManagementDtoCustomVariables = {[key: string]: string} | null;
 
 /**
  * Represents a line item in a checkout session request.
@@ -373,9 +368,7 @@ Required only when the product includes custom variables.
 Do not store any sensitive information here.
  * @nullable
  */
-export type CreateCheckoutSessionManagementDtoMetadata = {
-  [key: string]: string;
-} | null;
+export type CreateCheckoutSessionManagementDtoMetadata = {[key: string]: string} | null;
 
 /**
  * Request to create a new checkout session from your back-end server using the management API.
@@ -524,13 +517,13 @@ Lower numbers appear first. */
 /**
  * Defines how option pricing should be applied to the base product price.
  */
-export type CustomVariableOptionPriceType =
-  (typeof CustomVariableOptionPriceType)[keyof typeof CustomVariableOptionPriceType];
+export type CustomVariableOptionPriceType = typeof CustomVariableOptionPriceType[keyof typeof CustomVariableOptionPriceType];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CustomVariableOptionPriceType = {
-  fixed: "fixed",
-  percentage: "percentage",
+  fixed: 'fixed',
+  percentage: 'percentage',
 } as const;
 
 /**
@@ -556,20 +549,20 @@ Only one option per custom variable should be marked as default. */
 /**
  * Defines the type of input method for a custom variable.
  */
-export type CustomVariableType =
-  (typeof CustomVariableType)[keyof typeof CustomVariableType];
+export type CustomVariableType = typeof CustomVariableType[keyof typeof CustomVariableType];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CustomVariableType = {
-  dropdown: "dropdown",
-  text: "text",
-  number: "number",
+  dropdown: 'dropdown',
+  text: 'text',
+  number: 'number',
 } as const;
 
 /**
  * Additional custom data associated with the customer.
  */
-export type CustomerDtoMetadata = { [key: string]: string };
+export type CustomerDtoMetadata = {[key: string]: string};
 
 /**
  * Represents a customer in the PayNow system with their associated profiles and metadata.
@@ -614,14 +607,14 @@ and the profile is a bedrock account, this will be a UUID generated from the Xbo
   metadata: CustomerDtoMetadata;
 }
 
-export type CustomerMinecraftPlatform =
-  (typeof CustomerMinecraftPlatform)[keyof typeof CustomerMinecraftPlatform];
+export type CustomerMinecraftPlatform = typeof CustomerMinecraftPlatform[keyof typeof CustomerMinecraftPlatform];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CustomerMinecraftPlatform = {
-  unknown: "unknown",
-  java: "java",
-  bedrock: "bedrock",
+  unknown: 'unknown',
+  java: 'java',
+  bedrock: 'bedrock',
 } as const;
 
 /**
@@ -636,15 +629,15 @@ export interface CustomerPlatformAccountDto {
 /**
  * A customer platform type used while gifting
  */
-export type CustomerProfilePlatform =
-  (typeof CustomerProfilePlatform)[keyof typeof CustomerProfilePlatform];
+export type CustomerProfilePlatform = typeof CustomerProfilePlatform[keyof typeof CustomerProfilePlatform];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CustomerProfilePlatform = {
-  invalid: "invalid",
-  steam: "steam",
-  minecraft: "minecraft",
-  paynow_name: "paynow_name",
+  invalid: 'invalid',
+  steam: 'steam',
+  minecraft: 'minecraft',
+  paynow_name: 'paynow_name',
 } as const;
 
 export interface CustomerTokenResponseDto {
@@ -701,37 +694,37 @@ export interface DiscordActionDto {
   message?: string | null;
 }
 
-export type DiscordActionExecutionStage =
-  (typeof DiscordActionExecutionStage)[keyof typeof DiscordActionExecutionStage];
+export type DiscordActionExecutionStage = typeof DiscordActionExecutionStage[keyof typeof DiscordActionExecutionStage];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const DiscordActionExecutionStage = {
-  on_purchase: "on_purchase",
-  on_expire: "on_expire",
-  on_refund: "on_refund",
-  on_chargeback: "on_chargeback",
+  on_purchase: 'on_purchase',
+  on_expire: 'on_expire',
+  on_refund: 'on_refund',
+  on_chargeback: 'on_chargeback',
 } as const;
 
-export type DiscordActionRevocationStage =
-  (typeof DiscordActionRevocationStage)[keyof typeof DiscordActionRevocationStage];
+export type DiscordActionRevocationStage = typeof DiscordActionRevocationStage[keyof typeof DiscordActionRevocationStage];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const DiscordActionRevocationStage = {
-  on_expire: "on_expire",
-  on_refund: "on_refund",
-  on_chargeback: "on_chargeback",
+  on_expire: 'on_expire',
+  on_refund: 'on_refund',
+  on_chargeback: 'on_chargeback',
 } as const;
 
-export type DiscordActionType =
-  (typeof DiscordActionType)[keyof typeof DiscordActionType];
+export type DiscordActionType = typeof DiscordActionType[keyof typeof DiscordActionType];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const DiscordActionType = {
-  persist_role: "persist_role",
-  send_message: "send_message",
-  ban_user: "ban_user",
-  kick_user: "kick_user",
-  generate_invite_link: "generate_invite_link",
+  persist_role: 'persist_role',
+  send_message: 'send_message',
+  ban_user: 'ban_user',
+  kick_user: 'kick_user',
+  generate_invite_link: 'generate_invite_link',
 } as const;
 
 export interface DiscordProfileDto {
@@ -835,7 +828,7 @@ Null if the command has never been updated.
  * Additional metadata for the product.
  * @nullable
  */
-export type InlineProductCreateDtoMetadata = { [key: string]: string } | null;
+export type InlineProductCreateDtoMetadata = {[key: string]: string} | null;
 
 /**
  * Optional inline product definition for dynamic products.
@@ -1120,9 +1113,7 @@ export interface OrderDto {
  * Key-value pair of selected custom variables for this order.
  * @nullable
  */
-export type OrderLineDtoCustomVariables = {
-  [key: string]: CustomVariableLineItemDto;
-} | null;
+export type OrderLineDtoCustomVariables = {[key: string]: CustomVariableLineItemDto} | null;
 
 /**
  * Represents an order line item in a customer's order
@@ -1212,43 +1203,45 @@ Only used by platforms. */
   platform_fee: number;
 }
 
-export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
+export type OrderStatus = typeof OrderStatus[keyof typeof OrderStatus];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const OrderStatus = {
-  created: "created",
-  completed: "completed",
-  canceled: "canceled",
-  refunded: "refunded",
-  chargeback: "chargeback",
+  created: 'created',
+  completed: 'completed',
+  canceled: 'canceled',
+  refunded: 'refunded',
+  chargeback: 'chargeback',
 } as const;
 
 /**
  * Defines the type of items contained in an order
  */
-export type OrderType = (typeof OrderType)[keyof typeof OrderType];
+export type OrderType = typeof OrderType[keyof typeof OrderType];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const OrderType = {
-  one_time: "one_time",
-  subscription: "subscription",
-  mixed: "mixed",
+  one_time: 'one_time',
+  subscription: 'subscription',
+  mixed: 'mixed',
 } as const;
 
-export type PayNowActorType =
-  (typeof PayNowActorType)[keyof typeof PayNowActorType];
+export type PayNowActorType = typeof PayNowActorType[keyof typeof PayNowActorType];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const PayNowActorType = {
-  anonymous: "anonymous",
-  user: "user",
-  customer: "customer",
-  api_key: "api_key",
-  game_server: "game_server",
-  admin: "admin",
-  internal: "internal",
-  platform: "platform",
-  global_customer: "global_customer",
+  anonymous: 'anonymous',
+  user: 'user',
+  customer: 'customer',
+  api_key: 'api_key',
+  game_server: 'game_server',
+  admin: 'admin',
+  internal: 'internal',
+  platform: 'platform',
+  global_customer: 'global_customer',
 } as const;
 
 /**
@@ -1276,46 +1269,46 @@ export interface PayNowError {
 /**
  * A payment decline reason code.
  */
-export type PaymentDeclineCode =
-  (typeof PaymentDeclineCode)[keyof typeof PaymentDeclineCode];
+export type PaymentDeclineCode = typeof PaymentDeclineCode[keyof typeof PaymentDeclineCode];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const PaymentDeclineCode = {
-  unknown: "unknown",
-  generic_decline: "generic_decline",
-  call_issuer: "call_issuer",
-  authentication_required: "authentication_required",
-  currency_not_supported: "currency_not_supported",
-  duplicate_transaction: "duplicate_transaction",
-  expired_card: "expired_card",
-  fraudulent: "fraudulent",
-  incorrect_number: "incorrect_number",
-  incorrect_cvc: "incorrect_cvc",
-  incorrect_pin: "incorrect_pin",
-  incorrect_zip: "incorrect_zip",
-  insufficient_funds: "insufficient_funds",
-  invalid_account: "invalid_account",
-  invalid_amount: "invalid_amount",
-  invalid_expiry_month: "invalid_expiry_month",
-  invalid_expiry_year: "invalid_expiry_year",
-  issuer_not_available: "issuer_not_available",
-  lost_card: "lost_card",
-  merchant_blacklist: "merchant_blacklist",
-  new_account_information_available: "new_account_information_available",
-  no_action_taken: "no_action_taken",
-  pickup_card: "pickup_card",
-  pin_try_exceeded: "pin_try_exceeded",
-  restricted_card: "restricted_card",
-  stolen_card: "stolen_card",
-  testmode_decline: "testmode_decline",
-  try_again_later: "try_again_later",
-  security_violation: "security_violation",
-  card_velocity_exceeded: "card_velocity_exceeded",
-  do_not_honor: "do_not_honor",
-  processing_error: "processing_error",
-  card_not_supported: "card_not_supported",
-  transaction_not_allowed: "transaction_not_allowed",
-  authorization_revoked: "authorization_revoked",
+  unknown: 'unknown',
+  generic_decline: 'generic_decline',
+  call_issuer: 'call_issuer',
+  authentication_required: 'authentication_required',
+  currency_not_supported: 'currency_not_supported',
+  duplicate_transaction: 'duplicate_transaction',
+  expired_card: 'expired_card',
+  fraudulent: 'fraudulent',
+  incorrect_number: 'incorrect_number',
+  incorrect_cvc: 'incorrect_cvc',
+  incorrect_pin: 'incorrect_pin',
+  incorrect_zip: 'incorrect_zip',
+  insufficient_funds: 'insufficient_funds',
+  invalid_account: 'invalid_account',
+  invalid_amount: 'invalid_amount',
+  invalid_expiry_month: 'invalid_expiry_month',
+  invalid_expiry_year: 'invalid_expiry_year',
+  issuer_not_available: 'issuer_not_available',
+  lost_card: 'lost_card',
+  merchant_blacklist: 'merchant_blacklist',
+  new_account_information_available: 'new_account_information_available',
+  no_action_taken: 'no_action_taken',
+  pickup_card: 'pickup_card',
+  pin_try_exceeded: 'pin_try_exceeded',
+  restricted_card: 'restricted_card',
+  stolen_card: 'stolen_card',
+  testmode_decline: 'testmode_decline',
+  try_again_later: 'try_again_later',
+  security_violation: 'security_violation',
+  card_velocity_exceeded: 'card_velocity_exceeded',
+  do_not_honor: 'do_not_honor',
+  processing_error: 'processing_error',
+  card_not_supported: 'card_not_supported',
+  transaction_not_allowed: 'transaction_not_allowed',
+  authorization_revoked: 'authorization_revoked',
 } as const;
 
 export interface Period {
@@ -1351,17 +1344,17 @@ If left empty or null, then the default behavior applies
 /**
  * Defines the stages at which product commands can be executed.
  */
-export type ProductCommandStage =
-  (typeof ProductCommandStage)[keyof typeof ProductCommandStage];
+export type ProductCommandStage = typeof ProductCommandStage[keyof typeof ProductCommandStage];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ProductCommandStage = {
-  invalid: "invalid",
-  on_purchase: "on_purchase",
-  on_expire: "on_expire",
-  on_refund: "on_refund",
-  on_renew: "on_renew",
-  on_chargeback: "on_chargeback",
+  invalid: 'invalid',
+  on_purchase: 'on_purchase',
+  on_expire: 'on_expire',
+  on_refund: 'on_refund',
+  on_renew: 'on_renew',
+  on_chargeback: 'on_chargeback',
 } as const;
 
 export interface ProductDeliverableActionsDto {
@@ -1395,7 +1388,7 @@ export interface ProductDownloadableFileDto {
  * Additional metadata for the product.
  * @nullable
  */
-export type ProductDtoMetadata = { [key: string]: string } | null;
+export type ProductDtoMetadata = {[key: string]: string} | null;
 
 export interface ProductDto {
   id: FlakeId;
@@ -1579,15 +1572,15 @@ export interface ProductPricingRegionOverrideDto {
   tax_inclusive?: boolean | null;
 }
 
-export type ProductRemoveAfterIntervalScale =
-  (typeof ProductRemoveAfterIntervalScale)[keyof typeof ProductRemoveAfterIntervalScale];
+export type ProductRemoveAfterIntervalScale = typeof ProductRemoveAfterIntervalScale[keyof typeof ProductRemoveAfterIntervalScale];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ProductRemoveAfterIntervalScale = {
-  invalid: "invalid",
-  day: "day",
-  week: "week",
-  month: "month",
+  invalid: 'invalid',
+  day: 'day',
+  week: 'week',
+  month: 'month',
 } as const;
 
 export interface ProductStockAvailableDto {
@@ -1612,28 +1605,28 @@ export interface ProductStockLimitDto {
   time_scale: ProductStockTimeScale;
 }
 
-export type ProductStockTimeScale =
-  (typeof ProductStockTimeScale)[keyof typeof ProductStockTimeScale];
+export type ProductStockTimeScale = typeof ProductStockTimeScale[keyof typeof ProductStockTimeScale];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ProductStockTimeScale = {
-  invalid: "invalid",
-  day: "day",
-  week: "week",
-  month: "month",
-  year: "year",
+  invalid: 'invalid',
+  day: 'day',
+  week: 'week',
+  month: 'month',
+  year: 'year',
 } as const;
 
-export type ProductSubscriptionIntervalScale =
-  (typeof ProductSubscriptionIntervalScale)[keyof typeof ProductSubscriptionIntervalScale];
+export type ProductSubscriptionIntervalScale = typeof ProductSubscriptionIntervalScale[keyof typeof ProductSubscriptionIntervalScale];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ProductSubscriptionIntervalScale = {
-  invalid: "invalid",
-  day: "day",
-  week: "week",
-  month: "month",
-  year: "year",
+  invalid: 'invalid',
+  day: 'day',
+  week: 'week',
+  month: 'month',
+  year: 'year',
 } as const;
 
 export interface ProductTagDto {
@@ -1648,18 +1641,18 @@ export interface ProductTagDto {
  * Determines the category of the product for taxation purposes.
 Contact support for help with setting the correct tax code.
  */
-export type ProductTaxCode =
-  (typeof ProductTaxCode)[keyof typeof ProductTaxCode];
+export type ProductTaxCode = typeof ProductTaxCode[keyof typeof ProductTaxCode];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ProductTaxCode = {
-  unknown: "unknown",
-  digital_goods_subscription: "digital_goods_subscription",
-  digital_goods_permanent: "digital_goods_permanent",
-  saas: "saas",
-  downloaded_software: "downloaded_software",
-  digital_goods_subscription_gaming: "digital_goods_subscription_gaming",
-  digital_goods_permanent_gaming: "digital_goods_permanent_gaming",
+  unknown: 'unknown',
+  digital_goods_subscription: 'digital_goods_subscription',
+  digital_goods_permanent: 'digital_goods_permanent',
+  saas: 'saas',
+  downloaded_software: 'downloaded_software',
+  digital_goods_subscription_gaming: 'digital_goods_subscription_gaming',
+  digital_goods_permanent_gaming: 'digital_goods_permanent_gaming',
 } as const;
 
 /**
@@ -1762,24 +1755,24 @@ export interface QueuedDiscordActionExecutionDto {
   trace_id?: string | null;
 }
 
-export type QueuedDiscordActionExecutionStatus =
-  (typeof QueuedDiscordActionExecutionStatus)[keyof typeof QueuedDiscordActionExecutionStatus];
+export type QueuedDiscordActionExecutionStatus = typeof QueuedDiscordActionExecutionStatus[keyof typeof QueuedDiscordActionExecutionStatus];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const QueuedDiscordActionExecutionStatus = {
-  success: "success",
-  failure: "failure",
+  success: 'success',
+  failure: 'failure',
 } as const;
 
-export type QueuedDiscordActionStatus =
-  (typeof QueuedDiscordActionStatus)[keyof typeof QueuedDiscordActionStatus];
+export type QueuedDiscordActionStatus = typeof QueuedDiscordActionStatus[keyof typeof QueuedDiscordActionStatus];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const QueuedDiscordActionStatus = {
-  active: "active",
-  complete: "complete",
-  errored: "errored",
-  canceled: "canceled",
+  active: 'active',
+  complete: 'complete',
+  errored: 'errored',
+  canceled: 'canceled',
 } as const;
 
 export interface QueuedWebhookDto {
@@ -1882,16 +1875,17 @@ Only relevant for platforms. */
 /**
  * Represents the current status of a refund in the system
  */
-export type RefundStatus = (typeof RefundStatus)[keyof typeof RefundStatus];
+export type RefundStatus = typeof RefundStatus[keyof typeof RefundStatus];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const RefundStatus = {
-  created: "created",
-  approved: "approved",
-  processing: "processing",
-  completed: "completed",
-  canceled: "canceled",
-  failed: "failed",
+  created: 'created',
+  approved: 'approved',
+  processing: 'processing',
+  completed: 'completed',
+  canceled: 'canceled',
+  failed: 'failed',
 } as const;
 
 export interface ResendCommandsForGameServerRequestDto {
@@ -2147,14 +2141,14 @@ export interface StoreSubscriptionDto {
 /**
  * Represents the current state of a subscription.
  */
-export type SubscriptionStatus =
-  (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus];
+export type SubscriptionStatus = typeof SubscriptionStatus[keyof typeof SubscriptionStatus];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const SubscriptionStatus = {
-  created: "created",
-  active: "active",
-  canceled: "canceled",
+  created: 'created',
+  active: 'active',
+  canceled: 'canceled',
 } as const;
 
 export interface TrustStoreOnboardingDto {
@@ -2174,17 +2168,17 @@ export interface TrustStoreOnboardingDto {
   gameserver_linked: boolean;
 }
 
-export type TrustStoreOnboardingStatus =
-  (typeof TrustStoreOnboardingStatus)[keyof typeof TrustStoreOnboardingStatus];
+export type TrustStoreOnboardingStatus = typeof TrustStoreOnboardingStatus[keyof typeof TrustStoreOnboardingStatus];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const TrustStoreOnboardingStatus = {
-  invalid: "invalid",
-  pending: "pending",
-  approved: "approved",
-  declined: "declined",
-  requires_action: "requires_action",
-  under_review: "under_review",
+  invalid: 'invalid',
+  pending: 'pending',
+  approved: 'approved',
+  declined: 'declined',
+  requires_action: 'requires_action',
+  under_review: 'under_review',
 } as const;
 
 export interface UpdateAffiliateLinkDto {
@@ -2263,7 +2257,7 @@ When updating, this completely replaces all existing options. */
  * Additional customer information stored as key-value pairs.
  * @nullable
  */
-export type UpsertCustomerRequestDtoMetadata = { [key: string]: string } | null;
+export type UpsertCustomerRequestDtoMetadata = {[key: string]: string} | null;
 
 export interface UpsertCustomerRequestDto {
   /**
@@ -2315,7 +2309,7 @@ export interface UpsertGlobalCommandDto {
  * Additional metadata for the product.
  * @nullable
  */
-export type UpsertProductRequestDtoMetadata = { [key: string]: string } | null;
+export type UpsertProductRequestDtoMetadata = {[key: string]: string} | null;
 
 export interface UpsertProductRequestDto {
   /**
@@ -2473,30 +2467,29 @@ export interface ValidationError {
   validation: string;
 }
 
-export type WebhookEventType =
-  (typeof WebhookEventType)[keyof typeof WebhookEventType];
+export type WebhookEventType = typeof WebhookEventType[keyof typeof WebhookEventType];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const WebhookEventType = {
-  on_ignore: "on_ignore",
-  on_order_completed: "on_order_completed",
-  on_refund: "on_refund",
-  on_chargeback: "on_chargeback",
-  on_delivery_item_added: "on_delivery_item_added",
-  on_delivery_item_activated: "on_delivery_item_activated",
-  on_delivery_item_used: "on_delivery_item_used",
-  on_delivery_item_revoked: "on_delivery_item_revoked",
-  on_subscription_activated: "on_subscription_activated",
-  on_subscription_renewed: "on_subscription_renewed",
-  on_subscription_canceled: "on_subscription_canceled",
-  on_discord_order_actions_queued: "on_discord_order_actions_queued",
-  on_connected_user_registered: "on_connected_user_registered",
-  on_connected_user_became_payable: "on_connected_user_became_payable",
-  on_connected_user_payout_created: "on_connected_user_payout_created",
-  on_connected_user_payout_completed: "on_connected_user_payout_completed",
-  on_connected_user_transaction_inserted:
-    "on_connected_user_transaction_inserted",
-  on_connected_user_became_unpayable: "on_connected_user_became_unpayable",
+  on_ignore: 'on_ignore',
+  on_order_completed: 'on_order_completed',
+  on_refund: 'on_refund',
+  on_chargeback: 'on_chargeback',
+  on_delivery_item_added: 'on_delivery_item_added',
+  on_delivery_item_activated: 'on_delivery_item_activated',
+  on_delivery_item_used: 'on_delivery_item_used',
+  on_delivery_item_revoked: 'on_delivery_item_revoked',
+  on_subscription_activated: 'on_subscription_activated',
+  on_subscription_renewed: 'on_subscription_renewed',
+  on_subscription_canceled: 'on_subscription_canceled',
+  on_discord_order_actions_queued: 'on_discord_order_actions_queued',
+  on_connected_user_registered: 'on_connected_user_registered',
+  on_connected_user_became_payable: 'on_connected_user_became_payable',
+  on_connected_user_payout_created: 'on_connected_user_payout_created',
+  on_connected_user_payout_completed: 'on_connected_user_payout_completed',
+  on_connected_user_transaction_inserted: 'on_connected_user_transaction_inserted',
+  on_connected_user_became_unpayable: 'on_connected_user_became_unpayable',
 } as const;
 
 export interface WebhookHistoryDto {
@@ -2504,14 +2497,15 @@ export interface WebhookHistoryDto {
   history: QueuedWebhookDto[];
 }
 
-export type WebhookState = (typeof WebhookState)[keyof typeof WebhookState];
+export type WebhookState = typeof WebhookState[keyof typeof WebhookState];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const WebhookState = {
-  success: "success",
-  pending: "pending",
-  failed: "failed",
-  all: "all",
+  success: 'success',
+  pending: 'pending',
+  failed: 'failed',
+  all: 'all',
 } as const;
 
 export interface WebhookSubscriptionDto {
@@ -2528,12 +2522,13 @@ export interface WebhookSubscriptionDto {
   discord_color?: string | null;
 }
 
-export type WebhookType = (typeof WebhookType)[keyof typeof WebhookType];
+export type WebhookType = typeof WebhookType[keyof typeof WebhookType];
+
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const WebhookType = {
-  json_v1: "json_v1",
-  discord_v1: "discord_v1",
+  json_v1: 'json_v1',
+  discord_v1: 'discord_v1',
 } as const;
 
 export interface WebhookVariablesDto {
@@ -2541,1648 +2536,1191 @@ export interface WebhookVariablesDto {
   variables: string[];
 }
 
-export type GetStoresBansParams = {
-  ban_type?: BanType;
-  ban_type_value?: string;
-  reason?: string;
-  /**
-   * The maximum number of items to return in a single request.
-   * @minimum 1
-   * @maximum 100
-   */
-  limit?: number;
-  /**
+export type GetBansParams = {
+ban_type?: BanType;
+ban_type_value?: string;
+reason?: string;
+/**
+ * The maximum number of items to return in a single request.
+ * @minimum 1
+ * @maximum 100
+ */
+limit?: number;
+/**
  * Returns items after the specified ID.
 Used for forward pagination through results.
  */
-  after?: number;
-  /**
+after?: number;
+/**
  * Returns items before the specified ID.
 Used for backward pagination through results.
  */
-  before?: number;
-  /**
+before?: number;
+/**
  * Determines the sort order of returned items.
 When true, items are returned in ascending order.
 When false, items are returned in descending order.
  */
-  asc?: boolean;
+asc?: boolean;
 };
 
-export type GetStoresCouponsParams = {
-  /**
-   * The maximum number of items to return in a single request.
-   * @minimum 1
-   * @maximum 100
-   */
-  limit?: number;
-  /**
+export type GetCouponsParams = {
+/**
+ * The maximum number of items to return in a single request.
+ * @minimum 1
+ * @maximum 100
+ */
+limit?: number;
+/**
  * Returns items after the specified ID.
 Used for forward pagination through results.
  */
-  after?: number;
-  /**
+after?: number;
+/**
  * Returns items before the specified ID.
 Used for backward pagination through results.
  */
-  before?: number;
-  /**
+before?: number;
+/**
  * Determines the sort order of returned items.
 When true, items are returned in ascending order.
 When false, items are returned in descending order.
  */
-  asc?: boolean;
+asc?: boolean;
 };
 
-export type GetStoresCustomersParams = {
-  /**
-   * The maximum number of items to return in a single request.
-   * @minimum 1
-   * @maximum 100
-   */
-  limit?: number;
-  /**
+export type GetCustomersParams = {
+/**
+ * The maximum number of items to return in a single request.
+ * @minimum 1
+ * @maximum 100
+ */
+limit?: number;
+/**
  * Returns items after the specified ID.
 Used for forward pagination through results.
  */
-  after?: number;
-  /**
+after?: number;
+/**
  * Returns items before the specified ID.
 Used for backward pagination through results.
  */
-  before?: number;
-  /**
+before?: number;
+/**
  * Determines the sort order of returned items.
 When true, items are returned in ascending order.
 When false, items are returned in descending order.
  */
-  asc?: boolean;
-  search?: string;
+asc?: boolean;
+search?: string;
 };
 
-export type GetStoresCustomerLookupParams = {
-  /**
-   * Looks up customer by PayNow Customer ID.
-   */
-  id?: string;
-  /**
-   * Looks up customer by Steam ID 64.
-   */
-  steam_id?: string;
-  /**
-   * Looks up customer by a Minecraft UUID.
-   */
-  minecraft_uuid?: string;
-  /**
-   * Looks up customer by an Xbox XUID.
-   */
-  xbox_xuid?: string;
-  /**
-   * Looks up customer by Minecraft Java name.
-   */
-  minecraft_java_name?: string;
-  /**
-   * Looks up customer by Minecraft Bedrock name.
-   */
-  minecraft_bedrock_name?: string;
-  /**
+export type GetCustomerLookupParams = {
+/**
+ * Looks up customer by PayNow Customer ID.
+ */
+id?: string;
+/**
+ * Looks up customer by Steam ID 64.
+ */
+steam_id?: string;
+/**
+ * Looks up customer by a Minecraft UUID.
+ */
+minecraft_uuid?: string;
+/**
+ * Looks up customer by an Xbox XUID.
+ */
+xbox_xuid?: string;
+/**
+ * Looks up customer by Minecraft Java name.
+ */
+minecraft_java_name?: string;
+/**
+ * Looks up customer by Minecraft Bedrock name.
+ */
+minecraft_bedrock_name?: string;
+/**
  * Looks up customer by a PayNow Customer Name.
 Name has to be explicitly set in the Customer entity - profile names won't be matched.
  */
-  name?: string;
+name?: string;
 };
 
-export type GetStoresDataMigrationsParams = {
-  /**
-   * The maximum number of items to return in a single request.
-   * @minimum 1
-   * @maximum 100
-   */
-  limit?: number;
-  /**
+export type GetDataMigrationsParams = {
+/**
+ * The maximum number of items to return in a single request.
+ * @minimum 1
+ * @maximum 100
+ */
+limit?: number;
+/**
  * Returns items after the specified ID.
 Used for forward pagination through results.
  */
-  after?: number;
-  /**
+after?: number;
+/**
  * Returns items before the specified ID.
 Used for backward pagination through results.
  */
-  before?: number;
-  /**
+before?: number;
+/**
  * Determines the sort order of returned items.
 When true, items are returned in ascending order.
 When false, items are returned in descending order.
  */
-  asc?: boolean;
+asc?: boolean;
 };
 
-export type GetV1StoresStoreIdOrdersOrderIdDiscord200 = {
-  [key: string]: DiscordProfileDto;
-};
-
-export type PutV1StoresStoreIdInventoryInventoryItemIdDiscordLinkParams = {
-  discordUserId?: number;
-};
-
-export type GetStoresOrdersParams = {
-  /**
-   * The maximum number of items to return in a single request.
-   * @minimum 1
-   * @maximum 100
-   */
-  limit?: number;
-  /**
+export type GetOrdersParams = {
+/**
+ * The maximum number of items to return in a single request.
+ * @minimum 1
+ * @maximum 100
+ */
+limit?: number;
+/**
  * Returns items after the specified ID.
 Used for forward pagination through results.
  */
-  after?: number;
-  /**
+after?: number;
+/**
  * Returns items before the specified ID.
 Used for backward pagination through results.
  */
-  before?: number;
-  /**
+before?: number;
+/**
  * Determines the sort order of returned items.
 When true, items are returned in ascending order.
 When false, items are returned in descending order.
  */
-  asc?: boolean;
-  /**
-   * List of order statuses to filter by
-   */
-  status?: OrderStatus[];
-  /**
-   * Order ID
-   */
-  order_id?: FlakeId;
-  /**
-   * Customer ID
-   */
-  customer_id?: FlakeId;
-  /**
-   * Subscription ID
-   */
-  subscription_id?: FlakeId;
-  /**
-   * Checkout ID
-   */
-  checkout_id?: FlakeId;
-  /**
-   * Flag indicating if the order is a subscription
-   */
-  is_subscription?: boolean;
-  /**
-   * Affiliate ID
-   */
-  affiliate_id?: FlakeId;
-  /**
-   * Coupon ID
-   */
-  coupon_id?: FlakeId;
-  /**
-   * Gift card ID
-   */
-  giftcard_id?: FlakeId;
-  /**
-   * Product ID
-   */
-  product_id?: FlakeId;
-  /**
-   * Sale ID
-   */
-  sale_id?: FlakeId;
+asc?: boolean;
+/**
+ * List of order statuses to filter by
+ */
+status?: OrderStatus[];
+/**
+ * Order ID
+ */
+order_id?: FlakeId;
+/**
+ * Customer ID
+ */
+customer_id?: FlakeId;
+/**
+ * Subscription ID
+ */
+subscription_id?: FlakeId;
+/**
+ * Checkout ID
+ */
+checkout_id?: FlakeId;
+/**
+ * Flag indicating if the order is a subscription
+ */
+is_subscription?: boolean;
+/**
+ * Affiliate ID
+ */
+affiliate_id?: FlakeId;
+/**
+ * Coupon ID
+ */
+coupon_id?: FlakeId;
+/**
+ * Gift card ID
+ */
+giftcard_id?: FlakeId;
+/**
+ * Product ID
+ */
+product_id?: FlakeId;
+/**
+ * Sale ID
+ */
+sale_id?: FlakeId;
 };
 
-export type GetStoresSubscriptionsParams = {
-  store_id?: number;
-  customer_id?: number;
-  subscription_id?: number;
-  billing_email?: string;
-  payment_method_id?: number;
-  checkout_id?: number;
-  status?: SubscriptionStatus[];
-  /**
-   * The maximum number of items to return in a single request.
-   * @minimum 1
-   * @maximum 100
-   */
-  limit?: number;
-  /**
+export type GetSubscriptionsParams = {
+store_id?: number;
+customer_id?: number;
+subscription_id?: number;
+billing_email?: string;
+payment_method_id?: number;
+checkout_id?: number;
+status?: SubscriptionStatus[];
+/**
+ * The maximum number of items to return in a single request.
+ * @minimum 1
+ * @maximum 100
+ */
+limit?: number;
+/**
  * Returns items after the specified ID.
 Used for forward pagination through results.
  */
-  after?: number;
-  /**
+after?: number;
+/**
  * Returns items before the specified ID.
 Used for backward pagination through results.
  */
-  before?: number;
-  /**
+before?: number;
+/**
  * Determines the sort order of returned items.
 When true, items are returned in ascending order.
 When false, items are returned in descending order.
  */
-  asc?: boolean;
+asc?: boolean;
 };
 
-export type GetStoresWebhookHistoryParams = {
-  page?: number;
-  state?: string;
+export type GetWebhookHistoryParams = {
+page?: number;
+state?: string;
 };
 
-export const getStoresAffiliateLinks = <
-  TData = AxiosResponse<AffiliateLinkDto[]>,
->(
-  storeId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/affiliate-links`,
-    options,
-  );
-};
+export const getAffiliateLinks = <TData = AxiosResponse<AffiliateLinkDto[]>>(
+    storeId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/affiliate-links`,options
+    );
+  }
 
-export const postStoresAffiliateLink = <
-  TData = AxiosResponse<AffiliateLinkDto>,
->(
-  storeId: number,
-  createAffiliateLinkDto: CreateAffiliateLinkDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/affiliate-links`,
-    createAffiliateLinkDto,
-    options,
-  );
-};
+export const postAffiliateLink = <TData = AxiosResponse<AffiliateLinkDto>>(
+    storeId: number,
+    createAffiliateLinkDto: CreateAffiliateLinkDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/affiliate-links`,
+      createAffiliateLinkDto,options
+    );
+  }
 
-export const getStoresAffiliateLink = <TData = AxiosResponse<AffiliateLinkDto>>(
-  storeId: number,
-  id: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/affiliate-links/${id}`,
-    options,
-  );
-};
+export const getAffiliateLink = <TData = AxiosResponse<AffiliateLinkDto>>(
+    storeId: number,
+    id: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/affiliate-links/${id}`,options
+    );
+  }
 
-export const patchStoresAffiliateLink = <
-  TData = AxiosResponse<AffiliateLinkDto>,
->(
-  storeId: number,
-  id: number,
-  updateAffiliateLinkDto: UpdateAffiliateLinkDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.patch(
-    `https://api.paynow.gg/v1/stores/${storeId}/affiliate-links/${id}`,
-    updateAffiliateLinkDto,
-    options,
-  );
-};
+export const patchAffiliateLink = <TData = AxiosResponse<AffiliateLinkDto>>(
+    storeId: number,
+    id: number,
+    updateAffiliateLinkDto: UpdateAffiliateLinkDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.patch(
+      `https://api.paynow.gg/v1/stores/${storeId}/affiliate-links/${id}`,
+      updateAffiliateLinkDto,options
+    );
+  }
 
-export const deleteStoresAffiliateLink = <TData = AxiosResponse<void>>(
-  storeId: number,
-  id: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.delete(
-    `https://api.paynow.gg/v1/stores/${storeId}/affiliate-links/${id}`,
-    options,
-  );
-};
+export const deleteAffiliateLink = <TData = AxiosResponse<void>>(
+    storeId: number,
+    id: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.delete(
+      `https://api.paynow.gg/v1/stores/${storeId}/affiliate-links/${id}`,options
+    );
+  }
 
-export const getStoresBans = <TData = AxiosResponse<BanDto[]>>(
-  storeId: number,
-  params?: GetStoresBansParams,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(`https://api.paynow.gg/v1/stores/${storeId}/bans`, {
+export const getBans = <TData = AxiosResponse<BanDto[]>>(
+    storeId: number,
+    params?: GetBansParams, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/bans`,{
     ...options,
-    params: { ...params, ...options?.params },
-  });
-};
+        params: {...params, ...options?.params},}
+    );
+  }
 
-export const postStoresBan = <TData = AxiosResponse<BanDto>>(
-  storeId: number,
-  upsertBanRequestDto: UpsertBanRequestDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/bans`,
-    upsertBanRequestDto,
-    options,
-  );
-};
+export const postBan = <TData = AxiosResponse<BanDto>>(
+    storeId: number,
+    upsertBanRequestDto: UpsertBanRequestDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/bans`,
+      upsertBanRequestDto,options
+    );
+  }
 
-export const getStoresBan = <TData = AxiosResponse<BanDto>>(
-  storeId: number,
-  id: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/bans/${id}`,
-    options,
-  );
-};
+export const getBan = <TData = AxiosResponse<BanDto>>(
+    storeId: number,
+    id: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/bans/${id}`,options
+    );
+  }
 
-export const patchStoresBan = <TData = AxiosResponse<BanDto>>(
-  storeId: number,
-  id: number,
-  upsertBanRequestDto: UpsertBanRequestDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.patch(
-    `https://api.paynow.gg/v1/stores/${storeId}/bans/${id}`,
-    upsertBanRequestDto,
-    options,
-  );
-};
+export const patchBan = <TData = AxiosResponse<BanDto>>(
+    storeId: number,
+    id: number,
+    upsertBanRequestDto: UpsertBanRequestDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.patch(
+      `https://api.paynow.gg/v1/stores/${storeId}/bans/${id}`,
+      upsertBanRequestDto,options
+    );
+  }
 
-export const deleteStoresBan = <TData = AxiosResponse<void>>(
-  storeId: number,
-  id: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.delete(
-    `https://api.paynow.gg/v1/stores/${storeId}/bans/${id}`,
-    options,
-  );
-};
+export const deleteBan = <TData = AxiosResponse<void>>(
+    storeId: number,
+    id: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.delete(
+      `https://api.paynow.gg/v1/stores/${storeId}/bans/${id}`,options
+    );
+  }
 
-export const postStoresBanCheck = <
-  TData = AxiosResponse<CheckForBanIDByIdentitiesRequestDto>,
->(
-  storeId: number,
-  checkForBanIDByIdentitiesRequestDto: CheckForBanIDByIdentitiesRequestDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/bans/check`,
-    checkForBanIDByIdentitiesRequestDto,
-    options,
-  );
-};
+export const postBanCheck = <TData = AxiosResponse<CheckForBanIDByIdentitiesRequestDto>>(
+    storeId: number,
+    checkForBanIDByIdentitiesRequestDto: CheckForBanIDByIdentitiesRequestDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/bans/check`,
+      checkForBanIDByIdentitiesRequestDto,options
+    );
+  }
 
 /**
  * Creates a checkout session from a secure server using an API Key.
 If you have a Customer token, see the Storefront API Create Checkout endpoint.
  * @summary Create a checkout session
  */
-export const postStoresCheckout = <
-  TData = AxiosResponse<CreateCheckoutSessionResponseDto>,
->(
-  storeId: string,
-  createCheckoutSessionManagementDto: CreateCheckoutSessionManagementDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/checkouts`,
-    createCheckoutSessionManagementDto,
-    options,
-  );
-};
+export const postCheckout = <TData = AxiosResponse<CreateCheckoutSessionResponseDto>>(
+    storeId: string,
+    createCheckoutSessionManagementDto: CreateCheckoutSessionManagementDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/checkouts`,
+      createCheckoutSessionManagementDto,options
+    );
+  }
 
-export const postStoresCoupon = <TData = AxiosResponse<CouponDto>>(
-  storeId: number,
-  couponDto: CouponDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/coupons`,
-    couponDto,
-    options,
-  );
-};
+export const postCoupon = <TData = AxiosResponse<CouponDto>>(
+    storeId: number,
+    couponDto: CouponDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/coupons`,
+      couponDto,options
+    );
+  }
 
 /**
  * @summary Fetches all coupons for a store id
  */
-export const getStoresCoupons = <TData = AxiosResponse<CouponDto[]>>(
-  storeId: number,
-  params?: GetStoresCouponsParams,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(`https://api.paynow.gg/v1/stores/${storeId}/coupons`, {
+export const getCoupons = <TData = AxiosResponse<CouponDto[]>>(
+    storeId: number,
+    params?: GetCouponsParams, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/coupons`,{
     ...options,
-    params: { ...params, ...options?.params },
-  });
-};
+        params: {...params, ...options?.params},}
+    );
+  }
 
 /**
  * @summary Retrieves a coupon by ID
  */
-export const getStoresCoupon = <TData = AxiosResponse<CouponDto>>(
-  storeId: number,
-  couponId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/coupons/${couponId}`,
-    options,
-  );
-};
+export const getCoupon = <TData = AxiosResponse<CouponDto>>(
+    storeId: number,
+    couponId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/coupons/${couponId}`,options
+    );
+  }
 
 /**
  * @summary Performs a Delta Update of a Coupon
  */
-export const patchStoresCoupon = <TData = AxiosResponse<CouponDto>>(
-  storeId: number,
-  couponId: number,
-  couponDto: CouponDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.patch(
-    `https://api.paynow.gg/v1/stores/${storeId}/coupons/${couponId}`,
-    couponDto,
-    options,
-  );
-};
+export const patchCoupon = <TData = AxiosResponse<CouponDto>>(
+    storeId: number,
+    couponId: number,
+    couponDto: CouponDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.patch(
+      `https://api.paynow.gg/v1/stores/${storeId}/coupons/${couponId}`,
+      couponDto,options
+    );
+  }
 
 /**
  * @summary Deletes a coupon
  */
-export const deleteStoresCoupon = <TData = AxiosResponse<void>>(
-  storeId: number,
-  couponId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.delete(
-    `https://api.paynow.gg/v1/stores/${storeId}/coupons/${couponId}`,
-    options,
-  );
-};
+export const deleteCoupon = <TData = AxiosResponse<void>>(
+    storeId: number,
+    couponId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.delete(
+      `https://api.paynow.gg/v1/stores/${storeId}/coupons/${couponId}`,options
+    );
+  }
 
 /**
  * Creates a new custom variable for the specified store.
 Custom variables allow customers to provide additional input when purchasing products.
  * @summary Create custom variable
  */
-export const postStoresCustomVariable = <
-  TData = AxiosResponse<CustomVariableDto>,
->(
-  storeId: number,
-  upsertCustomVariableRequestDto: UpsertCustomVariableRequestDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/custom-variables`,
-    upsertCustomVariableRequestDto,
-    options,
-  );
-};
+export const postCustomVariable = <TData = AxiosResponse<CustomVariableDto>>(
+    storeId: number,
+    upsertCustomVariableRequestDto: UpsertCustomVariableRequestDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/custom-variables`,
+      upsertCustomVariableRequestDto,options
+    );
+  }
 
 /**
  * Retrieves all custom variables for the specified store.
  * @summary Get custom variables
  */
-export const getStoresCustomVariables = <
-  TData = AxiosResponse<CustomVariableDto[]>,
->(
-  storeId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/custom-variables`,
-    options,
-  );
-};
+export const getCustomVariables = <TData = AxiosResponse<CustomVariableDto[]>>(
+    storeId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/custom-variables`,options
+    );
+  }
 
 /**
  * Retrieves a specific custom variable by ID from the specified store.
  * @summary Get custom variable
  */
-export const getStoresCustomVariable = <
-  TData = AxiosResponse<CustomVariableDto>,
->(
-  storeId: number,
-  customVariableId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/custom-variables/${customVariableId}`,
-    options,
-  );
-};
+export const getCustomVariable = <TData = AxiosResponse<CustomVariableDto>>(
+    storeId: number,
+    customVariableId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/custom-variables/${customVariableId}`,options
+    );
+  }
 
 /**
  * Performs a partial update of a custom variable using field mask.
 Only the fields specified in the request will be updated.
  * @summary Update custom variable
  */
-export const patchStoresCustomVariable = <
-  TData = AxiosResponse<CustomVariableDto>,
->(
-  storeId: number,
-  customVariableId: number,
-  upsertCustomVariableRequestDto: UpsertCustomVariableRequestDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.patch(
-    `https://api.paynow.gg/v1/stores/${storeId}/custom-variables/${customVariableId}`,
-    upsertCustomVariableRequestDto,
-    options,
-  );
-};
+export const patchCustomVariable = <TData = AxiosResponse<CustomVariableDto>>(
+    storeId: number,
+    customVariableId: number,
+    upsertCustomVariableRequestDto: UpsertCustomVariableRequestDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.patch(
+      `https://api.paynow.gg/v1/stores/${storeId}/custom-variables/${customVariableId}`,
+      upsertCustomVariableRequestDto,options
+    );
+  }
 
 /**
  * Deletes a custom variable from the specified store.
 This will also delete all associated options and cannot be undone.
  * @summary Delete custom variable
  */
-export const deleteStoresCustomVariable = <TData = AxiosResponse<void>>(
-  storeId: number,
-  customVariableId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.delete(
-    `https://api.paynow.gg/v1/stores/${storeId}/custom-variables/${customVariableId}`,
-    options,
-  );
-};
+export const deleteCustomVariable = <TData = AxiosResponse<void>>(
+    storeId: number,
+    customVariableId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.delete(
+      `https://api.paynow.gg/v1/stores/${storeId}/custom-variables/${customVariableId}`,options
+    );
+  }
 
 /**
  * Retrieves all customers for the specified store.
  * @summary Get customers
  */
-export const getStoresCustomers = <TData = AxiosResponse<CustomerDto[]>>(
-  storeId: number,
-  params?: GetStoresCustomersParams,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(`https://api.paynow.gg/v1/stores/${storeId}/customers`, {
+export const getCustomers = <TData = AxiosResponse<CustomerDto[]>>(
+    storeId: number,
+    params?: GetCustomersParams, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/customers`,{
     ...options,
-    params: { ...params, ...options?.params },
-  });
-};
+        params: {...params, ...options?.params},}
+    );
+  }
 
 /**
  * Creates a new customer based on the fields passed.
  * @summary Create customer
  */
-export const postStoresCustomer = <TData = AxiosResponse<CustomerDto>>(
-  storeId: number,
-  upsertCustomerRequestDto: UpsertCustomerRequestDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/customers`,
-    upsertCustomerRequestDto,
-    options,
-  );
-};
+export const postCustomer = <TData = AxiosResponse<CustomerDto>>(
+    storeId: number,
+    upsertCustomerRequestDto: UpsertCustomerRequestDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/customers`,
+      upsertCustomerRequestDto,options
+    );
+  }
 
 /**
  * Retrieves a customer by the ID for the specified store.
  * @summary Get customer by ID
  */
-export const getStoresCustomer = <TData = AxiosResponse<CustomerDto>>(
-  storeId: number,
-  customerId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/customers/${customerId}`,
-    options,
-  );
-};
+export const getCustomer = <TData = AxiosResponse<CustomerDto>>(
+    storeId: number,
+    customerId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/customers/${customerId}`,options
+    );
+  }
 
 /**
  * Updates an existing customer based on the fields passed.
  * @summary Update customer
  */
-export const patchStoresCustomer = <TData = AxiosResponse<CustomerDto>>(
-  storeId: number,
-  customerId: number,
-  upsertCustomerRequestDto: UpsertCustomerRequestDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.patch(
-    `https://api.paynow.gg/v1/stores/${storeId}/customers/${customerId}`,
-    upsertCustomerRequestDto,
-    options,
-  );
-};
+export const patchCustomer = <TData = AxiosResponse<CustomerDto>>(
+    storeId: number,
+    customerId: number,
+    upsertCustomerRequestDto: UpsertCustomerRequestDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.patch(
+      `https://api.paynow.gg/v1/stores/${storeId}/customers/${customerId}`,
+      upsertCustomerRequestDto,options
+    );
+  }
 
 /**
  * Generates a customer token that can be used by the Storefront (Headless) API.
  * @summary Create customer token
  */
-export const postStoresCustomerToken = <
-  TData = AxiosResponse<CustomerTokenResponseDto>,
->(
-  storeId: number,
-  customerId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/customers/${customerId}/tokens`,
-    undefined,
-    options,
-  );
-};
+export const postCustomerToken = <TData = AxiosResponse<CustomerTokenResponseDto>>(
+    storeId: number,
+    customerId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/customers/${customerId}/tokens`,undefined,options
+    );
+  }
 
 /**
  * Invalidates all generated customer tokens.
  * @summary Invalidate customer tokens
  */
-export const deleteStoresCustomerToken = <TData = AxiosResponse<void>>(
-  storeId: number,
-  customerId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.delete(
-    `https://api.paynow.gg/v1/stores/${storeId}/customers/${customerId}/tokens`,
-    options,
-  );
-};
+export const deleteCustomerToken = <TData = AxiosResponse<void>>(
+    storeId: number,
+    customerId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.delete(
+      `https://api.paynow.gg/v1/stores/${storeId}/customers/${customerId}/tokens`,options
+    );
+  }
 
 /**
  * Looks up a customer by an external platform ID.
  * @summary Lookup customer
  */
-export const getStoresCustomerLookup = <TData = AxiosResponse<CustomerDto>>(
-  storeId: number,
-  params?: GetStoresCustomerLookupParams,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/customers/lookup`,
-    {
-      ...options,
-      params: { ...params, ...options?.params },
-    },
-  );
-};
+export const getCustomerLookup = <TData = AxiosResponse<CustomerDto>>(
+    storeId: number,
+    params?: GetCustomerLookupParams, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/customers/lookup`,{
+    ...options,
+        params: {...params, ...options?.params},}
+    );
+  }
 
 /**
  * Creates up to 200 customers at once.
  * @summary Bulk create customers
  */
-export const postStoresCustomerBulk = <TData = AxiosResponse<CustomerDto[]>>(
-  storeId: number,
-  upsertCustomerRequestDto: UpsertCustomerRequestDto[],
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/customers/bulk`,
-    upsertCustomerRequestDto,
-    options,
-  );
-};
+export const postCustomerBulk = <TData = AxiosResponse<CustomerDto[]>>(
+    storeId: number,
+    upsertCustomerRequestDto: UpsertCustomerRequestDto[], options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/customers/bulk`,
+      upsertCustomerRequestDto,options
+    );
+  }
 
-export const getStoresDataMigrations = <
-  TData = AxiosResponse<DataMigrationTaskDto[]>,
->(
-  storeId: number,
-  params?: GetStoresDataMigrationsParams,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/data-migrations`,
-    {
-      ...options,
-      params: { ...params, ...options?.params },
-    },
-  );
-};
+export const getDataMigrations = <TData = AxiosResponse<DataMigrationTaskDto[]>>(
+    storeId: number,
+    params?: GetDataMigrationsParams, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/data-migrations`,{
+    ...options,
+        params: {...params, ...options?.params},}
+    );
+  }
 
-export const postStoresDataMigrationTebex = <
-  TData = AxiosResponse<DataMigrationTaskDto[]>,
->(
-  storeId: number,
-  startDataMigrationFromTebexRequestDto: StartDataMigrationFromTebexRequestDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/data-migrations/tebex`,
-    startDataMigrationFromTebexRequestDto,
-    options,
-  );
-};
+export const postDataMigrationTebex = <TData = AxiosResponse<DataMigrationTaskDto[]>>(
+    storeId: number,
+    startDataMigrationFromTebexRequestDto: StartDataMigrationFromTebexRequestDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/data-migrations/tebex`,
+      startDataMigrationFromTebexRequestDto,options
+    );
+  }
 
-export const postStoresDeliverableCommandsResend = <
-  TData = AxiosResponse<ResendCommandsForGameServerResponseDto>,
->(
-  storeId: number,
-  deliverableId: number,
-  resendCommandsForGameServerRequestDto: ResendCommandsForGameServerRequestDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/deliverables/${deliverableId}/commands/resend`,
-    resendCommandsForGameServerRequestDto,
-    options,
-  );
-};
+export const postDeliverableCommandsResend = <TData = AxiosResponse<ResendCommandsForGameServerResponseDto>>(
+    storeId: number,
+    deliverableId: number,
+    resendCommandsForGameServerRequestDto: ResendCommandsForGameServerRequestDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/deliverables/${deliverableId}/commands/resend`,
+      resendCommandsForGameServerRequestDto,options
+    );
+  }
 
-export const getV1StoresStoreIdProductVersionsProductVersionIdDiscordActions = <
-  TData = AxiosResponse<DiscordActionDto[]>,
->(
-  storeId: number,
-  productVersionId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/product_versions/${productVersionId}/discord_actions`,
-    options,
-  );
-};
+export const getProductDownloadableFiles = <TData = AxiosResponse<ProductDownloadableFileDto[]>>(
+    storeId: number,
+    productId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}/downloadable-files`,options
+    );
+  }
 
-export const putV1StoresStoreIdProductVersionsProductVersionIdDiscordActions = <
-  TData = AxiosResponse<DiscordActionDto>,
->(
-  storeId: number,
-  productVersionId: number,
-  setDiscordActionDto: SetDiscordActionDto[],
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.put(
-    `https://api.paynow.gg/v1/stores/${storeId}/product_versions/${productVersionId}/discord_actions`,
-    setDiscordActionDto,
-    options,
-  );
-};
+export const postProductDownloadableFiles = <TData = AxiosResponse<void>>(
+    storeId: number,
+    productId: number,
+    startDownloadableFileUploadRequestDto: StartDownloadableFileUploadRequestDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}/downloadable-files`,
+      startDownloadableFileUploadRequestDto,options
+    );
+  }
 
-export const getV1StoresStoreIdOrdersOrderIdDiscord = <
-  TData = AxiosResponse<GetV1StoresStoreIdOrdersOrderIdDiscord200>,
->(
-  storeId: number,
-  orderId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/orders/${orderId}/discord`,
-    options,
-  );
-};
+export const postProductDownloadableFileUploadFinish = <TData = AxiosResponse<void>>(
+    storeId: number,
+    productId: number,
+    id: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}/downloadable-files/${id}/finish`,undefined,options
+    );
+  }
 
-export const getV1StoresStoreIdOrdersOrderIdDiscordQueued = <
-  TData = AxiosResponse<QueuedDiscordActionDto[]>,
->(
-  storeId: number,
-  orderId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/orders/${orderId}/discord/queued`,
-    options,
-  );
-};
+export const getProductDownloadableFileDownloadUrl = <TData = AxiosResponse<CreateDownloadableFileDownloadUrlResponseDto>>(
+    storeId: number,
+    productId: number,
+    id: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}/downloadable-files/${id}/download-url`,options
+    );
+  }
 
-export const getV1StoresStoreIdInventoryInventoryItemIdDiscordQueued = <
-  TData = AxiosResponse<QueuedDiscordActionDto[]>,
->(
-  storeId: number,
-  inventoryItemId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/inventory/${inventoryItemId}/discord/queued`,
-    options,
-  );
-};
-
-export const getV1StoresStoreIdInventoryInventoryItemIdDiscordLink = <
-  TData = AxiosResponse<DiscordProfileDto>,
->(
-  storeId: number,
-  inventoryItemId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/inventory/${inventoryItemId}/discord/link`,
-    options,
-  );
-};
-
-export const putV1StoresStoreIdInventoryInventoryItemIdDiscordLink = <
-  TData = AxiosResponse<void>,
->(
-  storeId: number,
-  inventoryItemId: number,
-  params?: PutV1StoresStoreIdInventoryInventoryItemIdDiscordLinkParams,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.put(
-    `https://api.paynow.gg/v1/stores/${storeId}/inventory/${inventoryItemId}/discord/link`,
-    undefined,
-    {
-      ...options,
-      params: { ...params, ...options?.params },
-    },
-  );
-};
-
-export const deleteV1StoresStoreIdInventoryInventoryItemIdDiscordLink = <
-  TData = AxiosResponse<void>,
->(
-  storeId: number,
-  inventoryItemId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.delete(
-    `https://api.paynow.gg/v1/stores/${storeId}/inventory/${inventoryItemId}/discord/link`,
-    options,
-  );
-};
-
-export const postV1StoresStoreIdDiscordLinks = <
-  TData = AxiosResponse<DiscordServerLinkDto>,
->(
-  storeId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/discord/links`,
-    undefined,
-    options,
-  );
-};
-
-export const getV1StoresStoreIdDiscordLinks = <
-  TData = AxiosResponse<DiscordServerLinkDto[]>,
->(
-  storeId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/discord/links`,
-    options,
-  );
-};
-
-export const deleteV1StoresStoreIdDiscordLinksToken = <
-  TData = AxiosResponse<DiscordServerLinkDto[]>,
->(
-  storeId: number,
-  token: string,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.delete(
-    `https://api.paynow.gg/v1/stores/${storeId}/discord/links/${token}`,
-    options,
-  );
-};
-
-export const getV1StoresStoreIdDiscordDiscordServerIdRoles = <
-  TData = AxiosResponse<DiscordServerRoleDto[]>,
->(
-  storeId: number,
-  discordServerId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/discord/${discordServerId}/roles`,
-    options,
-  );
-};
-
-export const getV1StoresStoreIdDiscordDiscordServerIdDiscordTextChannels = <
-  TData = AxiosResponse<DiscordServerChannelDto[]>,
->(
-  storeId: number,
-  discordServerId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/discord/${discordServerId}/discord/text_channels`,
-    options,
-  );
-};
-
-export const getStoresProductDownloadableFiles = <
-  TData = AxiosResponse<ProductDownloadableFileDto[]>,
->(
-  storeId: number,
-  productId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}/downloadable-files`,
-    options,
-  );
-};
-
-export const postStoresProductDownloadableFiles = <TData = AxiosResponse<void>>(
-  storeId: number,
-  productId: number,
-  startDownloadableFileUploadRequestDto: StartDownloadableFileUploadRequestDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}/downloadable-files`,
-    startDownloadableFileUploadRequestDto,
-    options,
-  );
-};
-
-export const postStoresProductDownloadableFileUploadFinish = <
-  TData = AxiosResponse<void>,
->(
-  storeId: number,
-  productId: number,
-  id: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}/downloadable-files/${id}/finish`,
-    undefined,
-    options,
-  );
-};
-
-export const getStoresProductDownloadableFileDownloadUrl = <
-  TData = AxiosResponse<CreateDownloadableFileDownloadUrlResponseDto>,
->(
-  storeId: number,
-  productId: number,
-  id: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}/downloadable-files/${id}/download-url`,
-    options,
-  );
-};
-
-export const deleteStoresProductDownloadableFile = <
-  TData = AxiosResponse<void>,
->(
-  storeId: number,
-  productId: number,
-  id: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.delete(
-    `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}/downloadable-files/${id}`,
-    options,
-  );
-};
+export const deleteProductDownloadableFile = <TData = AxiosResponse<void>>(
+    storeId: number,
+    productId: number,
+    id: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.delete(
+      `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}/downloadable-files/${id}`,options
+    );
+  }
 
 /**
  * Retrieves all global commands for the specified store.
  * @summary Get global commands
  */
-export const getStoresGlobalCommands = <
-  TData = AxiosResponse<GlobalCommandDto[]>,
->(
-  storeId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/global-commands`,
-    options,
-  );
-};
+export const getGlobalCommands = <TData = AxiosResponse<GlobalCommandDto[]>>(
+    storeId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/global-commands`,options
+    );
+  }
 
 /**
  * Creates a global command for a store.
  * @summary Create global command
  */
-export const postStoresGlobalCommand = <
-  TData = AxiosResponse<GlobalCommandDto>,
->(
-  storeId: number,
-  upsertGlobalCommandDto: UpsertGlobalCommandDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/global-commands`,
-    upsertGlobalCommandDto,
-    options,
-  );
-};
+export const postGlobalCommand = <TData = AxiosResponse<GlobalCommandDto>>(
+    storeId: number,
+    upsertGlobalCommandDto: UpsertGlobalCommandDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/global-commands`,
+      upsertGlobalCommandDto,options
+    );
+  }
 
 /**
  * Updates a global command for a store.
  * @summary Update global command
  */
-export const patchStoresGlobalCommand = <
-  TData = AxiosResponse<GlobalCommandDto>,
->(
-  storeId: number,
-  globalCommandId: FlakeId,
-  upsertGlobalCommandDto: UpsertGlobalCommandDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.patch(
-    `https://api.paynow.gg/v1/stores/${storeId}/global-commands/${globalCommandId}`,
-    upsertGlobalCommandDto,
-    options,
-  );
-};
+export const patchGlobalCommand = <TData = AxiosResponse<GlobalCommandDto>>(
+    storeId: number,
+    globalCommandId: FlakeId,
+    upsertGlobalCommandDto: UpsertGlobalCommandDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.patch(
+      `https://api.paynow.gg/v1/stores/${storeId}/global-commands/${globalCommandId}`,
+      upsertGlobalCommandDto,options
+    );
+  }
 
 /**
  * Deletes a global command for a store.
  * @summary Delete global command
  */
-export const deleteStoresGlobalCommand = <TData = AxiosResponse<void>>(
-  storeId: number,
-  globalCommandId: FlakeId,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.delete(
-    `https://api.paynow.gg/v1/stores/${storeId}/global-commands/${globalCommandId}`,
-    options,
-  );
-};
+export const deleteGlobalCommand = <TData = AxiosResponse<void>>(
+    storeId: number,
+    globalCommandId: FlakeId, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.delete(
+      `https://api.paynow.gg/v1/stores/${storeId}/global-commands/${globalCommandId}`,options
+    );
+  }
 
 /**
  * @summary Gets the abandoned checkout behaviour for a store
  */
-export const getStoresAbandonedCheckoutConfiguration = <
-  TData = AxiosResponse<AbandonedCheckoutStoreConfigurationDto>,
->(
-  storeId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/marketing/abandoned-checkouts/configuration`,
-    options,
-  );
-};
+export const getAbandonedCheckoutConfiguration = <TData = AxiosResponse<AbandonedCheckoutStoreConfigurationDto>>(
+    storeId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/marketing/abandoned-checkouts/configuration`,options
+    );
+  }
 
 /**
  * @summary Sets the abandoned checkout behaviour for a store
  */
-export const putStoresAbandonedCheckoutConfiguration = <
-  TData = AxiosResponse<AbandonedCheckoutStoreConfigurationDto | undefined>,
->(
-  storeId: number,
-  abandonedCheckoutStoreConfigurationUpdateDto: AbandonedCheckoutStoreConfigurationUpdateDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.put(
-    `https://api.paynow.gg/v1/stores/${storeId}/marketing/abandoned-checkouts/configuration`,
-    abandonedCheckoutStoreConfigurationUpdateDto,
-    options,
-  );
-};
+export const putAbandonedCheckoutConfiguration = <TData = AxiosResponse<AbandonedCheckoutStoreConfigurationDto | void>>(
+    storeId: number,
+    abandonedCheckoutStoreConfigurationUpdateDto: AbandonedCheckoutStoreConfigurationUpdateDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.put(
+      `https://api.paynow.gg/v1/stores/${storeId}/marketing/abandoned-checkouts/configuration`,
+      abandonedCheckoutStoreConfigurationUpdateDto,options
+    );
+  }
 
 /**
  * @summary Gets the purchase follow up behaviour for a store
  */
-export const getStoresPurchaseFollowUpsConfiguration = <
-  TData = AxiosResponse<PurchaseFollowUpStoreConfigurationDto>,
->(
-  storeId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/marketing/purchase-follow-ups/configuration`,
-    options,
-  );
-};
+export const getPurchaseFollowUpsConfiguration = <TData = AxiosResponse<PurchaseFollowUpStoreConfigurationDto>>(
+    storeId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/marketing/purchase-follow-ups/configuration`,options
+    );
+  }
 
 /**
  * @summary Sets the purchase follow up behaviour for a store
  */
-export const putStoresPurchaseFollowUpsConfiguration = <
-  TData = AxiosResponse<PurchaseFollowUpStoreConfigurationDto | undefined>,
->(
-  storeId: number,
-  purchaseFollowUpStoreConfigurationUpdateDto: PurchaseFollowUpStoreConfigurationUpdateDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.put(
-    `https://api.paynow.gg/v1/stores/${storeId}/marketing/purchase-follow-ups/configuration`,
-    purchaseFollowUpStoreConfigurationUpdateDto,
-    options,
-  );
-};
+export const putPurchaseFollowUpsConfiguration = <TData = AxiosResponse<PurchaseFollowUpStoreConfigurationDto | void>>(
+    storeId: number,
+    purchaseFollowUpStoreConfigurationUpdateDto: PurchaseFollowUpStoreConfigurationUpdateDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.put(
+      `https://api.paynow.gg/v1/stores/${storeId}/marketing/purchase-follow-ups/configuration`,
+      purchaseFollowUpStoreConfigurationUpdateDto,options
+    );
+  }
 
 /**
  * Retrieves all orders for the specified store.
  * @summary Get orders
  */
-export const getStoresOrders = <TData = AxiosResponse<OrderDto[]>>(
-  storeId: number,
-  params?: GetStoresOrdersParams,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(`https://api.paynow.gg/v1/stores/${storeId}/orders`, {
+export const getOrders = <TData = AxiosResponse<OrderDto[]>>(
+    storeId: number,
+    params?: GetOrdersParams, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/orders`,{
     ...options,
-    params: { ...params, ...options?.params },
-  });
-};
+        params: {...params, ...options?.params},}
+    );
+  }
 
 /**
  * Retrieves an order by the ID for the specified store.
  * @summary Get order by ID
  */
-export const getStoresOrder = <TData = AxiosResponse<OrderDto>>(
-  storeId: number,
-  orderId: FlakeId,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/orders/${orderId}`,
-    options,
-  );
-};
+export const getOrder = <TData = AxiosResponse<OrderDto>>(
+    storeId: number,
+    orderId: FlakeId, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/orders/${orderId}`,options
+    );
+  }
 
 /**
  * Creates a refund for an order by the ID for the specified store.
  * @summary Refund order by ID
  */
-export const postStoresOrderRefund = <TData = AxiosResponse<RefundDto>>(
-  storeId: number,
-  orderId: FlakeId,
-  createRefundRequestDto: CreateRefundRequestDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/orders/${orderId}/refund`,
-    createRefundRequestDto,
-    options,
-  );
-};
+export const postOrderRefund = <TData = AxiosResponse<RefundDto>>(
+    storeId: number,
+    orderId: FlakeId,
+    createRefundRequestDto: CreateRefundRequestDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/orders/${orderId}/refund`,
+      createRefundRequestDto,options
+    );
+  }
 
 /**
  * Retrieves all products for the specified store.
 DO NOT USE THIS ROUTE FOR DISPLAYING PRODUCTS ON YOUR STOREFRONT, use the storefront API instead.
  * @summary Get products
  */
-export const getStoresProducts = <TData = AxiosResponse<ProductDto[]>>(
-  storeId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/products`,
-    options,
-  );
-};
+export const getProducts = <TData = AxiosResponse<ProductDto[]>>(
+    storeId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/products`,options
+    );
+  }
 
 /**
  * Creates a new product in the specified store.
 Creating dynamic products while creating a checkout session via this endpoint without prior approval is prohibited and will result in store deactivation per our User Agreement.
  * @summary Create product
  */
-export const postStoresProduct = <TData = AxiosResponse<ProductDto>>(
-  storeId: number,
-  upsertProductRequestDto: UpsertProductRequestDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/products`,
-    upsertProductRequestDto,
-    options,
-  );
-};
+export const postProduct = <TData = AxiosResponse<ProductDto>>(
+    storeId: number,
+    upsertProductRequestDto: UpsertProductRequestDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/products`,
+      upsertProductRequestDto,options
+    );
+  }
 
 /**
  * Retrieves a specific product by ID from the specified store.
 DO NOT USE THIS ROUTE FOR DISPLAYING PRODUCTS ON YOUR STOREFRONT, use the storefront API instead.
  * @summary Get product
  */
-export const getStoresProduct = <TData = AxiosResponse<ProductDto>>(
-  storeId: number,
-  productId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}`,
-    options,
-  );
-};
+export const getProduct = <TData = AxiosResponse<ProductDto>>(
+    storeId: number,
+    productId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}`,options
+    );
+  }
 
 /**
  * Updates an existing product in the specified store.
  * @summary Update product
  */
-export const patchStoresProduct = <TData = AxiosResponse<ProductDto>>(
-  storeId: number,
-  productId: number,
-  upsertProductRequestDto: UpsertProductRequestDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.patch(
-    `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}`,
-    upsertProductRequestDto,
-    options,
-  );
-};
+export const patchProduct = <TData = AxiosResponse<ProductDto>>(
+    storeId: number,
+    productId: number,
+    upsertProductRequestDto: UpsertProductRequestDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.patch(
+      `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}`,
+      upsertProductRequestDto,options
+    );
+  }
 
 /**
  * Deletes a product from the specified store.
  * @summary Delete product
  */
-export const deleteStoresProduct = <TData = AxiosResponse<void>>(
-  storeId: number,
-  productId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.delete(
-    `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}`,
-    options,
-  );
-};
+export const deleteProduct = <TData = AxiosResponse<void>>(
+    storeId: number,
+    productId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.delete(
+      `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}`,options
+    );
+  }
 
 /**
  * Updates the sort order of products in the specified store.
  * @summary Update product sort order
  */
-export const postStoresProductSortOrder = <TData = AxiosResponse<ProductDto>>(
-  storeId: number,
-  updateProductSortOrderRequestDto: UpdateProductSortOrderRequestDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/products/sort-order`,
-    updateProductSortOrderRequestDto,
-    options,
-  );
-};
+export const postProductSortOrder = <TData = AxiosResponse<ProductDto>>(
+    storeId: number,
+    updateProductSortOrderRequestDto: UpdateProductSortOrderRequestDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/products/sort-order`,
+      updateProductSortOrderRequestDto,options
+    );
+  }
 
-export const getStoresProductPricingRegions = <
-  TData = AxiosResponse<ProductPricingRegionDto[]>,
->(
-  storeId: number,
-  productId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}/pricing/regions`,
-    options,
-  );
-};
+export const getProductPricingRegions = <TData = AxiosResponse<ProductPricingRegionDto[]>>(
+    storeId: number,
+    productId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}/pricing/regions`,options
+    );
+  }
 
-export const patchStoresProductPricingRegion = <TData = AxiosResponse<void>>(
-  storeId: number,
-  productId: number,
-  regionId: string,
-  productPricingRegionOverrideDto: ProductPricingRegionOverrideDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.patch(
-    `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}/pricing/regions/${regionId}`,
-    productPricingRegionOverrideDto,
-    options,
-  );
-};
+export const patchProductPricingRegion = <TData = AxiosResponse<void>>(
+    storeId: number,
+    productId: number,
+    regionId: string,
+    productPricingRegionOverrideDto: ProductPricingRegionOverrideDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.patch(
+      `https://api.paynow.gg/v1/stores/${storeId}/products/${productId}/pricing/regions/${regionId}`,
+      productPricingRegionOverrideDto,options
+    );
+  }
 
-export const getStoresPricingRegions = <
-  TData = AxiosResponse<ProductPricingRegionDto[]>,
->(
-  storeId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/products/pricing/regions`,
-    options,
-  );
-};
+export const getPricingRegions = <TData = AxiosResponse<ProductPricingRegionDto[]>>(
+    storeId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/products/pricing/regions`,options
+    );
+  }
 
-export const patchStoresPricingRegion = <TData = AxiosResponse<void>>(
-  storeId: number,
-  regionId: string,
-  storePricingRegionOverrideDto: StorePricingRegionOverrideDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.patch(
-    `https://api.paynow.gg/v1/stores/${storeId}/products/pricing/regions/${regionId}`,
-    storePricingRegionOverrideDto,
-    options,
-  );
-};
+export const patchPricingRegion = <TData = AxiosResponse<void>>(
+    storeId: number,
+    regionId: string,
+    storePricingRegionOverrideDto: StorePricingRegionOverrideDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.patch(
+      `https://api.paynow.gg/v1/stores/${storeId}/products/pricing/regions/${regionId}`,
+      storePricingRegionOverrideDto,options
+    );
+  }
 
-export const getStoresPricingRegionGroups = <
-  TData = AxiosResponse<ProductPricingRegionGroupDto[]>,
->(
-  storeId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/products/pricing/region-groups`,
-    options,
-  );
-};
+export const getPricingRegionGroups = <TData = AxiosResponse<ProductPricingRegionGroupDto[]>>(
+    storeId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/products/pricing/region-groups`,options
+    );
+  }
 
-export const getStoresStoreTrustOnboarding = <
-  TData = AxiosResponse<TrustStoreOnboardingDto>,
->(
-  storeId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/trust/onboarding/status`,
-    options,
-  );
-};
+export const getStoreTrustOnboarding = <TData = AxiosResponse<TrustStoreOnboardingDto>>(
+    storeId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/trust/onboarding/status`,options
+    );
+  }
 
 /**
  * Retrieves all subscriptions for the specified store.
  * @summary Get subscriptions
  */
-export const getStoresSubscriptions = <
-  TData = AxiosResponse<StoreSubscriptionDto[]>,
->(
-  storeId: number,
-  params?: GetStoresSubscriptionsParams,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(`https://api.paynow.gg/v1/stores/${storeId}/subscriptions`, {
+export const getSubscriptions = <TData = AxiosResponse<StoreSubscriptionDto[]>>(
+    storeId: number,
+    params?: GetSubscriptionsParams, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/subscriptions`,{
     ...options,
-    params: { ...params, ...options?.params },
-  });
-};
+        params: {...params, ...options?.params},}
+    );
+  }
 
 /**
  * Retrieves a subscription for the specified store by the supplied ID.
  * @summary Get subscription by ID
  */
-export const getStoresSubscription = <
-  TData = AxiosResponse<StoreSubscriptionDto>,
->(
-  storeId: number,
-  subscriptionId: FlakeId,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/subscriptions/${subscriptionId}`,
-    options,
-  );
-};
+export const getSubscription = <TData = AxiosResponse<StoreSubscriptionDto>>(
+    storeId: number,
+    subscriptionId: FlakeId, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/subscriptions/${subscriptionId}`,options
+    );
+  }
 
 /**
  * Cancels a subscription for the specified store by the supplied ID.
  * @summary Cancel subscription by ID
  */
-export const postStoresSubscriptionCancel = <TData = AxiosResponse<void>>(
-  storeId: number,
-  subscriptionId: FlakeId,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/subscriptions/${subscriptionId}/cancel`,
-    undefined,
-    options,
-  );
-};
+export const postSubscriptionCancel = <TData = AxiosResponse<void>>(
+    storeId: number,
+    subscriptionId: FlakeId, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/subscriptions/${subscriptionId}/cancel`,undefined,options
+    );
+  }
 
 /**
  * Retrieves an image upload URL for a tag.
  * @summary Get tag image upload URL
  */
-export const getStoresTagImageUploadUrl = <
-  TData = AxiosResponse<GetTagImageUploadUrlResponseDto>,
->(
-  storeId: number,
-  tagId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/tags/${tagId}/image-upload-url`,
-    options,
-  );
-};
+export const getTagImageUploadUrl = <TData = AxiosResponse<GetTagImageUploadUrlResponseDto>>(
+    storeId: number,
+    tagId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/tags/${tagId}/image-upload-url`,options
+    );
+  }
 
 /**
  * Finishes an image upload for a tag.
  * @summary Finish tag image upload URL
  */
-export const postStoresTagImageUploadFinish = <TData = AxiosResponse<void>>(
-  storeId: number,
-  tagId: number,
-  finishTagImageUploadUrlRequestDto: FinishTagImageUploadUrlRequestDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/tags/${tagId}/image-upload-finish`,
-    finishTagImageUploadUrlRequestDto,
-    options,
-  );
-};
+export const postTagImageUploadFinish = <TData = AxiosResponse<void>>(
+    storeId: number,
+    tagId: number,
+    finishTagImageUploadUrlRequestDto: FinishTagImageUploadUrlRequestDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/tags/${tagId}/image-upload-finish`,
+      finishTagImageUploadUrlRequestDto,options
+    );
+  }
 
 /**
  * Deletes an image for a tag.
  * @summary Delete tag image URL
  */
-export const deleteStoresTagImage = <TData = AxiosResponse<void>>(
-  storeId: number,
-  tagId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.delete(
-    `https://api.paynow.gg/v1/stores/${storeId}/tags/${tagId}/image`,
-    options,
-  );
-};
+export const deleteTagImage = <TData = AxiosResponse<void>>(
+    storeId: number,
+    tagId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.delete(
+      `https://api.paynow.gg/v1/stores/${storeId}/tags/${tagId}/image`,options
+    );
+  }
 
-export const getStoresWebhooks = <
-  TData = AxiosResponse<WebhookSubscriptionDto[]>,
->(
-  storeId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/webhooks`,
-    options,
-  );
-};
+export const getWebhooks = <TData = AxiosResponse<WebhookSubscriptionDto[]>>(
+    storeId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/webhooks`,options
+    );
+  }
 
-export const postStoresWebhook = <
-  TData = AxiosResponse<WebhookSubscriptionDto>,
->(
-  storeId: number,
-  createWebhookDto: CreateWebhookDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.post(
-    `https://api.paynow.gg/v1/stores/${storeId}/webhooks`,
-    createWebhookDto,
-    options,
-  );
-};
+export const postWebhook = <TData = AxiosResponse<WebhookSubscriptionDto>>(
+    storeId: number,
+    createWebhookDto: CreateWebhookDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.post(
+      `https://api.paynow.gg/v1/stores/${storeId}/webhooks`,
+      createWebhookDto,options
+    );
+  }
 
-export const getStoresWebhookVariables = <
-  TData = AxiosResponse<WebhookVariablesDto[]>,
->(
-  storeId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/webhooks/variables`,
-    options,
-  );
-};
+export const getWebhookVariables = <TData = AxiosResponse<WebhookVariablesDto[]>>(
+    storeId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/webhooks/variables`,options
+    );
+  }
 
-export const patchStoresWebhook = <
-  TData = AxiosResponse<WebhookSubscriptionDto>,
->(
-  storeId: number,
-  webhookId: number,
-  updateWebhookDto: UpdateWebhookDto,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.patch(
-    `https://api.paynow.gg/v1/stores/${storeId}/webhooks/${webhookId}`,
-    updateWebhookDto,
-    options,
-  );
-};
+export const patchWebhook = <TData = AxiosResponse<WebhookSubscriptionDto>>(
+    storeId: number,
+    webhookId: number,
+    updateWebhookDto: UpdateWebhookDto, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.patch(
+      `https://api.paynow.gg/v1/stores/${storeId}/webhooks/${webhookId}`,
+      updateWebhookDto,options
+    );
+  }
 
-export const deleteStoresWebhook = <TData = AxiosResponse<void>>(
-  storeId: number,
-  webhookId: number,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.delete(
-    `https://api.paynow.gg/v1/stores/${storeId}/webhooks/${webhookId}`,
-    options,
-  );
-};
+export const deleteWebhook = <TData = AxiosResponse<void>>(
+    storeId: number,
+    webhookId: number, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.delete(
+      `https://api.paynow.gg/v1/stores/${storeId}/webhooks/${webhookId}`,options
+    );
+  }
 
-export const getStoresWebhookHistory = <
-  TData = AxiosResponse<WebhookHistoryDto>,
->(
-  storeId: number,
-  webhookId: number,
-  params?: GetStoresWebhookHistoryParams,
-  options?: AxiosRequestConfig,
-): Promise<TData> => {
-  return axios.get(
-    `https://api.paynow.gg/v1/stores/${storeId}/webhooks/${webhookId}/history`,
-    {
-      ...options,
-      params: { ...params, ...options?.params },
-    },
-  );
-};
+export const getWebhookHistory = <TData = AxiosResponse<WebhookHistoryDto>>(
+    storeId: number,
+    webhookId: number,
+    params?: GetWebhookHistoryParams, options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `https://api.paynow.gg/v1/stores/${storeId}/webhooks/${webhookId}/history`,{
+    ...options,
+        params: {...params, ...options?.params},}
+    );
+  }
 
-export type GetStoresAffiliateLinksResult = AxiosResponse<AffiliateLinkDto[]>;
-export type PostStoresAffiliateLinkResult = AxiosResponse<AffiliateLinkDto>;
-export type GetStoresAffiliateLinkResult = AxiosResponse<AffiliateLinkDto>;
-export type PatchStoresAffiliateLinkResult = AxiosResponse<AffiliateLinkDto>;
-export type DeleteStoresAffiliateLinkResult = AxiosResponse<void>;
-export type GetStoresBansResult = AxiosResponse<BanDto[]>;
-export type PostStoresBanResult = AxiosResponse<BanDto>;
-export type GetStoresBanResult = AxiosResponse<BanDto>;
-export type PatchStoresBanResult = AxiosResponse<BanDto>;
-export type DeleteStoresBanResult = AxiosResponse<void>;
-export type PostStoresBanCheckResult =
-  AxiosResponse<CheckForBanIDByIdentitiesRequestDto>;
-export type PostStoresCheckoutResult =
-  AxiosResponse<CreateCheckoutSessionResponseDto>;
-export type PostStoresCouponResult = AxiosResponse<CouponDto>;
-export type GetStoresCouponsResult = AxiosResponse<CouponDto[]>;
-export type GetStoresCouponResult = AxiosResponse<CouponDto>;
-export type PatchStoresCouponResult = AxiosResponse<CouponDto>;
-export type DeleteStoresCouponResult = AxiosResponse<void>;
-export type PostStoresCustomVariableResult = AxiosResponse<CustomVariableDto>;
-export type GetStoresCustomVariablesResult = AxiosResponse<CustomVariableDto[]>;
-export type GetStoresCustomVariableResult = AxiosResponse<CustomVariableDto>;
-export type PatchStoresCustomVariableResult = AxiosResponse<CustomVariableDto>;
-export type DeleteStoresCustomVariableResult = AxiosResponse<void>;
-export type GetStoresCustomersResult = AxiosResponse<CustomerDto[]>;
-export type PostStoresCustomerResult = AxiosResponse<CustomerDto>;
-export type GetStoresCustomerResult = AxiosResponse<CustomerDto>;
-export type PatchStoresCustomerResult = AxiosResponse<CustomerDto>;
-export type PostStoresCustomerTokenResult =
-  AxiosResponse<CustomerTokenResponseDto>;
-export type DeleteStoresCustomerTokenResult = AxiosResponse<void>;
-export type GetStoresCustomerLookupResult = AxiosResponse<CustomerDto>;
-export type PostStoresCustomerBulkResult = AxiosResponse<CustomerDto[]>;
-export type GetStoresDataMigrationsResult = AxiosResponse<
-  DataMigrationTaskDto[]
->;
-export type PostStoresDataMigrationTebexResult = AxiosResponse<
-  DataMigrationTaskDto[]
->;
-export type PostStoresDeliverableCommandsResendResult =
-  AxiosResponse<ResendCommandsForGameServerResponseDto>;
-export type GetV1StoresStoreIdProductVersionsProductVersionIdDiscordActionsResult =
-  AxiosResponse<DiscordActionDto[]>;
-export type PutV1StoresStoreIdProductVersionsProductVersionIdDiscordActionsResult =
-  AxiosResponse<DiscordActionDto>;
-export type GetV1StoresStoreIdOrdersOrderIdDiscordResult =
-  AxiosResponse<GetV1StoresStoreIdOrdersOrderIdDiscord200>;
-export type GetV1StoresStoreIdOrdersOrderIdDiscordQueuedResult = AxiosResponse<
-  QueuedDiscordActionDto[]
->;
-export type GetV1StoresStoreIdInventoryInventoryItemIdDiscordQueuedResult =
-  AxiosResponse<QueuedDiscordActionDto[]>;
-export type GetV1StoresStoreIdInventoryInventoryItemIdDiscordLinkResult =
-  AxiosResponse<DiscordProfileDto>;
-export type PutV1StoresStoreIdInventoryInventoryItemIdDiscordLinkResult =
-  AxiosResponse<void>;
-export type DeleteV1StoresStoreIdInventoryInventoryItemIdDiscordLinkResult =
-  AxiosResponse<void>;
-export type PostV1StoresStoreIdDiscordLinksResult =
-  AxiosResponse<DiscordServerLinkDto>;
-export type GetV1StoresStoreIdDiscordLinksResult = AxiosResponse<
-  DiscordServerLinkDto[]
->;
-export type DeleteV1StoresStoreIdDiscordLinksTokenResult = AxiosResponse<
-  DiscordServerLinkDto[]
->;
-export type GetV1StoresStoreIdDiscordDiscordServerIdRolesResult = AxiosResponse<
-  DiscordServerRoleDto[]
->;
-export type GetV1StoresStoreIdDiscordDiscordServerIdDiscordTextChannelsResult =
-  AxiosResponse<DiscordServerChannelDto[]>;
-export type GetStoresProductDownloadableFilesResult = AxiosResponse<
-  ProductDownloadableFileDto[]
->;
-export type PostStoresProductDownloadableFilesResult = AxiosResponse<void>;
-export type PostStoresProductDownloadableFileUploadFinishResult =
-  AxiosResponse<void>;
-export type GetStoresProductDownloadableFileDownloadUrlResult =
-  AxiosResponse<CreateDownloadableFileDownloadUrlResponseDto>;
-export type DeleteStoresProductDownloadableFileResult = AxiosResponse<void>;
-export type GetStoresGlobalCommandsResult = AxiosResponse<GlobalCommandDto[]>;
-export type PostStoresGlobalCommandResult = AxiosResponse<GlobalCommandDto>;
-export type PatchStoresGlobalCommandResult = AxiosResponse<GlobalCommandDto>;
-export type DeleteStoresGlobalCommandResult = AxiosResponse<void>;
-export type GetStoresAbandonedCheckoutConfigurationResult =
-  AxiosResponse<AbandonedCheckoutStoreConfigurationDto>;
-export type PutStoresAbandonedCheckoutConfigurationResult = AxiosResponse<
-  AbandonedCheckoutStoreConfigurationDto | undefined
->;
-export type GetStoresPurchaseFollowUpsConfigurationResult =
-  AxiosResponse<PurchaseFollowUpStoreConfigurationDto>;
-export type PutStoresPurchaseFollowUpsConfigurationResult = AxiosResponse<
-  PurchaseFollowUpStoreConfigurationDto | undefined
->;
-export type GetStoresOrdersResult = AxiosResponse<OrderDto[]>;
-export type GetStoresOrderResult = AxiosResponse<OrderDto>;
-export type PostStoresOrderRefundResult = AxiosResponse<RefundDto>;
-export type GetStoresProductsResult = AxiosResponse<ProductDto[]>;
-export type PostStoresProductResult = AxiosResponse<ProductDto>;
-export type GetStoresProductResult = AxiosResponse<ProductDto>;
-export type PatchStoresProductResult = AxiosResponse<ProductDto>;
-export type DeleteStoresProductResult = AxiosResponse<void>;
-export type PostStoresProductSortOrderResult = AxiosResponse<ProductDto>;
-export type GetStoresProductPricingRegionsResult = AxiosResponse<
-  ProductPricingRegionDto[]
->;
-export type PatchStoresProductPricingRegionResult = AxiosResponse<void>;
-export type GetStoresPricingRegionsResult = AxiosResponse<
-  ProductPricingRegionDto[]
->;
-export type PatchStoresPricingRegionResult = AxiosResponse<void>;
-export type GetStoresPricingRegionGroupsResult = AxiosResponse<
-  ProductPricingRegionGroupDto[]
->;
-export type GetStoresStoreTrustOnboardingResult =
-  AxiosResponse<TrustStoreOnboardingDto>;
-export type GetStoresSubscriptionsResult = AxiosResponse<
-  StoreSubscriptionDto[]
->;
-export type GetStoresSubscriptionResult = AxiosResponse<StoreSubscriptionDto>;
-export type PostStoresSubscriptionCancelResult = AxiosResponse<void>;
-export type GetStoresTagImageUploadUrlResult =
-  AxiosResponse<GetTagImageUploadUrlResponseDto>;
-export type PostStoresTagImageUploadFinishResult = AxiosResponse<void>;
-export type DeleteStoresTagImageResult = AxiosResponse<void>;
-export type GetStoresWebhooksResult = AxiosResponse<WebhookSubscriptionDto[]>;
-export type PostStoresWebhookResult = AxiosResponse<WebhookSubscriptionDto>;
-export type GetStoresWebhookVariablesResult = AxiosResponse<
-  WebhookVariablesDto[]
->;
-export type PatchStoresWebhookResult = AxiosResponse<WebhookSubscriptionDto>;
-export type DeleteStoresWebhookResult = AxiosResponse<void>;
-export type GetStoresWebhookHistoryResult = AxiosResponse<WebhookHistoryDto>;
+export type GetAffiliateLinksResult = AxiosResponse<AffiliateLinkDto[]>
+export type PostAffiliateLinkResult = AxiosResponse<AffiliateLinkDto>
+export type GetAffiliateLinkResult = AxiosResponse<AffiliateLinkDto>
+export type PatchAffiliateLinkResult = AxiosResponse<AffiliateLinkDto>
+export type DeleteAffiliateLinkResult = AxiosResponse<void>
+export type GetBansResult = AxiosResponse<BanDto[]>
+export type PostBanResult = AxiosResponse<BanDto>
+export type GetBanResult = AxiosResponse<BanDto>
+export type PatchBanResult = AxiosResponse<BanDto>
+export type DeleteBanResult = AxiosResponse<void>
+export type PostBanCheckResult = AxiosResponse<CheckForBanIDByIdentitiesRequestDto>
+export type PostCheckoutResult = AxiosResponse<CreateCheckoutSessionResponseDto>
+export type PostCouponResult = AxiosResponse<CouponDto>
+export type GetCouponsResult = AxiosResponse<CouponDto[]>
+export type GetCouponResult = AxiosResponse<CouponDto>
+export type PatchCouponResult = AxiosResponse<CouponDto>
+export type DeleteCouponResult = AxiosResponse<void>
+export type PostCustomVariableResult = AxiosResponse<CustomVariableDto>
+export type GetCustomVariablesResult = AxiosResponse<CustomVariableDto[]>
+export type GetCustomVariableResult = AxiosResponse<CustomVariableDto>
+export type PatchCustomVariableResult = AxiosResponse<CustomVariableDto>
+export type DeleteCustomVariableResult = AxiosResponse<void>
+export type GetCustomersResult = AxiosResponse<CustomerDto[]>
+export type PostCustomerResult = AxiosResponse<CustomerDto>
+export type GetCustomerResult = AxiosResponse<CustomerDto>
+export type PatchCustomerResult = AxiosResponse<CustomerDto>
+export type PostCustomerTokenResult = AxiosResponse<CustomerTokenResponseDto>
+export type DeleteCustomerTokenResult = AxiosResponse<void>
+export type GetCustomerLookupResult = AxiosResponse<CustomerDto>
+export type PostCustomerBulkResult = AxiosResponse<CustomerDto[]>
+export type GetDataMigrationsResult = AxiosResponse<DataMigrationTaskDto[]>
+export type PostDataMigrationTebexResult = AxiosResponse<DataMigrationTaskDto[]>
+export type PostDeliverableCommandsResendResult = AxiosResponse<ResendCommandsForGameServerResponseDto>
+export type GetProductDownloadableFilesResult = AxiosResponse<ProductDownloadableFileDto[]>
+export type PostProductDownloadableFilesResult = AxiosResponse<void>
+export type PostProductDownloadableFileUploadFinishResult = AxiosResponse<void>
+export type GetProductDownloadableFileDownloadUrlResult = AxiosResponse<CreateDownloadableFileDownloadUrlResponseDto>
+export type DeleteProductDownloadableFileResult = AxiosResponse<void>
+export type GetGlobalCommandsResult = AxiosResponse<GlobalCommandDto[]>
+export type PostGlobalCommandResult = AxiosResponse<GlobalCommandDto>
+export type PatchGlobalCommandResult = AxiosResponse<GlobalCommandDto>
+export type DeleteGlobalCommandResult = AxiosResponse<void>
+export type GetAbandonedCheckoutConfigurationResult = AxiosResponse<AbandonedCheckoutStoreConfigurationDto>
+export type PutAbandonedCheckoutConfigurationResult = AxiosResponse<AbandonedCheckoutStoreConfigurationDto | void>
+export type GetPurchaseFollowUpsConfigurationResult = AxiosResponse<PurchaseFollowUpStoreConfigurationDto>
+export type PutPurchaseFollowUpsConfigurationResult = AxiosResponse<PurchaseFollowUpStoreConfigurationDto | void>
+export type GetOrdersResult = AxiosResponse<OrderDto[]>
+export type GetOrderResult = AxiosResponse<OrderDto>
+export type PostOrderRefundResult = AxiosResponse<RefundDto>
+export type GetProductsResult = AxiosResponse<ProductDto[]>
+export type PostProductResult = AxiosResponse<ProductDto>
+export type GetProductResult = AxiosResponse<ProductDto>
+export type PatchProductResult = AxiosResponse<ProductDto>
+export type DeleteProductResult = AxiosResponse<void>
+export type PostProductSortOrderResult = AxiosResponse<ProductDto>
+export type GetProductPricingRegionsResult = AxiosResponse<ProductPricingRegionDto[]>
+export type PatchProductPricingRegionResult = AxiosResponse<void>
+export type GetPricingRegionsResult = AxiosResponse<ProductPricingRegionDto[]>
+export type PatchPricingRegionResult = AxiosResponse<void>
+export type GetPricingRegionGroupsResult = AxiosResponse<ProductPricingRegionGroupDto[]>
+export type GetStoreTrustOnboardingResult = AxiosResponse<TrustStoreOnboardingDto>
+export type GetSubscriptionsResult = AxiosResponse<StoreSubscriptionDto[]>
+export type GetSubscriptionResult = AxiosResponse<StoreSubscriptionDto>
+export type PostSubscriptionCancelResult = AxiosResponse<void>
+export type GetTagImageUploadUrlResult = AxiosResponse<GetTagImageUploadUrlResponseDto>
+export type PostTagImageUploadFinishResult = AxiosResponse<void>
+export type DeleteTagImageResult = AxiosResponse<void>
+export type GetWebhooksResult = AxiosResponse<WebhookSubscriptionDto[]>
+export type PostWebhookResult = AxiosResponse<WebhookSubscriptionDto>
+export type GetWebhookVariablesResult = AxiosResponse<WebhookVariablesDto[]>
+export type PatchWebhookResult = AxiosResponse<WebhookSubscriptionDto>
+export type DeleteWebhookResult = AxiosResponse<void>
+export type GetWebhookHistoryResult = AxiosResponse<WebhookHistoryDto>
