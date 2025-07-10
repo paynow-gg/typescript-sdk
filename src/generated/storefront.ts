@@ -158,7 +158,7 @@ export type CreateCheckoutSessionRequestDtoMetadata = {[key: string]: string} | 
  * Request to create a new checkout session
  */
 export interface CreateCheckoutSessionRequestDto {
-  /** The line items to include in the checkout */
+  /** The line items to include in the checkout. */
   lines: CreateCheckoutSessionLineDto[];
   /**
    * Whether this checkout creates a subscription.
