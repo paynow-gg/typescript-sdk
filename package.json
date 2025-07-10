@@ -1,0 +1,27 @@
+{
+  "name": "@paynow/typescript",
+  "version": "1.0.0",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "generate": "orval --config orval.config.ts",
+    "build": "tsc",
+    "lint": "biome lint --write --unsafe ./src/",
+    "format": "biome format --write ./src/",
+    "check": "biome check --write --unsafe ./src/"
+  },
+  "author": "PayNow Services Inc",
+  "license": "MIT",
+  "description": "Official TypeScript SDK for the PayNow API - providing type-safe access to storefront and management endpoints",
+  "devDependencies": {
+    "@biomejs/biome": "2.1.1",
+    "orval": "^7.10.0",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "axios": "^1.10.0"
+  }
+}
