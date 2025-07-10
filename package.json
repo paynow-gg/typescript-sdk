@@ -1,0 +1,28 @@
+{
+  "name": "@paynow-gg/typescript-sdk",
+  "version": "1.0.5",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "biome lint --write --unsafe ./src/",
+    "format": "biome format --write ./src/",
+    "check": "biome check --write --unsafe ./src/",
+    "generate": "npx tsx src/generate.ts"
+  },
+  "author": "PayNow Services Inc",
+  "license": "MIT",
+  "description": "Official TypeScript SDK for the PayNow API - providing type-safe access to storefront and management endpoints",
+  "devDependencies": {
+    "@biomejs/biome": "2.1.1",
+    "@types/node": "^24.5.2",
+    "openapi-typescript": "^7.9.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "axios": "^1.12.2"
+  }
+}
