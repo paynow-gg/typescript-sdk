@@ -49,7 +49,9 @@ type MapToAxiosConfig<T extends { parameters?: any; requestBody?: any }> = Omit<
     : Required<T>["requestBody"] extends {
           content: { "application/json": infer B };
         }
-      ? { data: B }
+      ? HasRequiredKeys<B> extends true
+        ? { data: B }
+        : { data?: B }
       : { data?: any }) &
   (T["parameters"] extends { path?: infer P }
     ? P extends never
