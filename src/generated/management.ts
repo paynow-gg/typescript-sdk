@@ -1821,7 +1821,7 @@ export interface components {
             /** @description Optional URL to redirect to if checkout is canceled */
             cancel_url?: string | null;
             /** @description Whether to automatically redirect the customer (return_url must be set) */
-            auto_redirect: boolean;
+            auto_redirect?: boolean | null;
             /** @description Optional metadata to associate with the checkout session.
              *     Do not store any sensitive information here. */
             metadata?: {
