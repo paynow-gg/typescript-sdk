@@ -373,7 +373,7 @@ export interface components {
              * @description Whether this checkout creates a subscription.
              *     DEPRECATED: Use 'subscription' field in 'lines' array objects instead.
              */
-            subscription: boolean;
+            subscription?: boolean | null;
             coupon_id?: components["schemas"]["FlakeId"];
             /** @description Optional affiliate code to track referrals */
             affiliate_code?: string | null;
