@@ -3146,6 +3146,8 @@ export interface components {
              */
             time_value?: number | null;
             time_scale: components["schemas"]["ProductStockTimeScale"];
+            /** @description Indicates if trials should be included in the active stock limit calculation. */
+            include_trials: boolean;
         };
         /** @enum {string} */
         ProductStockTimeScale: "invalid" | "day" | "week" | "month" | "year";
