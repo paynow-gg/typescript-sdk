@@ -1416,50 +1416,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/stores/{storeId}/customers/{customerId}/trial-eligibility/overrides": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get trial eligibility overrides
-         * @description Retrieves all trial eligibility overrides for the specified customer.
-         */
-        get: operations["TrialEligibility_GetOverrides"];
-        put?: never;
-        /**
-         * Create trial eligibility override
-         * @description Creates a new trial eligibility override for the specified customer.
-         */
-        post: operations["TrialEligibility_CreateOverride"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/stores/{storeId}/customers/{customerId}/trial-eligibility/overrides/{trialEligibilityOverrideId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        /**
-         * Delete trial eligibility override
-         * @description Deletes an existing trial eligibility override.
-         */
-        delete: operations["TrialEligibility_DeleteOverride"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/v1/stores/{storeId}/trials": {
         parameters: {
             query?: never;
@@ -1489,6 +1445,50 @@ export interface paths {
         put?: never;
         post?: never;
         delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/customers/{customerId}/trials/eligibility/overrides": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get trial eligibility overrides for a specific customer
+         * @description Retrieves all trial eligibility overrides for the specified customer.
+         */
+        get: operations["Trials_GetOverrides"];
+        put?: never;
+        /**
+         * Create trial eligibility override for a customer
+         * @description Creates a new trial eligibility override for the specified customer.
+         */
+        post: operations["Trials_CreateOverride"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/customers/{customerId}/trials/eligibility/overrides/{trialEligibilityOverrideId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete trial eligibility override for a customer
+         * @description Deletes an existing trial eligibility override.
+         */
+        delete: operations["Trials_DeleteOverride"];
         options?: never;
         head?: never;
         patch?: never;
@@ -8372,127 +8372,6 @@ export interface operations {
             };
         };
     };
-    TrialEligibility_GetOverrides: {
-        parameters: {
-            query?: {
-                /** @description The maximum number of items to return in a single request. */
-                limit?: number;
-                /**
-                 * @description Returns items after the specified ID.
-                 *     Used for forward pagination through results.
-                 * @example null
-                 */
-                after?: components["schemas"]["FlakeId"];
-                /**
-                 * @description Returns items before the specified ID.
-                 *     Used for backward pagination through results.
-                 * @example null
-                 */
-                before?: components["schemas"]["FlakeId"];
-                /** @description Determines the sort order of returned items.
-                 *     When true, items are returned in ascending order.
-                 *     When false, items are returned in descending order. */
-                asc?: boolean;
-            };
-            header?: never;
-            path: {
-                /** @description The ID of the customer to retrieve trial eligibility overrides for. */
-                customerId: components["schemas"]["FlakeId"];
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TrialEligibilityOverrideDto"][];
-                };
-            };
-            /** @description Error response */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayNowError"];
-                };
-            };
-        };
-    };
-    TrialEligibility_CreateOverride: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description The ID of the customer to create the trial eligibility override for. */
-                customerId: components["schemas"]["FlakeId"];
-            };
-            cookie?: never;
-        };
-        /** @description The trial eligibility override data. */
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["CreateTrialEligibilityOverrideDto"];
-                "text/json": components["schemas"]["CreateTrialEligibilityOverrideDto"];
-                "application/*+json": components["schemas"]["CreateTrialEligibilityOverrideDto"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TrialEligibilityOverrideDto"];
-                };
-            };
-            /** @description Error response */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayNowError"];
-                };
-            };
-        };
-    };
-    TrialEligibility_DeleteOverride: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description The ID of the trial eligibility override to delete. */
-                trialEligibilityOverrideId: components["schemas"]["FlakeId"];
-                customerId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No Content */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Error response */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayNowError"];
-                };
-            };
-        };
-    };
     Trials_GetTrials: {
         parameters: {
             query?: {
@@ -8570,6 +8449,127 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["TrialDto"];
                 };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Trials_GetOverrides: {
+        parameters: {
+            query?: {
+                /** @description The maximum number of items to return in a single request. */
+                limit?: number;
+                /**
+                 * @description Returns items after the specified ID.
+                 *     Used for forward pagination through results.
+                 * @example null
+                 */
+                after?: components["schemas"]["FlakeId"];
+                /**
+                 * @description Returns items before the specified ID.
+                 *     Used for backward pagination through results.
+                 * @example null
+                 */
+                before?: components["schemas"]["FlakeId"];
+                /** @description Determines the sort order of returned items.
+                 *     When true, items are returned in ascending order.
+                 *     When false, items are returned in descending order. */
+                asc?: boolean;
+            };
+            header?: never;
+            path: {
+                /** @description The ID of the customer to retrieve trial eligibility overrides for. */
+                customerId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TrialEligibilityOverrideDto"][];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Trials_CreateOverride: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description The ID of the customer to create the trial eligibility override for. */
+                customerId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        /** @description The trial eligibility override data. */
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["CreateTrialEligibilityOverrideDto"];
+                "text/json": components["schemas"]["CreateTrialEligibilityOverrideDto"];
+                "application/*+json": components["schemas"]["CreateTrialEligibilityOverrideDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TrialEligibilityOverrideDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Trials_DeleteOverride: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description The ID of the trial eligibility override to delete. */
+                trialEligibilityOverrideId: components["schemas"]["FlakeId"];
+                customerId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Error response */
             default: {
@@ -9235,18 +9235,6 @@ export const operationMappings = {
     "method": "DELETE",
     "path": "/v1/stores/{storeId}/tags/{tagId}/image"
   },
-  "TrialEligibility_GetOverrides": {
-    "method": "GET",
-    "path": "/v1/stores/{storeId}/customers/{customerId}/trial-eligibility/overrides"
-  },
-  "TrialEligibility_CreateOverride": {
-    "method": "POST",
-    "path": "/v1/stores/{storeId}/customers/{customerId}/trial-eligibility/overrides"
-  },
-  "TrialEligibility_DeleteOverride": {
-    "method": "DELETE",
-    "path": "/v1/stores/{storeId}/customers/{customerId}/trial-eligibility/overrides/{trialEligibilityOverrideId}"
-  },
   "Trials_GetTrials": {
     "method": "GET",
     "path": "/v1/stores/{storeId}/trials"
@@ -9254,6 +9242,18 @@ export const operationMappings = {
   "Trials_GetTrial": {
     "method": "GET",
     "path": "/v1/stores/{storeId}/trials/{trialId}"
+  },
+  "Trials_GetOverrides": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/customers/{customerId}/trials/eligibility/overrides"
+  },
+  "Trials_CreateOverride": {
+    "method": "POST",
+    "path": "/v1/stores/{storeId}/customers/{customerId}/trials/eligibility/overrides"
+  },
+  "Trials_DeleteOverride": {
+    "method": "DELETE",
+    "path": "/v1/stores/{storeId}/customers/{customerId}/trials/eligibility/overrides/{trialEligibilityOverrideId}"
   },
   "Webhooks_GetSubscriptions": {
     "method": "GET",
