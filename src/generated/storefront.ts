@@ -124,6 +124,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/store/customer/delivery/items": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get the customers delivery items
+         * @description Retrieves the current customers delivery items.
+         */
+        get: operations["Delivery_GetStorefrontCustomerDeliveryItems"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/store/customer/command-delivery": {
         parameters: {
             query?: never;
@@ -131,8 +151,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Get storefront customer delivery items */
-        get: operations["Customer_RootGetStorefrontCustomerDeliveryItems"];
+        get?: never;
         put?: never;
         post?: never;
         delete?: never;
@@ -1352,7 +1371,7 @@ export interface operations {
             };
         };
     };
-    Customer_RootGetStorefrontCustomerDeliveryItems: {
+    Delivery_GetStorefrontCustomerDeliveryItems: {
         parameters: {
             query?: {
                 /** @description The maximum number of items to return in a single request. */
@@ -1630,9 +1649,9 @@ export const operationMappings = {
     "method": "GET",
     "path": "/v1/store/customer/giftcards/lookup/{code}"
   },
-  "Customer_RootGetStorefrontCustomerDeliveryItems": {
+  "Delivery_GetStorefrontCustomerDeliveryItems": {
     "method": "GET",
-    "path": "/v1/store/customer/command-delivery"
+    "path": "/v1/store/customer/delivery/items"
   },
   "Discord_DoProductsHaveDiscordActions": {
     "method": "GET",

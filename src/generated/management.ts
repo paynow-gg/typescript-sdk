@@ -100,124 +100,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/stores/{storeId}/orders/{orderId}/command-delivery": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get delivery items associated with an order
-         * @description Retrieves all delivery items associated with a specific order.
-         */
-        get: operations["CommandDelivery_GetOrderDeliveryItems"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/stores/{storeId}/customers/{customerId}/command-delivery": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get delivery items associated with a customer
-         * @description Retrieves delivery items associated with a customer
-         */
-        get: operations["CommandDelivery_GetDeliveryItems"];
-        put?: never;
-        /**
-         * Assign a delivery item to a customer
-         * @description Allows you to assign a delivery item to a customer
-         */
-        post: operations["CommandDelivery_AssignDeliveryItem"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/stores/{storeId}/customers/{customerId}/command-delivery/{deliveryItemId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        /**
-         * Revoke a delivery item for a customer
-         * @description Allows you to revoke a delivery item associated with a customer
-         */
-        delete: operations["CommandDelivery_RevokeDeliveryItem"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/stores/{storeId}/command-delivery": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Assign delivery items in bulk
-         * @description Allows you to assign multiple delivery items for multiple customers in bulk
-         */
-        post: operations["CommandDelivery_AssignDeliveryItemsBulk"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/stores/{storeId}/command-delivery/inventory-item/update-product-versions": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Update product version id for inventory items of given product id */
-        post: operations["CommandDelivery_UpdateInventoryItemProductVersion"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/stores/{storeId}/command-delivery/unqueue": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Unqueue commands by attempt IDs */
-        post: operations["CommandDelivery_UnqueueCommands"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/v1/stores/{storeId}/coupons": {
         parameters: {
             query?: never;
@@ -453,7 +335,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/stores/{storeId}/deliverables/{deliverableId}/commands/resend": {
+    "/v1/stores/{storeId}/orders/{orderId}/delivery/items": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get delivery items associated with an order
+         * @description Retrieves all delivery items associated with a specific order.
+         */
+        get: operations["Delivery_GetOrderDeliveryItems"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/orders/{orderId}/command-delivery": {
         parameters: {
             query?: never;
             header?: never;
@@ -462,7 +364,206 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        post: operations["Deliverables_ResendCommandsForGameServer"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/delivery/items": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Assign delivery items in bulk
+         * @description Allows you to assign multiple delivery items for multiple customers in bulk
+         */
+        post: operations["Delivery_AssignDeliveryItemsBulk"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/delivery/commands/unqueue": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Unqueue commands by Attempt IDs */
+        post: operations["Delivery_UnqueueDeliveryCommandAttemptByAttemptIDs"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/delivery/items/update-product-versions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Update product version id for delivery items of given product id */
+        post: operations["Delivery_UpdateDeliveryItemProductVersions"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/command-delivery": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/command-delivery/unqueue": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/customers/{customerId}/delivery/items": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get delivery items associated with a customer
+         * @description Retrieves delivery items associated with a customer
+         */
+        get: operations["Delivery_GetDeliveryItems"];
+        put?: never;
+        /**
+         * Assign a delivery item to a customer
+         * @description Allows you to assign a delivery item to a customer
+         */
+        post: operations["Delivery_AssignDeliveryItem"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/customers/{customerId}/delivery/items/{deliveryItemId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Revoke a delivery item from a customer
+         * @description Allows you to revoke a delivery item associated with a customer
+         */
+        delete: operations["Delivery_RevokeDeliveryItem"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/customers/{customerId}/delivery/commands": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get command attempts associated with a customer
+         * @description Retrieves command attempts associated with a customer
+         */
+        get: operations["Delivery_GetCommandAttempts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/customers/{customerId}/command-delivery": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/customers/{customerId}/command-delivery/{deliveryItemId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/gameservers/{gameServerId}/delivery/commands/resend": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Resend commands for a given Gameserver */
+        post: operations["Delivery_ResendDeliveryCommandsForGameServer"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1400,7 +1501,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["Trust_GetStoreOnboardingStatus"];
+        get?: never;
         put?: never;
         post?: never;
         delete?: never;
@@ -1416,7 +1517,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["Trust_GetStoreTrustRequirements"];
+        get?: never;
         put?: never;
         post?: never;
         delete?: never;
@@ -1493,6 +1594,15 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** @description Represents a command associated with the store-level abandoned checkout configuration. */
+        AbandonedCheckoutStoreConfigurationCommandDto: {
+            id: components["schemas"]["FlakeId"];
+            store_id: components["schemas"]["FlakeId"];
+            /** @description The command to execute. */
+            command: string;
+            /** @description Indicates if the command should be executed if the player is online. */
+            online_only: boolean;
+        };
         /** @description Represents the store-level configuration for abandoned checkout settings. */
         AbandonedCheckoutStoreConfigurationDto: {
             store_id: components["schemas"]["FlakeId"];
@@ -1524,12 +1634,21 @@ export interface components {
             max_coupons_global_amount?: number | null;
             max_coupons_global_period?: components["schemas"]["Period"];
             coupon_configuration: components["schemas"]["MarketingCouponConfigurationDto"];
+            /** @description The commands you want to execute when the email is sent. */
+            commands: components["schemas"]["AbandonedCheckoutStoreConfigurationCommandDto"][];
             updated_by: components["schemas"]["ActorDto"];
             /**
              * Format: date-time
              * @description The date and time when the configuration was last updated.
              */
             updated_at: string;
+        };
+        /** @description Represents a command associated with the store-level abandoned checkout configuration. */
+        AbandonedCheckoutStoreConfigurationUpdateCommandDto: {
+            /** @description The command to execute. */
+            command: string;
+            /** @description Indicates if the command should be executed if the player is online. */
+            online_only: boolean;
         };
         /** @description Used for updating the store-level configuration for abandoned checkout settings. */
         AbandonedCheckoutStoreConfigurationUpdateDto: {
@@ -1558,6 +1677,7 @@ export interface components {
              */
             max_coupons_global_amount?: number | null;
             max_coupons_global_period?: components["schemas"]["Period"];
+            commands: components["schemas"]["AbandonedCheckoutStoreConfigurationUpdateCommandDto"][];
             coupon_configuration: components["schemas"]["MarketingCouponConfigurationDto"];
         };
         ActorDto: {
@@ -1619,12 +1739,14 @@ export interface components {
         };
         CommandAttemptDto: {
             id: components["schemas"]["FlakeId"];
-            inventory_item_id: components["schemas"]["FlakeId"];
+            store_id: components["schemas"]["FlakeId"];
+            inventory_item_id?: components["schemas"]["FlakeId"];
             gameserver_id: components["schemas"]["FlakeId"];
             steam_id?: components["schemas"]["SteamId"];
             minecraft_uuid?: string | null;
             customer_name?: string | null;
-            command_stage: string;
+            customer_id?: components["schemas"]["FlakeId"];
+            command_stage?: string | null;
             command: string;
             online_only: boolean;
             rerun: boolean;
@@ -3205,6 +3327,15 @@ export interface components {
             repeat_trial_cooldown_value: number;
             repeat_trial_cooldown_scale: components["schemas"]["ProductSubscriptionIntervalScale"];
         };
+        /** @description Represents a command associated with the store-level purchase follow uo configuration. */
+        PurchaseFollowUpStoreConfigurationCommandDto: {
+            id: components["schemas"]["FlakeId"];
+            store_id: components["schemas"]["FlakeId"];
+            /** @description The command to execute. */
+            command: string;
+            /** @description Indicates if the command should be executed if the player is online. */
+            online_only: boolean;
+        };
         /** @description Represents the store-level configuration for abandoned checkout settings. */
         PurchaseFollowUpStoreConfigurationDto: {
             store_id: components["schemas"]["FlakeId"];
@@ -3236,12 +3367,21 @@ export interface components {
             max_coupons_global_amount?: number | null;
             max_coupons_global_period?: components["schemas"]["Period"];
             coupon_configuration: components["schemas"]["MarketingCouponConfigurationDto"];
+            /** @description The commands you want to execute when the email is sent. */
+            commands: components["schemas"]["PurchaseFollowUpStoreConfigurationCommandDto"][];
             updated_by: components["schemas"]["ActorDto"];
             /**
              * Format: date-time
              * @description The date and time when the configuration was last updated.
              */
             updated_at: string;
+        };
+        /** @description Represents a command associated with the store-level purchase follow uo configuration. */
+        PurchaseFollowUpStoreConfigurationUpdateCommandDto: {
+            /** @description The command to execute. */
+            command: string;
+            /** @description Indicates if the command should be executed if the player is online. */
+            online_only: boolean;
         };
         /** @description Used for updating the store-level configuration for abandoned checkout settings. */
         PurchaseFollowUpStoreConfigurationUpdateDto: {
@@ -3270,6 +3410,7 @@ export interface components {
              */
             max_coupons_global_amount?: number | null;
             max_coupons_global_period?: components["schemas"]["Period"];
+            commands: components["schemas"]["PurchaseFollowUpStoreConfigurationUpdateCommandDto"][];
             coupon_configuration: components["schemas"]["MarketingCouponConfigurationDto"];
         };
         QueuedDiscordActionDto: {
@@ -4007,6 +4148,10 @@ export interface components {
             /** Format: date-time */
             expires_at?: string;
         };
+        UpdateDeliveryItemProductVersionRequestDto: {
+            product_version_id: components["schemas"]["FlakeId"];
+            product_id: components["schemas"]["FlakeId"];
+        };
         UpdateGameServerDto: {
             name?: string;
             enabled?: boolean;
@@ -4021,14 +4166,6 @@ export interface components {
             usable_at?: string;
             /** Format: date-time */
             expires_at?: string;
-        };
-        UpdateInventoryItemProductVersionRequestDto: {
-            product_version_id: components["schemas"]["FlakeId"];
-            product_id: components["schemas"]["FlakeId"];
-        };
-        UpdateInventoryItemProductVersionResponseDto: {
-            /** Format: int32 */
-            updated_count: number;
         };
         UpdateNavLinkDto: {
             tag_id?: components["schemas"]["FlakeId"];
@@ -4256,7 +4393,7 @@ export interface components {
             validation: string;
         };
         /** @enum {string} */
-        WebhookEventType: "on_ignore" | "on_order_completed" | "on_refund" | "on_chargeback" | "on_delivery_item_added" | "on_delivery_item_activated" | "on_delivery_item_used" | "on_delivery_item_revoked" | "on_subscription_activated" | "on_subscription_renewed" | "on_subscription_canceled" | "on_discord_order_actions_queued" | "on_connected_user_registered" | "on_connected_user_became_payable" | "on_connected_user_payout_created" | "on_connected_user_payout_completed" | "on_connected_user_transaction_inserted" | "on_connected_user_became_unpayable" | "on_trial_activated" | "on_trial_completed" | "on_trial_canceled";
+        WebhookEventType: "on_ignore" | "on_order_completed" | "on_refund" | "on_chargeback" | "on_delivery_item_added" | "on_delivery_item_activated" | "on_delivery_item_used" | "on_delivery_item_revoked" | "on_subscription_activated" | "on_subscription_renewed" | "on_subscription_canceled" | "on_discord_order_actions_queued" | "on_connected_user_registered" | "on_connected_user_became_payable" | "on_connected_user_payout_created" | "on_connected_user_payout_completed" | "on_connected_user_transaction_inserted" | "on_connected_user_became_unpayable" | "on_trial_activated" | "on_trial_completed" | "on_trial_canceled" | "on_purchase_follow_up_attempt_email_sent" | "on_purchase_follow_up_attempt_succeeded" | "on_abandoned_checkout_recovery_attempt_email_sent" | "on_abandoned_checkout_recovery_attempt_succeeded";
         WebhookHistoryDto: {
             /** Format: int32 */
             page: number;
@@ -4690,260 +4827,6 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CreateCheckoutSessionResponseDto"];
-                };
-            };
-            /** @description Error response */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayNowError"];
-                };
-            };
-        };
-    };
-    CommandDelivery_GetOrderDeliveryItems: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description The ID of the order to retrieve delivery items from. */
-                orderId: components["schemas"]["FlakeId"];
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DeliveryItemDto"][];
-                };
-            };
-            /** @description Error response */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayNowError"];
-                };
-            };
-        };
-    };
-    CommandDelivery_GetDeliveryItems: {
-        parameters: {
-            query?: {
-                /** @description The maximum number of items to return in a single request. */
-                limit?: number;
-                /**
-                 * @description Returns items after the specified ID.
-                 *     Used for forward pagination through results.
-                 * @example null
-                 */
-                after?: components["schemas"]["FlakeId"];
-                /**
-                 * @description Returns items before the specified ID.
-                 *     Used for backward pagination through results.
-                 * @example null
-                 */
-                before?: components["schemas"]["FlakeId"];
-                /** @description Determines the sort order of returned items.
-                 *     When true, items are returned in ascending order.
-                 *     When false, items are returned in descending order. */
-                asc?: boolean;
-            };
-            header?: never;
-            path: {
-                customerId: components["schemas"]["FlakeId"];
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DeliveryItemDto"][];
-                };
-            };
-            /** @description Error response */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayNowError"];
-                };
-            };
-        };
-    };
-    CommandDelivery_AssignDeliveryItem: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                customerId: components["schemas"]["FlakeId"];
-            };
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["DeliveryItemAssignmentDto"];
-                "text/json": components["schemas"]["DeliveryItemAssignmentDto"];
-                "application/*+json": components["schemas"]["DeliveryItemAssignmentDto"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DeliveryItemDto"][];
-                };
-            };
-            /** @description Error response */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayNowError"];
-                };
-            };
-        };
-    };
-    CommandDelivery_RevokeDeliveryItem: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                customerId: components["schemas"]["FlakeId"];
-                deliveryItemId: components["schemas"]["FlakeId"];
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No Content */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Error response */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayNowError"];
-                };
-            };
-        };
-    };
-    CommandDelivery_AssignDeliveryItemsBulk: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["DeliveryItemAssignmentBulkDto"][];
-                "text/json": components["schemas"]["DeliveryItemAssignmentBulkDto"][];
-                "application/*+json": components["schemas"]["DeliveryItemAssignmentBulkDto"][];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DeliveryItemDto"][];
-                };
-            };
-            /** @description Error response */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayNowError"];
-                };
-            };
-        };
-    };
-    CommandDelivery_UpdateInventoryItemProductVersion: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["UpdateInventoryItemProductVersionRequestDto"];
-                "text/json": components["schemas"]["UpdateInventoryItemProductVersionRequestDto"];
-                "application/*+json": components["schemas"]["UpdateInventoryItemProductVersionRequestDto"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UpdateInventoryItemProductVersionResponseDto"];
-                };
-            };
-            /** @description Error response */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayNowError"];
-                };
-            };
-        };
-    };
-    CommandDelivery_UnqueueCommands: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["UnqueueCommandsRequestDto"];
-                "text/json": components["schemas"]["UnqueueCommandsRequestDto"];
-                "application/*+json": components["schemas"]["UnqueueCommandsRequestDto"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UnqueueCommandsResponseDto"];
                 };
             };
             /** @description Error response */
@@ -5703,12 +5586,316 @@ export interface operations {
             };
         };
     };
-    Deliverables_ResendCommandsForGameServer: {
+    Delivery_GetOrderDeliveryItems: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                deliverableId: components["schemas"]["FlakeId"];
+                /** @description The ID of the order to retrieve delivery items from. */
+                orderId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeliveryItemDto"][];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Delivery_AssignDeliveryItemsBulk: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["DeliveryItemAssignmentBulkDto"][];
+                "text/json": components["schemas"]["DeliveryItemAssignmentBulkDto"][];
+                "application/*+json": components["schemas"]["DeliveryItemAssignmentBulkDto"][];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeliveryItemDto"][];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Delivery_UnqueueDeliveryCommandAttemptByAttemptIDs: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["UnqueueCommandsRequestDto"];
+                "text/json": components["schemas"]["UnqueueCommandsRequestDto"];
+                "application/*+json": components["schemas"]["UnqueueCommandsRequestDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UnqueueCommandsResponseDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Delivery_UpdateDeliveryItemProductVersions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["UpdateDeliveryItemProductVersionRequestDto"];
+                "text/json": components["schemas"]["UpdateDeliveryItemProductVersionRequestDto"];
+                "application/*+json": components["schemas"]["UpdateDeliveryItemProductVersionRequestDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UpdateDeliveryItemProductVersionRequestDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Delivery_GetDeliveryItems: {
+        parameters: {
+            query?: {
+                /** @description The maximum number of items to return in a single request. */
+                limit?: number;
+                /**
+                 * @description Returns items after the specified ID.
+                 *     Used for forward pagination through results.
+                 * @example null
+                 */
+                after?: components["schemas"]["FlakeId"];
+                /**
+                 * @description Returns items before the specified ID.
+                 *     Used for backward pagination through results.
+                 * @example null
+                 */
+                before?: components["schemas"]["FlakeId"];
+                /** @description Determines the sort order of returned items.
+                 *     When true, items are returned in ascending order.
+                 *     When false, items are returned in descending order. */
+                asc?: boolean;
+            };
+            header?: never;
+            path: {
+                customerId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeliveryItemDto"][];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Delivery_AssignDeliveryItem: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                customerId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["DeliveryItemAssignmentDto"];
+                "text/json": components["schemas"]["DeliveryItemAssignmentDto"];
+                "application/*+json": components["schemas"]["DeliveryItemAssignmentDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeliveryItemDto"][];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Delivery_RevokeDeliveryItem: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                customerId: components["schemas"]["FlakeId"];
+                deliveryItemId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Delivery_GetCommandAttempts: {
+        parameters: {
+            query?: {
+                /** @description The maximum number of items to return in a single request. */
+                limit?: number;
+                /**
+                 * @description Returns items after the specified ID.
+                 *     Used for forward pagination through results.
+                 * @example null
+                 */
+                after?: components["schemas"]["FlakeId"];
+                /**
+                 * @description Returns items before the specified ID.
+                 *     Used for backward pagination through results.
+                 * @example null
+                 */
+                before?: components["schemas"]["FlakeId"];
+                /** @description Determines the sort order of returned items.
+                 *     When true, items are returned in ascending order.
+                 *     When false, items are returned in descending order. */
+                asc?: boolean;
+            };
+            header?: never;
+            path: {
+                customerId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CommandAttemptDto"][];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Delivery_ResendDeliveryCommandsForGameServer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                gameServerId: components["schemas"]["FlakeId"];
             };
             cookie?: never;
         };
@@ -8395,83 +8582,6 @@ export interface operations {
             };
         };
     };
-    Trust_GetStoreOnboardingStatus: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TrustStoreOnboardingDto"];
-                };
-            };
-            /** @description Error response */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayNowError"];
-                };
-            };
-        };
-    };
-    Trust_GetStoreTrustRequirements: {
-        parameters: {
-            query?: {
-                /** @description The maximum number of items to return in a single request. */
-                limit?: number;
-                /**
-                 * @description Returns items after the specified ID.
-                 *     Used for forward pagination through results.
-                 * @example null
-                 */
-                after?: components["schemas"]["FlakeId"];
-                /**
-                 * @description Returns items before the specified ID.
-                 *     Used for backward pagination through results.
-                 * @example null
-                 */
-                before?: components["schemas"]["FlakeId"];
-                /** @description Determines the sort order of returned items.
-                 *     When true, items are returned in ascending order.
-                 *     When false, items are returned in descending order. */
-                asc?: boolean;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TrustStoreRequirementDto"][];
-                };
-            };
-            /** @description Error response */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayNowError"];
-                };
-            };
-        };
-    };
     Webhooks_GetSubscriptions: {
         parameters: {
             query?: never;
@@ -8717,34 +8827,6 @@ export const operationMappings = {
     "method": "POST",
     "path": "/v1/stores/{storeId}/checkouts"
   },
-  "CommandDelivery_GetOrderDeliveryItems": {
-    "method": "GET",
-    "path": "/v1/stores/{storeId}/orders/{orderId}/command-delivery"
-  },
-  "CommandDelivery_GetDeliveryItems": {
-    "method": "GET",
-    "path": "/v1/stores/{storeId}/customers/{customerId}/command-delivery"
-  },
-  "CommandDelivery_AssignDeliveryItem": {
-    "method": "POST",
-    "path": "/v1/stores/{storeId}/customers/{customerId}/command-delivery"
-  },
-  "CommandDelivery_RevokeDeliveryItem": {
-    "method": "DELETE",
-    "path": "/v1/stores/{storeId}/customers/{customerId}/command-delivery/{deliveryItemId}"
-  },
-  "CommandDelivery_AssignDeliveryItemsBulk": {
-    "method": "POST",
-    "path": "/v1/stores/{storeId}/command-delivery"
-  },
-  "CommandDelivery_UpdateInventoryItemProductVersion": {
-    "method": "POST",
-    "path": "/v1/stores/{storeId}/command-delivery/inventory-item/update-product-versions"
-  },
-  "CommandDelivery_UnqueueCommands": {
-    "method": "POST",
-    "path": "/v1/stores/{storeId}/command-delivery/unqueue"
-  },
   "Coupons_CreateCouponForStore": {
     "method": "POST",
     "path": "/v1/stores/{storeId}/coupons"
@@ -8825,9 +8907,41 @@ export const operationMappings = {
     "method": "POST",
     "path": "/v1/stores/{storeId}/data-migrations/tebex"
   },
-  "Deliverables_ResendCommandsForGameServer": {
+  "Delivery_GetOrderDeliveryItems": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/orders/{orderId}/delivery/items"
+  },
+  "Delivery_AssignDeliveryItemsBulk": {
     "method": "POST",
-    "path": "/v1/stores/{storeId}/deliverables/{deliverableId}/commands/resend"
+    "path": "/v1/stores/{storeId}/delivery/items"
+  },
+  "Delivery_UnqueueDeliveryCommandAttemptByAttemptIDs": {
+    "method": "POST",
+    "path": "/v1/stores/{storeId}/delivery/commands/unqueue"
+  },
+  "Delivery_UpdateDeliveryItemProductVersions": {
+    "method": "POST",
+    "path": "/v1/stores/{storeId}/delivery/items/update-product-versions"
+  },
+  "Delivery_GetDeliveryItems": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/customers/{customerId}/delivery/items"
+  },
+  "Delivery_AssignDeliveryItem": {
+    "method": "POST",
+    "path": "/v1/stores/{storeId}/customers/{customerId}/delivery/items"
+  },
+  "Delivery_RevokeDeliveryItem": {
+    "method": "DELETE",
+    "path": "/v1/stores/{storeId}/customers/{customerId}/delivery/items/{deliveryItemId}"
+  },
+  "Delivery_GetCommandAttempts": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/customers/{customerId}/delivery/commands"
+  },
+  "Delivery_ResendDeliveryCommandsForGameServer": {
+    "method": "POST",
+    "path": "/v1/stores/{storeId}/gameservers/{gameServerId}/delivery/commands/resend"
   },
   "Discord_GetActions": {
     "method": "GET",
@@ -9140,14 +9254,6 @@ export const operationMappings = {
   "Trials_GetTrial": {
     "method": "GET",
     "path": "/v1/stores/{storeId}/trials/{trialId}"
-  },
-  "Trust_GetStoreOnboardingStatus": {
-    "method": "GET",
-    "path": "/v1/stores/{storeId}/trust/onboarding/status"
-  },
-  "Trust_GetStoreTrustRequirements": {
-    "method": "GET",
-    "path": "/v1/stores/{storeId}/trust/requirements"
   },
   "Webhooks_GetSubscriptions": {
     "method": "GET",
