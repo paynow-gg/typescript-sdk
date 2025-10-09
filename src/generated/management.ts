@@ -1461,13 +1461,13 @@ export interface paths {
          * Get trial eligibility overrides for a specific customer
          * @description Retrieves all trial eligibility overrides for the specified customer.
          */
-        get: operations["Trials_GetOverrides"];
+        get: operations["Trials_GetEligibilityOverridesForCustomer"];
         put?: never;
         /**
          * Create trial eligibility override for a customer
          * @description Creates a new trial eligibility override for the specified customer.
          */
-        post: operations["Trials_CreateOverride"];
+        post: operations["Trials_CreateEligibilityOverrideForCustomer"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1488,7 +1488,7 @@ export interface paths {
          * Delete trial eligibility override for a customer
          * @description Deletes an existing trial eligibility override.
          */
-        delete: operations["Trials_DeleteOverride"];
+        delete: operations["Trials_DeleteEligibilityOverrideForCustomer"];
         options?: never;
         head?: never;
         patch?: never;
@@ -8461,7 +8461,7 @@ export interface operations {
             };
         };
     };
-    Trials_GetOverrides: {
+    Trials_GetEligibilityOverridesForCustomer: {
         parameters: {
             query?: {
                 /** @description The maximum number of items to return in a single request. */
@@ -8512,7 +8512,7 @@ export interface operations {
             };
         };
     };
-    Trials_CreateOverride: {
+    Trials_CreateEligibilityOverrideForCustomer: {
         parameters: {
             query?: never;
             header?: never;
@@ -8551,7 +8551,7 @@ export interface operations {
             };
         };
     };
-    Trials_DeleteOverride: {
+    Trials_DeleteEligibilityOverrideForCustomer: {
         parameters: {
             query?: never;
             header?: never;
@@ -9243,15 +9243,15 @@ export const operationMappings = {
     "method": "GET",
     "path": "/v1/stores/{storeId}/trials/{trialId}"
   },
-  "Trials_GetOverrides": {
+  "Trials_GetEligibilityOverridesForCustomer": {
     "method": "GET",
     "path": "/v1/stores/{storeId}/customers/{customerId}/trials/eligibility/overrides"
   },
-  "Trials_CreateOverride": {
+  "Trials_CreateEligibilityOverrideForCustomer": {
     "method": "POST",
     "path": "/v1/stores/{storeId}/customers/{customerId}/trials/eligibility/overrides"
   },
-  "Trials_DeleteOverride": {
+  "Trials_DeleteEligibilityOverrideForCustomer": {
     "method": "DELETE",
     "path": "/v1/stores/{storeId}/customers/{customerId}/trials/eligibility/overrides/{trialEligibilityOverrideId}"
   },
