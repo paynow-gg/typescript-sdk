@@ -11,7 +11,13 @@ async function generate(name: string, endpoint: string) {
   if (spec.paths) {
     for (const path in spec.paths) {
       for (const method in spec.paths[path]) {
-        const operation = spec.paths[path][method];
+        let operation = spec.paths[path][method];
+
+        if (operation.deprecated || operation["x-gitbook-ignore"] === true) {
+          delete spec.paths[path][method];
+          
+          continue;
+        }
 
         // Re-map the Operation ID so it's cleaner...
 
