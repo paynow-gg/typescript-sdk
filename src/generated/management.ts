@@ -1077,7 +1077,7 @@ export interface paths {
         /**
          * Get products
          * @description Retrieves all products for the specified store.
-         *     DO NOT USE THIS ROUTE FOR DISPLAYING PRODUCTS ON YOUR STOREFRONT, use the storefront API instead.
+         *     DO NOT USE THIS ROUTE FOR DISPLAYING PRODUCTS ON YOUR STOREFRONT, use the storefront API instead!
          */
         get: operations["Products_GetProducts"];
         put?: never;
