@@ -1067,6 +1067,46 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/stores/{storeId}/payments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get payments
+         * @description Retrieves all payments for the specified store using the filter specified.
+         */
+        get: operations["Payments_GetPayments"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/payments/{paymentId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get payment by ID
+         * @description Retrieves a payment by an ID.
+         */
+        get: operations["Payments_GetPaymentById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/stores/{storeId}/products": {
         parameters: {
             query?: never;
@@ -1713,6 +1753,19 @@ export interface components {
         };
         /** @enum {string} */
         AffiliateLinkRefererType: "invalid" | "first_referer" | "last_referer";
+        /** @description Alipay payment method details */
+        AlipayDetailsDto: {
+            /**
+             * @description The Alipay buyer identifier
+             * @example buyer_abc123
+             */
+            buyer_id?: string | null;
+            /**
+             * @description A unique fingerprint for this Alipay account
+             * @example fingerprint_xyz789
+             */
+            fingerprint?: string | null;
+        };
         BanDto: {
             id: components["schemas"]["FlakeId"];
             store_id: components["schemas"]["FlakeId"];
@@ -1734,6 +1787,114 @@ export interface components {
         };
         /** @enum {string} */
         BanType: "unknown" | "steam" | "ip" | "customer" | "customer_name" | "email";
+        /** @description Bancontact payment method details */
+        BancontactDetailsDto: {
+            /**
+             * @description The bank identifier
+             * @example bnp_paribas
+             */
+            bank?: string | null;
+            /**
+             * @description The bank name
+             * @example BNP Paribas
+             */
+            bank_name?: string | null;
+            /**
+             * @description The Bank Identifier Code
+             * @example GEBABEBB
+             */
+            bic?: string | null;
+            /**
+             * @description The last 4 digits of the IBAN
+             * @example 3456
+             */
+            iban_last4?: string | null;
+            /**
+             * @description The payer name
+             * @example Jean Dupont
+             */
+            payer_name?: string | null;
+        };
+        /** @description Card payment method details */
+        CardDetailsDto: {
+            /**
+             * @description The card brand
+             * @example visa
+             */
+            brand: string;
+            /**
+             * @description The country code where the card was issued
+             * @example US
+             */
+            country: string;
+            /**
+             * Format: int32
+             * @description The card expiration month
+             * @example 12
+             */
+            exp_month: number;
+            /**
+             * Format: int32
+             * @description The card expiration year
+             * @example 2028
+             */
+            exp_year: number;
+            /**
+             * @description A unique fingerprint for this card
+             * @example abc123def456
+             */
+            fingerprint: string;
+            /**
+             * @description The card funding type
+             * @example credit
+             */
+            funding: string;
+            /**
+             * @description The last 4 digits of the card number
+             * @example 4242
+             */
+            last4: string;
+            /**
+             * @description The Bank Identification Number (first 6/8 digits of card).
+             *     Only available internally.
+             * @example 424242
+             */
+            bin?: string | null;
+            /**
+             * @description The card issuer/bank name.
+             *     Only available internally.
+             * @example Chase Bank
+             */
+            issuer?: string | null;
+            /**
+             * @description The card description.
+             *     Only available internally.
+             * @example Visa Signature
+             */
+            description?: string | null;
+            wallet?: components["schemas"]["CardWalletDto"];
+        };
+        /** @description Digital wallet details for a card */
+        CardWalletDto: {
+            /**
+             * @description The type of digital wallet
+             * @example apple_pay
+             */
+            type: string;
+        };
+        /** @description Cash App payment method details */
+        CashAppDetailsDto: {
+            /**
+             * @description The Cash App buyer identifier
+             * @example buyer_abc123
+             */
+            buyer_id: string;
+            /**
+             * @description The Cash App cashtag
+             * @example $johndoe
+             */
+            cashtag: string;
+        };
         CheckForBanIDByIdentitiesRequestDto: {
             identities: components["schemas"]["BanIdentityDto"][];
         };
@@ -2047,6 +2208,30 @@ export interface components {
             discord_description_template?: string | null;
             discord_title?: string | null;
             discord_color?: string | null;
+        };
+        /** @description Cryptocurrency payment method details */
+        CryptoDetailsDto: {
+            /**
+             * @description The cryptocurrency used
+             * @example BTC
+             */
+            crypto_currency: string;
+            /**
+             * @description The amount in cryptocurrency
+             * @example 0.00150000
+             */
+            crypto_amount: string;
+            /**
+             * @description The total amount paid in cryptocurrency
+             * @example 0.00150000
+             */
+            total_paid: string;
+            /**
+             * Format: int32
+             * @description The number of blockchain confirmations
+             * @example 6
+             */
+            confirmations: number;
         };
         CustomVariableDto: {
             id: components["schemas"]["FlakeId"];
@@ -2579,6 +2764,29 @@ export interface components {
             updated_at?: string | null;
             updated_by?: components["schemas"]["ActorDto"];
         };
+        /** @description iDEAL payment method details */
+        IdealDetailsDto: {
+            /**
+             * @description The bank identifier
+             * @example abn_amro
+             */
+            bank: string;
+            /**
+             * @description The Bank Identifier Code
+             * @example ABNANL2A
+             */
+            bic: string;
+            /**
+             * @description The last 4 digits of the IBAN
+             * @example 1234
+             */
+            iban_last4?: string | null;
+            /**
+             * @description The payer name
+             * @example John Doe
+             */
+            payer_name?: string | null;
+        };
         /** @description Optional inline product definition for dynamic products.
          *     Requires special approval, use `product_id` instead. */
         InlineProductCreateDto: {
@@ -2662,11 +2870,32 @@ export interface components {
             /** @description The IDs of associated custom variables. */
             custom_variable_ids?: components["schemas"]["FlakeId"][] | null;
         };
+        /** @description Klarna payment method details */
+        KlarnaDetailsDto: {
+            /**
+             * @description The country code
+             * @example SE
+             */
+            country?: string | null;
+            /**
+             * @description The Klarna payment method category
+             * @example pay_later
+             */
+            method_category?: string | null;
+        };
         /** @description The last payment decline object. */
         LastPaymentErrorDto: {
             decline_code: components["schemas"]["PaymentDeclineCode"];
             /** @description Human-readable decline reason message. */
             message: string;
+        };
+        /** @description Link payment method details */
+        LinkDetailsDto: {
+            /**
+             * @description The email associated with the Link account
+             * @example john.doe@example.com
+             */
+            email: string;
         };
         /** @description Represents the configuration settings for a coupon applied to marketing features. */
         MarketingCouponConfigurationDto: {
@@ -3007,6 +3236,42 @@ export interface components {
          * @enum {string}
          */
         OrderType: "one_time" | "subscription" | "mixed";
+        /** @description Przelewy24 payment method details */
+        P24DetailsDto: {
+            /**
+             * @description The bank identifier
+             * @example ing
+             */
+            bank: string;
+            /**
+             * @description The payer name
+             * @example Jan Kowalski
+             */
+            payer_name?: string | null;
+        };
+        /** @description Pay by Bank payment method details */
+        PayByBankDetailsDto: {
+            /**
+             * @description The bank name
+             * @example Chase Bank
+             */
+            bank_name?: string | null;
+            /**
+             * @description The Bank Identifier Code
+             * @example CHASUS33
+             */
+            bic?: string | null;
+            /**
+             * @description The country code
+             * @example US
+             */
+            country?: string | null;
+            /**
+             * @description The payer name
+             * @example John Smith
+             */
+            payer_name?: string | null;
+        };
         /** @enum {string} */
         PayNowActorType: "anonymous" | "user" | "customer" | "api_key" | "game_server" | "admin" | "internal" | "platform" | "global_customer";
         /** @description Represents a PayNow error */
@@ -3035,17 +3300,345 @@ export interface components {
             /** @description An array of multiple errors. Only used by some API services. */
             errors?: components["schemas"]["ValidationError"][] | null;
         };
+        /** @description PayPal payment method details */
+        PayPalDetailsDto: {
+            /**
+             * @description The PayPal payer identifier
+             * @example PAYERID123
+             */
+            payer_id: string;
+            /**
+             * @description The PayPal account email
+             * @example john.doe@example.com
+             */
+            payer_email: string;
+            /**
+             * @description The PayPal account holder name
+             * @example John Doe
+             */
+            payer_name: string;
+            /**
+             * @description The country code of the PayPal account
+             * @example US
+             */
+            country: string;
+            /**
+             * @description Indicates if this PayPal account is vaulted
+             * @example true
+             */
+            vault: boolean;
+            /**
+             * @description Indicates if vault approval is pending
+             * @example false
+             */
+            pending_vault_approval?: boolean | null;
+            /**
+             * @description Indicates if this is a standalone setup
+             * @example false
+             */
+            standalone_setup?: boolean | null;
+        };
+        /**
+         * @description Represents chargeback status of a payment
+         * @enum {string}
+         */
+        PaymentChargebackStatusDto: "none" | "pending" | "won" | "lost";
         /**
          * @description A payment decline reason code.
          * @enum {string}
          */
         PaymentDeclineCode: "unknown" | "generic_decline" | "call_issuer" | "authentication_required" | "currency_not_supported" | "duplicate_transaction" | "expired_card" | "fraudulent" | "incorrect_number" | "incorrect_cvc" | "incorrect_pin" | "incorrect_zip" | "insufficient_funds" | "invalid_account" | "invalid_amount" | "invalid_expiry_month" | "invalid_expiry_year" | "issuer_not_available" | "lost_card" | "merchant_blacklist" | "new_account_information_available" | "no_action_taken" | "pickup_card" | "pin_try_exceeded" | "restricted_card" | "stolen_card" | "testmode_decline" | "try_again_later" | "security_violation" | "card_velocity_exceeded" | "do_not_honor" | "processing_error" | "card_not_supported" | "transaction_not_allowed" | "authorization_revoked";
+        /** @description Represents a payment transaction */
+        PaymentDto: {
+            id: components["schemas"]["FlakeId"];
+            store_id: components["schemas"]["FlakeId"];
+            order_id: components["schemas"]["FlakeId"];
+            customer_id: components["schemas"]["FlakeId"];
+            customer: components["schemas"]["CustomerDto"];
+            /** @description The list of refunds associated with this payment */
+            refunds?: components["schemas"]["RefundDto"][] | null;
+            /**
+             * @description The payment gateway provider
+             * @example stripe
+             */
+            gateway: string;
+            /** @description The gateway entity identifier */
+            gateway_entity_identifier: string;
+            /** @description The gateway payment identifier */
+            gateway_id: string;
+            method: components["schemas"]["PaymentMethodDto"];
+            method_id?: components["schemas"]["FlakeId"];
+            status: components["schemas"]["PaymentStatusDto"];
+            /**
+             * @description The currency code used for this payment in the store's currency
+             * @example usd
+             */
+            currency: string;
+            /**
+             * Format: int32
+             * @description The total payment amount in smallest currency unit
+             * @example 10000
+             */
+            amount: number;
+            /**
+             * Format: int32
+             * @description The gateway fee amount in smallest currency unit
+             * @example 320
+             */
+            gateway_fee_amount: number;
+            /**
+             * Format: int32
+             * @description The tax amount in smallest currency unit
+             * @example 850
+             */
+            tax_amount: number;
+            /**
+             * Format: int32
+             * @description The platform fee amount in smallest currency unit
+             * @example 500
+             */
+            platform_fee_amount: number;
+            /**
+             * Format: int32
+             * @description The net amount going to the store in smallest currency unit
+             * @example 8330
+             */
+            store_net_amount: number;
+            /**
+             * @description The currency code used for presentment to the customer
+             * @example eur
+             */
+            presentment_currency: string;
+            /**
+             * Format: int32
+             * @description The amount presented to the customer in smallest currency unit
+             * @example 9500
+             */
+            presentment_amount: number;
+            /**
+             * Format: double
+             * @description The foreign exchange rate used for currency conversion
+             * @example 1.085
+             */
+            fx_rate?: number | null;
+            /**
+             * Format: int32
+             * @description The platform fee rate applied to this payment (in basis points)
+             * @example 500
+             */
+            platform_fee_rate: number;
+            chargeback_status: components["schemas"]["PaymentChargebackStatusDto"];
+            /**
+             * Format: date-time
+             * @description The date and time when the chargeback status was last updated
+             * @example null
+             */
+            chargeback_status_updated_at?: string | null;
+            /** @description The payout split rules for multi-party payments */
+            payout_split_rules?: components["schemas"]["PaymentPayoutSplitRuleDto"][] | null;
+            /** @description The payout split results for multi-party payments */
+            payout_split_results?: components["schemas"]["PaymentPayoutSplitResultDto"][] | null;
+            /**
+             * Format: date-time
+             * @description The date and time when this payment was created
+             * @example 2025-04-01T15:30:45Z
+             */
+            created_at: string;
+            /**
+             * Format: date-time
+             * @description The date and time when this payment entered pending status
+             * @example 2025-04-01T15:30:46Z
+             */
+            pending_at?: string | null;
+            /**
+             * Format: date-time
+             * @description The date and time when this payment was completed
+             * @example 2025-04-01T15:31:12Z
+             */
+            completed_at?: string | null;
+            /**
+             * Format: date-time
+             * @description The date and time when this payment was canceled
+             * @example null
+             */
+            canceled_at?: string | null;
+            /**
+             * Format: date-time
+             * @description The date and time when this payment failed
+             * @example null
+             */
+            failed_at?: string | null;
+            /**
+             * Format: date-time
+             * @description The date and time when this payment was last refunded
+             * @example null
+             */
+            refunded_at?: string | null;
+            /**
+             * Format: date-time
+             * @description The date and time when a chargeback was initiated on this payment
+             * @example null
+             */
+            chargeback_at?: string | null;
+            last_payment_error?: components["schemas"]["LastPaymentErrorDto"];
+        };
+        /** @description Contains detailed information about a payment method.
+         *     DISCLAIMER: These fields are not guaranteed to be backwards compatible and may change or be removed without notice. */
+        PaymentMethodDetailsDto: {
+            card?: components["schemas"]["CardDetailsDto"];
+            cashapp?: components["schemas"]["CashAppDetailsDto"];
+            paypal?: components["schemas"]["PayPalDetailsDto"];
+            link?: components["schemas"]["LinkDetailsDto"];
+            crypto?: components["schemas"]["CryptoDetailsDto"];
+            steamskins?: components["schemas"]["SteamSkinsDetailsDto"];
+            ideal?: components["schemas"]["IdealDetailsDto"];
+            p24?: components["schemas"]["P24DetailsDto"];
+            bancontact?: components["schemas"]["BancontactDetailsDto"];
+            klarna?: components["schemas"]["KlarnaDetailsDto"];
+            alipay?: components["schemas"]["AlipayDetailsDto"];
+            pay_by_bank?: components["schemas"]["PayByBankDetailsDto"];
+            pix?: components["schemas"]["PixDetailsDto"];
+        };
+        /** @description Represents a stored payment method */
+        PaymentMethodDto: {
+            id: components["schemas"]["FlakeId"];
+            customer_id: components["schemas"]["FlakeId"];
+            /** @description The payment gateway provider */
+            gateway: string;
+            /** @description The gateway's identifier for this payment method */
+            gateway_id: string;
+            /** @description The gateway's customer identifier */
+            gateway_customer_id: string;
+            /**
+             * @description The gateway-specific type identifier
+             * @example card
+             */
+            gateway_type: string;
+            /**
+             * @description The payment method type
+             * @example card
+             */
+            method_type: string;
+            method_details: components["schemas"]["PaymentMethodDetailsDto"];
+            /**
+             * Format: date-time
+             * @description The date and time when this payment method was created
+             * @example 2025-03-15T10:20:30Z
+             */
+            created_at: string;
+            /** @description The gateway entity identifier */
+            gateway_entity_identifier: string;
+            /**
+             * Format: date-time
+             * @description The date and time when this payment method was last updated
+             * @example 2025-03-20T14:30:00Z
+             */
+            updated_at?: string | null;
+        };
+        /** @description Represents payout split results for multi-party payments */
+        PaymentPayoutSplitResultDto: {
+            user_id: components["schemas"]["FlakeId"];
+            /**
+             * Format: int32
+             * @description The gross amount before fees in smallest currency unit
+             * @example 10000
+             */
+            gross_amount: number;
+            /**
+             * Format: int32
+             * @description The tax amount in smallest currency unit
+             * @example 850
+             */
+            tax_amount: number;
+            /**
+             * Format: int32
+             * @description The gateway fee amount in smallest currency unit
+             * @example 320
+             */
+            gateway_fee_amount: number;
+            /**
+             * Format: int32
+             * @description The platform fee amount in smallest currency unit
+             * @example 500
+             */
+            platform_fee_amount: number;
+            /**
+             * Format: int32
+             * @description The connected platform fee amount in smallest currency unit
+             * @example 100
+             */
+            connected_platform_fee_amount: number;
+            /**
+             * Format: int32
+             * @description The net amount after all fees in smallest currency unit
+             * @example 8230
+             */
+            net_amount: number;
+            line_id: components["schemas"]["FlakeId"];
+        };
+        /** @description Represents payout split rules for a payment line */
+        PaymentPayoutSplitRuleDto: {
+            line_id: components["schemas"]["FlakeId"];
+            /**
+             * Format: int32
+             * @description The total amount of the line item in smallest currency unit
+             * @example 10000
+             */
+            line_amount_total: number;
+            /**
+             * Format: int32
+             * @description The tax amount of the line item in smallest currency unit
+             * @example 850
+             */
+            line_amount_tax: number;
+            /** @description The list of splits defining how the payout should be divided */
+            splits: components["schemas"]["PaymentPayoutSplitRuleSplitDto"][];
+        };
+        /** @description Represents a single split configuration within a payout split rule */
+        PaymentPayoutSplitRuleSplitDto: {
+            user_id: components["schemas"]["FlakeId"];
+            /**
+             * Format: int32
+             * @description The percentage of the line amount this user receives (in basis points, e.g., 5000 = 50%)
+             * @example 5000
+             */
+            percentage?: number | null;
+            /**
+             * Format: int32
+             * @description The platform fee percentage applied to this split (in basis points)
+             * @example 500
+             */
+            platform_fee_percentage: number;
+        };
+        /**
+         * @description Represents payment status
+         * @enum {string}
+         */
+        PaymentStatusDto: "unknown" | "created" | "pending" | "completed" | "canceled" | "failed" | "refunded" | "chargeback" | "refund_failed" | "refund_processing";
         /**
          * Format: period
          * @description ISO 8601 duration format
          * @example P1Y2M3DT4H5M6S
          */
         Period: string;
+        /** @description Pix payment method details */
+        PixDetailsDto: {
+            /**
+             * @description The bank name
+             * @example Banco do Brasil
+             */
+            bank_name?: string | null;
+            /**
+             * @description The bank account number
+             * @example 12345-6
+             */
+            bank_account_number?: string | null;
+            /**
+             * @description The payer name
+             * @example João Silva
+             */
+            payer_name?: string | null;
+        };
         ProductCommandDto: {
             stage: components["schemas"]["ProductCommandStage"];
             /** @description Content of the command. */
@@ -3689,6 +4282,32 @@ export interface components {
             /** @description The URL to the user's Steam avatar image. */
             avatar_url: string;
         };
+        /** @description Steam Skins payment method details */
+        SteamSkinsDetailsDto: {
+            /** @description The list of Steam inventory items used for payment */
+            items: components["schemas"]["SteamSkinsInventoryItemDetailsDto"][];
+        };
+        SteamSkinsInventoryItemDetailsDto: {
+            /** @description The unique identifier of the Steam item */
+            id: string;
+            /**
+             * Format: int32
+             * @description The Steam app ID
+             * @example 730
+             */
+            app_id: number;
+            /**
+             * @description The name of the item
+             * @example AK-47 | Redline
+             */
+            name: string;
+            /**
+             * Format: int32
+             * @description The price of the item in the smallest currency unit
+             * @example 2500
+             */
+            price: number;
+        };
         StorePricingRegionOverrideDto: {
             /** Format: int64 */
             default_price_multiplier?: number | null;
@@ -3716,6 +4335,7 @@ export interface components {
             store_id: components["schemas"]["FlakeId"];
             customer: components["schemas"]["CustomerDto"];
             payment_method_id?: components["schemas"]["FlakeId"];
+            payment_method?: components["schemas"]["PaymentMethodDto"];
             status: components["schemas"]["SubscriptionStatus"];
             coupon_id?: components["schemas"]["FlakeId"];
             /**
@@ -7479,6 +8099,91 @@ export interface operations {
             };
         };
     };
+    Payments_GetPayments: {
+        parameters: {
+            query?: {
+                /** @description The maximum number of items to return in a single request. */
+                limit?: number;
+                /**
+                 * @description Returns items after the specified ID.
+                 *     Used for forward pagination through results.
+                 * @example null
+                 */
+                after?: components["schemas"]["FlakeId"];
+                /**
+                 * @description Returns items before the specified ID.
+                 *     Used for backward pagination through results.
+                 * @example null
+                 */
+                before?: components["schemas"]["FlakeId"];
+                /** @description Determines the sort order of returned items.
+                 *     When true, items are returned in ascending order.
+                 *     When false, items are returned in descending order. */
+                asc?: boolean;
+                /** @description Filter by payment statuses */
+                status?: components["schemas"]["PaymentStatusDto"][];
+                /** @description Filter by order ID */
+                order_id?: components["schemas"]["FlakeId"];
+                /** @description Filter by customer ID */
+                customer_id?: components["schemas"]["FlakeId"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaymentDto"][];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Payments_GetPaymentById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                paymentId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaymentDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
     Products_GetProducts: {
         parameters: {
             query?: never;
@@ -9126,6 +9831,14 @@ export const operationMappings = {
   "Orders_RefundOrder": {
     "method": "POST",
     "path": "/v1/stores/{storeId}/orders/{orderId}/refund"
+  },
+  "Payments_GetPayments": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/payments"
+  },
+  "Payments_GetPaymentById": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/payments/{paymentId}"
   },
   "Products_GetProducts": {
     "method": "GET",
