@@ -1107,6 +1107,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/stores/{storeId}/payments/settings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get store payment settings
+         * @description Retrieves payment settings for a store.
+         */
+        get: operations["Payments_GetStorePaymentSettings"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Updates store payment settings
+         * @description Updates payment settings for a store.
+         */
+        patch: operations["Payments_UpdateStorePaymentSettings"];
+        trace?: never;
+    };
     "/v1/stores/{storeId}/products": {
         parameters: {
             query?: never;
@@ -1895,6 +1919,11 @@ export interface components {
              */
             cashtag: string;
         };
+        /**
+         * @description Defines the type of chargeback coverage provided.
+         * @enum {string}
+         */
+        ChargebackCoverageTypeDto: "unspecified" | "none" | "fraudulent" | "all";
         CheckForBanIDByIdentitiesRequestDto: {
             identities: components["schemas"]["BanIdentityDto"][];
         };
@@ -4307,6 +4336,26 @@ export interface components {
              * @example 2500
              */
             price: number;
+        };
+        /** @description Store payment configuration settings. */
+        StorePaymentSettingsDto: {
+            /** @description Whether to show all available payment methods for subscription purchases. */
+            show_all_payment_methods_for_subscriptions: boolean;
+            /** @description Whether store pricing is tax-inclusive. */
+            store_tax_inclusive_pricing: boolean;
+            /**
+             * Format: int64
+             * @description Maximum checkout amount allowed in cents.
+             */
+            max_checkout_amount: number;
+            /** @description Whether to force 3D Secure authentication for all transactions. */
+            force_3d_secure: boolean;
+            chargeback_coverage: components["schemas"]["ChargebackCoverageTypeDto"];
+            /**
+             * Format: int64
+             * @description Maximum per-transaction chargeback coverage amount in cents.
+             */
+            chargeback_coverage_max_amount?: number | null;
         };
         StorePricingRegionOverrideDto: {
             /** Format: int64 */
@@ -8184,6 +8233,68 @@ export interface operations {
             };
         };
     };
+    Payments_GetStorePaymentSettings: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorePaymentSettingsDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Payments_UpdateStorePaymentSettings: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["StorePaymentSettingsDto"];
+                "text/json": components["schemas"]["StorePaymentSettingsDto"];
+                "application/*+json": components["schemas"]["StorePaymentSettingsDto"];
+            };
+        };
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
     Products_GetProducts: {
         parameters: {
             query?: never;
@@ -9839,6 +9950,14 @@ export const operationMappings = {
   "Payments_GetPaymentById": {
     "method": "GET",
     "path": "/v1/stores/{storeId}/payments/{paymentId}"
+  },
+  "Payments_GetStorePaymentSettings": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/payments/settings"
+  },
+  "Payments_UpdateStorePaymentSettings": {
+    "method": "PATCH",
+    "path": "/v1/stores/{storeId}/payments/settings"
   },
   "Products_GetProducts": {
     "method": "GET",

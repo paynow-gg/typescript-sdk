@@ -998,6 +998,8 @@ export interface components {
              * @example support@example.com
              */
             support_email?: string | null;
+            /** @description The URL of the store's support page. */
+            support_url?: string | null;
             /** @description The type of integration this store uses with external systems. */
             integration_type?: string | null;
             /** @description Indicates whether the store is in live mode (true) or test mode (false). */
