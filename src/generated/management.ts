@@ -2224,6 +2224,10 @@ export interface components {
             /** Format: date-time */
             ends_at?: string;
         };
+        CreateStorePaymentSettingsDto: {
+            show_all_payment_methods_for_subscriptions: boolean;
+            store_tax_inclusive_pricing: boolean;
+        };
         CreateTrialEligibilityOverrideDto: {
             product_id: components["schemas"]["FlakeId"];
             /** Format: date-time */
@@ -4865,6 +4869,10 @@ export interface components {
             begins_at?: string;
             /** Format: date-time */
             ends_at?: string;
+        };
+        UpdateStorePaymentSettingsDto: {
+            show_all_payment_methods_for_subscriptions?: boolean;
+            store_tax_inclusive_pricing?: boolean;
         };
         UpdateTrialEligibilityOverrideDto: {
             product_id?: components["schemas"]["FlakeId"];
@@ -8271,9 +8279,9 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["StorePaymentSettingsDto"];
-                "text/json": components["schemas"]["StorePaymentSettingsDto"];
-                "application/*+json": components["schemas"]["StorePaymentSettingsDto"];
+                "application/json": components["schemas"]["UpdateStorePaymentSettingsDto"];
+                "text/json": components["schemas"]["UpdateStorePaymentSettingsDto"];
+                "application/*+json": components["schemas"]["UpdateStorePaymentSettingsDto"];
             };
         };
         responses: {
