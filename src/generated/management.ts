@@ -2063,7 +2063,7 @@ export interface components {
         CreateCheckoutSessionLineDto: {
             product_id: components["schemas"]["FlakeId"];
             /** @description Determines whether this line should create a subscription */
-            subscription: boolean;
+            subscription?: boolean | null;
             /** @description Indicates whether the product should be trialed */
             trial?: boolean | null;
             gift_to?: components["schemas"]["CustomerPlatformAccountDto"];
@@ -2090,7 +2090,7 @@ export interface components {
          *     and allows for creating inline products (which is subject to special approval) */
         CreateCheckoutSessionLineManagementDto: {
             /** @description Determines whether this line should create a subscription */
-            subscription: boolean;
+            subscription?: boolean | null;
             /** @description Indicates whether the product should be trialed */
             trial?: boolean | null;
             gift_to?: components["schemas"]["CustomerPlatformAccountDto"];
@@ -2227,6 +2227,7 @@ export interface components {
         CreateStorePaymentSettingsDto: {
             show_all_payment_methods_for_subscriptions: boolean;
             store_tax_inclusive_pricing: boolean;
+            block_prepaid_cards: components["schemas"]["PrepaidCardsBlockingTypeDto"];
         };
         CreateTrialEligibilityOverrideDto: {
             product_id: components["schemas"]["FlakeId"];
@@ -3380,7 +3381,7 @@ export interface components {
          * @description A payment decline reason code.
          * @enum {string}
          */
-        PaymentDeclineCode: "unknown" | "generic_decline" | "call_issuer" | "authentication_required" | "currency_not_supported" | "duplicate_transaction" | "expired_card" | "fraudulent" | "incorrect_number" | "incorrect_cvc" | "incorrect_pin" | "incorrect_zip" | "insufficient_funds" | "invalid_account" | "invalid_amount" | "invalid_expiry_month" | "invalid_expiry_year" | "issuer_not_available" | "lost_card" | "merchant_blacklist" | "new_account_information_available" | "no_action_taken" | "pickup_card" | "pin_try_exceeded" | "restricted_card" | "stolen_card" | "testmode_decline" | "try_again_later" | "security_violation" | "card_velocity_exceeded" | "do_not_honor" | "processing_error" | "card_not_supported" | "transaction_not_allowed" | "authorization_revoked";
+        PaymentDeclineCode: "unknown" | "generic_decline" | "call_issuer" | "authentication_required" | "currency_not_supported" | "duplicate_transaction" | "expired_card" | "fraudulent" | "incorrect_number" | "incorrect_cvc" | "incorrect_pin" | "incorrect_zip" | "insufficient_funds" | "invalid_account" | "invalid_amount" | "invalid_expiry_month" | "invalid_expiry_year" | "issuer_not_available" | "lost_card" | "merchant_blacklist" | "new_account_information_available" | "no_action_taken" | "pickup_card" | "pin_try_exceeded" | "restricted_card" | "stolen_card" | "testmode_decline" | "try_again_later" | "security_violation" | "card_velocity_exceeded" | "do_not_honor" | "processing_error" | "card_not_supported" | "transaction_not_allowed" | "authorization_revoked" | "store_blocked";
         /** @description Represents a payment transaction */
         PaymentDto: {
             id: components["schemas"]["FlakeId"];
@@ -3672,6 +3673,11 @@ export interface components {
              */
             payer_name?: string | null;
         };
+        /**
+         * @description Defines when prepaid cards should be blocked from use.
+         * @enum {string}
+         */
+        PrepaidCardsBlockingTypeDto: "unspecified" | "none" | "trials" | "all_recurring";
         ProductCommandDto: {
             stage: components["schemas"]["ProductCommandStage"];
             /** @description Content of the command. */
@@ -4347,6 +4353,7 @@ export interface components {
             show_all_payment_methods_for_subscriptions: boolean;
             /** @description Whether store pricing is tax-inclusive. */
             store_tax_inclusive_pricing: boolean;
+            block_prepaid_cards: components["schemas"]["PrepaidCardsBlockingTypeDto"];
             /**
              * Format: int64
              * @description Maximum checkout amount allowed in cents.
@@ -4873,6 +4880,7 @@ export interface components {
         UpdateStorePaymentSettingsDto: {
             show_all_payment_methods_for_subscriptions?: boolean;
             store_tax_inclusive_pricing?: boolean;
+            block_prepaid_cards?: components["schemas"]["PrepaidCardsBlockingTypeDto"];
         };
         UpdateTrialEligibilityOverrideDto: {
             product_id?: components["schemas"]["FlakeId"];

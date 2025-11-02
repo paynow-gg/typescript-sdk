@@ -361,7 +361,7 @@ export interface components {
         CreateCheckoutSessionLineDto: {
             product_id: components["schemas"]["FlakeId"];
             /** @description Determines whether this line should create a subscription */
-            subscription: boolean;
+            subscription?: boolean | null;
             /** @description Indicates whether the product should be trialed */
             trial?: boolean | null;
             gift_to?: components["schemas"]["CustomerPlatformAccountDto"];
