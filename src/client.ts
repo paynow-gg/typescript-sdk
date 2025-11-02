@@ -144,8 +144,9 @@ export function createClient<T extends Record<string, any>>(
 
               return client.request({
                 ...config,
-                method: mapping.method,
                 url,
+                method: mapping.method,
+                data: config.data ?? {},
               });
             };
           },
