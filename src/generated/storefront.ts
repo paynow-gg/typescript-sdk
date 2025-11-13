@@ -339,6 +339,8 @@ export interface components {
             pricing: components["schemas"]["StorefrontProductPricingDetailsDto"];
             /** @description Selected custom variables for this cart line. */
             custom_variables: components["schemas"]["CartLineCustomVariableDto"][];
+            gift_to_customer?: components["schemas"]["CustomerDto"];
+            gift_to_customer_id?: components["schemas"]["FlakeId"];
         };
         /** @description Request to create a new checkout session from a cart */
         CreateCartCheckoutSessionDto: {
@@ -474,7 +476,7 @@ export interface components {
          * @description A customer platform type used while gifting
          * @enum {string}
          */
-        CustomerProfilePlatform: "invalid" | "steam" | "minecraft" | "paynow_name";
+        CustomerProfilePlatform: "invalid" | "steam" | "minecraft" | "paynow_name" | "paynow" | "minecraft_java_name" | "minecraft_bedrock_name" | "xbox_xuid" | "minecraft_uuid";
         /** @description Represents the product information for a delivery item */
         DeliveryItemProductDto: {
             id: components["schemas"]["FlakeId"];
@@ -1203,6 +1205,18 @@ export interface operations {
                 custom_variables?: {
                     [key: string]: string;
                 };
+                /** @description The ID of the customer in which this line is a gift for. */
+                gift_to_customer_id?: components["schemas"]["FlakeId"];
+                /**
+                 * @description The platform type
+                 * @example Steam
+                 */
+                "gift_to.platform"?: components["schemas"]["CustomerProfilePlatform"];
+                /**
+                 * @description The account ID on the platform
+                 * @example 76561198152492642
+                 */
+                "gift_to.id"?: string;
             };
             header?: {
                 /** @description The IP address (IPv4 or IPv6) of the customer. Required if the request is not being made from the customer's browser. */

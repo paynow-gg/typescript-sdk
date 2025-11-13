@@ -2423,7 +2423,7 @@ export interface components {
          * @description A customer platform type used while gifting
          * @enum {string}
          */
-        CustomerProfilePlatform: "invalid" | "steam" | "minecraft" | "paynow_name";
+        CustomerProfilePlatform: "invalid" | "steam" | "minecraft" | "paynow_name" | "paynow" | "minecraft_java_name" | "minecraft_bedrock_name" | "xbox_xuid" | "minecraft_uuid";
         CustomerTokenResponseDto: {
             /** @description The generated Customer token. */
             token: string;
@@ -3141,6 +3141,8 @@ export interface components {
              * @example https://cdn.example.com/images/premium-game-pass.jpg
              */
             product_image_url?: string | null;
+            /** @description The Gift Card ID of that product in this order line */
+            created_giftcard_id?: string | null;
             subscription_id?: components["schemas"]["FlakeId"];
             trial_id?: components["schemas"]["FlakeId"];
             /**
