@@ -2419,10 +2419,7 @@ export interface components {
              */
             id: string;
         };
-        /**
-         * @description A customer platform type used while gifting
-         * @enum {string}
-         */
+        /** @enum {string} */
         CustomerProfilePlatform: "invalid" | "steam" | "minecraft" | "paynow_name" | "paynow" | "minecraft_java_name" | "minecraft_bedrock_name" | "xbox_xuid" | "minecraft_uuid";
         CustomerTokenResponseDto: {
             /** @description The generated Customer token. */

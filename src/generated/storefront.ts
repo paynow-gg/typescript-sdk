@@ -124,6 +124,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/store/customer/auth": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Authenticate customer
+         * @description Creates a customer and returns a customer token from a platform account.
+         */
+        post: operations["Customer_AuthenticateStorefrontCustomer"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/store/customer/delivery/items": {
         parameters: {
             query?: never;
@@ -280,6 +300,18 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        AuthenticateStorefrontCustomerRequestDto: {
+            platform: components["schemas"]["CustomerProfilePlatform"];
+            /**
+             * @description The account ID on the platform
+             * @example 76561198152492642
+             */
+            id: string;
+        };
+        AuthenticateStorefrontCustomerResponseDto: {
+            /** @description The token for the Customer */
+            customer_token: string;
+        };
         /** @description Represents a customer's shopping cart */
         CartDto: {
             store_id: components["schemas"]["FlakeId"];
@@ -472,10 +504,7 @@ export interface components {
              */
             id: string;
         };
-        /**
-         * @description A customer platform type used while gifting
-         * @enum {string}
-         */
+        /** @enum {string} */
         CustomerProfilePlatform: "invalid" | "steam" | "minecraft" | "paynow_name" | "paynow" | "minecraft_java_name" | "minecraft_bedrock_name" | "xbox_xuid" | "minecraft_uuid";
         /** @description Represents the product information for a delivery item */
         DeliveryItemProductDto: {
@@ -1387,6 +1416,46 @@ export interface operations {
             };
         };
     };
+    Customer_AuthenticateStorefrontCustomer: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description The IP address (IPv4 or IPv6) of the customer. Required if the request is not being made from the customer's browser. */
+                "x-paynow-customer-ip"?: string;
+                /** @description The customer's country code in ISO 3166-1 alpha-2 format. Optional, but recommended if you have this available. */
+                "x-paynow-customer-countrycode"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["AuthenticateStorefrontCustomerRequestDto"];
+                "text/json": components["schemas"]["AuthenticateStorefrontCustomerRequestDto"];
+                "application/*+json": components["schemas"]["AuthenticateStorefrontCustomerRequestDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuthenticateStorefrontCustomerResponseDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
     Delivery_GetStorefrontCustomerDeliveryItems: {
         parameters: {
             query?: {
@@ -1664,6 +1733,10 @@ export const operationMappings = {
   "Customer_GetStorefrontGiftCard": {
     "method": "GET",
     "path": "/v1/store/customer/giftcards/lookup/{code}"
+  },
+  "Customer_AuthenticateStorefrontCustomer": {
+    "method": "POST",
+    "path": "/v1/store/customer/auth"
   },
   "Delivery_GetStorefrontCustomerDeliveryItems": {
     "method": "GET",
