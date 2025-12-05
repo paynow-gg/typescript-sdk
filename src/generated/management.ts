@@ -1684,18 +1684,18 @@ export interface components {
              * Format: int64
              * @description The optional maximum order value beyond which an abandoned checkout email will not be sent.
              */
-            maximum_order_value?: number | null;
+            maximum_order_value?: null | number;
             /**
              * Format: int32
              * @description The optional maximum coupons limit per customer beyond which an abandoned checkout email will not be sent.
              */
-            max_coupons_per_customer_amount?: number | null;
+            max_coupons_per_customer_amount?: null | number;
             max_coupons_per_customer_period?: components["schemas"]["Period"];
             /**
              * Format: int32
              * @description The optional maximum coupons limit store wide beyond which an abandoned checkout email will not be sent.
              */
-            max_coupons_global_amount?: number | null;
+            max_coupons_global_amount?: null | number;
             max_coupons_global_period?: components["schemas"]["Period"];
             coupon_configuration: components["schemas"]["MarketingCouponConfigurationDto"];
             /** @description The commands you want to execute when the email is sent. */
@@ -1728,18 +1728,18 @@ export interface components {
              * Format: int64
              * @description The optional maximum order value beyond which an abandoned checkout email will not be sent.
              */
-            maximum_order_value?: number | null;
+            maximum_order_value?: null | number;
             /**
              * Format: int32
              * @description The optional maximum coupons limit per customer beyond which an abandoned checkout email will not be sent.
              */
-            max_coupons_per_customer_amount?: number | null;
+            max_coupons_per_customer_amount?: null | number;
             max_coupons_per_customer_period?: components["schemas"]["Period"];
             /**
              * Format: int32
              * @description The optional maximum coupons limit store wide beyond which an abandoned checkout email will not be sent.
              */
-            max_coupons_global_amount?: number | null;
+            max_coupons_global_amount?: null | number;
             max_coupons_global_period?: components["schemas"]["Period"];
             commands: components["schemas"]["AbandonedCheckoutStoreConfigurationUpdateCommandDto"][];
             coupon_configuration: components["schemas"]["MarketingCouponConfigurationDto"];
@@ -1773,7 +1773,7 @@ export interface components {
             created_at: string;
             updated_by?: components["schemas"]["ActorDto"];
             /** Format: date-time */
-            updated_at?: string | null;
+            updated_at?: null | string;
         };
         /** @enum {string} */
         AffiliateLinkRefererType: "invalid" | "first_referer" | "last_referer";
@@ -1783,12 +1783,12 @@ export interface components {
              * @description The Alipay buyer identifier
              * @example buyer_abc123
              */
-            buyer_id?: string | null;
+            buyer_id?: null | string;
             /**
              * @description A unique fingerprint for this Alipay account
              * @example fingerprint_xyz789
              */
-            fingerprint?: string | null;
+            fingerprint?: null | string;
         };
         BanDto: {
             id: components["schemas"]["FlakeId"];
@@ -1800,10 +1800,10 @@ export interface components {
             /** Format: date-time */
             created_at: string;
             /** Format: date-time */
-            updated_at?: string | null;
+            updated_at?: null | string;
             updated_by?: components["schemas"]["ActorDto"];
             /** Format: date-time */
-            expires_at?: string | null;
+            expires_at?: null | string;
         };
         BanIdentityDto: {
             ban_type: components["schemas"]["BanType"];
@@ -1817,27 +1817,27 @@ export interface components {
              * @description The bank identifier
              * @example bnp_paribas
              */
-            bank?: string | null;
+            bank?: null | string;
             /**
              * @description The bank name
              * @example BNP Paribas
              */
-            bank_name?: string | null;
+            bank_name?: null | string;
             /**
              * @description The Bank Identifier Code
              * @example GEBABEBB
              */
-            bic?: string | null;
+            bic?: null | string;
             /**
              * @description The last 4 digits of the IBAN
              * @example 3456
              */
-            iban_last4?: string | null;
+            iban_last4?: null | string;
             /**
              * @description The payer name
              * @example Jean Dupont
              */
-            payer_name?: string | null;
+            payer_name?: null | string;
         };
         /** @description Card payment method details */
         CardDetailsDto: {
@@ -1883,19 +1883,19 @@ export interface components {
              *     Only available internally.
              * @example 424242
              */
-            bin?: string | null;
+            bin?: null | string;
             /**
              * @description The card issuer/bank name.
              *     Only available internally.
              * @example Chase Bank
              */
-            issuer?: string | null;
+            issuer?: null | string;
             /**
              * @description The card description.
              *     Only available internally.
              * @example Visa Signature
              */
-            description?: string | null;
+            description?: null | string;
             wallet?: components["schemas"]["CardWalletDto"];
         };
         /** @description Digital wallet details for a card */
@@ -1933,19 +1933,19 @@ export interface components {
             inventory_item_id?: components["schemas"]["FlakeId"];
             gameserver_id: components["schemas"]["FlakeId"];
             steam_id?: components["schemas"]["SteamId"];
-            minecraft_uuid?: string | null;
-            customer_name?: string | null;
+            minecraft_uuid?: null | string;
+            customer_name?: null | string;
             customer_id?: components["schemas"]["FlakeId"];
-            command_stage?: string | null;
+            command_stage?: null | string;
             command: string;
             online_only: boolean;
             rerun: boolean;
             /** Format: date-time */
             queued_at: string;
             /** Format: date-time */
-            executed_at?: string | null;
+            executed_at?: null | string;
             /** Format: date-time */
-            unqueued_at?: string | null;
+            unqueued_at?: null | string;
         };
         /**
          * @description Specifies the type of discount applied by a coupon.
@@ -1961,13 +1961,13 @@ export interface components {
             /** @description The unique code associated with the coupon. */
             code: string;
             /** @description A note or internal description of the coupon. */
-            note?: string | null;
+            note?: null | string;
             duration: components["schemas"]["CouponDurationEnum"];
             /**
              * Format: int32
              * @description The number of months the coupon is valid, used if the duration is repeating.
              */
-            duration_in_months?: number | null;
+            duration_in_months?: null | number;
             discount_type: components["schemas"]["CouponDiscountTypeEnum"];
             /**
              * Format: int64
@@ -1979,9 +1979,9 @@ export interface components {
             /** @description Indicates whether the discount is applied before existing sales. */
             discount_apply_before_sales: boolean;
             /** @description A list of product IDs the coupon applies to. */
-            apply_to_products?: components["schemas"]["FlakeId"][] | null;
+            apply_to_products?: null | components["schemas"]["FlakeId"][];
             /** @description A list of tag IDs the coupon applies to. */
-            apply_to_tags?: components["schemas"]["FlakeId"][] | null;
+            apply_to_tags?: null | components["schemas"]["FlakeId"][];
             usable_by_customer_id?: components["schemas"]["FlakeId"];
             /**
              * Format: int64
@@ -2010,12 +2010,12 @@ export interface components {
              * Format: date-time
              * @description The date and time when the coupon becomes valid.
              */
-            usable_at?: string | null;
+            usable_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time when the coupon expires.
              */
-            expires_at?: string | null;
+            expires_at?: null | string;
             created_by?: components["schemas"]["ActorDto"];
             /**
              * Format: date-time
@@ -2027,7 +2027,7 @@ export interface components {
              * Format: date-time
              * @description The date and time when the coupon was last updated.
              */
-            updated_at?: string | null;
+            updated_at?: null | string;
         };
         /**
          * @description Defines the duration for which a coupon remains valid.
@@ -2063,9 +2063,9 @@ export interface components {
         CreateCheckoutSessionLineDto: {
             product_id: components["schemas"]["FlakeId"];
             /** @description Determines whether this line should create a subscription */
-            subscription?: boolean | null;
+            subscription?: null | boolean;
             /** @description Indicates whether the product should be trialed */
-            trial?: boolean | null;
+            trial?: null | boolean;
             gift_to?: components["schemas"]["CustomerPlatformAccountDto"];
             gift_to_customer_id?: components["schemas"]["FlakeId"];
             /**
@@ -2076,23 +2076,23 @@ export interface components {
             selected_gameserver_id?: components["schemas"]["FlakeId"];
             /** @description Optional metadata to associate with the checkout session line.
              *     Do not store any sensitive information here. */
-            metadata?: {
+            metadata?: null | {
                 [key: string]: string;
-            } | null;
+            };
             /** @description Key-value pair mapping custom variable identifiers to their selected values.
              *     Required only when the product includes custom variables. */
-            custom_variables?: {
+            custom_variables?: null | {
                 [key: string]: string;
-            } | null;
+            };
         };
         /** @description Represents a line item in a checkout session request.
          *     Opposed to CreateCheckoutSessionLineDto, this is used while creating a checkout session using the Management API,
          *     and allows for creating inline products (which is subject to special approval) */
         CreateCheckoutSessionLineManagementDto: {
             /** @description Determines whether this line should create a subscription */
-            subscription?: boolean | null;
+            subscription?: null | boolean;
             /** @description Indicates whether the product should be trialed */
-            trial?: boolean | null;
+            trial?: null | boolean;
             gift_to?: components["schemas"]["CustomerPlatformAccountDto"];
             gift_to_customer_id?: components["schemas"]["FlakeId"];
             /**
@@ -2103,14 +2103,14 @@ export interface components {
             selected_gameserver_id?: components["schemas"]["FlakeId"];
             /** @description Optional metadata to associate with the checkout session line.
              *     Do not store any sensitive information here. */
-            metadata?: {
+            metadata?: null | {
                 [key: string]: string;
-            } | null;
+            };
             /** @description Key-value pair mapping custom variable identifiers to their selected values.
              *     Required only when the product includes custom variables. */
-            custom_variables?: {
+            custom_variables?: null | {
                 [key: string]: string;
-            } | null;
+            };
             product_id?: components["schemas"]["FlakeId"];
             inline_product?: components["schemas"]["InlineProductCreateDto"];
         };
@@ -2124,21 +2124,21 @@ export interface components {
              * @description Whether this checkout creates a subscription.
              *     DEPRECATED: Use 'subscription' field in 'lines' array objects instead.
              */
-            subscription?: boolean | null;
+            subscription?: null | boolean;
             coupon_id?: components["schemas"]["FlakeId"];
             /** @description Optional affiliate code to track referrals */
-            affiliate_code?: string | null;
+            affiliate_code?: null | string;
             /** @description Optional URL to redirect to after successful checkout */
-            return_url?: string | null;
+            return_url?: null | string;
             /** @description Optional URL to redirect to if checkout is canceled */
-            cancel_url?: string | null;
+            cancel_url?: null | string;
             /** @description Whether to automatically redirect the customer (return_url must be set) */
-            auto_redirect?: boolean | null;
+            auto_redirect?: null | boolean;
             /** @description Optional metadata to associate with the checkout session.
              *     Do not store any sensitive information here. */
-            metadata?: {
+            metadata?: null | {
                 [key: string]: string;
-            } | null;
+            };
             customer_id: components["schemas"]["FlakeId"];
         };
         /** @description Response after creating a checkout session */
@@ -2155,7 +2155,7 @@ export interface components {
             note?: string;
             duration: components["schemas"]["CouponDurationEnum"];
             /** Format: int32 */
-            duration_in_months?: number;
+            duration_in_months?: null | number;
             discount_type: components["schemas"]["CouponDiscountTypeEnum"];
             /** Format: int64 */
             discount_amount: number;
@@ -2175,9 +2175,9 @@ export interface components {
             usable_on_one_time_purchase: boolean;
             usable_on_subscription: boolean;
             /** Format: date-time */
-            usable_at?: string;
+            usable_at?: null | string;
             /** Format: date-time */
-            expires_at?: string;
+            expires_at?: null | string;
         };
         CreateDownloadableFileDownloadUrlResponseDto: {
             download_signed_url: string;
@@ -2195,19 +2195,19 @@ export interface components {
             /** Format: date-time */
             usable_at: string;
             /** Format: date-time */
-            expires_at?: string;
+            expires_at?: null | string;
         };
         CreateNavLinkDto: {
             tag_id: components["schemas"]["FlakeId"];
             parent_node_id?: string;
             /** Format: int32 */
-            order?: number;
+            order?: null | number;
         };
         CreateRefundRequestDto: {
             order_line_id?: components["schemas"]["FlakeId"];
             /** @description Determines if the refund should be taken from the connected user's balance.
              *     Only relevant for connected platforms. */
-            refund_from_connected_user_balance?: boolean | null;
+            refund_from_connected_user_balance?: null | boolean;
         };
         CreateSaleDto: {
             enabled: boolean;
@@ -2222,7 +2222,7 @@ export interface components {
             /** Format: date-time */
             begins_at: string;
             /** Format: date-time */
-            ends_at?: string;
+            ends_at?: null | string;
         };
         CreateStorePaymentSettingsDto: {
             show_all_payment_methods_for_subscriptions: boolean;
@@ -2239,9 +2239,9 @@ export interface components {
             url: string;
             subscribed_to: components["schemas"]["WebhookEventType"];
             type: components["schemas"]["WebhookType"];
-            discord_description_template?: string | null;
-            discord_title?: string | null;
-            discord_color?: string | null;
+            discord_description_template?: null | string;
+            discord_title?: null | string;
+            discord_color?: null | string;
         };
         /** @description Cryptocurrency payment method details */
         CryptoDetailsDto: {
@@ -2281,7 +2281,7 @@ export interface components {
             /** @description Optional regex pattern to validate text/number input values.
              *     Only applies to text and number types.
              *     Uses RE2 syntax - does not support negative lookarounds, backreferences, or other advanced regex features. */
-            value_regex?: string | null;
+            value_regex?: null | string;
             /** @description Available options for dropdown type custom variables.
              *     Empty for text and number types. */
             options: components["schemas"]["CustomVariableOptionDto"][];
@@ -2297,7 +2297,7 @@ export interface components {
              * @description When this custom variable was last updated.
              *     Null if never updated.
              */
-            updated_at?: string | null;
+            updated_at?: null | string;
         };
         CustomVariableLineItemDto: {
             id: components["schemas"]["FlakeId"];
@@ -2383,16 +2383,16 @@ export interface components {
              *     and the profile is a bedrock account, this will be a UUID generated from the Xbox XUID.
              * @example f84c6a79-0a4e-45e0-879b-cd49ebd4c4e2
              */
-            minecraft_uuid?: string | null;
+            minecraft_uuid?: null | string;
             minecraft?: components["schemas"]["MinecraftProfileDto"];
             /** @description The customer's Xbox XUID, if available. */
-            xbox_xuid?: string | null;
+            xbox_xuid?: null | string;
             minecraft_platform?: components["schemas"]["CustomerMinecraftPlatform"];
             /**
              * @description The display name for the customer.
              * @example m0uka
              */
-            name?: string | null;
+            name?: null | string;
             /**
              * Format: date-time
              * @description The date and time when the customer was created in the system.
@@ -2402,7 +2402,7 @@ export interface components {
              * Format: date-time
              * @description The date and time when the customer was last updated, if applicable.
              */
-            updated_at?: string | null;
+            updated_at?: null | string;
             /** @description Additional custom data associated with the customer. */
             metadata: {
                 [key: string]: string;
@@ -2433,7 +2433,7 @@ export interface components {
             /** @description Masked authentication token used for accessing the source platform API. */
             token: string;
             /** @description Error message if the migration encountered any errors, otherwise null. */
-            error?: string | null;
+            error?: null | string;
             /**
              * Format: date-time
              * @description Timestamp when the migration was initiated.
@@ -2443,17 +2443,17 @@ export interface components {
              * Format: date-time
              * @description Timestamp when the migration failed, or null if it didn't fail.
              */
-            failed_at?: string | null;
+            failed_at?: null | string;
             /**
              * Format: date-time
              * @description Timestamp when the migration was successfully completed, or null if not completed.
              */
-            completed_at?: string | null;
+            completed_at?: null | string;
             /**
              * Format: int64
              * @description Total number of entities that need to be migrated, or null if unknown.
              */
-            total_entities_to_migrate?: number | null;
+            total_entities_to_migrate?: null | number;
             /**
              * Format: int32
              * @description Number of entities that have been successfully migrated.
@@ -2469,18 +2469,18 @@ export interface components {
              * Format: int32
              * @description Quantity of products to assign.
              */
-            quantity?: number | null;
+            quantity?: null | number;
             /**
              * Format: date-time
              * @description Override expiry date for the delivery item.
              */
-            override_expires_at?: string | null;
+            override_expires_at?: null | string;
             /** @description Skip command execution when assigning the item. */
-            skip_commands?: boolean | null;
+            skip_commands?: null | boolean;
             /** @description Custom variables for the assignment. */
-            custom_variables?: {
+            custom_variables?: null | {
                 [key: string]: string;
-            } | null;
+            };
         };
         DeliveryItemAssignmentDto: {
             product_id?: components["schemas"]["FlakeId"];
@@ -2490,18 +2490,18 @@ export interface components {
              * Format: int32
              * @description Quantity of products to assign.
              */
-            quantity?: number | null;
+            quantity?: null | number;
             /**
              * Format: date-time
              * @description Override expiry date for the delivery item.
              */
-            override_expires_at?: string | null;
+            override_expires_at?: null | string;
             /** @description Skip command execution when assigning the item. */
-            skip_commands?: boolean | null;
+            skip_commands?: null | boolean;
             /** @description Custom variables for the assignment. */
-            custom_variables?: {
+            custom_variables?: null | {
                 [key: string]: string;
-            } | null;
+            };
         };
         /** @description Represents a delivery item assigned to a customer */
         DeliveryItemDto: {
@@ -2522,7 +2522,7 @@ export interface components {
              * Format: int32
              * @description The index of the item when multiple quantities were assigned
              */
-            quantity_index?: number | null;
+            quantity_index?: null | number;
             product: components["schemas"]["DeliveryItemProductDto"];
             state: components["schemas"]["DeliveryItemStateDto"];
             /**
@@ -2535,31 +2535,31 @@ export interface components {
              * Format: date-time
              * @description The date and time when the item became active
              */
-            active_at?: string | null;
+            active_at?: null | string;
             /** @description Indicates whether the delivery item can expire */
             expirable: boolean;
             /**
              * Format: date-time
              * @description The date and time when the item expires naturally
              */
-            expires_at?: string | null;
+            expires_at?: null | string;
             /**
              * Format: date-time
              * @description The override expiry date for the delivery item
              */
-            override_expires_at?: string | null;
+            override_expires_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time when the item was removed
              */
-            removed_at?: string | null;
+            removed_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time when the item was revoked
              */
-            revoked_at?: string | null;
+            revoked_at?: null | string;
             /** @description The reason for revoking the delivery item */
-            revoke_reason?: string | null;
+            revoke_reason?: null | string;
             revoked_by?: components["schemas"]["ActorDto"];
             /** @description The command execution attempts for this delivery item */
             command_attempts: components["schemas"]["CommandAttemptDto"][];
@@ -2604,7 +2604,7 @@ export interface components {
             action_type: components["schemas"]["DiscordActionType"];
             channel_id?: components["schemas"]["FlakeId"];
             role_id?: components["schemas"]["FlakeId"];
-            message?: string | null;
+            message?: null | string;
         };
         /** @enum {string} */
         DiscordActionExecutionStage: "on_purchase" | "on_expire" | "on_refund" | "on_chargeback";
@@ -2626,12 +2626,12 @@ export interface components {
             token: string;
             store_id: components["schemas"]["FlakeId"];
             server_id?: components["schemas"]["FlakeId"];
-            server_name?: string | null;
-            server_icon_url?: string | null;
+            server_name?: null | string;
+            server_icon_url?: null | string;
             /** Format: date-time */
             created_at: string;
             /** Format: date-time */
-            linked_at?: string | null;
+            linked_at?: null | string;
         };
         DiscordServerRoleDto: {
             id: components["schemas"]["FlakeId"];
@@ -2642,10 +2642,10 @@ export interface components {
             /** Format: date-time */
             started_at: string;
             /** Format: date-time */
-            finished_at?: string | null;
+            finished_at?: null | string;
             /** Format: int32 */
             status_code: number;
-            response?: string | null;
+            response?: null | string;
         };
         FinishTagImageUploadUrlRequestDto: {
             /** @description The ID of the uploaded image returned by the server. */
@@ -2665,12 +2665,12 @@ export interface components {
             /** @description Indicates whether the game server is currently enabled. */
             enabled: boolean;
             /** @description The authentication token used by the game server to access the PayNow API. */
-            token?: string | null;
+            token?: null | string;
             /**
              * Format: date-time
              * @description The date and time when the authentication token was last reset, if applicable.
              */
-            token_reset_at?: string | null;
+            token_reset_at?: null | string;
             linked_to: components["schemas"]["GameServerLinkDto"];
             /**
              * Format: date-time
@@ -2682,7 +2682,7 @@ export interface components {
              * Format: date-time
              * @description The date and time when the game server was last updated, if applicable.
              */
-            updated_at?: string | null;
+            updated_at?: null | string;
             updated_by: components["schemas"]["ActorDto"];
         };
         GameServerLinkDto: {
@@ -2693,7 +2693,7 @@ export interface components {
             /** Format: date-time */
             saved_at: string;
             /** Format: date-time */
-            last_fetched_commands_at?: string | null;
+            last_fetched_commands_at?: null | string;
         };
         /** @description Represents a generic platform profile for a customer. */
         GenericProfileDto: {
@@ -2707,7 +2707,7 @@ export interface components {
             /** @description The display name of the user on this platform. */
             name: string;
             /** @description The URL to the user's avatar image on this platform. */
-            avatar_url?: string | null;
+            avatar_url?: null | string;
         };
         GetTagImageUploadUrlResponseDto: {
             /** @description The ID of the direct image upload URL. */
@@ -2727,7 +2727,7 @@ export interface components {
              */
             code: string;
             /** @description Optional note or description associated with the gift card. */
-            note?: string | null;
+            note?: null | string;
             /**
              * Format: int64
              * @description The current balance remaining on the gift card in cents.
@@ -2749,24 +2749,24 @@ export interface components {
              * Format: date-time
              * @description The date and time when the gift card expires, if applicable.
              */
-            expires_at?: string | null;
+            expires_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time when the gift card was created.
              */
-            created_at?: string | null;
+            created_at?: null | string;
             created_by?: components["schemas"]["ActorDto"];
             /**
              * Format: date-time
              * @description The date and time when the gift card was last updated, if applicable.
              */
-            updated_at?: string | null;
+            updated_at?: null | string;
             updated_by?: components["schemas"]["ActorDto"];
             /**
              * Format: date-time
              * @description The date and time when the gift card was canceled, if applicable.
              */
-            canceled_at?: string | null;
+            canceled_at?: null | string;
             canceled_by?: components["schemas"]["ActorDto"];
         };
         /** @description Represents a global command in the system.
@@ -2792,7 +2792,7 @@ export interface components {
              * @description Optional timestamp indicating when the command was last updated.
              *     Null if the command has never been updated.
              */
-            updated_at?: string | null;
+            updated_at?: null | string;
             updated_by?: components["schemas"]["ActorDto"];
         };
         /** @description iDEAL payment method details */
@@ -2811,95 +2811,95 @@ export interface components {
              * @description The last 4 digits of the IBAN
              * @example 1234
              */
-            iban_last4?: string | null;
+            iban_last4?: null | string;
             /**
              * @description The payer name
              * @example John Doe
              */
-            payer_name?: string | null;
+            payer_name?: null | string;
         };
         /** @description Optional inline product definition for dynamic products.
          *     Requires special approval, use `product_id` instead. */
         InlineProductCreateDto: {
             /** @description The unique URL-safe identifier (slug) for the product. */
-            slug?: string | null;
+            slug?: null | string;
             /** @description The display name of the product. */
-            name?: string | null;
+            name?: null | string;
             /** @description The detailed description of the product. */
-            description?: string | null;
+            description?: null | string;
             /** @description The display label for the product. */
-            label?: string | null;
+            label?: null | string;
             /**
              * Format: int64
              * @description The price of the product in the lowest denominator (e.g. cents).
              */
-            price?: number | null;
+            price?: null | number;
             /** @description Indicates whether the customer is prompted to select a game server before purchasing. */
-            single_game_server_only?: boolean | null;
+            single_game_server_only?: null | boolean;
             /** @description Indicates whether one-time purchases are allowed. */
-            allow_one_time_purchase?: boolean | null;
+            allow_one_time_purchase?: null | boolean;
             /** @description Indicates whether subscription purchases are allowed. */
-            allow_subscription?: boolean | null;
+            allow_subscription?: null | boolean;
             /**
              * Format: int32
              * @description The subscription interval value.
              */
-            subscription_interval_value?: number | null;
+            subscription_interval_value?: null | number;
             subscription_interval_scale?: components["schemas"]["ProductSubscriptionIntervalScale"];
             trial?: components["schemas"]["UpsertProductTrialConfigurationDto"];
             /** @description Indicates whether automatic removal is enabled. */
-            remove_after_enabled?: boolean | null;
+            remove_after_enabled?: null | boolean;
             /**
              * Format: int32
              * @description The time value for automatic removal.
              */
-            remove_after_time_value?: number | null;
+            remove_after_time_value?: null | number;
             remove_after_time_scale?: components["schemas"]["ProductRemoveAfterIntervalScale"];
             store_stock_limit?: components["schemas"]["ProductStockLimitDto"];
             customer_stock_limit?: components["schemas"]["ProductStockLimitDto"];
             /** @description Indicates whether removed items should be excluded from stock limits. */
-            stock_limit_do_not_include_removed?: boolean | null;
+            stock_limit_do_not_include_removed?: null | boolean;
             /** @description The tag IDs associated with the product. */
-            tags?: components["schemas"]["FlakeId"][] | null;
+            tags?: null | components["schemas"]["FlakeId"][];
             /** @description The gameserver IDs associated with the product. */
-            gameservers?: components["schemas"]["FlakeId"][] | null;
+            gameservers?: null | components["schemas"]["FlakeId"][];
             /** @description The commands to be executed at different stages. */
-            commands?: components["schemas"]["ProductCommandDto"][] | null;
+            commands?: null | components["schemas"]["ProductCommandDto"][];
             deliverable_actions?: components["schemas"]["ProductDeliverableActionsDto"];
             /** @description Additional metadata for the product. */
-            metadata?: {
+            metadata?: null | {
                 [key: string]: string;
-            } | null;
+            };
             /** @description The payout splits for revenue distribution.
              *     Requires special approval. */
-            payout_splits?: components["schemas"]["ProductPayoutSplitDto"][] | null;
+            payout_splits?: null | components["schemas"]["ProductPayoutSplitDto"][];
             tax_code?: components["schemas"]["ProductTaxCode"];
             /** @description Indicates whether concurrent active items are allowed. */
-            allow_concurrent_active_items?: boolean | null;
+            allow_concurrent_active_items?: null | boolean;
             /** @description Indicates whether using coupons and gift cards on this product is allowed. */
-            disable_promo_codes?: boolean | null;
+            disable_promo_codes?: null | boolean;
             /** @description Indicates whether the product is hidden. */
-            is_hidden?: boolean | null;
+            is_hidden?: null | boolean;
             /** @description Indicates whether gifting is disabled. */
-            is_gifting_disabled?: boolean | null;
+            is_gifting_disabled?: null | boolean;
             /**
              * Format: date-time
              * @description The date and time when the product becomes enabled.
              *     Set to `null` to keep enabled.
              */
-            enabled_at?: string | null;
+            enabled_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time until which the product remains enabled.
              *     Set to `null` to keep enabled.
              */
-            enabled_until?: string | null;
+            enabled_until?: null | string;
             /** @description The IDs of products required for purchasing this product. */
-            required_product_ids?: components["schemas"]["FlakeId"][] | null;
+            required_product_ids?: null | components["schemas"]["FlakeId"][];
             /** @description Indicates whether all required products are needed. */
-            required_product_all?: boolean | null;
+            required_product_all?: null | boolean;
             /** @description The IDs of associated custom variables. */
-            custom_variable_ids?: components["schemas"]["FlakeId"][] | null;
+            custom_variable_ids?: null | components["schemas"]["FlakeId"][];
         };
         /** @description Klarna payment method details */
         KlarnaDetailsDto: {
@@ -2907,12 +2907,12 @@ export interface components {
              * @description The country code
              * @example SE
              */
-            country?: string | null;
+            country?: null | string;
             /**
              * @description The Klarna payment method category
              * @example pay_later
              */
-            method_category?: string | null;
+            method_category?: null | string;
         };
         /** @description The last payment decline object. */
         LastPaymentErrorDto: {
@@ -2935,7 +2935,7 @@ export interface components {
              * Format: int32
              * @description Gets or sets the duration of the coupon in months, applicable only for repeating coupons.
              */
-            duration_in_months?: number | null;
+            duration_in_months?: null | number;
             discount_type: components["schemas"]["CouponDiscountTypeEnum"];
             /**
              * Format: int64
@@ -2988,11 +2988,11 @@ export interface components {
         NavLinkDto: {
             node_id: string;
             tag_id: components["schemas"]["FlakeId"];
-            parent_node_id?: string | null;
+            parent_node_id?: null | string;
             tag_slug: string;
             name: string;
             /** Format: int32 */
-            order?: number | null;
+            order?: null | number;
         };
         /** @description Represents a customer order */
         OrderDto: {
@@ -3012,7 +3012,7 @@ export interface components {
              * @description The checkout token for this order
              * @example c4qqilpphugeqf2gndnkk5ad8fdq
              */
-            checkout_token?: string | null;
+            checkout_token?: null | string;
             subscription_id?: components["schemas"]["FlakeId"];
             /** @description Signifies if the order is a subscription order */
             readonly is_subscription: boolean;
@@ -3109,17 +3109,17 @@ export interface components {
              * @description The date and time when this order was created
              * @example 2025-04-01T15:30:45Z
              */
-            created_at?: string | null;
+            created_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time when this order was completed, if applicable
              * @example 2025-04-01T15:35:22Z
              */
-            completed_at?: string | null;
+            completed_at?: null | string;
             /** @description The line items in this order */
             lines: components["schemas"]["OrderLineDto"][];
             /** @description A list of all tax jurisdictions that were involved in the taxation of this order. */
-            tax_jurisdictions?: components["schemas"]["SalesTaxJurisdictionDto"][] | null;
+            tax_jurisdictions?: null | components["schemas"]["SalesTaxJurisdictionDto"][];
             last_payment_error?: components["schemas"]["LastPaymentErrorDto"];
         };
         /** @description Represents an order line item in a customer's order */
@@ -3137,9 +3137,9 @@ export interface components {
              * @description The URL of the product image
              * @example https://cdn.example.com/images/premium-game-pass.jpg
              */
-            product_image_url?: string | null;
+            product_image_url?: null | string;
             /** @description The Gift Card ID of that product in this order line */
-            created_giftcard_id?: string | null;
+            created_giftcard_id?: null | string;
             subscription_id?: components["schemas"]["FlakeId"];
             trial_id?: components["schemas"]["FlakeId"];
             /**
@@ -3147,7 +3147,7 @@ export interface components {
              * @description The interval value for subscription products
              * @example 1
              */
-            subscription_interval_value?: number | null;
+            subscription_interval_value?: null | number;
             subscription_interval_scale?: components["schemas"]["ProductSubscriptionIntervalScale"];
             /**
              * @description Indicates whether this order line is a gift
@@ -3236,16 +3236,16 @@ export interface components {
              */
             tax_inclusive: boolean;
             /** @description The payout splits for this order line */
-            payout_splits?: components["schemas"]["OrderLinePayoutSplitDto"][] | null;
+            payout_splits?: null | components["schemas"]["OrderLinePayoutSplitDto"][];
             /**
              * @description The regional pricing region ID for this order line, null if no regional pricing set
              * @example eu
              */
-            pricing_region_id?: string | null;
+            pricing_region_id?: null | string;
             /** @description Key-value pair of selected custom variables for this order. */
-            custom_variables?: {
+            custom_variables?: null | {
                 [key: string]: components["schemas"]["CustomVariableLineItemDto"];
-            } | null;
+            };
         };
         /** @description Represents an order line-level payout split. */
         OrderLinePayoutSplitDto: {
@@ -3254,7 +3254,7 @@ export interface components {
              * Format: int64
              * @description The percentage in basis points.
              */
-            percentage?: number | null;
+            percentage?: null | number;
             /**
              * Format: int64
              * @description The platform fee percentage in basis points.
@@ -3280,7 +3280,7 @@ export interface components {
              * @description The payer name
              * @example Jan Kowalski
              */
-            payer_name?: string | null;
+            payer_name?: null | string;
         };
         /** @description Pay by Bank payment method details */
         PayByBankDetailsDto: {
@@ -3288,22 +3288,22 @@ export interface components {
              * @description The bank name
              * @example Chase Bank
              */
-            bank_name?: string | null;
+            bank_name?: null | string;
             /**
              * @description The Bank Identifier Code
              * @example CHASUS33
              */
-            bic?: string | null;
+            bic?: null | string;
             /**
              * @description The country code
              * @example US
              */
-            country?: string | null;
+            country?: null | string;
             /**
              * @description The payer name
              * @example John Smith
              */
-            payer_name?: string | null;
+            payer_name?: null | string;
         };
         /** @enum {string} */
         PayNowActorType: "anonymous" | "user" | "customer" | "api_key" | "game_server" | "admin" | "internal" | "platform" | "global_customer";
@@ -3329,9 +3329,9 @@ export interface components {
              * @description A distributed trace ID used for debugging.
              * @example 234a5bcd543ef3fa53ce929d0e0e4736
              */
-            trace_id?: string | null;
+            trace_id?: null | string;
             /** @description An array of multiple errors. Only used by some API services. */
-            errors?: components["schemas"]["ValidationError"][] | null;
+            errors?: null | components["schemas"]["ValidationError"][];
         };
         /** @description PayPal payment method details */
         PayPalDetailsDto: {
@@ -3364,12 +3364,12 @@ export interface components {
              * @description Indicates if vault approval is pending
              * @example false
              */
-            pending_vault_approval?: boolean | null;
+            pending_vault_approval?: null | boolean;
             /**
              * @description Indicates if this is a standalone setup
              * @example false
              */
-            standalone_setup?: boolean | null;
+            standalone_setup?: null | boolean;
         };
         /**
          * @description Represents chargeback status of a payment
@@ -3389,7 +3389,7 @@ export interface components {
             customer_id: components["schemas"]["FlakeId"];
             customer: components["schemas"]["CustomerDto"];
             /** @description The list of refunds associated with this payment */
-            refunds?: components["schemas"]["RefundDto"][] | null;
+            refunds?: null | components["schemas"]["RefundDto"][];
             /**
              * @description The payment gateway provider
              * @example stripe
@@ -3453,7 +3453,7 @@ export interface components {
              * @description The foreign exchange rate used for currency conversion
              * @example 1.085
              */
-            fx_rate?: number | null;
+            fx_rate?: null | number;
             /**
              * Format: int32
              * @description The platform fee rate applied to this payment (in basis points)
@@ -3464,13 +3464,12 @@ export interface components {
             /**
              * Format: date-time
              * @description The date and time when the chargeback status was last updated
-             * @example null
              */
-            chargeback_status_updated_at?: string | null;
+            chargeback_status_updated_at?: null | string;
             /** @description The payout split rules for multi-party payments */
-            payout_split_rules?: components["schemas"]["PaymentPayoutSplitRuleDto"][] | null;
+            payout_split_rules?: null | components["schemas"]["PaymentPayoutSplitRuleDto"][];
             /** @description The payout split results for multi-party payments */
-            payout_split_results?: components["schemas"]["PaymentPayoutSplitResultDto"][] | null;
+            payout_split_results?: null | components["schemas"]["PaymentPayoutSplitResultDto"][];
             /**
              * Format: date-time
              * @description The date and time when this payment was created
@@ -3482,37 +3481,33 @@ export interface components {
              * @description The date and time when this payment entered pending status
              * @example 2025-04-01T15:30:46Z
              */
-            pending_at?: string | null;
+            pending_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time when this payment was completed
              * @example 2025-04-01T15:31:12Z
              */
-            completed_at?: string | null;
+            completed_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time when this payment was canceled
-             * @example null
              */
-            canceled_at?: string | null;
+            canceled_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time when this payment failed
-             * @example null
              */
-            failed_at?: string | null;
+            failed_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time when this payment was last refunded
-             * @example null
              */
-            refunded_at?: string | null;
+            refunded_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time when a chargeback was initiated on this payment
-             * @example null
              */
-            chargeback_at?: string | null;
+            chargeback_at?: null | string;
             last_payment_error?: components["schemas"]["LastPaymentErrorDto"];
         };
         /** @description Contains detailed information about a payment method.
@@ -3566,7 +3561,7 @@ export interface components {
              * @description The date and time when this payment method was last updated
              * @example 2025-03-20T14:30:00Z
              */
-            updated_at?: string | null;
+            updated_at?: null | string;
         };
         /** @description Represents payout split results for multi-party payments */
         PaymentPayoutSplitResultDto: {
@@ -3635,7 +3630,7 @@ export interface components {
              * @description The percentage of the line amount this user receives (in basis points, e.g., 5000 = 50%)
              * @example 5000
              */
-            percentage?: number | null;
+            percentage?: null | number;
             /**
              * Format: int32
              * @description The platform fee percentage applied to this split (in basis points)
@@ -3660,17 +3655,17 @@ export interface components {
              * @description The bank name
              * @example Banco do Brasil
              */
-            bank_name?: string | null;
+            bank_name?: null | string;
             /**
              * @description The bank account number
              * @example 12345-6
              */
-            bank_account_number?: string | null;
+            bank_account_number?: null | string;
             /**
              * @description The payer name
              * @example João Silva
              */
-            payer_name?: string | null;
+            payer_name?: null | string;
         };
         /**
          * @description Defines when prepaid cards should be blocked from use.
@@ -3686,7 +3681,7 @@ export interface components {
             /** @description Value indicating on which game servers should the command be executed.
              *     If left empty or null, then the default behavior applies
              *     (executing on all game servers or on the selected game server is selection is enabled) */
-            override_execute_on_gameserver_ids?: components["schemas"]["FlakeId"][] | null;
+            override_execute_on_gameserver_ids?: null | components["schemas"]["FlakeId"][];
         };
         /**
          * @description Defines the stages at which product commands can be executed.
@@ -3702,17 +3697,17 @@ export interface components {
             store_id: components["schemas"]["FlakeId"];
             product_id: components["schemas"]["FlakeId"];
             is_uploaded: boolean;
-            file_name?: string | null;
-            file_content_type?: string | null;
+            file_name?: null | string;
+            file_content_type?: null | string;
             /** Format: int64 */
-            file_size?: number | null;
-            file_hash?: string | null;
-            description?: string | null;
+            file_size?: null | number;
+            file_hash?: null | string;
+            description?: null | string;
             /** Format: date-time */
             created_at: string;
             created_by: components["schemas"]["ActorDto"];
             /** Format: date-time */
-            updated_at?: string | null;
+            updated_at?: null | string;
             updated_by?: components["schemas"]["ActorDto"];
         };
         ProductDto: {
@@ -3720,7 +3715,7 @@ export interface components {
             store_id: components["schemas"]["FlakeId"];
             version_id: components["schemas"]["FlakeId"];
             /** @description The URL to the product image. */
-            image_url?: string | null;
+            image_url?: null | string;
             /** @description The unique slug for the product. */
             slug: string;
             /** @description The display name of the product. */
@@ -3728,7 +3723,7 @@ export interface components {
             /** @description The detailed description of the product. */
             description: string;
             /** @description The display label for the product. */
-            label?: string | null;
+            label?: null | string;
             /**
              * Format: int32
              * @description The sort order for displaying the product.
@@ -3764,7 +3759,7 @@ export interface components {
             store_stock_limit: components["schemas"]["ProductStockLimitDto"];
             customer_stock_limit: components["schemas"]["ProductStockLimitDto"];
             /** @description Indicates whether removed items should be excluded from stock limits. */
-            stock_limit_do_not_include_removed?: boolean | null;
+            stock_limit_do_not_include_removed?: null | boolean;
             /** @description The tags associated with the product. */
             tags: components["schemas"]["ProductTagDto"][];
             /** @description The game servers associated with the product. */
@@ -3776,45 +3771,45 @@ export interface components {
              * Format: date-time
              * @description The date and time when the product was created.
              */
-            created_at?: string | null;
+            created_at?: null | string;
             updated_by?: components["schemas"]["ActorDto"];
             /**
              * Format: date-time
              * @description The date and time when the product was last updated.
              */
-            updated_at?: string | null;
+            updated_at?: null | string;
             deliverable_actions?: components["schemas"]["ProductDeliverableActionsDto"];
             /** @description Additional metadata for the product. */
-            metadata?: {
+            metadata?: null | {
                 [key: string]: string;
-            } | null;
+            };
             /** @description The payout splits for revenue distribution. */
-            payout_splits?: components["schemas"]["ProductPayoutSplitDto"][] | null;
+            payout_splits?: null | components["schemas"]["ProductPayoutSplitDto"][];
             tax_code?: components["schemas"]["ProductTaxCode"];
             /** @description Indicates whether concurrent active items are allowed. */
-            allow_concurrent_active_items?: boolean | null;
+            allow_concurrent_active_items?: null | boolean;
             /** @description Indicates whether using coupons and gift cards on this product is allowed. */
-            disable_promo_codes?: boolean | null;
+            disable_promo_codes?: null | boolean;
             /** @description Indicates whether the product is hidden. */
-            is_hidden?: boolean | null;
+            is_hidden?: null | boolean;
             /** @description Indicates whether gifting is disabled. */
-            is_gifting_disabled?: boolean | null;
+            is_gifting_disabled?: null | boolean;
             /**
              * Format: date-time
              * @description The date and time when the product becomes enabled.
              */
-            enabled_at?: string | null;
+            enabled_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time until which the product remains enabled.
              */
-            enabled_until?: string | null;
+            enabled_until?: null | string;
             /** @description The IDs of products required for purchasing this product. */
-            required_product_ids?: components["schemas"]["FlakeId"][] | null;
+            required_product_ids?: null | components["schemas"]["FlakeId"][];
             /** @description Indicates whether all required products are needed. */
-            required_product_all?: boolean | null;
+            required_product_all?: null | boolean;
             /** @description The IDs of associated custom variables. */
-            custom_variable_ids?: components["schemas"]["FlakeId"][] | null;
+            custom_variable_ids?: null | components["schemas"]["FlakeId"][];
         };
         ProductGameServerDto: {
             id: components["schemas"]["FlakeId"];
@@ -3833,7 +3828,7 @@ export interface components {
              * @description The percentage of the payment allocated to the user, in basis points (500 = 5%).
              *     The last payout split must have this field set to `null` to receive the remaining portion.
              */
-            percentage?: number | null;
+            percentage?: null | number;
             /**
              * Format: int64
              * @description The platform fee percentage your platform receives, in basis points (500 = 5%).
@@ -3852,13 +3847,13 @@ export interface components {
             country_codes: string[];
             enabled: boolean;
             /** Format: int64 */
-            price?: number | null;
+            price?: null | number;
             /** Format: int64 */
-            default_price_multiplier?: number | null;
-            currency?: string | null;
-            tax_inclusive?: boolean | null;
+            default_price_multiplier?: null | number;
+            currency?: null | string;
+            tax_inclusive?: null | boolean;
             /** Format: date-time */
-            updated_at?: string | null;
+            updated_at?: null | string;
         };
         ProductPricingRegionGroupDto: {
             id: string;
@@ -3869,10 +3864,10 @@ export interface components {
         };
         ProductPricingRegionOverrideDto: {
             /** Format: int64 */
-            price?: number | null;
-            enabled?: boolean | null;
-            currency?: string | null;
-            tax_inclusive?: boolean | null;
+            price?: null | number;
+            enabled?: null | boolean;
+            currency?: null | string;
+            tax_inclusive?: null | boolean;
         };
         /** @enum {string} */
         ProductRemoveAfterIntervalScale: "invalid" | "day" | "week" | "month";
@@ -3892,12 +3887,12 @@ export interface components {
              * Format: int32
              * @description The quantity limit.
              */
-            quantity?: number | null;
+            quantity?: null | number;
             /**
              * Format: int32
              * @description The time value for stock limit period.
              */
-            time_value?: number | null;
+            time_value?: null | number;
             time_scale: components["schemas"]["ProductStockTimeScale"];
             /** @description Indicates if trials should be included in the active stock limit calculation. */
             include_trials: boolean;
@@ -3984,18 +3979,18 @@ export interface components {
              * Format: int64
              * @description The optional maximum order value beyond which an abandoned checkout email will not be sent.
              */
-            maximum_order_value?: number | null;
+            maximum_order_value?: null | number;
             /**
              * Format: int32
              * @description The optional maximum coupons limit per customer beyond which an abandoned checkout email will not be sent.
              */
-            max_coupons_per_customer_amount?: number | null;
+            max_coupons_per_customer_amount?: null | number;
             max_coupons_per_customer_period?: components["schemas"]["Period"];
             /**
              * Format: int32
              * @description The optional maximum coupons limit store wide beyond which an abandoned checkout email will not be sent.
              */
-            max_coupons_global_amount?: number | null;
+            max_coupons_global_amount?: null | number;
             max_coupons_global_period?: components["schemas"]["Period"];
             coupon_configuration: components["schemas"]["MarketingCouponConfigurationDto"];
             /** @description The commands you want to execute when the email is sent. */
@@ -4028,18 +4023,18 @@ export interface components {
              * Format: int64
              * @description The optional maximum order value beyond which an abandoned checkout email will not be sent.
              */
-            maximum_order_value?: number | null;
+            maximum_order_value?: null | number;
             /**
              * Format: int32
              * @description The optional maximum coupons limit per customer beyond which an abandoned checkout email will not be sent.
              */
-            max_coupons_per_customer_amount?: number | null;
+            max_coupons_per_customer_amount?: null | number;
             max_coupons_per_customer_period?: components["schemas"]["Period"];
             /**
              * Format: int32
              * @description The optional maximum coupons limit store wide beyond which an abandoned checkout email will not be sent.
              */
-            max_coupons_global_amount?: number | null;
+            max_coupons_global_amount?: null | number;
             max_coupons_global_period?: components["schemas"]["Period"];
             commands: components["schemas"]["PurchaseFollowUpStoreConfigurationUpdateCommandDto"][];
             coupon_configuration: components["schemas"]["MarketingCouponConfigurationDto"];
@@ -4061,12 +4056,12 @@ export interface components {
             discord_user_id?: components["schemas"]["FlakeId"];
             channel_id?: components["schemas"]["FlakeId"];
             role_id?: components["schemas"]["FlakeId"];
-            message?: string | null;
+            message?: null | string;
             revocation_stages: components["schemas"]["DiscordActionRevocationStage"][];
             /** Format: date-time */
             enqueued_at: string;
             /** Format: date-time */
-            finalised_at?: string | null;
+            finalised_at?: null | string;
             executions: components["schemas"]["QueuedDiscordActionExecutionDto"][];
         };
         QueuedDiscordActionExecutionDto: {
@@ -4077,8 +4072,8 @@ export interface components {
             /** Format: date-time */
             executed_at: string;
             execution_status: components["schemas"]["QueuedDiscordActionExecutionStatus"];
-            message?: string | null;
-            trace_id?: string | null;
+            message?: null | string;
+            trace_id?: null | string;
         };
         /** @enum {string} */
         QueuedDiscordActionExecutionStatus: "success" | "failure";
@@ -4091,7 +4086,7 @@ export interface components {
             created_at: string;
             state: components["schemas"]["WebhookState"];
             /** Format: date-time */
-            next_retry?: string | null;
+            next_retry?: null | string;
             event: components["schemas"]["WebhookEventType"];
             payload: unknown;
             executions: components["schemas"]["ExecutedWebhookDto"][];
@@ -4104,7 +4099,7 @@ export interface components {
             order_line_id?: components["schemas"]["FlakeId"];
             status: components["schemas"]["RefundStatus"];
             /** @description Reason for failure if the refund has failed */
-            failure_reason?: string | null;
+            failure_reason?: null | string;
             /** @description Three-letter currency code of the refund */
             currency: string;
             /**
@@ -4150,14 +4145,14 @@ export interface components {
             /** @description String representation of store refund amount, formatted for display */
             store_refund_amount_str: string;
             /** @description Optional currency code used for presentment to the customer if different from the base currency */
-            presentment_currency?: string | null;
+            presentment_currency?: null | string;
             /**
              * Format: int64
              * @description Optional amount in presentment currency in smallest currency unit
              */
-            presentment_amount?: number | null;
+            presentment_amount?: null | number;
             /** @description Exchange rate used while refunding. Only present for payments made in non-settlement currency. */
-            fx_rate?: string | null;
+            fx_rate?: null | string;
             /** @description Indicates whether the refund should be taken from the connected user's balance.
              *     Only relevant for platforms. */
             refund_from_connected_user_balance: boolean;
@@ -4170,27 +4165,27 @@ export interface components {
              * Format: date-time
              * @description Optional date and time when the refund was approved
              */
-            approved_at?: string | null;
+            approved_at?: null | string;
             /**
              * Format: date-time
              * @description Optional date and time when the refund entered pending status
              */
-            pending_at?: string | null;
+            pending_at?: null | string;
             /**
              * Format: date-time
              * @description Optional date and time when the refund was completed
              */
-            completed_at?: string | null;
+            completed_at?: null | string;
             /**
              * Format: date-time
              * @description Optional date and time when the refund was canceled
              */
-            canceled_at?: string | null;
+            canceled_at?: null | string;
             /**
              * Format: date-time
              * @description Optional date and time when the refund failed
              */
-            failed_at?: string | null;
+            failed_at?: null | string;
         };
         /**
          * @description Represents the current status of a refund in the system
@@ -4199,9 +4194,9 @@ export interface components {
         RefundStatus: "created" | "approved" | "processing" | "completed" | "canceled" | "failed";
         ResendCommandsForGameServerRequestDto: {
             /** Format: date-time */
-            starts_at?: string | null;
+            starts_at?: null | string;
             /** Format: date-time */
-            ends_at?: string | null;
+            ends_at?: null | string;
             inventory_item_id?: components["schemas"]["FlakeId"];
             customer_id?: components["schemas"]["FlakeId"];
             order_id?: components["schemas"]["FlakeId"];
@@ -4248,7 +4243,7 @@ export interface components {
              * Format: date-time
              * @description The date and time when the sale ends.
              */
-            ends_at?: string | null;
+            ends_at?: null | string;
             created_by: components["schemas"]["ActorDto"];
             /**
              * Format: date-time
@@ -4260,7 +4255,7 @@ export interface components {
              * Format: date-time
              * @description The date and time when the sale was last updated.
              */
-            updated_at?: string | null;
+            updated_at?: null | string;
         };
         /** @description Object representing a sales tax jurisdiction and its associated taxes. */
         SalesTaxJurisdictionDto: {
@@ -4273,7 +4268,7 @@ export interface components {
             taxes: components["schemas"]["SalesTaxJurisdictionTaxDto"][];
             /** @description Explanation for why taxes are not applied, if applicable.
              *     This property is null when taxes are applied. */
-            not_taxed_reason?: string | null;
+            not_taxed_reason?: null | string;
         };
         /** @description Object representing a specific tax within a sales tax jurisdiction. */
         SalesTaxJurisdictionTaxDto: {
@@ -4290,10 +4285,10 @@ export interface components {
             discord_server_id: components["schemas"]["FlakeId"];
             action_type: components["schemas"]["DiscordActionType"];
             execution_stage: components["schemas"]["DiscordActionExecutionStage"];
-            revocation_stages?: components["schemas"]["DiscordActionRevocationStage"][] | null;
+            revocation_stages?: null | components["schemas"]["DiscordActionRevocationStage"][];
             channel_id?: components["schemas"]["FlakeId"];
             role_id?: components["schemas"]["FlakeId"];
-            message?: string | null;
+            message?: null | string;
         };
         StartDataMigrationFromTebexRequestDto: {
             /** @description The public-facing Headless API token. */
@@ -4304,7 +4299,7 @@ export interface components {
         StartDownloadableFileUploadRequestDto: {
             file_name: string;
             file_content_type: string;
-            description?: string | null;
+            description?: null | string;
         };
         /**
          * Format: steam-id
@@ -4365,14 +4360,14 @@ export interface components {
              * Format: int64
              * @description Maximum per-transaction chargeback coverage amount in cents.
              */
-            chargeback_coverage_max_amount?: number | null;
+            chargeback_coverage_max_amount?: null | number;
         };
         StorePricingRegionOverrideDto: {
             /** Format: int64 */
-            default_price_multiplier?: number | null;
-            enabled?: boolean | null;
-            currency?: string | null;
-            tax_inclusive?: boolean | null;
+            default_price_multiplier?: null | number;
+            enabled?: null | boolean;
+            currency?: null | string;
+            tax_inclusive?: null | boolean;
         };
         /**
          * @description Determines the party that needs to perform or requests a verification
@@ -4401,20 +4396,20 @@ export interface components {
              * Format: date-time
              * @description Date when a repeating coupon ends for this subscription.
              */
-            coupon_repeating_ends_at?: string | null;
+            coupon_repeating_ends_at?: null | string;
             affiliate_id?: components["schemas"]["FlakeId"];
             checkout_id?: components["schemas"]["FlakeId"];
             checkout_line_id?: components["schemas"]["FlakeId"];
             /** @description Name used for billing purposes. */
-            billing_name?: string | null;
+            billing_name?: null | string;
             /** @description Email used for billing purposes. */
-            billing_email?: string | null;
+            billing_email?: null | string;
             /** @description Country code used for billing purposes. */
-            billing_country?: string | null;
+            billing_country?: null | string;
             /** @description List of tax jurisdictions applicable to this subscription. */
             tax_jurisdictions: components["schemas"]["SalesTaxJurisdictionDto"][];
             /** @description IP address of the customer at the time of subscription. */
-            customer_ip?: string | null;
+            customer_ip?: null | string;
             /** @description Indicates whether this subscription is a gift. */
             gift: boolean;
             gift_to_customer?: components["schemas"]["CustomerDto"];
@@ -4423,7 +4418,7 @@ export interface components {
             /** @description Name of the product associated with this subscription. */
             product_name: string;
             /** @description URL for the product image. */
-            product_image_url?: string | null;
+            product_image_url?: null | string;
             /**
              * Format: int32
              * @description Numeric value of the billing interval.
@@ -4505,32 +4500,32 @@ export interface components {
             /** @description Formatted string representation of the initial total amount. */
             initial_total_amount_str: string;
             /** @description Identifier for the pricing region associated with this subscription. */
-            pricing_region_id?: string | null;
+            pricing_region_id?: null | string;
             /**
              * Format: date-time
              * @description Start date of the current billing period.
              */
-            current_period_start?: string | null;
+            current_period_start?: null | string;
             /**
              * Format: date-time
              * @description End date of the current billing period.
              */
-            current_period_end?: string | null;
+            current_period_end?: null | string;
             /**
              * Format: int32
              * @description Sequence number of the current billing cycle.
              */
-            billing_cycle_sequence?: number | null;
+            billing_cycle_sequence?: null | number;
             /**
              * Format: date-time
              * @description Date and time when the next payment attempt will occur.
              */
-            next_attempt_at?: string | null;
+            next_attempt_at?: null | string;
             /**
              * Format: int32
              * @description Number of payment attempts made for the current billing cycle.
              */
-            attempt_count?: number | null;
+            attempt_count?: null | number;
             /**
              * Format: date-time
              * @description Date and time when the subscription was created.
@@ -4540,19 +4535,19 @@ export interface components {
              * Format: date-time
              * @description Date and time when the subscription was last updated.
              */
-            updated_at?: string | null;
+            updated_at?: null | string;
             /**
              * Format: date-time
              * @description Date and time when the subscription became active.
              */
-            active_at?: string | null;
+            active_at?: null | string;
             /**
              * Format: date-time
              * @description Date and time when the subscription was canceled.
              */
-            canceled_at?: string | null;
+            canceled_at?: null | string;
             /** @description Reason provided for cancellation. */
-            cancel_reason?: string | null;
+            cancel_reason?: null | string;
         };
         /**
          * @description Represents the current state of a subscription.
@@ -4573,16 +4568,16 @@ export interface components {
             /** @description The unique slug for the tag. */
             slug: string;
             /** @description The description of the tag. */
-            description?: string | null;
+            description?: null | string;
             /** @description The Image URL associated with the tag. */
-            image_url?: string | null;
+            image_url?: null | string;
             /** @description Indicates whether this tag is enabled. */
             enabled: boolean;
             /**
              * Format: date-time
              * @description When the tag was last updated.
              */
-            updated_at?: string | null;
+            updated_at?: null | string;
             updated_by?: components["schemas"]["ActorDto"];
         };
         TrialDto: {
@@ -4599,7 +4594,7 @@ export interface components {
             /** @description The name of the product being trialed. */
             product_name: string;
             /** @description The URL of the product image, if available. */
-            product_image_url?: string | null;
+            product_image_url?: null | string;
             /**
              * Format: int32
              * @description The duration value of the trial period.
@@ -4611,12 +4606,12 @@ export interface components {
              * Format: date-time
              * @description The date and time when the trial period starts, if applicable.
              */
-            starts_at?: string | null;
+            starts_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time when the trial period ends, if applicable.
              */
-            ends_at?: string | null;
+            ends_at?: null | string;
             status: components["schemas"]["TrialStatusDto"];
             /**
              * Format: date-time
@@ -4627,7 +4622,7 @@ export interface components {
              * Format: date-time
              * @description The date and time when the trial was canceled, if applicable.
              */
-            canceled_at?: string | null;
+            canceled_at?: null | string;
             canceled_by?: components["schemas"]["ActorDto"];
         };
         TrialEligibilityOverrideDto: {
@@ -4640,7 +4635,7 @@ export interface components {
             /** @description The name of the product associated with this override. */
             product_name: string;
             /** @description The URL of the product image, if available. */
-            product_image_url?: string | null;
+            product_image_url?: null | string;
             /**
              * Format: date-time
              * @description The date and time when this override was created.
@@ -4656,15 +4651,15 @@ export interface components {
              * Format: date-time
              * @description The date and time when this override was used to start a trial, if applicable.
              */
-            used_at?: string | null;
+            used_at?: null | string;
             used_on_trial_id?: components["schemas"]["FlakeId"];
             /** @description An optional note or comment about this override. */
-            note?: string | null;
+            note?: null | string;
             /**
              * Format: date-time
              * @description The date and time when this override was deleted, if applicable.
              */
-            deleted_at?: string | null;
+            deleted_at?: null | string;
             deleted_by?: components["schemas"]["ActorDto"];
         };
         /** @enum {string} */
@@ -4677,8 +4672,8 @@ export interface components {
             kyc_completed: boolean;
             requires_approval: boolean;
             manually_approved: boolean;
-            decline_reason?: string | null;
-            requires_action_text?: string | null;
+            decline_reason?: null | string;
+            requires_action_text?: null | string;
             products_created: boolean;
             kyc_required: boolean;
             gameserver_linked: boolean;
@@ -4691,7 +4686,7 @@ export interface components {
             id: components["schemas"]["FlakeId"];
             store_id: components["schemas"]["FlakeId"];
             /** @description Template ID if this requirement was created from a template. Null for ad-hoc requirements. */
-            template_id?: string | null;
+            template_id?: null | string;
             originating_flag_id?: components["schemas"]["FlakeId"];
             category: components["schemas"]["StoreRequirementCategory"];
             /** @description Unique code identifying the type of requirement. Copied from template or custom for ad-hoc requirements. */
@@ -4699,9 +4694,9 @@ export interface components {
             /** @description Human-readable name of the requirement. Copied from template or custom for ad-hoc requirements. */
             name: string;
             /** @description Detailed description explaining what the store needs to provide. Copied from template or custom for ad-hoc requirements. */
-            description?: string | null;
+            description?: null | string;
             /** @description JSON schema defining the form fields, validation rules, and document requirements */
-            schema?: unknown;
+            schema?: null;
             /** @description Additional metadata for this requirement (stored as JSON) */
             metadata: {
                 [key: string]: string;
@@ -4710,7 +4705,7 @@ export interface components {
             requested_by: components["schemas"]["StoreRequirementActionParty"];
             /** @description Specifies the specific requester entity (e.g., "stripe", "trolley", or admin user ID)
              *     Free-form string for internal records */
-            requested_by_detail?: string | null;
+            requested_by_detail?: null | string;
             /**
              * Format: date-time
              * @description When this requirement was created
@@ -4720,27 +4715,27 @@ export interface components {
              * Format: date-time
              * @description When this requirement was last updated
              */
-            updated_at?: string | null;
+            updated_at?: null | string;
             /**
              * Format: date-time
              * @description When this requirement must be completed by (optional)
              */
-            deadline_at?: string | null;
+            deadline_at?: null | string;
             /**
              * Format: date-time
              * @description When the store submitted their response to this requirement
              */
-            submitted_at?: string | null;
+            submitted_at?: null | string;
             /**
              * Format: date-time
              * @description When this requirement was verified and approved
              */
-            verified_at?: string | null;
+            verified_at?: null | string;
             /**
              * Format: date-time
              * @description When this requirement was rejected for not meeting standards
              */
-            rejected_at?: string | null;
+            rejected_at?: null | string;
             /** @description Store capabilities that are restricted until this requirement is satisfied */
             restricts_capabilities: string[];
             /** @description Associated submissions for this requriement. */
@@ -4753,18 +4748,18 @@ export interface components {
             /** @description The identifier of the specific field within the store requirement. */
             store_requirement_field_id: string;
             /** @description The text value submitted for this field, if applicable. */
-            text_value?: string | null;
+            text_value?: null | string;
             /** @description The identifier of the uploaded file, if a file was submitted. */
-            file_id?: string | null;
+            file_id?: null | string;
             /** @description The original name of the uploaded file. */
-            file_name?: string | null;
+            file_name?: null | string;
             /** @description The MIME content type of the uploaded file. */
-            file_content_type?: string | null;
+            file_content_type?: null | string;
             /**
              * Format: int64
              * @description The size of the uploaded file in bytes.
              */
-            file_size_bytes?: number | null;
+            file_size_bytes?: null | number;
             /**
              * Format: date-time
              * @description The timestamp when this submission was made.
@@ -4772,9 +4767,9 @@ export interface components {
             submitted_at: string;
             submitted_by: components["schemas"]["ActorDto"];
             /** @description The IP address from which the submission was made. */
-            submitted_by_ip_address?: string | null;
+            submitted_by_ip_address?: null | string;
             /** @description The user agent string of the client that made the submission. */
-            submitted_by_user_agent?: string | null;
+            submitted_by_user_agent?: null | string;
         };
         UnqueueCommandsRequestDto: {
             attempt_ids: components["schemas"]["FlakeId"][];
@@ -4784,18 +4779,18 @@ export interface components {
             unqueued_count: number;
         };
         UpdateAffiliateLinkDto: {
-            enabled?: boolean | null;
-            code?: string | null;
+            enabled?: null | boolean;
+            code?: null | string;
             referer_type?: components["schemas"]["AffiliateLinkRefererType"];
             /** Format: int32 */
-            tracking_length_days?: number | null;
-            apply_for_subscriptions?: boolean | null;
+            tracking_length_days?: null | number;
+            apply_for_subscriptions?: null | boolean;
             discount_type?: components["schemas"]["AffiliateLinkDiscountType"];
             /** Format: int64 */
-            discount_amount?: number | null;
+            discount_amount?: null | number;
             commission_type?: components["schemas"]["AffiliateLinkCommissionType"];
             /** Format: int64 */
-            commission_amount?: number | null;
+            commission_amount?: null | number;
         };
         UpdateCouponDto: {
             enabled?: boolean;
@@ -4803,7 +4798,7 @@ export interface components {
             note?: string;
             duration?: components["schemas"]["CouponDurationEnum"];
             /** Format: int32 */
-            duration_in_months?: number;
+            duration_in_months?: null | number;
             discount_type?: components["schemas"]["CouponDiscountTypeEnum"];
             /** Format: int64 */
             discount_amount?: number;
@@ -4823,9 +4818,9 @@ export interface components {
             usable_on_one_time_purchase?: boolean;
             usable_on_subscription?: boolean;
             /** Format: date-time */
-            usable_at?: string;
+            usable_at?: null | string;
             /** Format: date-time */
-            expires_at?: string;
+            expires_at?: null | string;
         };
         UpdateDeliveryItemProductVersionRequestDto: {
             product_version_id: components["schemas"]["FlakeId"];
@@ -4844,13 +4839,13 @@ export interface components {
             /** Format: date-time */
             usable_at?: string;
             /** Format: date-time */
-            expires_at?: string;
+            expires_at?: null | string;
         };
         UpdateNavLinkDto: {
             tag_id?: components["schemas"]["FlakeId"];
             parent_node_id?: string;
             /** Format: int32 */
-            order?: number;
+            order?: null | number;
         };
         UpdateNavLinkOrderChangeDto: {
             node_id: components["schemas"]["FlakeId"];
@@ -4874,7 +4869,7 @@ export interface components {
             /** Format: date-time */
             begins_at?: string;
             /** Format: date-time */
-            ends_at?: string;
+            ends_at?: null | string;
         };
         UpdateStorePaymentSettingsDto: {
             show_all_payment_methods_for_subscriptions?: boolean;
@@ -4891,15 +4886,15 @@ export interface components {
             url: string;
             reset_secret: boolean;
             subscribed_to: components["schemas"]["WebhookEventType"];
-            discord_description_template?: string | null;
-            discord_title?: string | null;
-            discord_color?: string | null;
+            discord_description_template?: null | string;
+            discord_title?: null | string;
+            discord_color?: null | string;
         };
         UpsertBanRequestDto: {
-            reason?: string | null;
-            identities?: components["schemas"]["BanIdentityDto"][] | null;
+            reason?: null | string;
+            identities?: null | components["schemas"]["BanIdentityDto"][];
             /** Format: date-time */
-            expires_at?: string | null;
+            expires_at?: null | string;
         };
         /** @description Unified request model for creating or updating custom variables.
          *     Contains all the configurable properties of a custom variable. */
@@ -4910,11 +4905,11 @@ export interface components {
             /** @description Display name shown to customers. */
             name: string;
             /** @description Description explaining the purpose of this custom variable. */
-            description?: string | null;
+            description?: null | string;
             type: components["schemas"]["CustomVariableType"];
             /** @description Optional regex pattern for validating customer input.
              *     Only applies to text and number types. Ignored for dropdown types. */
-            value_regex?: string | null;
+            value_regex?: null | string;
             /** @description Predefined options for dropdown-type custom variables.
              *     Required for dropdown types, ignored for text and number types.
              *     When updating, this completely replaces all existing options. */
@@ -4923,16 +4918,16 @@ export interface components {
         UpsertCustomerRequestDto: {
             steam_id?: components["schemas"]["SteamId"];
             /** @description The Minecraft UUID for the customer. */
-            minecraft_uuid?: string | null;
+            minecraft_uuid?: null | string;
             minecraft_platform?: components["schemas"]["CustomerMinecraftPlatform"];
             /** @description The Xbox XUID (Xbox User ID) for the customer. */
-            xbox_xuid?: string | null;
+            xbox_xuid?: null | string;
             /** @description The name of the customer. */
-            name?: string | null;
+            name?: null | string;
             /** @description Additional customer information stored as key-value pairs. */
-            metadata?: {
+            metadata?: null | {
                 [key: string]: string;
-            } | null;
+            };
         };
         /** @description Data transfer object used for creating new global commands or updating existing ones.
          *     Supports partial updates following PATCH semantics. */
@@ -4943,127 +4938,127 @@ export interface components {
             /** @description Indicates whether the command should only be executed when the player is online. */
             online_only: boolean;
             /** @description List of specific game server IDs where this command should be executed. */
-            override_execute_on_gameserver_ids?: components["schemas"]["FlakeId"][] | null;
+            override_execute_on_gameserver_ids?: null | components["schemas"]["FlakeId"][];
         };
         UpsertProductRequestDto: {
             /** @description The unique URL-safe identifier (slug) for the product. */
-            slug?: string | null;
+            slug?: null | string;
             /** @description The display name of the product. */
-            name?: string | null;
+            name?: null | string;
             /** @description The detailed description of the product. */
-            description?: string | null;
+            description?: null | string;
             /** @description The display label for the product. */
-            label?: string | null;
+            label?: null | string;
             /**
              * Format: int64
              * @description The price of the product in the lowest denominator (e.g. cents).
              */
-            price?: number | null;
+            price?: null | number;
             /** @description Indicates whether the customer is prompted to select a game server before purchasing. */
-            single_game_server_only?: boolean | null;
+            single_game_server_only?: null | boolean;
             /** @description Indicates whether one-time purchases are allowed. */
-            allow_one_time_purchase?: boolean | null;
+            allow_one_time_purchase?: null | boolean;
             /** @description Indicates whether subscription purchases are allowed. */
-            allow_subscription?: boolean | null;
+            allow_subscription?: null | boolean;
             /**
              * Format: int32
              * @description The subscription interval value.
              */
-            subscription_interval_value?: number | null;
+            subscription_interval_value?: null | number;
             subscription_interval_scale?: components["schemas"]["ProductSubscriptionIntervalScale"];
             trial?: components["schemas"]["UpsertProductTrialConfigurationDto"];
             /** @description Indicates whether automatic removal is enabled. */
-            remove_after_enabled?: boolean | null;
+            remove_after_enabled?: null | boolean;
             /**
              * Format: int32
              * @description The time value for automatic removal.
              */
-            remove_after_time_value?: number | null;
+            remove_after_time_value?: null | number;
             remove_after_time_scale?: components["schemas"]["ProductRemoveAfterIntervalScale"];
             store_stock_limit?: components["schemas"]["ProductStockLimitDto"];
             customer_stock_limit?: components["schemas"]["ProductStockLimitDto"];
             /** @description Indicates whether removed items should be excluded from stock limits. */
-            stock_limit_do_not_include_removed?: boolean | null;
+            stock_limit_do_not_include_removed?: null | boolean;
             /** @description The tag IDs associated with the product. */
-            tags?: components["schemas"]["FlakeId"][] | null;
+            tags?: null | components["schemas"]["FlakeId"][];
             /** @description The gameserver IDs associated with the product. */
-            gameservers?: components["schemas"]["FlakeId"][] | null;
+            gameservers?: null | components["schemas"]["FlakeId"][];
             /** @description The commands to be executed at different stages. */
-            commands?: components["schemas"]["ProductCommandDto"][] | null;
+            commands?: null | components["schemas"]["ProductCommandDto"][];
             deliverable_actions?: components["schemas"]["ProductDeliverableActionsDto"];
             /** @description Additional metadata for the product. */
-            metadata?: {
+            metadata?: null | {
                 [key: string]: string;
-            } | null;
+            };
             /** @description The payout splits for revenue distribution.
              *     Requires special approval. */
-            payout_splits?: components["schemas"]["ProductPayoutSplitDto"][] | null;
+            payout_splits?: null | components["schemas"]["ProductPayoutSplitDto"][];
             tax_code?: components["schemas"]["ProductTaxCode"];
             /** @description Indicates whether concurrent active items are allowed. */
-            allow_concurrent_active_items?: boolean | null;
+            allow_concurrent_active_items?: null | boolean;
             /** @description Indicates whether using coupons and gift cards on this product is allowed. */
-            disable_promo_codes?: boolean | null;
+            disable_promo_codes?: null | boolean;
             /** @description Indicates whether the product is hidden. */
-            is_hidden?: boolean | null;
+            is_hidden?: null | boolean;
             /** @description Indicates whether gifting is disabled. */
-            is_gifting_disabled?: boolean | null;
+            is_gifting_disabled?: null | boolean;
             /**
              * Format: date-time
              * @description The date and time when the product becomes enabled.
              *     Set to `null` to keep enabled.
              */
-            enabled_at?: string | null;
+            enabled_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time until which the product remains enabled.
              *     Set to `null` to keep enabled.
              */
-            enabled_until?: string | null;
+            enabled_until?: null | string;
             /** @description The IDs of products required for purchasing this product. */
-            required_product_ids?: components["schemas"]["FlakeId"][] | null;
+            required_product_ids?: null | components["schemas"]["FlakeId"][];
             /** @description Indicates whether all required products are needed. */
-            required_product_all?: boolean | null;
+            required_product_all?: null | boolean;
             /** @description The IDs of associated custom variables. */
-            custom_variable_ids?: components["schemas"]["FlakeId"][] | null;
+            custom_variable_ids?: null | components["schemas"]["FlakeId"][];
         };
         /** @description Represents the configuration for trials of a product */
         UpsertProductTrialConfigurationDto: {
             /** @description Indicates if trials should be enabled for the product. */
-            enabled?: boolean | null;
+            enabled?: null | boolean;
             /**
              * Format: int32
              * @description The trial period value.
              */
-            period_value?: number | null;
+            period_value?: null | number;
             period_scale?: components["schemas"]["ProductSubscriptionIntervalScale"];
             /** @description Indicates if the trial should be revoked immediately when canceled or at the end of the trial. */
-            revoke_immediately_when_canceled?: boolean | null;
+            revoke_immediately_when_canceled?: null | boolean;
             /** @description Restricts trials to customers who have no orders within the lookback period.
              *     When enabled, customers with recent orders will be ineligible for trials. */
-            new_customers_only?: boolean | null;
+            new_customers_only?: null | boolean;
             /**
              * Format: int32
              * @description The lookback period value for determining if a customer is "new".
              *     Only used when new_customers_only is enabled.
              */
-            new_customer_order_lookback_value?: number | null;
+            new_customer_order_lookback_value?: null | number;
             new_customer_order_lookback_scale?: components["schemas"]["ProductSubscriptionIntervalScale"];
             /** @description Allows customers to trial again after a cooldown period following their previous trial.
              *     When disabled, customers can only trial once and never become eligible again. */
-            allow_repeat_trials?: boolean | null;
+            allow_repeat_trials?: null | boolean;
             /**
              * Format: int32
              * @description The cooldown period value before a customer becomes eligible for another trial.
              *     Only used when allow_repeat_trials is enabled.
              */
-            repeat_trial_cooldown_value?: number | null;
+            repeat_trial_cooldown_value?: null | number;
             repeat_trial_cooldown_scale?: components["schemas"]["ProductSubscriptionIntervalScale"];
         };
         UpsertTagRequestDto: {
-            name?: string | null;
-            slug?: string | null;
-            description?: string | null;
-            enabled?: boolean | null;
+            name?: null | string;
+            slug?: null | string;
+            description?: null | string;
+            enabled?: null | boolean;
         };
         /** @description A validation error. */
         ValidationError: {
@@ -5091,9 +5086,9 @@ export interface components {
             secret: string;
             subscribed_to: components["schemas"]["WebhookEventType"];
             type: components["schemas"]["WebhookType"];
-            discord_description_template?: string | null;
-            discord_title?: string | null;
-            discord_color?: string | null;
+            discord_description_template?: null | string;
+            discord_title?: null | string;
+            discord_color?: null | string;
         };
         /** @enum {string} */
         WebhookType: "json_v1" | "discord_v1";

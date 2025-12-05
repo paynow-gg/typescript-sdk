@@ -365,7 +365,7 @@ export interface components {
             /** @description Indicates whether this line will be trialied by the customer. */
             trial: boolean;
             /** @description The URL to the product image */
-            image_url?: string | null;
+            image_url?: null | string;
             selected_gameserver_id?: components["schemas"]["FlakeId"];
             selected_gameserver?: components["schemas"]["StorefrontGameServerDto"];
             pricing: components["schemas"]["StorefrontProductPricingDetailsDto"];
@@ -378,26 +378,26 @@ export interface components {
         CreateCartCheckoutSessionDto: {
             coupon_id?: components["schemas"]["FlakeId"];
             /** @description Optional affiliate code to track referrals */
-            affiliate_code?: string | null;
+            affiliate_code?: null | string;
             /** @description Optional URL to redirect to after successful checkout */
-            return_url?: string | null;
+            return_url?: null | string;
             /** @description Optional URL to redirect to if checkout is canceled */
-            cancel_url?: string | null;
+            cancel_url?: null | string;
             /** @description Whether to automatically redirect the customer (return_url must be set) */
-            auto_redirect?: boolean | null;
+            auto_redirect?: null | boolean;
             /** @description Optional metadata to associate with the checkout session.
              *     Do not store any sensitive information here. */
-            metadata?: {
+            metadata?: null | {
                 [key: string]: string;
-            } | null;
+            };
         };
         /** @description Represents a line item in a checkout session request */
         CreateCheckoutSessionLineDto: {
             product_id: components["schemas"]["FlakeId"];
             /** @description Determines whether this line should create a subscription */
-            subscription?: boolean | null;
+            subscription?: null | boolean;
             /** @description Indicates whether the product should be trialed */
-            trial?: boolean | null;
+            trial?: null | boolean;
             gift_to?: components["schemas"]["CustomerPlatformAccountDto"];
             gift_to_customer_id?: components["schemas"]["FlakeId"];
             /**
@@ -408,14 +408,14 @@ export interface components {
             selected_gameserver_id?: components["schemas"]["FlakeId"];
             /** @description Optional metadata to associate with the checkout session line.
              *     Do not store any sensitive information here. */
-            metadata?: {
+            metadata?: null | {
                 [key: string]: string;
-            } | null;
+            };
             /** @description Key-value pair mapping custom variable identifiers to their selected values.
              *     Required only when the product includes custom variables. */
-            custom_variables?: {
+            custom_variables?: null | {
                 [key: string]: string;
-            } | null;
+            };
         };
         /** @description Request to create a new checkout session */
         CreateCheckoutSessionRequestDto: {
@@ -426,21 +426,21 @@ export interface components {
              * @description Whether this checkout creates a subscription.
              *     DEPRECATED: Use 'subscription' field in 'lines' array objects instead.
              */
-            subscription?: boolean | null;
+            subscription?: null | boolean;
             coupon_id?: components["schemas"]["FlakeId"];
             /** @description Optional affiliate code to track referrals */
-            affiliate_code?: string | null;
+            affiliate_code?: null | string;
             /** @description Optional URL to redirect to after successful checkout */
-            return_url?: string | null;
+            return_url?: null | string;
             /** @description Optional URL to redirect to if checkout is canceled */
-            cancel_url?: string | null;
+            cancel_url?: null | string;
             /** @description Whether to automatically redirect the customer (return_url must be set) */
-            auto_redirect?: boolean | null;
+            auto_redirect?: null | boolean;
             /** @description Optional metadata to associate with the checkout session.
              *     Do not store any sensitive information here. */
-            metadata?: {
+            metadata?: null | {
                 [key: string]: string;
-            } | null;
+            };
         };
         /** @description Response after creating a checkout session */
         CreateCheckoutSessionResponseDto: {
@@ -468,16 +468,16 @@ export interface components {
              *     and the profile is a bedrock account, this will be a UUID generated from the Xbox XUID.
              * @example f84c6a79-0a4e-45e0-879b-cd49ebd4c4e2
              */
-            minecraft_uuid?: string | null;
+            minecraft_uuid?: null | string;
             minecraft?: components["schemas"]["MinecraftProfileDto"];
             /** @description The customer's Xbox XUID, if available. */
-            xbox_xuid?: string | null;
+            xbox_xuid?: null | string;
             minecraft_platform?: components["schemas"]["CustomerMinecraftPlatform"];
             /**
              * @description The display name for the customer.
              * @example m0uka
              */
-            name?: string | null;
+            name?: null | string;
             /**
              * Format: date-time
              * @description The date and time when the customer was created in the system.
@@ -487,7 +487,7 @@ export interface components {
              * Format: date-time
              * @description The date and time when the customer was last updated, if applicable.
              */
-            updated_at?: string | null;
+            updated_at?: null | string;
             /** @description Additional custom data associated with the customer. */
             metadata: {
                 [key: string]: string;
@@ -544,7 +544,7 @@ export interface components {
             /** @description The display name of the user on this platform. */
             name: string;
             /** @description The URL to the user's avatar image on this platform. */
-            avatar_url?: string | null;
+            avatar_url?: null | string;
         };
         /** @description Represents a Minecraft profile for a customer. */
         MinecraftProfileDto: {
@@ -585,9 +585,9 @@ export interface components {
              * @description A distributed trace ID used for debugging.
              * @example 234a5bcd543ef3fa53ce929d0e0e4736
              */
-            trace_id?: string | null;
+            trace_id?: null | string;
             /** @description An array of multiple errors. Only used by some API services. */
-            errors?: components["schemas"]["ValidationError"][] | null;
+            errors?: null | components["schemas"]["ValidationError"][];
         };
         ProductDeliverableActionsDto: {
             /** @description Value indicating whether to grant a giftcard with the product with the subtotal amount. */
@@ -648,7 +648,7 @@ export interface components {
             /** @description Optional regex pattern to validate text/number input values.
              *     Only applies to text and number types.
              *     Uses RE2 syntax - does not support negative lookarounds, backreferences, or other advanced regex features. */
-            value_regex?: string | null;
+            value_regex?: null | string;
             /** @description Available options for dropdown type custom variables.
              *     Empty for text and number types. */
             options: components["schemas"]["StorefrontCustomVariableOptionDto"][];
@@ -686,7 +686,7 @@ export interface components {
              * Format: int32
              * @description The index of the item when multiple quantities were assigned
              */
-            quantity_index?: number | null;
+            quantity_index?: null | number;
             product: components["schemas"]["DeliveryItemProductDto"];
             state: components["schemas"]["DeliveryItemStateDto"];
             /** @description Indicates whether the delivery item can expire */
@@ -702,29 +702,29 @@ export interface components {
              * Format: date-time
              * @description The date and time when the item became active
              */
-            active_at?: string | null;
+            active_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time when the item expires naturally
              */
-            expires_at?: string | null;
+            expires_at?: null | string;
             /**
              * Format: date-time
              * @description The override expiry date for the delivery item
              */
-            override_expires_at?: string | null;
+            override_expires_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time when the item was removed
              */
-            removed_at?: string | null;
+            removed_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time when the item was revoked
              */
-            revoked_at?: string | null;
+            revoked_at?: null | string;
             /** @description The reason for revoking the delivery item */
-            revoke_reason?: string | null;
+            revoke_reason?: null | string;
         };
         /** @description Represents a simplified view of a game server for storefront display purposes. */
         StorefrontGameServerDto: {
@@ -742,14 +742,14 @@ export interface components {
             /** Format: int32 */
             starting_balance: number;
             /** Format: date-time */
-            expires_at?: string | null;
+            expires_at?: null | string;
         };
         /** @description Represents a navigation link in the storefront's hierarchical navigation structure. */
         StorefrontNavLinkDto: {
             /** @description The unique identifier for this navigation node in the navigation tree. */
             node_id: string;
             /** @description The identifier of the parent navigation node, if this is a child node. */
-            parent_node_id?: string | null;
+            parent_node_id?: null | string;
             tag_id: components["schemas"]["FlakeId"];
             /**
              * @description The URL-friendly slug for the tag associated with this navigation link.
@@ -785,7 +785,7 @@ export interface components {
              * @description The URL to the product image.
              * @example https://cdn.paynow.gg/logo/full/logotype-color.svg
              */
-            image_url?: string | null;
+            image_url?: null | string;
             /**
              * @description The unique slug for the product.
              * @example premium-game-package
@@ -805,17 +805,17 @@ export interface components {
              * Format: date-time
              * @description The date and time when the product becomes enabled.
              */
-            enabled_at?: string | null;
+            enabled_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time until which the product remains enabled.
              */
-            enabled_until?: string | null;
+            enabled_until?: null | string;
             /**
              * @description The display label for the product.
              * @example Premium Items
              */
-            label?: string | null;
+            label?: null | string;
             /**
              * Format: int32
              * @description The sort order for displaying the product.
@@ -873,19 +873,19 @@ export interface components {
             custom_variables: components["schemas"]["StorefrontCustomVariableDto"][];
             deliverable_actions?: components["schemas"]["ProductDeliverableActionsDto"];
             /** @description Additional metadata for the product. */
-            metadata?: {
+            metadata?: null | {
                 [key: string]: string;
-            } | null;
+            };
             /**
              * Format: date-time
              * @description The date and time when the product was created.
              */
-            created_at?: string | null;
+            created_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time when the product was last updated.
              */
-            updated_at?: string | null;
+            updated_at?: null | string;
         };
         /** @description The pricing details for the product in the storefront. */
         StorefrontProductPricingDetailsDto: {
@@ -895,7 +895,7 @@ export interface components {
              * @description The amount of the sale discount in the lowest denominator (e.g. cents).
              * @example 500
              */
-            sale_value?: number | null;
+            sale_value?: null | number;
             vat_rate?: components["schemas"]["VatRateDto"];
             regional_pricing?: components["schemas"]["StorefrontProductPricingDetailsRegionalPricingDto"];
             /**
@@ -993,7 +993,7 @@ export interface components {
              * @description The date and time when the sale ends, if applicable.
              * @example 2025-06-30T23:59:59Z
              */
-            ends_at?: string | null;
+            ends_at?: null | string;
         };
         /** @description Represents a store entity within the storefront system. */
         StorefrontStoreDto: {
@@ -1021,34 +1021,34 @@ export interface components {
              */
             currency: string;
             /** @description A detailed description of the store. Only present for some platform types. */
-            description?: string | null;
+            description?: null | string;
             /** @description The URL of the store's main website, if not using Hosted Webstores. */
-            website_url?: string | null;
+            website_url?: null | string;
             /**
              * @description The email address customers can use to contact store support.
              * @example support@example.com
              */
-            support_email?: string | null;
+            support_email?: null | string;
             /** @description The URL of the store's support page. */
-            support_url?: string | null;
+            support_url?: null | string;
             /** @description The type of integration this store uses with external systems. */
-            integration_type?: string | null;
+            integration_type?: null | string;
             /** @description Indicates whether the store is in live mode (true) or test mode (false). */
             live_mode: boolean;
             /** @description The URL to the store's main logo image. */
-            logo_url?: string | null;
+            logo_url?: null | string;
             /** @description The URL to the store's square logo image. */
-            logo_square_url?: string | null;
+            logo_square_url?: null | string;
             /**
              * Format: date-time
              * @description The date and time when the store was created.
              */
-            created_at?: string | null;
+            created_at?: null | string;
             /**
              * Format: date-time
              * @description The date and time when the store was last updated.
              */
-            updated_at?: string | null;
+            updated_at?: null | string;
         };
         /** @description Represents a tag entity used for categorizing and filtering products within a store. */
         StorefrontTagDto: {
@@ -1059,12 +1059,12 @@ export interface components {
             /** @description The display name of the tag shown to customers. */
             name: string;
             /** @description A detailed description of the tag's purpose or the category it represents. */
-            description?: string | null;
+            description?: null | string;
             /**
              * @description The URL to the tag image.
              * @example https://cdn.paynow.gg/logo/full/logotype-color.svg
              */
-            image_url?: string | null;
+            image_url?: null | string;
             /** @description Indicates whether the tag is active and should be included in navigation and filtering. */
             enabled: boolean;
             /**
@@ -1076,7 +1076,7 @@ export interface components {
              * Format: date-time
              * @description The date and time when the tag was last updated, if applicable.
              */
-            updated_at?: string | null;
+            updated_at?: null | string;
         };
         /** @description A validation error. */
         ValidationError: {
