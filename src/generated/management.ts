@@ -1927,6 +1927,10 @@ export interface components {
         CheckForBanIDByIdentitiesRequestDto: {
             identities: components["schemas"]["BanIdentityDto"][];
         };
+        CheckForBanIDByIdentitiesResponseDto: {
+            is_banned: boolean;
+            ban_id?: components["schemas"]["FlakeId"];
+        };
         CommandAttemptDto: {
             id: components["schemas"]["FlakeId"];
             store_id: components["schemas"]["FlakeId"];
@@ -5470,7 +5474,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CheckForBanIDByIdentitiesRequestDto"];
+                    "application/json": components["schemas"]["CheckForBanIDByIdentitiesResponseDto"];
                 };
             };
             /** @description Error response */
