@@ -843,6 +843,12 @@ export interface components {
             allow_subscription: boolean;
             /** @description Indicates whether gifting is disabled for this product. */
             is_gifting_disabled: boolean;
+            /** @description Indicates whether gift cards are disabled entirely for the product. */
+            is_gift_cards_disabled: boolean;
+            /** @description Indicates whether coupons are disabled entirely for the product. */
+            is_coupons_disabled: boolean;
+            /** @description Indicates whether affiliate links are disabled entirely for the product. */
+            is_affiliate_links_disabled: boolean;
             /**
              * Format: int32
              * @description The subscription interval value.
