@@ -15,7 +15,7 @@ async function generate(name: string, endpoint: string) {
 
         if (operation.deprecated || operation["x-gitbook-ignore"] === true) {
           delete spec.paths[path][method];
-          
+
           continue;
         }
 
@@ -94,4 +94,9 @@ generate(
 generate(
   "storefront",
   "https://api.paynow.gg/swagger/storefront-api/openapi.json",
+);
+
+generate(
+  "webhooks",
+  "https://api.paynow.gg/swagger/webhook-definitions/openapi.json",
 );

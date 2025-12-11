@@ -1638,6 +1638,22 @@ export interface paths {
         patch: operations["Webhooks_UpdateSubscription"];
         trace?: never;
     };
+    "/v1/stores/{storeId}/webhooks/resend": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Webhooks_Resend"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/stores/{storeId}/webhooks/{webhookId}/history": {
         parameters: {
             query?: never;
@@ -2880,8 +2896,6 @@ export interface components {
             tax_code?: components["schemas"]["ProductTaxCode"];
             /** @description Indicates whether concurrent active items are allowed. */
             allow_concurrent_active_items?: null | boolean;
-            /** @description Indicates whether using coupons and gift cards on this product is allowed. */
-            disable_promo_codes?: null | boolean;
             /** @description Indicates whether the product is hidden. */
             is_hidden?: null | boolean;
             /** @description Indicates whether gifting is disabled. */
@@ -2904,6 +2918,12 @@ export interface components {
             required_product_all?: null | boolean;
             /** @description The IDs of associated custom variables. */
             custom_variable_ids?: null | components["schemas"]["FlakeId"][];
+            /** @description Indicates if applying gift cards should be disabled on the product. */
+            is_gift_cards_disabled?: null | boolean;
+            /** @description Indicates if applying coupons should be disabled on the product. */
+            is_coupons_disabled?: null | boolean;
+            /** @description Indicates if applying affiliate links should be disabled on the product. */
+            is_affiliate_links_disabled?: null | boolean;
         };
         /** @description Klarna payment method details */
         KlarnaDetailsDto: {
@@ -3792,8 +3812,6 @@ export interface components {
             tax_code?: components["schemas"]["ProductTaxCode"];
             /** @description Indicates whether concurrent active items are allowed. */
             allow_concurrent_active_items?: null | boolean;
-            /** @description Indicates whether using coupons and gift cards on this product is allowed. */
-            disable_promo_codes?: null | boolean;
             /** @description Indicates whether the product is hidden. */
             is_hidden?: null | boolean;
             /** @description Indicates whether gifting is disabled. */
@@ -3814,6 +3832,12 @@ export interface components {
             required_product_all?: null | boolean;
             /** @description The IDs of associated custom variables. */
             custom_variable_ids?: null | components["schemas"]["FlakeId"][];
+            /** @description Indicates if applying gift cards should be disabled on the product. */
+            is_gift_cards_disabled?: null | boolean;
+            /** @description Indicates if applying coupons should be disabled on the product. */
+            is_coupons_disabled?: null | boolean;
+            /** @description Indicates if applying affiliate links should be disabled on the product. */
+            is_affiliate_links_disabled?: null | boolean;
         };
         ProductGameServerDto: {
             id: components["schemas"]["FlakeId"];
@@ -4210,6 +4234,9 @@ export interface components {
         ResendCommandsForGameServerResponseDto: {
             /** Format: int32 */
             enqueued_commands_count: number;
+        };
+        ResendWebhookDto: {
+            webhook_id: components["schemas"]["FlakeId"];
         };
         /** @enum {string} */
         SaleDiscountType: "percent" | "amount";
@@ -5000,8 +5027,6 @@ export interface components {
             tax_code?: components["schemas"]["ProductTaxCode"];
             /** @description Indicates whether concurrent active items are allowed. */
             allow_concurrent_active_items?: null | boolean;
-            /** @description Indicates whether using coupons and gift cards on this product is allowed. */
-            disable_promo_codes?: null | boolean;
             /** @description Indicates whether the product is hidden. */
             is_hidden?: null | boolean;
             /** @description Indicates whether gifting is disabled. */
@@ -5024,6 +5049,12 @@ export interface components {
             required_product_all?: null | boolean;
             /** @description The IDs of associated custom variables. */
             custom_variable_ids?: null | components["schemas"]["FlakeId"][];
+            /** @description Indicates if applying gift cards should be disabled on the product. */
+            is_gift_cards_disabled?: null | boolean;
+            /** @description Indicates if applying coupons should be disabled on the product. */
+            is_coupons_disabled?: null | boolean;
+            /** @description Indicates if applying affiliate links should be disabled on the product. */
+            is_affiliate_links_disabled?: null | boolean;
         };
         /** @description Represents the configuration for trials of a product */
         UpsertProductTrialConfigurationDto: {
@@ -9571,6 +9602,39 @@ export interface operations {
             };
         };
     };
+    Webhooks_Resend: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["ResendWebhookDto"];
+                "text/json": components["schemas"]["ResendWebhookDto"];
+                "application/*+json": components["schemas"]["ResendWebhookDto"];
+            };
+        };
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
     Webhooks_GetHistory: {
         parameters: {
             query?: {
@@ -10120,6 +10184,10 @@ export const operationMappings = {
   "Webhooks_DeleteSubscription": {
     "method": "DELETE",
     "path": "/v1/stores/{storeId}/webhooks/{webhookId}"
+  },
+  "Webhooks_Resend": {
+    "method": "POST",
+    "path": "/v1/stores/{storeId}/webhooks/resend"
   },
   "Webhooks_GetHistory": {
     "method": "GET",
