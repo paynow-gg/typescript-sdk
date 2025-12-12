@@ -1,6 +1,6 @@
 export type paths = Record<string, never>;
 export interface webhooks {
-    OnSubscriptionRenewed: {
+    ON_SUBSCRIPTION_RENEWED: {
         parameters: {
             query?: never;
             header?: never;
@@ -11,7 +11,7 @@ export interface webhooks {
         put?: never;
         /**
          * Triggered when a subscription is renewed
-         * @description Webhook for OnSubscriptionRenewed
+         * @description Webhook for ON_SUBSCRIPTION_RENEWED
          */
         post: {
             parameters: {
@@ -23,6 +23,10 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_SUBSCRIPTION_RENEWED
+                         */
                         event_type: components["schemas"]["WebhookEventType"];
                         /**
                          * Format: flake-id
@@ -116,7 +120,7 @@ export interface webhooks {
                              * @description The image URL of the Product associated with the Subscription
                              * @example https://example.com/biz.jpg
                              */
-                            product_image_url?: string;
+                            product_image_url?: null | string;
                             product?: components["schemas"]["ProductDTO"];
                             /**
                              * @description The ISO-3166 country code of customer associated with the Subscription
@@ -158,25 +162,25 @@ export interface webhooks {
                              * @description The start date of the current billing period
                              * @example 2024-03-01T00:00:00Z
                              */
-                            current_period_start?: string;
+                            current_period_start?: null | string;
                             /**
                              * Format: date-time
                              * @description The end date of the current billing period
                              * @example 2024-06-01T00:00:00Z
                              */
-                            current_period_end?: string;
+                            current_period_end?: null | string;
                             /**
                              * Format: date-time
                              * @description The date and time when the Subscription was created
                              * @example 2024-03-01T11:00:00Z
                              */
-                            created_at?: string;
+                            created_at?: null | string;
                             /**
                              * Format: date-time
                              * @description Indicates when the subscription was active
                              * @example 2024-03-01T11:05:00Z
                              */
-                            active_at?: string;
+                            active_at?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Checkout associated with the Subscription
@@ -228,7 +232,7 @@ export interface webhooks {
         patch?: never;
         trace?: never;
     };
-    OnDiscordAccountLinkedToCheckout: {
+    ON_DISCORD_ACCOUNT_LINKED_TO_CHECKOUT: {
         parameters: {
             query?: never;
             header?: never;
@@ -239,7 +243,7 @@ export interface webhooks {
         put?: never;
         /**
          * Triggered when a Discord account is successfully linked to a checkout.
-         * @description Webhook for OnDiscordAccountLinkedToCheckout
+         * @description Webhook for ON_DISCORD_ACCOUNT_LINKED_TO_CHECKOUT
          */
         post: {
             parameters: {
@@ -251,6 +255,10 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_DISCORD_ACCOUNT_LINKED_TO_CHECKOUT
+                         */
                         event_type: components["schemas"]["WebhookEventType"];
                         /**
                          * Format: flake-id
@@ -324,7 +332,7 @@ export interface webhooks {
                              * @description Indicates when the Discord account link was enqueued
                              * @example 2024-01-15T10:30:00Z
                              */
-                            enqueued_at?: string;
+                            enqueued_at?: null | string;
                         };
                     };
                 };
@@ -359,7 +367,7 @@ export interface webhooks {
         patch?: never;
         trace?: never;
     };
-    OnDeliveryItemAdded: {
+    ON_DELIVERY_ITEM_ADDED: {
         parameters: {
             query?: never;
             header?: never;
@@ -370,7 +378,7 @@ export interface webhooks {
         put?: never;
         /**
          * Triggered when a delivery item is added to the customers inventory
-         * @description Webhook for OnDeliveryItemAdded
+         * @description Webhook for ON_DELIVERY_ITEM_ADDED
          */
         post: {
             parameters: {
@@ -382,6 +390,10 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_DELIVERY_ITEM_ADDED
+                         */
                         event_type: components["schemas"]["WebhookEventType"];
                         /**
                          * Format: flake-id
@@ -402,44 +414,44 @@ export interface webhooks {
                              * @example 411486491630370816
                              */
                             store_id?: string;
-                            customer?: components["schemas"]["CustomerDTO"];
+                            customer?: components["schemas"]["CustomerDTO"] | null;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the customer who ordered the delivery item - which may differ to the customer because of gifting
                              * @example 411486491630370816
                              */
-                            order_customer_id?: string;
+                            order_customer_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Checkout associated with the Delivery Item
                              * @example 411486491630370816
                              */
-                            checkout_id?: string;
+                            checkout_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Order ID associated with the Delivery Item
                              * @example 411486491630370816
                              */
-                            order_id?: string;
+                            order_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake Id of the Order Line ID associated with the Delivery Item
                              * @example 411486491630370816
                              */
-                            order_line_id?: string;
+                            order_line_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Subscription associated with the Delivery Item
                              * @example 411486491630370816
                              */
-                            subscription_id?: string;
+                            subscription_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Game Server the Delivery Item is associated with
                              * @example 411486491630370816
                              */
-                            execute_on_gameserver_id?: string;
-                            execute_on_gameserver?: components["schemas"]["GameServerDTO"];
+                            execute_on_gameserver_id?: null | string;
+                            execute_on_gameserver?: components["schemas"]["GameServerDTO"] | null;
                             /**
                              * Format: flake-id
                              * @description The associated Product ID of the Delivery Item
@@ -469,27 +481,27 @@ export interface webhooks {
                              * @description Indicates when the Delivery Item become active
                              * @example 2024-01-10T09:00:00Z
                              */
-                            active_at?: string;
+                            active_at?: null | string;
                             /**
                              * Format: date-time
                              * @description Indicates when the Delivery Item expires
                              * @example 2024-12-31T23:59:59Z
                              */
-                            expires_at?: string;
+                            expires_at?: null | string;
                             /**
                              * Format: date-time
                              * @description Indicates when the Delivery Item was removed from the customers inventory
                              * @example 2024-02-01T10:00:00Z
                              */
-                            removed_at?: string;
+                            removed_at?: null | string;
                             /**
                              * Format: date-time
                              * @description Indicates when the Delivery Item was revoked from the customers inventory
                              * @example 2024-02-05T14:30:00Z
                              */
-                            revoked_at?: string;
+                            revoked_at?: null | string;
                             /** @description Indicates the reason the delivery item was revoked from the customers inventory */
-                            revoke_reason?: string;
+                            revoke_reason?: null | string;
                         };
                     };
                 };
@@ -524,7 +536,7 @@ export interface webhooks {
         patch?: never;
         trace?: never;
     };
-    OnDeliveryItemActivated: {
+    ON_DELIVERY_ITEM_ACTIVATED: {
         parameters: {
             query?: never;
             header?: never;
@@ -535,7 +547,7 @@ export interface webhooks {
         put?: never;
         /**
          * Triggered when a delivery item in the customers inventory activates
-         * @description Webhook for OnDeliveryItemActivated
+         * @description Webhook for ON_DELIVERY_ITEM_ACTIVATED
          */
         post: {
             parameters: {
@@ -547,6 +559,10 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_DELIVERY_ITEM_ACTIVATED
+                         */
                         event_type: components["schemas"]["WebhookEventType"];
                         /**
                          * Format: flake-id
@@ -567,44 +583,44 @@ export interface webhooks {
                              * @example 411486491630370816
                              */
                             store_id?: string;
-                            customer?: components["schemas"]["CustomerDTO"];
+                            customer?: components["schemas"]["CustomerDTO"] | null;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the customer who ordered the delivery item - which may differ to the customer because of gifting
                              * @example 411486491630370816
                              */
-                            order_customer_id?: string;
+                            order_customer_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Checkout associated with the Delivery Item
                              * @example 411486491630370816
                              */
-                            checkout_id?: string;
+                            checkout_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Order ID associated with the Delivery Item
                              * @example 411486491630370816
                              */
-                            order_id?: string;
+                            order_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake Id of the Order Line ID associated with the Delivery Item
                              * @example 411486491630370816
                              */
-                            order_line_id?: string;
+                            order_line_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Subscription associated with the Delivery Item
                              * @example 411486491630370816
                              */
-                            subscription_id?: string;
+                            subscription_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Game Server the Delivery Item is associated with
                              * @example 411486491630370816
                              */
-                            execute_on_gameserver_id?: string;
-                            execute_on_gameserver?: components["schemas"]["GameServerDTO"];
+                            execute_on_gameserver_id?: null | string;
+                            execute_on_gameserver?: components["schemas"]["GameServerDTO"] | null;
                             /**
                              * Format: flake-id
                              * @description The associated Product ID of the Delivery Item
@@ -634,27 +650,27 @@ export interface webhooks {
                              * @description Indicates when the Delivery Item become active
                              * @example 2024-01-10T09:00:00Z
                              */
-                            active_at?: string;
+                            active_at?: null | string;
                             /**
                              * Format: date-time
                              * @description Indicates when the Delivery Item expires
                              * @example 2024-12-31T23:59:59Z
                              */
-                            expires_at?: string;
+                            expires_at?: null | string;
                             /**
                              * Format: date-time
                              * @description Indicates when the Delivery Item was removed from the customers inventory
                              * @example 2024-02-01T10:00:00Z
                              */
-                            removed_at?: string;
+                            removed_at?: null | string;
                             /**
                              * Format: date-time
                              * @description Indicates when the Delivery Item was revoked from the customers inventory
                              * @example 2024-02-05T14:30:00Z
                              */
-                            revoked_at?: string;
+                            revoked_at?: null | string;
                             /** @description Indicates the reason the delivery item was revoked from the customers inventory */
-                            revoke_reason?: string;
+                            revoke_reason?: null | string;
                         };
                     };
                 };
@@ -689,7 +705,7 @@ export interface webhooks {
         patch?: never;
         trace?: never;
     };
-    OnDeliveryItemUsed: {
+    ON_DELIVERY_ITEM_USED: {
         parameters: {
             query?: never;
             header?: never;
@@ -700,7 +716,7 @@ export interface webhooks {
         put?: never;
         /**
          * Triggered when a delivery item in the customers inventory becomes used
-         * @description Webhook for OnDeliveryItemUsed
+         * @description Webhook for ON_DELIVERY_ITEM_USED
          */
         post: {
             parameters: {
@@ -712,6 +728,10 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_DELIVERY_ITEM_USED
+                         */
                         event_type: components["schemas"]["WebhookEventType"];
                         /**
                          * Format: flake-id
@@ -732,44 +752,44 @@ export interface webhooks {
                              * @example 411486491630370816
                              */
                             store_id?: string;
-                            customer?: components["schemas"]["CustomerDTO"];
+                            customer?: components["schemas"]["CustomerDTO"] | null;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the customer who ordered the delivery item - which may differ to the customer because of gifting
                              * @example 411486491630370816
                              */
-                            order_customer_id?: string;
+                            order_customer_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Checkout associated with the Delivery Item
                              * @example 411486491630370816
                              */
-                            checkout_id?: string;
+                            checkout_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Order ID associated with the Delivery Item
                              * @example 411486491630370816
                              */
-                            order_id?: string;
+                            order_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake Id of the Order Line ID associated with the Delivery Item
                              * @example 411486491630370816
                              */
-                            order_line_id?: string;
+                            order_line_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Subscription associated with the Delivery Item
                              * @example 411486491630370816
                              */
-                            subscription_id?: string;
+                            subscription_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Game Server the Delivery Item is associated with
                              * @example 411486491630370816
                              */
-                            execute_on_gameserver_id?: string;
-                            execute_on_gameserver?: components["schemas"]["GameServerDTO"];
+                            execute_on_gameserver_id?: null | string;
+                            execute_on_gameserver?: components["schemas"]["GameServerDTO"] | null;
                             /**
                              * Format: flake-id
                              * @description The associated Product ID of the Delivery Item
@@ -799,27 +819,27 @@ export interface webhooks {
                              * @description Indicates when the Delivery Item become active
                              * @example 2024-01-10T09:00:00Z
                              */
-                            active_at?: string;
+                            active_at?: null | string;
                             /**
                              * Format: date-time
                              * @description Indicates when the Delivery Item expires
                              * @example 2024-12-31T23:59:59Z
                              */
-                            expires_at?: string;
+                            expires_at?: null | string;
                             /**
                              * Format: date-time
                              * @description Indicates when the Delivery Item was removed from the customers inventory
                              * @example 2024-02-01T10:00:00Z
                              */
-                            removed_at?: string;
+                            removed_at?: null | string;
                             /**
                              * Format: date-time
                              * @description Indicates when the Delivery Item was revoked from the customers inventory
                              * @example 2024-02-05T14:30:00Z
                              */
-                            revoked_at?: string;
+                            revoked_at?: null | string;
                             /** @description Indicates the reason the delivery item was revoked from the customers inventory */
-                            revoke_reason?: string;
+                            revoke_reason?: null | string;
                         };
                     };
                 };
@@ -854,7 +874,7 @@ export interface webhooks {
         patch?: never;
         trace?: never;
     };
-    OnDeliveryItemRevoked: {
+    ON_DELIVERY_ITEM_REVOKED: {
         parameters: {
             query?: never;
             header?: never;
@@ -865,7 +885,7 @@ export interface webhooks {
         put?: never;
         /**
          * Triggered when a delivery item is revoked from the customers inventory
-         * @description Webhook for OnDeliveryItemRevoked
+         * @description Webhook for ON_DELIVERY_ITEM_REVOKED
          */
         post: {
             parameters: {
@@ -877,6 +897,10 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_DELIVERY_ITEM_REVOKED
+                         */
                         event_type: components["schemas"]["WebhookEventType"];
                         /**
                          * Format: flake-id
@@ -897,44 +921,44 @@ export interface webhooks {
                              * @example 411486491630370816
                              */
                             store_id?: string;
-                            customer?: components["schemas"]["CustomerDTO"];
+                            customer?: components["schemas"]["CustomerDTO"] | null;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the customer who ordered the delivery item - which may differ to the customer because of gifting
                              * @example 411486491630370816
                              */
-                            order_customer_id?: string;
+                            order_customer_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Checkout associated with the Delivery Item
                              * @example 411486491630370816
                              */
-                            checkout_id?: string;
+                            checkout_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Order ID associated with the Delivery Item
                              * @example 411486491630370816
                              */
-                            order_id?: string;
+                            order_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake Id of the Order Line ID associated with the Delivery Item
                              * @example 411486491630370816
                              */
-                            order_line_id?: string;
+                            order_line_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Subscription associated with the Delivery Item
                              * @example 411486491630370816
                              */
-                            subscription_id?: string;
+                            subscription_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Game Server the Delivery Item is associated with
                              * @example 411486491630370816
                              */
-                            execute_on_gameserver_id?: string;
-                            execute_on_gameserver?: components["schemas"]["GameServerDTO"];
+                            execute_on_gameserver_id?: null | string;
+                            execute_on_gameserver?: components["schemas"]["GameServerDTO"] | null;
                             /**
                              * Format: flake-id
                              * @description The associated Product ID of the Delivery Item
@@ -964,27 +988,27 @@ export interface webhooks {
                              * @description Indicates when the Delivery Item become active
                              * @example 2024-01-10T09:00:00Z
                              */
-                            active_at?: string;
+                            active_at?: null | string;
                             /**
                              * Format: date-time
                              * @description Indicates when the Delivery Item expires
                              * @example 2024-12-31T23:59:59Z
                              */
-                            expires_at?: string;
+                            expires_at?: null | string;
                             /**
                              * Format: date-time
                              * @description Indicates when the Delivery Item was removed from the customers inventory
                              * @example 2024-02-01T10:00:00Z
                              */
-                            removed_at?: string;
+                            removed_at?: null | string;
                             /**
                              * Format: date-time
                              * @description Indicates when the Delivery Item was revoked from the customers inventory
                              * @example 2024-02-05T14:30:00Z
                              */
-                            revoked_at?: string;
+                            revoked_at?: null | string;
                             /** @description Indicates the reason the delivery item was revoked from the customers inventory */
-                            revoke_reason?: string;
+                            revoke_reason?: null | string;
                         };
                     };
                 };
@@ -1019,7 +1043,7 @@ export interface webhooks {
         patch?: never;
         trace?: never;
     };
-    OnOrderCompleted: {
+    ON_ORDER_COMPLETED: {
         parameters: {
             query?: never;
             header?: never;
@@ -1030,7 +1054,7 @@ export interface webhooks {
         put?: never;
         /**
          * Triggered when an order is completed
-         * @description Webhook for OnOrderCompleted
+         * @description Webhook for ON_ORDER_COMPLETED
          */
         post: {
             parameters: {
@@ -1042,6 +1066,10 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_ORDER_COMPLETED
+                         */
                         event_type: components["schemas"]["WebhookEventType"];
                         /**
                          * Format: flake-id
@@ -1075,13 +1103,13 @@ export interface webhooks {
                              * @description The Flake ID of the Subscription associated with the order
                              * @example 411486491630370816
                              */
-                            subscription_id?: string;
+                            subscription_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Coupon associated with the order
                              * @example 411486491630370816
                              */
-                            coupon_id?: string;
+                            coupon_id?: null | string;
                             /**
                              * @description The ISO-4217 Currency Code of the order
                              * @example USD
@@ -1205,7 +1233,7 @@ export interface webhooks {
         patch?: never;
         trace?: never;
     };
-    OnChargeback: {
+    ON_CHARGEBACK: {
         parameters: {
             query?: never;
             header?: never;
@@ -1216,7 +1244,7 @@ export interface webhooks {
         put?: never;
         /**
          * Triggered when a chargeback is created
-         * @description Webhook for OnChargeback
+         * @description Webhook for ON_CHARGEBACK
          */
         post: {
             parameters: {
@@ -1228,6 +1256,10 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_CHARGEBACK
+                         */
                         event_type: components["schemas"]["WebhookEventType"];
                         /**
                          * Format: flake-id
@@ -1254,7 +1286,7 @@ export interface webhooks {
                              * @example 411486491630370816
                              */
                             order_id?: string;
-                            customer?: components["schemas"]["CustomerDTO"];
+                            customer?: components["schemas"]["CustomerDTO"] | null;
                             /**
                              * @description The Payment Gateway of the Payment
                              * @example stripe
@@ -1337,7 +1369,7 @@ export interface webhooks {
         patch?: never;
         trace?: never;
     };
-    OnRefund: {
+    ON_REFUND: {
         parameters: {
             query?: never;
             header?: never;
@@ -1348,7 +1380,7 @@ export interface webhooks {
         put?: never;
         /**
          * Triggered when a refund is completed
-         * @description Webhook for OnRefund
+         * @description Webhook for ON_REFUND
          */
         post: {
             parameters: {
@@ -1360,6 +1392,10 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_REFUND
+                         */
                         event_type: components["schemas"]["WebhookEventType"];
                         /**
                          * Format: flake-id
@@ -1386,7 +1422,7 @@ export interface webhooks {
                              * @example 411486491630370816
                              */
                             order_id?: string;
-                            customer?: components["schemas"]["CustomerDTO"];
+                            customer?: components["schemas"]["CustomerDTO"] | null;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Payment associated with the refund
@@ -1503,7 +1539,7 @@ export interface webhooks {
         patch?: never;
         trace?: never;
     };
-    OnSubscriptionActivated: {
+    ON_SUBSCRIPTION_ACTIVATED: {
         parameters: {
             query?: never;
             header?: never;
@@ -1514,7 +1550,7 @@ export interface webhooks {
         put?: never;
         /**
          * Triggered when a subscription is activated
-         * @description Webhook for OnSubscriptionActivated
+         * @description Webhook for ON_SUBSCRIPTION_ACTIVATED
          */
         post: {
             parameters: {
@@ -1526,6 +1562,10 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_SUBSCRIPTION_ACTIVATED
+                         */
                         event_type: components["schemas"]["WebhookEventType"];
                         /**
                          * Format: flake-id
@@ -1619,7 +1659,7 @@ export interface webhooks {
                              * @description The image URL of the Product associated with the Subscription
                              * @example https://example.com/image.jpg
                              */
-                            product_image_url?: string;
+                            product_image_url?: null | string;
                             product?: components["schemas"]["ProductDTO"];
                             /**
                              * @description The ISO-3166 Country Code of customer associated with the Subscription
@@ -1661,25 +1701,25 @@ export interface webhooks {
                              * @description The start date of the current billing period
                              * @example 2024-02-01T00:00:00Z
                              */
-                            current_period_start?: string;
+                            current_period_start?: null | string;
                             /**
                              * Format: date-time
                              * @description The end date of the current billing period
                              * @example 2024-03-01T00:00:00Z
                              */
-                            current_period_end?: string;
+                            current_period_end?: null | string;
                             /**
                              * Format: date-time
                              * @description The date and time when the Subscription was created
                              * @example 2024-02-01T10:15:00Z
                              */
-                            created_at?: string;
+                            created_at?: null | string;
                             /**
                              * Format: date-time
                              * @description Indicates when the subscription was active
                              * @example 2024-02-01T10:20:00Z
                              */
-                            active_at?: string;
+                            active_at?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Checkout associated with the Subscription
@@ -1731,7 +1771,7 @@ export interface webhooks {
         patch?: never;
         trace?: never;
     };
-    OnSubscriptionCanceled: {
+    ON_SUBSCRIPTION_CANCELED: {
         parameters: {
             query?: never;
             header?: never;
@@ -1742,7 +1782,7 @@ export interface webhooks {
         put?: never;
         /**
          * Triggered when a subscription is canceled
-         * @description Webhook for OnSubscriptionCanceled
+         * @description Webhook for ON_SUBSCRIPTION_CANCELED
          */
         post: {
             parameters: {
@@ -1754,6 +1794,10 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_SUBSCRIPTION_CANCELED
+                         */
                         event_type: components["schemas"]["WebhookEventType"];
                         /**
                          * Format: flake-id
@@ -1847,7 +1891,7 @@ export interface webhooks {
                              * @description The image URL of the Product associated with the Subscription
                              * @example https://example.com/starter.jpg
                              */
-                            product_image_url?: string;
+                            product_image_url?: null | string;
                             product?: components["schemas"]["ProductDTO"];
                             /**
                              * @description The ISO-3166 country code of customer associated with the Subscription
@@ -1889,36 +1933,36 @@ export interface webhooks {
                              * @description The start date of the current billing period
                              * @example 2024-04-01T00:00:00Z
                              */
-                            current_period_start?: string;
+                            current_period_start?: null | string;
                             /**
                              * Format: date-time
                              * @description The end date of the current billing period
                              * @example 2025-04-01T00:00:00Z
                              */
-                            current_period_end?: string;
+                            current_period_end?: null | string;
                             /**
                              * Format: date-time
                              * @description The date and time when the Subscription was created
                              * @example 2024-04-01T09:30:00Z
                              */
-                            created_at?: string;
+                            created_at?: null | string;
                             /**
                              * Format: date-time
                              * @description Indicates when the subscription was active
                              * @example 2024-04-01T09:35:00Z
                              */
-                            active_at?: string;
+                            active_at?: null | string;
                             /**
                              * Format: date-time
                              * @description Indicates when the subscription was canceled
                              * @example 2024-05-15T14:20:00Z
                              */
-                            canceled_at?: string;
+                            canceled_at?: null | string;
                             /**
                              * @description The reason for the subscription cancellation
                              * @example customer_request
                              */
-                            cancel_reason?: string;
+                            cancel_reason?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Checkout associated with the Subscription
@@ -1970,7 +2014,7 @@ export interface webhooks {
         patch?: never;
         trace?: never;
     };
-    OnTrialActivated: {
+    ON_TRIAL_ACTIVATED: {
         parameters: {
             query?: never;
             header?: never;
@@ -1981,7 +2025,7 @@ export interface webhooks {
         put?: never;
         /**
          * Triggered when a trial is activated
-         * @description Webhook for OnTrialActivated
+         * @description Webhook for ON_TRIAL_ACTIVATED
          */
         post: {
             parameters: {
@@ -1993,6 +2037,10 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_TRIAL_ACTIVATED
+                         */
                         event_type: components["schemas"]["WebhookEventType"];
                         /**
                          * Format: flake-id
@@ -2025,13 +2073,13 @@ export interface webhooks {
                              * @description The Flake ID of the Checkout associated with the Trial
                              * @example 411486491630370816
                              */
-                            checkout_id?: string;
+                            checkout_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Checkout Line associated with the Trial
                              * @example 411486491630370816
                              */
-                            checkout_line_id?: string;
+                            checkout_line_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Product associated with the Trial
@@ -2053,7 +2101,7 @@ export interface webhooks {
                              * @description The image URL of the Product associated with the Trial
                              * @example https://example.com/image.jpg
                              */
-                            product_image_url?: string;
+                            product_image_url?: null | string;
                             /**
                              * @description The period value of the Trial
                              * @example 1
@@ -2069,13 +2117,13 @@ export interface webhooks {
                              * @description The start date of the Trial
                              * @example 2024-06-10T00:00:00Z
                              */
-                            starts_at?: string;
+                            starts_at?: null | string;
                             /**
                              * Format: date-time
                              * @description The end date of the Trial
                              * @example 2024-06-17T23:59:59Z
                              */
-                            ends_at?: string;
+                            ends_at?: null | string;
                             /**
                              * @description The current status of the Trial.  Possible options: created, active, canceled, completed
                              * @example created
@@ -2092,7 +2140,7 @@ export interface webhooks {
                              * @description Indicates when the Trial was canceled
                              * @example 2024-06-15T10:15:00Z
                              */
-                            canceled_at?: string;
+                            canceled_at?: null | string;
                         };
                     };
                 };
@@ -2127,7 +2175,7 @@ export interface webhooks {
         patch?: never;
         trace?: never;
     };
-    OnTrialCompleted: {
+    ON_TRIAL_COMPLETED: {
         parameters: {
             query?: never;
             header?: never;
@@ -2138,7 +2186,7 @@ export interface webhooks {
         put?: never;
         /**
          * Triggered when a trial is completed
-         * @description Webhook for OnTrialCompleted
+         * @description Webhook for ON_TRIAL_COMPLETED
          */
         post: {
             parameters: {
@@ -2150,6 +2198,10 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_TRIAL_COMPLETED
+                         */
                         event_type: components["schemas"]["WebhookEventType"];
                         /**
                          * Format: flake-id
@@ -2182,13 +2234,13 @@ export interface webhooks {
                              * @description The Flake ID of the Checkout associated with the Trial
                              * @example 411486491630370816
                              */
-                            checkout_id?: string;
+                            checkout_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Checkout Line associated with the Trial
                              * @example 411486491630370816
                              */
-                            checkout_line_id?: string;
+                            checkout_line_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Product associated with the Trial
@@ -2210,7 +2262,7 @@ export interface webhooks {
                              * @description The image URL of the Product associated with the Trial
                              * @example https://example.com/image.jpg
                              */
-                            product_image_url?: string;
+                            product_image_url?: null | string;
                             /**
                              * @description The period value of the Trial
                              * @example 1
@@ -2226,13 +2278,13 @@ export interface webhooks {
                              * @description The start date of the Trial
                              * @example 2024-06-10T00:00:00Z
                              */
-                            starts_at?: string;
+                            starts_at?: null | string;
                             /**
                              * Format: date-time
                              * @description The end date of the Trial
                              * @example 2024-06-17T23:59:59Z
                              */
-                            ends_at?: string;
+                            ends_at?: null | string;
                             /**
                              * @description The current status of the Trial.  Possible options: created, active, canceled, completed
                              * @example created
@@ -2249,7 +2301,7 @@ export interface webhooks {
                              * @description Indicates when the Trial was canceled
                              * @example 2024-06-15T10:15:00Z
                              */
-                            canceled_at?: string;
+                            canceled_at?: null | string;
                         };
                     };
                 };
@@ -2284,7 +2336,7 @@ export interface webhooks {
         patch?: never;
         trace?: never;
     };
-    OnTrialCanceled: {
+    ON_TRIAL_CANCELED: {
         parameters: {
             query?: never;
             header?: never;
@@ -2295,7 +2347,7 @@ export interface webhooks {
         put?: never;
         /**
          * Triggered when a trial is canceled
-         * @description Webhook for OnTrialCanceled
+         * @description Webhook for ON_TRIAL_CANCELED
          */
         post: {
             parameters: {
@@ -2307,6 +2359,10 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_TRIAL_CANCELED
+                         */
                         event_type: components["schemas"]["WebhookEventType"];
                         /**
                          * Format: flake-id
@@ -2339,13 +2395,13 @@ export interface webhooks {
                              * @description The Flake ID of the Checkout associated with the Trial
                              * @example 411486491630370816
                              */
-                            checkout_id?: string;
+                            checkout_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Checkout Line associated with the Trial
                              * @example 411486491630370816
                              */
-                            checkout_line_id?: string;
+                            checkout_line_id?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Product associated with the Trial
@@ -2367,7 +2423,7 @@ export interface webhooks {
                              * @description The image URL of the Product associated with the Trial
                              * @example https://example.com/image.jpg
                              */
-                            product_image_url?: string;
+                            product_image_url?: null | string;
                             /**
                              * @description The period value of the Trial
                              * @example 1
@@ -2383,13 +2439,13 @@ export interface webhooks {
                              * @description The start date of the Trial
                              * @example 2024-06-10T00:00:00Z
                              */
-                            starts_at?: string;
+                            starts_at?: null | string;
                             /**
                              * Format: date-time
                              * @description The end date of the Trial
                              * @example 2024-06-17T23:59:59Z
                              */
-                            ends_at?: string;
+                            ends_at?: null | string;
                             /**
                              * @description The current status of the Trial.  Possible options: created, active, canceled, completed
                              * @example created
@@ -2406,7 +2462,7 @@ export interface webhooks {
                              * @description Indicates when the Trial was canceled
                              * @example 2024-06-15T10:15:00Z
                              */
-                            canceled_at?: string;
+                            canceled_at?: null | string;
                         };
                     };
                 };
@@ -2490,7 +2546,7 @@ export interface components {
              */
             id?: string;
             /** @example John */
-            name?: string;
+            name?: null | string;
             steam?: components["schemas"]["SteamCustomerDTO"];
             minecraft?: components["schemas"]["MinecraftCustomerDTO"];
             profile?: components["schemas"]["GenericProfileDTO"];
@@ -2549,13 +2605,13 @@ export interface components {
              * @description The Flake ID of the Subscription associated with the order
              * @example 411486491630370816
              */
-            subscription_id?: string;
+            subscription_id?: null | string;
             /**
              * Format: flake-id
              * @description The Flake ID of the Coupon associated with the order
              * @example 411486491630370816
              */
-            coupon_id?: string;
+            coupon_id?: null | string;
             /**
              * @description The ISO-4217 Currency Code of the order
              * @example USD
@@ -2675,30 +2731,30 @@ export interface components {
             /** @description The name of the product associated with this Order Line */
             product_name?: string;
             /** @description The Image URL of the Product associated with this Order Line */
-            product_image_url?: string;
+            product_image_url?: null | string;
             /**
              * Format: flake-id
              * @description The Flake ID of the Subscription associated with this Order Line
              * @example 411486491630370816
              */
-            subscription_id?: string;
+            subscription_id?: null | string;
             /**
              * @description The value of the interval in which the subscription associated with this Order Line renews at
              * @example 1
              */
-            subscription_interval_value?: number;
+            subscription_interval_value?: null | number;
             /**
              * @description The value of the scale in which the subscription associated with this Order Line renews at
              * @example month
              */
-            subscription_interval_scale?: string;
+            subscription_interval_scale?: null | string;
             /**
              * Format: flake-id
              * @description The Flake ID of the Trial associated with this Order Line
              * @example 411486491630370816
              */
-            trial_id?: string;
-            gift_to_customer?: components["schemas"]["CustomerDTO"];
+            trial_id?: null | string;
+            gift_to_customer?: components["schemas"]["CustomerDTO"] | null;
             /**
              * @description The price of the Order Line
              * @example 1000
@@ -2734,7 +2790,7 @@ export interface components {
              * @description The Flake ID of which was the selected Game Server ID for the Order Line
              * @example 411486491630370816
              */
-            selected_gameserver_id?: string;
+            selected_gameserver_id?: null | string;
         };
         ProductCommandDTO: {
             /**
@@ -2767,7 +2823,7 @@ export interface components {
              */
             version_id?: string;
             /** @description The Image URL of the product */
-            image_url?: string;
+            image_url?: null | string;
             /** @description The URL-Friendly Slug of the Product */
             slug?: string;
             /** @description The name of the Product */
@@ -2777,7 +2833,7 @@ export interface components {
             /** @description Indicates if the product is enabled. */
             enabled?: boolean;
             /** @description The label of the product */
-            label?: string;
+            label?: null | string;
             /** @description The sort order of the product */
             sort_order?: number;
             /** @description The price of the product, represented in cents. */
@@ -2792,24 +2848,24 @@ export interface components {
              * @description The value of the interval in which the product subscription renews at
              * @example 1
              */
-            subscription_interval_value?: number;
+            subscription_interval_value?: null | number;
             /**
              * @description The value of the interval in which the product subscription renews at
              * @example month
              */
-            subscription_interval_scale?: string;
+            subscription_interval_scale?: null | string;
             /** @description Indicates whether automatic removal is enabled */
             remove_after_enabled?: boolean;
             /**
              * @description The value of the time in which this product should be removed
              * @example 1
              */
-            remove_after_time_value?: number;
+            remove_after_time_value?: null | number;
             /**
              * @description The scale of the time in which this product should be removed
              * @example month
              */
-            remove_after_time_scale?: string;
+            remove_after_time_scale?: null | string;
             /** @description The tags associated with the product */
             tags?: components["schemas"]["ProductTagDTO"][];
             /** @description A comma-seperated string of all the tags associated with the product */
@@ -2824,12 +2880,12 @@ export interface components {
              * Format: date-time
              * @description When the product was created
              */
-            created_at?: string;
+            created_at?: null | string;
             /**
              * Format: date-time
              * @description When the product was last updated
              */
-            updated_at?: string;
+            updated_at?: null | string;
             /** @description The metadata of the product */
             metadata?: {
                 [key: string]: string;
@@ -2877,7 +2933,7 @@ export interface components {
          * @description The type of webhook event
          * @enum {string}
          */
-        WebhookEventType: "OnOrderCompleted" | "OnRefund" | "OnChargeback" | "OnDeliveryItemAdded" | "OnDeliveryItemActivated" | "OnDeliveryItemUsed" | "OnDeliveryItemRevoked" | "OnSubscriptionActivated" | "OnSubscriptionRenewed" | "OnSubscriptionCanceled" | "OnDiscordAccountLinkedToCheckout" | "OnConnectedUserRegistered" | "OnConnectedUserBecamePayable" | "OnConnectedUserPayoutCreated" | "OnConnectedUserPayoutCompleted" | "OnConnectedUserTransactionInserted" | "OnConnectedUserBecameUnpayable" | "OnTrialActivated" | "OnTrialCompleted" | "OnTrialCanceled" | "OnPurchaseFollowUpAttemptEmailSent" | "OnPurchaseFollowUpAttemptSucceeded" | "OnAbandonedCheckoutRecoveryAttemptEmailSent" | "OnAbandonedCheckoutRecoveryAttemptSucceeded";
+        WebhookEventType: "ON_ORDER_COMPLETED" | "ON_REFUND" | "ON_CHARGEBACK" | "ON_DELIVERY_ITEM_ADDED" | "ON_DELIVERY_ITEM_ACTIVATED" | "ON_DELIVERY_ITEM_USED" | "ON_DELIVERY_ITEM_REVOKED" | "ON_SUBSCRIPTION_ACTIVATED" | "ON_SUBSCRIPTION_RENEWED" | "ON_SUBSCRIPTION_CANCELED" | "ON_DISCORD_ACCOUNT_LINKED_TO_CHECKOUT" | "ON_CONNECTED_USER_REGISTERED" | "ON_CONNECTED_USER_BECAME_PAYABLE" | "ON_CONNECTED_USER_PAYOUT_CREATED" | "ON_CONNECTED_USER_PAYOUT_COMPLETED" | "ON_CONNECTED_USER_TRANSACTION_INSERTED" | "ON_CONNECTED_USER_BECAME_UNPAYABLE" | "ON_TRIAL_ACTIVATED" | "ON_TRIAL_COMPLETED" | "ON_TRIAL_CANCELED" | "ON_PURCHASE_FOLLOW_UP_ATTEMPT_EMAIL_SENT" | "ON_PURCHASE_FOLLOW_UP_ATTEMPT_SUCCEEDED" | "ON_ABANDONED_CHECKOUT_RECOVERY_ATTEMPT_EMAIL_SENT" | "ON_ABANDONED_CHECKOUT_RECOVERY_ATTEMPT_SUCCEEDED";
     };
     responses: never;
     parameters: never;
