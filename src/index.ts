@@ -6,7 +6,10 @@ import { createStorefrontClient } from "./storefront";
 
 import type { components as ManagementComponents } from "./generated/management";
 import type { components as StorefrontComponents } from "./generated/storefront";
-import type { webhooks as Webhooks, components as WebhooksComponents } from "./generated/webhooks";
+import type {
+  webhooks as Webhooks,
+  components as WebhooksComponents,
+} from "./generated/webhooks";
 
 export type ManagementSchemas = ManagementComponents["schemas"];
 export type StorefrontSchemas = StorefrontComponents["schemas"];
