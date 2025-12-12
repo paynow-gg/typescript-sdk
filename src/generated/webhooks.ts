@@ -23,17 +23,13 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        event_type: components["schemas"]["WebhookEventType"];
                         /**
-                         * @description The type of webhook event
-                         * @example ON_SUBSCRIPTION_RENEWED
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
                          */
-                        event_type: string;
-                        /**
-                         * Format: date-time
-                         * @description When the event occurred in ISO 8601 format
-                         * @example 2024-11-12T10:30:00Z
-                         */
-                        timestamp: string;
+                        event_id?: string;
                         body: {
                             /**
                              * Format: flake-id
@@ -255,17 +251,13 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        event_type: components["schemas"]["WebhookEventType"];
                         /**
-                         * @description The type of webhook event
-                         * @example ON_DISCORD_ACCOUNT_LINKED_TO_CHECKOUT
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
                          */
-                        event_type: string;
-                        /**
-                         * Format: date-time
-                         * @description When the event occurred in ISO 8601 format
-                         * @example 2024-11-12T10:30:00Z
-                         */
-                        timestamp: string;
+                        event_id?: string;
                         body: {
                             /**
                              * Format: flake-id
@@ -390,17 +382,13 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        event_type: components["schemas"]["WebhookEventType"];
                         /**
-                         * @description The type of webhook event
-                         * @example ON_DELIVERY_ITEM_ADDED
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
                          */
-                        event_type: string;
-                        /**
-                         * Format: date-time
-                         * @description When the event occurred in ISO 8601 format
-                         * @example 2024-11-12T10:30:00Z
-                         */
-                        timestamp: string;
+                        event_id?: string;
                         body: {
                             /**
                              * Format: flake-id
@@ -559,17 +547,13 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        event_type: components["schemas"]["WebhookEventType"];
                         /**
-                         * @description The type of webhook event
-                         * @example ON_DELIVERY_ITEM_ACTIVATED
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
                          */
-                        event_type: string;
-                        /**
-                         * Format: date-time
-                         * @description When the event occurred in ISO 8601 format
-                         * @example 2024-11-12T10:30:00Z
-                         */
-                        timestamp: string;
+                        event_id?: string;
                         body: {
                             /**
                              * Format: flake-id
@@ -728,17 +712,13 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        event_type: components["schemas"]["WebhookEventType"];
                         /**
-                         * @description The type of webhook event
-                         * @example ON_DELIVERY_ITEM_USED
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
                          */
-                        event_type: string;
-                        /**
-                         * Format: date-time
-                         * @description When the event occurred in ISO 8601 format
-                         * @example 2024-11-12T10:30:00Z
-                         */
-                        timestamp: string;
+                        event_id?: string;
                         body: {
                             /**
                              * Format: flake-id
@@ -897,17 +877,13 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        event_type: components["schemas"]["WebhookEventType"];
                         /**
-                         * @description The type of webhook event
-                         * @example ON_DELIVERY_ITEM_REVOKED
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
                          */
-                        event_type: string;
-                        /**
-                         * Format: date-time
-                         * @description When the event occurred in ISO 8601 format
-                         * @example 2024-11-12T10:30:00Z
-                         */
-                        timestamp: string;
+                        event_id?: string;
                         body: {
                             /**
                              * Format: flake-id
@@ -1066,17 +1042,13 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        event_type: components["schemas"]["WebhookEventType"];
                         /**
-                         * @description The type of webhook event
-                         * @example ON_ORDER_COMPLETED
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
                          */
-                        event_type: string;
-                        /**
-                         * Format: date-time
-                         * @description When the event occurred in ISO 8601 format
-                         * @example 2024-11-12T10:30:00Z
-                         */
-                        timestamp: string;
+                        event_id?: string;
                         body: {
                             /**
                              * Format: flake-id
@@ -1256,17 +1228,13 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        event_type: components["schemas"]["WebhookEventType"];
                         /**
-                         * @description The type of webhook event
-                         * @example ON_CHARGEBACK
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
                          */
-                        event_type: string;
-                        /**
-                         * Format: date-time
-                         * @description When the event occurred in ISO 8601 format
-                         * @example 2024-11-12T10:30:00Z
-                         */
-                        timestamp: string;
+                        event_id?: string;
                         body: {
                             /**
                              * Format: flake-id
@@ -1392,17 +1360,13 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        event_type: components["schemas"]["WebhookEventType"];
                         /**
-                         * @description The type of webhook event
-                         * @example ON_REFUND
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
                          */
-                        event_type: string;
-                        /**
-                         * Format: date-time
-                         * @description When the event occurred in ISO 8601 format
-                         * @example 2024-11-12T10:30:00Z
-                         */
-                        timestamp: string;
+                        event_id?: string;
                         body: {
                             /**
                              * Format: flake-id
@@ -1562,17 +1526,13 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        event_type: components["schemas"]["WebhookEventType"];
                         /**
-                         * @description The type of webhook event
-                         * @example ON_SUBSCRIPTION_ACTIVATED
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
                          */
-                        event_type: string;
-                        /**
-                         * Format: date-time
-                         * @description When the event occurred in ISO 8601 format
-                         * @example 2024-11-12T10:30:00Z
-                         */
-                        timestamp: string;
+                        event_id?: string;
                         body: {
                             /**
                              * Format: flake-id
@@ -1794,17 +1754,13 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        event_type: components["schemas"]["WebhookEventType"];
                         /**
-                         * @description The type of webhook event
-                         * @example ON_SUBSCRIPTION_CANCELED
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
                          */
-                        event_type: string;
-                        /**
-                         * Format: date-time
-                         * @description When the event occurred in ISO 8601 format
-                         * @example 2024-11-12T10:30:00Z
-                         */
-                        timestamp: string;
+                        event_id?: string;
                         body: {
                             /**
                              * Format: flake-id
@@ -2037,17 +1993,13 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        event_type: components["schemas"]["WebhookEventType"];
                         /**
-                         * @description The type of webhook event
-                         * @example ON_TRIAL_ACTIVATED
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
                          */
-                        event_type: string;
-                        /**
-                         * Format: date-time
-                         * @description When the event occurred in ISO 8601 format
-                         * @example 2024-11-12T10:30:00Z
-                         */
-                        timestamp: string;
+                        event_id?: string;
                         body: {
                             /**
                              * Format: flake-id
@@ -2198,17 +2150,13 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        event_type: components["schemas"]["WebhookEventType"];
                         /**
-                         * @description The type of webhook event
-                         * @example ON_TRIAL_COMPLETED
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
                          */
-                        event_type: string;
-                        /**
-                         * Format: date-time
-                         * @description When the event occurred in ISO 8601 format
-                         * @example 2024-11-12T10:30:00Z
-                         */
-                        timestamp: string;
+                        event_id?: string;
                         body: {
                             /**
                              * Format: flake-id
@@ -2359,17 +2307,13 @@ export interface webhooks {
             requestBody: {
                 content: {
                     "application/json": {
+                        event_type: components["schemas"]["WebhookEventType"];
                         /**
-                         * @description The type of webhook event
-                         * @example ON_TRIAL_CANCELLED
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
                          */
-                        event_type: string;
-                        /**
-                         * Format: date-time
-                         * @description When the event occurred in ISO 8601 format
-                         * @example 2024-11-12T10:30:00Z
-                         */
-                        timestamp: string;
+                        event_id?: string;
                         body: {
                             /**
                              * Format: flake-id
@@ -2929,6 +2873,11 @@ export interface components {
             /** @description The Steam Avatar URL */
             avatar_url?: string;
         };
+        /**
+         * @description The type of webhook event
+         * @enum {string}
+         */
+        WebhookEventType: "OnOrderCompleted" | "OnRefund" | "OnChargeback" | "OnDeliveryItemAdded" | "OnDeliveryItemActivated" | "OnDeliveryItemUsed" | "OnDeliveryItemRevoked" | "OnSubscriptionActivated" | "OnSubscriptionRenewed" | "OnSubscriptionCanceled" | "OnDiscordAccountLinkedToCheckout" | "OnConnectedUserRegistered" | "OnConnectedUserBecamePayable" | "OnConnectedUserPayoutCreated" | "OnConnectedUserPayoutCompleted" | "OnConnectedUserTransactionInserted" | "OnConnectedUserBecameUnpayable" | "OnTrialActivated" | "OnTrialCompleted" | "OnTrialCanceled" | "OnPurchaseFollowUpAttemptEmailSent" | "OnPurchaseFollowUpAttemptSucceeded" | "OnAbandonedCheckoutRecoveryAttemptEmailSent" | "OnAbandonedCheckoutRecoveryAttemptSucceeded";
     };
     responses: never;
     parameters: never;
