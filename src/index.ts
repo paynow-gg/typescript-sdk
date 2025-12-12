@@ -10,11 +10,11 @@ import type { webhooks as Webhooks, components as WebhooksComponents } from "./g
 
 export type ManagementSchemas = ManagementComponents["schemas"];
 export type StorefrontSchemas = StorefrontComponents["schemas"];
-export type WebhookPayloadSchemas = ExtractJsonRequestBodies<Webhooks>;
 
-export type WebhookPayload = {
-  [EventType in WebhooksComponents["schemas"]["WebhookEventType"]]: EventType extends keyof Required<WebhookPayloadSchemas>
-    ? Omit<NonNullable<WebhookPayloadSchemas[EventType]>, "event_type"> & {
+type ExtractedWebhooks = ExtractJsonRequestBodies<Webhooks>;
+export type WebhookPayloadSchemas = {
+  [EventType in WebhooksComponents["schemas"]["WebhookEventType"]]: EventType extends keyof Required<ExtractedWebhooks>
+    ? Omit<NonNullable<ExtractedWebhooks[EventType]>, "event_type"> & {
         event_type: EventType;
       }
     : {
