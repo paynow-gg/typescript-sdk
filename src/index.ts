@@ -17,8 +17,14 @@ export type StorefrontSchemas = StorefrontComponents["schemas"];
 type ExtractedWebhooks = ExtractJsonRequestBodies<Webhooks>;
 export type WebhookPayloadSchemas = {
   [EventType in WebhooksComponents["schemas"]["WebhookEventType"]]: EventType extends keyof Required<ExtractedWebhooks>
-    ? Omit<NonNullable<ExtractedWebhooks[EventType]>, "event_type"> & {
+    ? Omit<NonNullable<ExtractedWebhooks[EventType]>, "event_type" | "event_id"> & {
         event_type: EventType;
+        /**
+         * Format: flake-id
+         * @description The ID of the Webhook Event
+         * @example 411486491630370816
+         */
+        event_id: string;
       }
     : {
         event_type: EventType;
