@@ -2714,6 +2714,7 @@ export interface components {
             saved_at: string;
             /** Format: date-time */
             last_fetched_commands_at?: null | string;
+            last_fetched_commands_from_ip?: null | string;
         };
         /** @description Represents a generic platform profile for a customer. */
         GenericProfileDto: {
