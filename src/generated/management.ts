@@ -1964,6 +1964,7 @@ export interface components {
             queued_at: string;
             /** Format: date-time */
             executed_at?: null | string;
+            executed_by_ip?: null | string;
             /** Format: date-time */
             unqueued_at?: null | string;
         };
