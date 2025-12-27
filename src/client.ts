@@ -146,7 +146,7 @@ export function createClient<T extends Record<string, any>>(
                 ...config,
                 url,
                 method: mapping.method,
-                data: config?.data ?? {},
+                data: config?.data ?? undefined
               });
             };
           },
