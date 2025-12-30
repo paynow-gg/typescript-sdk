@@ -1067,6 +1067,70 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/stores/{storeId}/payment-method-types": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get store payment method types
+         * @description Retrieves all payment method types associated with a store
+         */
+        get: operations["PaymentMethodTypes_GetStorePaymentMethodTypes"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/payment-method-types/{paymentMethodTypeId}/toggle": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Toggle a store payment method type
+         * @description Enables or disabled a payment method type for a store
+         */
+        patch: operations["PaymentMethodTypes_ToggleStorePaymentMethodType"];
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/payment-settings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get store payment settings
+         * @description Retrieves payment settings for a store.
+         */
+        get: operations["PaymentSettings_GetStorePaymentSettings"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Updates store payment settings
+         * @description Updates payment settings for a store.
+         */
+        patch: operations["PaymentSettings_UpdateStorePaymentSettings"];
+        trace?: never;
+    };
     "/v1/stores/{storeId}/payments": {
         parameters: {
             query?: never;
@@ -1105,30 +1169,6 @@ export interface paths {
         options?: never;
         head?: never;
         patch?: never;
-        trace?: never;
-    };
-    "/v1/stores/{storeId}/payments/settings": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get store payment settings
-         * @description Retrieves payment settings for a store.
-         */
-        get: operations["Payments_GetStorePaymentSettings"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /**
-         * Updates store payment settings
-         * @description Updates payment settings for a store.
-         */
-        patch: operations["Payments_UpdateStorePaymentSettings"];
         trace?: never;
     };
     "/v1/stores/{storeId}/products": {
@@ -3536,6 +3576,8 @@ export interface components {
             chargeback_at?: null | string;
             last_payment_error?: components["schemas"]["LastPaymentErrorDto"];
         };
+        /** @enum {string} */
+        PaymentGatewayDto: "invalid" | "stripe" | "paypal" | "forumpay" | "steamskins" | "nuvei" | "pagseguro" | "tazapay";
         /** @description Contains detailed information about a payment method.
          *     DISCLAIMER: These fields are not guaranteed to be backwards compatible and may change or be removed without notice. */
         PaymentMethodDetailsDto: {
@@ -3588,6 +3630,43 @@ export interface components {
              * @example 2025-03-20T14:30:00Z
              */
             updated_at?: null | string;
+        };
+        PaymentMethodTypeCountryCurrencyMappingDto: {
+            country: string;
+            currencies: string[];
+        };
+        PaymentMethodTypeDto: {
+            id: string;
+            name: string;
+            logo_url?: null | string;
+            checkout_logo_url_light?: null | string;
+            checkout_logo_url_dark?: null | string;
+            category: string;
+            confirmation: string;
+            enabled: boolean;
+            refunds_supported: boolean;
+            subscriptions_supported: boolean;
+            kyc_required: boolean;
+            supported_currencies: string[];
+            supported_settlement_currencies: string[];
+            supported_countries: string[];
+            gateways: components["schemas"]["PaymentGatewayDto"][];
+            fee_overrides: components["schemas"]["PaymentMethodTypeFeeOverrideDto"][];
+            country_currency_mapping: components["schemas"]["PaymentMethodTypeCountryCurrencyMappingDto"][];
+            /** Format: int64 */
+            revenue_usage: number;
+            /** Format: int64 */
+            monthly_revenue_limit?: null | number;
+            /** Format: int64 */
+            default_monthly_revenue_limit?: null | number;
+            settlement_time?: null | string;
+        };
+        PaymentMethodTypeFeeOverrideDto: {
+            /** Format: int32 */
+            fee_percentage: number;
+            /** Format: int32 */
+            fee_cents: number;
+            countries: string[];
         };
         /** @description Represents payout split results for multi-party payments */
         PaymentPayoutSplitResultDto: {
@@ -4613,6 +4692,9 @@ export interface components {
             updated_at?: null | string;
             updated_by?: components["schemas"]["ActorDto"];
         };
+        ToggleStorePaymentMethodTypeRequestDto: {
+            enabled: boolean;
+        };
         TrialDto: {
             id: components["schemas"]["FlakeId"];
             /** @description The human-readable formatted version of the trial identifier. */
@@ -5109,7 +5191,7 @@ export interface components {
             validation: string;
         };
         /** @enum {string} */
-        WebhookEventType: "on_ignore" | "on_order_completed" | "on_refund" | "on_chargeback" | "on_delivery_item_added" | "on_delivery_item_activated" | "on_delivery_item_used" | "on_delivery_item_revoked" | "on_subscription_activated" | "on_subscription_renewed" | "on_subscription_canceled" | "on_discord_order_actions_queued" | "on_connected_user_registered" | "on_connected_user_became_payable" | "on_connected_user_payout_created" | "on_connected_user_payout_completed" | "on_connected_user_transaction_inserted" | "on_connected_user_became_unpayable" | "on_trial_activated" | "on_trial_completed" | "on_trial_canceled" | "on_purchase_follow_up_attempt_email_sent" | "on_purchase_follow_up_attempt_succeeded" | "on_abandoned_checkout_recovery_attempt_email_sent" | "on_abandoned_checkout_recovery_attempt_succeeded";
+        WebhookEventType: "OnIgnore" | "OnOrderCompleted" | "OnRefund" | "OnChargeback" | "OnDeliveryItemAdded" | "OnDeliveryItemActivated" | "OnDeliveryItemUsed" | "OnDeliveryItemRevoked" | "OnSubscriptionActivated" | "OnSubscriptionRenewed" | "OnSubscriptionCanceled" | "OnDiscordOrderActionsQueued" | "OnConnectedUserRegistered" | "OnConnectedUserBecamePayable" | "OnConnectedUserPayoutCreated" | "OnConnectedUserPayoutCompleted" | "OnConnectedUserTransactionInserted" | "OnConnectedUserBecameUnpayable" | "OnTrialActivated" | "OnTrialCompleted" | "OnTrialCanceled" | "OnPurchaseFollowUpAttemptEmailSent" | "OnPurchaseFollowUpAttemptSucceeded" | "OnAbandonedCheckoutRecoveryAttemptEmailSent" | "OnAbandonedCheckoutRecoveryAttemptSucceeded";
         WebhookHistoryDto: {
             /** Format: int32 */
             page: number;
@@ -8195,6 +8277,132 @@ export interface operations {
             };
         };
     };
+    PaymentMethodTypes_GetStorePaymentMethodTypes: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaymentMethodTypeDto"][];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    PaymentMethodTypes_ToggleStorePaymentMethodType: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                paymentMethodTypeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["ToggleStorePaymentMethodTypeRequestDto"];
+                "text/json": components["schemas"]["ToggleStorePaymentMethodTypeRequestDto"];
+                "application/*+json": components["schemas"]["ToggleStorePaymentMethodTypeRequestDto"];
+            };
+        };
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    PaymentSettings_GetStorePaymentSettings: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorePaymentSettingsDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    PaymentSettings_UpdateStorePaymentSettings: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["UpdateStorePaymentSettingsDto"];
+                "text/json": components["schemas"]["UpdateStorePaymentSettingsDto"];
+                "application/*+json": components["schemas"]["UpdateStorePaymentSettingsDto"];
+            };
+        };
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
     Payments_GetPayments: {
         parameters: {
             query?: {
@@ -8268,68 +8476,6 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["PaymentDto"];
                 };
-            };
-            /** @description Error response */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayNowError"];
-                };
-            };
-        };
-    };
-    Payments_GetStorePaymentSettings: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["StorePaymentSettingsDto"];
-                };
-            };
-            /** @description Error response */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayNowError"];
-                };
-            };
-        };
-    };
-    Payments_UpdateStorePaymentSettings: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["UpdateStorePaymentSettingsDto"];
-                "text/json": components["schemas"]["UpdateStorePaymentSettingsDto"];
-                "application/*+json": components["schemas"]["UpdateStorePaymentSettingsDto"];
-            };
-        };
-        responses: {
-            /** @description No Content */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
             };
             /** @description Error response */
             default: {
@@ -10023,6 +10169,22 @@ export const operationMappings = {
     "method": "POST",
     "path": "/v1/stores/{storeId}/orders/{orderId}/refund"
   },
+  "PaymentMethodTypes_GetStorePaymentMethodTypes": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/payment-method-types"
+  },
+  "PaymentMethodTypes_ToggleStorePaymentMethodType": {
+    "method": "PATCH",
+    "path": "/v1/stores/{storeId}/payment-method-types/{paymentMethodTypeId}/toggle"
+  },
+  "PaymentSettings_GetStorePaymentSettings": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/payment-settings"
+  },
+  "PaymentSettings_UpdateStorePaymentSettings": {
+    "method": "PATCH",
+    "path": "/v1/stores/{storeId}/payment-settings"
+  },
   "Payments_GetPayments": {
     "method": "GET",
     "path": "/v1/stores/{storeId}/payments"
@@ -10030,14 +10192,6 @@ export const operationMappings = {
   "Payments_GetPaymentById": {
     "method": "GET",
     "path": "/v1/stores/{storeId}/payments/{paymentId}"
-  },
-  "Payments_GetStorePaymentSettings": {
-    "method": "GET",
-    "path": "/v1/stores/{storeId}/payments/settings"
-  },
-  "Payments_UpdateStorePaymentSettings": {
-    "method": "PATCH",
-    "path": "/v1/stores/{storeId}/payments/settings"
   },
   "Products_GetProducts": {
     "method": "GET",
