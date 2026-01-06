@@ -2843,6 +2843,7 @@ export interface components {
             online_only: boolean;
             /** @description List of specific game server IDs where this command should be executed, overriding default behavior. */
             override_execute_on_gameserver_ids: components["schemas"]["FlakeId"][];
+            execution_rule: components["schemas"]["ProductCommandExecutionRuleDto"];
             /**
              * Format: date-time
              * @description Timestamp when the command was created.
@@ -3788,6 +3789,8 @@ export interface components {
              *     (executing on all game servers or on the selected game server is selection is enabled) */
             override_execute_on_gameserver_ids?: null | components["schemas"]["FlakeId"][];
         };
+        /** @enum {string} */
+        ProductCommandExecutionRuleDto: "invalid" | "once_per_item" | "once_per_order";
         /**
          * @description Defines the stages at which product commands can be executed.
          * @enum {string}
@@ -5054,6 +5057,7 @@ export interface components {
             online_only: boolean;
             /** @description List of specific game server IDs where this command should be executed. */
             override_execute_on_gameserver_ids?: null | components["schemas"]["FlakeId"][];
+            execution_rule: components["schemas"]["ProductCommandExecutionRuleDto"];
         };
         UpsertProductRequestDto: {
             /** @description The unique URL-safe identifier (slug) for the product. */
