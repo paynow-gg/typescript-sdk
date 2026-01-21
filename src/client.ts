@@ -102,6 +102,9 @@ export function createClient<T extends Record<string, any>>(
       ...options?.headers,
       ...defaultHeaders,
     },
+    paramsSerializer: {
+      indexes: null,
+    },
   });
 
   return new Proxy({} as GroupedOperations<T>, {
@@ -146,7 +149,7 @@ export function createClient<T extends Record<string, any>>(
                 ...config,
                 url,
                 method: mapping.method,
-                data: config?.data ?? undefined
+                data: config?.data ?? undefined,
               });
             };
           },
