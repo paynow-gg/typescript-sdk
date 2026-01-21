@@ -54,6 +54,7 @@ export interface webhooks {
                              */
                             customer_id: string;
                             customer: components["schemas"]["CustomerDTO"];
+                            checkout: components["schemas"]["CheckoutDTO"];
                             /**
                              * @description The current billing cycle number
                              * @example 2
@@ -1593,6 +1594,7 @@ export interface webhooks {
                              */
                             customer_id: string;
                             customer: components["schemas"]["CustomerDTO"];
+                            checkout: components["schemas"]["CheckoutDTO"];
                             /**
                              * @description The current billing cycle number
                              * @example 1
@@ -1825,6 +1827,7 @@ export interface webhooks {
                              */
                             customer_id: string;
                             customer: components["schemas"]["CustomerDTO"];
+                            checkout: components["schemas"]["CheckoutDTO"];
                             /**
                              * @description The current billing cycle number
                              * @example 1

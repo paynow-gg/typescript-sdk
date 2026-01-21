@@ -385,11 +385,6 @@ export interface components {
             cancel_url?: null | string;
             /** @description Whether to automatically redirect the customer (return_url must be set) */
             auto_redirect?: null | boolean;
-            /** @description Optional metadata to associate with the checkout session.
-             *     Do not store any sensitive information here. */
-            metadata?: null | {
-                [key: string]: string;
-            };
         };
         /** @description Represents a line item in a checkout session request */
         CreateCheckoutSessionLineDto: {
@@ -406,11 +401,6 @@ export interface components {
              */
             quantity: number;
             selected_gameserver_id?: components["schemas"]["FlakeId"];
-            /** @description Optional metadata to associate with the checkout session line.
-             *     Do not store any sensitive information here. */
-            metadata?: null | {
-                [key: string]: string;
-            };
             /** @description Key-value pair mapping custom variable identifiers to their selected values.
              *     Required only when the product includes custom variables. */
             custom_variables?: null | {
@@ -436,11 +426,6 @@ export interface components {
             cancel_url?: null | string;
             /** @description Whether to automatically redirect the customer (return_url must be set) */
             auto_redirect?: null | boolean;
-            /** @description Optional metadata to associate with the checkout session.
-             *     Do not store any sensitive information here. */
-            metadata?: null | {
-                [key: string]: string;
-            };
         };
         /** @description Response after creating a checkout session */
         CreateCheckoutSessionResponseDto: {

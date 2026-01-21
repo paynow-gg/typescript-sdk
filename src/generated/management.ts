@@ -468,7 +468,7 @@ export interface paths {
          * Get delivery items associated with a customer
          * @description Retrieves delivery items associated with a customer
          */
-        get: operations["Delivery_GetDeliveryItems"];
+        get: operations["Delivery_GetCustomerDeliveryItems"];
         put?: never;
         /**
          * Assign a delivery item to a customer
@@ -512,7 +512,7 @@ export interface paths {
          * Get command attempts associated with a customer
          * @description Retrieves command attempts associated with a customer
          */
-        get: operations["Delivery_GetCommandAttempts"];
+        get: operations["Delivery_GetCommandAttemptsForCustomer"];
         put?: never;
         post?: never;
         delete?: never;
@@ -545,6 +545,23 @@ export interface paths {
             cookie?: never;
         };
         get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/gameservers/{gameServerId}/delivery/items": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Returns delivery items in which an associated command attempt is for the gameserver */
+        get: operations["Delivery_GetGameServerDeliveryItems"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2135,11 +2152,6 @@ export interface components {
              */
             quantity: number;
             selected_gameserver_id?: components["schemas"]["FlakeId"];
-            /** @description Optional metadata to associate with the checkout session line.
-             *     Do not store any sensitive information here. */
-            metadata?: null | {
-                [key: string]: string;
-            };
             /** @description Key-value pair mapping custom variable identifiers to their selected values.
              *     Required only when the product includes custom variables. */
             custom_variables?: null | {
@@ -2162,11 +2174,6 @@ export interface components {
              */
             quantity: number;
             selected_gameserver_id?: components["schemas"]["FlakeId"];
-            /** @description Optional metadata to associate with the checkout session line.
-             *     Do not store any sensitive information here. */
-            metadata?: null | {
-                [key: string]: string;
-            };
             /** @description Key-value pair mapping custom variable identifiers to their selected values.
              *     Required only when the product includes custom variables. */
             custom_variables?: null | {
@@ -2174,6 +2181,11 @@ export interface components {
             };
             product_id?: components["schemas"]["FlakeId"];
             inline_product?: components["schemas"]["InlineProductCreateDto"];
+            /** @description Optional metadata to associate with the checkout session line.
+             *     Do not store any sensitive information here. */
+            metadata?: null | {
+                [key: string]: string;
+            };
         };
         /** @description Request to create a new checkout session from your back-end server using the management API.
          *     `customer_id` needs to be specified explicitly here instead of using a Customer token. */
@@ -2195,12 +2207,12 @@ export interface components {
             cancel_url?: null | string;
             /** @description Whether to automatically redirect the customer (return_url must be set) */
             auto_redirect?: null | boolean;
+            customer_id: components["schemas"]["FlakeId"];
             /** @description Optional metadata to associate with the checkout session.
              *     Do not store any sensitive information here. */
             metadata?: null | {
                 [key: string]: string;
             };
-            customer_id: components["schemas"]["FlakeId"];
         };
         /** @description Response after creating a checkout session */
         CreateCheckoutSessionResponseDto: {
@@ -6390,7 +6402,9 @@ export interface operations {
     };
     Delivery_GetOrderDeliveryItems: {
         parameters: {
-            query?: never;
+            query?: {
+                activeOnly?: boolean;
+            };
             header?: never;
             path: {
                 /** @description The ID of the order to retrieve delivery items from. */
@@ -6525,7 +6539,7 @@ export interface operations {
             };
         };
     };
-    Delivery_GetDeliveryItems: {
+    Delivery_GetCustomerDeliveryItems: {
         parameters: {
             query?: {
                 /** @description The maximum number of items to return in a single request. */
@@ -6546,6 +6560,7 @@ export interface operations {
                  *     When true, items are returned in ascending order.
                  *     When false, items are returned in descending order. */
                 asc?: boolean;
+                activeOnly?: boolean;
             };
             header?: never;
             path: {
@@ -6642,7 +6657,7 @@ export interface operations {
             };
         };
     };
-    Delivery_GetCommandAttempts: {
+    Delivery_GetCommandAttemptsForCustomer: {
         parameters: {
             query?: {
                 /** @description The maximum number of items to return in a single request. */
@@ -6679,6 +6694,57 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CommandAttemptDto"][];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Delivery_GetGameServerDeliveryItems: {
+        parameters: {
+            query?: {
+                /** @description The maximum number of items to return in a single request. */
+                limit?: number;
+                /**
+                 * @description Returns items after the specified ID.
+                 *     Used for forward pagination through results.
+                 * @example null
+                 */
+                after?: components["schemas"]["FlakeId"];
+                /**
+                 * @description Returns items before the specified ID.
+                 *     Used for backward pagination through results.
+                 * @example null
+                 */
+                before?: components["schemas"]["FlakeId"];
+                /** @description Determines the sort order of returned items.
+                 *     When true, items are returned in ascending order.
+                 *     When false, items are returned in descending order. */
+                asc?: boolean;
+                activeOnly?: boolean;
+            };
+            header?: never;
+            path: {
+                gameServerId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeliveryItemDto"][];
                 };
             };
             /** @description Error response */
@@ -9969,7 +10035,7 @@ export const operationMappings = {
     "method": "POST",
     "path": "/v1/stores/{storeId}/delivery/items/update-product-versions"
   },
-  "Delivery_GetDeliveryItems": {
+  "Delivery_GetCustomerDeliveryItems": {
     "method": "GET",
     "path": "/v1/stores/{storeId}/customers/{customerId}/delivery/items"
   },
@@ -9981,9 +10047,13 @@ export const operationMappings = {
     "method": "DELETE",
     "path": "/v1/stores/{storeId}/customers/{customerId}/delivery/items/{deliveryItemId}"
   },
-  "Delivery_GetCommandAttempts": {
+  "Delivery_GetCommandAttemptsForCustomer": {
     "method": "GET",
     "path": "/v1/stores/{storeId}/customers/{customerId}/delivery/commands"
+  },
+  "Delivery_GetGameServerDeliveryItems": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/gameservers/{gameServerId}/delivery/items"
   },
   "Delivery_ResendDeliveryCommandsForGameServer": {
     "method": "POST",
