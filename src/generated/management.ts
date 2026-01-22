@@ -408,23 +408,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/stores/{storeId}/delivery/items/update-product-versions": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Update product version id for delivery items of given product id */
-        post: operations["Delivery_UpdateDeliveryItemProductVersions"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/v1/stores/{storeId}/command-delivery": {
         parameters: {
             query?: never;
@@ -1180,6 +1163,54 @@ export interface paths {
          * @description Retrieves a payment by an ID.
          */
         get: operations["Payments_GetPaymentById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/products/{productId}/dependent-migrations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ProductDependentMigrations_GetProductDependentMigrations"];
+        put?: never;
+        post: operations["ProductDependentMigrations_CreateProductDependentMigration"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/products/{productId}/dependent-migrations/estimate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ProductDependentMigrations_GetProductDependentMigrationEstimate"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/product-dependent-migrations/{productDependentMigrationId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ProductDependentMigrations_GetProductDependentMigrationById"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2275,6 +2306,9 @@ export interface components {
             parent_node_id?: string;
             /** Format: int32 */
             order?: null | number;
+        };
+        CreateProductDependentMigrationRequestDto: {
+            types: components["schemas"]["ProductDependentMigrationTargetTypeDto"][];
         };
         CreateRefundRequestDto: {
             order_line_id?: components["schemas"]["FlakeId"];
@@ -3812,6 +3846,46 @@ export interface components {
             /** @description Value indicating whether to grant a giftcard with the product with the subtotal amount. */
             grant_giftcard: boolean;
         };
+        ProductDependentMigrationDto: {
+            id: components["schemas"]["FlakeId"];
+            store_id: components["schemas"]["FlakeId"];
+            product_id: components["schemas"]["FlakeId"];
+            /** Format: date-time */
+            created_at: string;
+            created_by: components["schemas"]["ActorDto"];
+            migration_targets: components["schemas"]["ProductDependentMigrationTargetDto"][];
+            status: components["schemas"]["ProductDependentMigrationStatusDto"];
+            /** Format: date-time */
+            completed_at?: null | string;
+        };
+        ProductDependentMigrationEstimateTargetCountDto: {
+            type: components["schemas"]["ProductDependentMigrationTargetTypeDto"];
+            /** Format: int32 */
+            total_entities: number;
+        };
+        ProductDependentMigrationEstimateVersionDto: {
+            product_version_id: components["schemas"]["FlakeId"];
+            /** Format: date-time */
+            product_version_created_at: string;
+            target_counts: components["schemas"]["ProductDependentMigrationEstimateTargetCountDto"][];
+        };
+        /** @enum {string} */
+        ProductDependentMigrationStatusDto: "invalid" | "created" | "completed";
+        ProductDependentMigrationTargetDto: {
+            type: components["schemas"]["ProductDependentMigrationTargetTypeDto"];
+            versions: components["schemas"]["ProductDependentMigrationTargetVersionDto"][];
+        };
+        /** @enum {string} */
+        ProductDependentMigrationTargetTypeDto: "invalid" | "active_subscriptions" | "active_unused_delivery_items";
+        ProductDependentMigrationTargetVersionDto: {
+            old_product_version_id: components["schemas"]["FlakeId"];
+            /** Format: date-time */
+            old_product_version_created_at: string;
+            new_product_version_id: components["schemas"]["FlakeId"];
+            /** Format: int32 */
+            total_entities_migrated: number;
+            migrated: boolean;
+        };
         ProductDownloadableFileDto: {
             id: components["schemas"]["FlakeId"];
             store_id: components["schemas"]["FlakeId"];
@@ -4951,10 +5025,6 @@ export interface components {
             usable_at?: null | string;
             /** Format: date-time */
             expires_at?: null | string;
-        };
-        UpdateDeliveryItemProductVersionRequestDto: {
-            product_version_id: components["schemas"]["FlakeId"];
-            product_id: components["schemas"]["FlakeId"];
         };
         UpdateGameServerDto: {
             name?: string;
@@ -6491,41 +6561,6 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UnqueueCommandsResponseDto"];
-                };
-            };
-            /** @description Error response */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayNowError"];
-                };
-            };
-        };
-    };
-    Delivery_UpdateDeliveryItemProductVersions: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["UpdateDeliveryItemProductVersionRequestDto"];
-                "text/json": components["schemas"]["UpdateDeliveryItemProductVersionRequestDto"];
-                "application/*+json": components["schemas"]["UpdateDeliveryItemProductVersionRequestDto"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UpdateDeliveryItemProductVersionRequestDto"];
                 };
             };
             /** @description Error response */
@@ -8558,6 +8593,155 @@ export interface operations {
             };
         };
     };
+    ProductDependentMigrations_GetProductDependentMigrations: {
+        parameters: {
+            query?: {
+                /** @description The maximum number of items to return in a single request. */
+                limit?: number;
+                /**
+                 * @description Returns items after the specified ID.
+                 *     Used for forward pagination through results.
+                 * @example null
+                 */
+                after?: components["schemas"]["FlakeId"];
+                /**
+                 * @description Returns items before the specified ID.
+                 *     Used for backward pagination through results.
+                 * @example null
+                 */
+                before?: components["schemas"]["FlakeId"];
+                /** @description Determines the sort order of returned items.
+                 *     When true, items are returned in ascending order.
+                 *     When false, items are returned in descending order. */
+                asc?: boolean;
+            };
+            header?: never;
+            path: {
+                productId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductDependentMigrationDto"][];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    ProductDependentMigrations_CreateProductDependentMigration: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                productId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["CreateProductDependentMigrationRequestDto"];
+                "text/json": components["schemas"]["CreateProductDependentMigrationRequestDto"];
+                "application/*+json": components["schemas"]["CreateProductDependentMigrationRequestDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductDependentMigrationDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    ProductDependentMigrations_GetProductDependentMigrationEstimate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                productId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductDependentMigrationEstimateVersionDto"][];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    ProductDependentMigrations_GetProductDependentMigrationById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                productDependentMigrationId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductDependentMigrationDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
     Products_GetProducts: {
         parameters: {
             query?: never;
@@ -10031,10 +10215,6 @@ export const operationMappings = {
     "method": "POST",
     "path": "/v1/stores/{storeId}/delivery/commands/unqueue"
   },
-  "Delivery_UpdateDeliveryItemProductVersions": {
-    "method": "POST",
-    "path": "/v1/stores/{storeId}/delivery/items/update-product-versions"
-  },
   "Delivery_GetCustomerDeliveryItems": {
     "method": "GET",
     "path": "/v1/stores/{storeId}/customers/{customerId}/delivery/items"
@@ -10266,6 +10446,22 @@ export const operationMappings = {
   "Payments_GetPaymentById": {
     "method": "GET",
     "path": "/v1/stores/{storeId}/payments/{paymentId}"
+  },
+  "ProductDependentMigrations_GetProductDependentMigrations": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/products/{productId}/dependent-migrations"
+  },
+  "ProductDependentMigrations_CreateProductDependentMigration": {
+    "method": "POST",
+    "path": "/v1/stores/{storeId}/products/{productId}/dependent-migrations"
+  },
+  "ProductDependentMigrations_GetProductDependentMigrationEstimate": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/products/{productId}/dependent-migrations/estimate"
+  },
+  "ProductDependentMigrations_GetProductDependentMigrationById": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/product-dependent-migrations/{productDependentMigrationId}"
   },
   "Products_GetProducts": {
     "method": "GET",
