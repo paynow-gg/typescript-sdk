@@ -2308,7 +2308,8 @@ export interface components {
             order?: null | number;
         };
         CreateProductDependentMigrationRequestDto: {
-            types: components["schemas"]["ProductDependentMigrationTargetTypeDto"][];
+            send_new_commands_to_all_servers: boolean;
+            send_all_commands_to_new_servers: boolean;
         };
         CreateRefundRequestDto: {
             order_line_id?: components["schemas"]["FlakeId"];
@@ -3855,6 +3856,8 @@ export interface components {
             created_by: components["schemas"]["ActorDto"];
             migration_targets: components["schemas"]["ProductDependentMigrationTargetDto"][];
             status: components["schemas"]["ProductDependentMigrationStatusDto"];
+            send_new_commands_to_all_servers: boolean;
+            send_all_commands_to_new_servers: boolean;
             /** Format: date-time */
             completed_at?: null | string;
         };
