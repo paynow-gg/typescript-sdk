@@ -2310,6 +2310,7 @@ export interface components {
         CreateProductDependentMigrationRequestDto: {
             send_new_commands_to_all_servers: boolean;
             send_all_commands_to_new_servers: boolean;
+            target_types: components["schemas"]["ProductDependentMigrationTargetTypeDto"][];
         };
         CreateRefundRequestDto: {
             order_line_id?: components["schemas"]["FlakeId"];
@@ -3879,7 +3880,7 @@ export interface components {
             versions: components["schemas"]["ProductDependentMigrationTargetVersionDto"][];
         };
         /** @enum {string} */
-        ProductDependentMigrationTargetTypeDto: "invalid" | "active_subscriptions" | "active_unused_delivery_items";
+        ProductDependentMigrationTargetTypeDto: "invalid" | "active_subscriptions" | "active_unused_delivery_items" | "non_expirable_delivery_items";
         ProductDependentMigrationTargetVersionDto: {
             old_product_version_id: components["schemas"]["FlakeId"];
             /** Format: date-time */
