@@ -2337,6 +2337,7 @@ export interface components {
             show_all_payment_methods_for_subscriptions: boolean;
             store_tax_inclusive_pricing: boolean;
             block_prepaid_cards: components["schemas"]["PrepaidCardsBlockingTypeDto"];
+            adaptive_currency_enabled: boolean;
         };
         CreateTrialEligibilityOverrideDto: {
             product_id: components["schemas"]["FlakeId"];
@@ -3220,6 +3221,66 @@ export interface components {
              */
             giftcard_usage_amount_str: string;
             /**
+             * @description The presentment currency code used for this order (currency shown to customer)
+             * @example eur
+             */
+            presentment_currency: string;
+            /**
+             * Format: int32
+             * @description The presentment subtotal amount in smallest currency unit
+             * @example 9995
+             */
+            presentment_subtotal_amount: number;
+            /**
+             * @description The presentment subtotal amount formatted as a string
+             * @example €99.95
+             */
+            readonly presentment_subtotal_amount_str: string;
+            /**
+             * Format: int32
+             * @description The presentment discount amount in smallest currency unit
+             * @example 500
+             */
+            presentment_discount_amount: number;
+            /**
+             * @description The presentment discount amount formatted as a string
+             * @example €5.00
+             */
+            readonly presentment_discount_amount_str: string;
+            /**
+             * Format: int32
+             * @description The presentment gift card usage amount in smallest currency unit
+             * @example 0
+             */
+            presentment_giftcard_usage_amount: number;
+            /**
+             * @description The presentment gift card usage amount formatted as a string
+             * @example €0.00
+             */
+            readonly presentment_giftcard_usage_amount_str: string;
+            /**
+             * Format: int32
+             * @description The presentment tax amount in smallest currency unit
+             * @example 999
+             */
+            presentment_tax_amount: number;
+            /**
+             * @description The presentment tax amount formatted as a string
+             * @example €9.99
+             */
+            readonly presentment_tax_amount_str: string;
+            /**
+             * Format: int32
+             * @description The presentment total amount in smallest currency unit
+             * @example 10494
+             */
+            presentment_total_amount: number;
+            /**
+             * @description The presentment total amount formatted as a string
+             * @example €104.94
+             */
+            readonly presentment_total_amount_str: string;
+            /**
              * Format: date-time
              * @description The date and time when this order was created
              * @example 2025-04-01T15:30:45Z
@@ -3344,6 +3405,61 @@ export interface components {
              * @example $21.99
              */
             total_amount_str: string;
+            /**
+             * Format: int32
+             * @description The presentment subtotal amount for this order line
+             * @example 1999
+             */
+            presentment_subtotal_amount: number;
+            /**
+             * @description The presentment subtotal amount formatted as a string
+             * @example €19.99
+             */
+            readonly presentment_subtotal_amount_str: string;
+            /**
+             * Format: int32
+             * @description The presentment discount amount for this order line
+             * @example 0
+             */
+            presentment_discount_amount: number;
+            /**
+             * @description The presentment discount amount formatted as a string
+             * @example €0.00
+             */
+            readonly presentment_discount_amount_str: string;
+            /**
+             * Format: int32
+             * @description The presentment tax amount for this order line
+             * @example 200
+             */
+            presentment_tax_amount: number;
+            /**
+             * @description The presentment tax amount formatted as a string
+             * @example €2.00
+             */
+            readonly presentment_tax_amount_str: string;
+            /**
+             * Format: int32
+             * @description The presentment gift card usage amount for this order line
+             * @example 0
+             */
+            presentment_giftcard_usage_amount: number;
+            /**
+             * @description The presentment gift card usage amount formatted as a string
+             * @example €0.00
+             */
+            readonly presentment_giftcard_usage_amount_str: string;
+            /**
+             * Format: int32
+             * @description The presentment total amount for this order line
+             * @example 2199
+             */
+            presentment_total_amount: number;
+            /**
+             * @description The presentment total amount formatted as a string
+             * @example €21.99
+             */
+            readonly presentment_total_amount_str: string;
             selected_gameserver_id?: components["schemas"]["FlakeId"];
             /**
              * @description Indicates whether tax is included in the base price, or added on top
@@ -4553,6 +4669,8 @@ export interface components {
             /** @description Whether store pricing is tax-inclusive. */
             store_tax_inclusive_pricing: boolean;
             block_prepaid_cards: components["schemas"]["PrepaidCardsBlockingTypeDto"];
+            /** @description Whether the 'Adaptive Currency' feature is enabled. */
+            adaptive_currency_enabled: boolean;
             /**
              * Format: int64
              * @description Maximum checkout amount allowed in cents.
@@ -4704,6 +4822,73 @@ export interface components {
             initial_total_amount: number;
             /** @description Formatted string representation of the initial total amount. */
             initial_total_amount_str: string;
+            /** @description Presentment currency code (currency shown to customer). */
+            presentment_currency?: null | string;
+            /**
+             * Format: int64
+             * @description Presentment subtotal amount in smallest currency units.
+             */
+            presentment_subtotal_amount?: null | number;
+            /** @description Formatted string representation of the presentment subtotal amount. */
+            readonly presentment_subtotal_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Presentment discount amount in smallest currency units.
+             */
+            presentment_discount_amount?: null | number;
+            /** @description Formatted string representation of the presentment discount amount. */
+            readonly presentment_discount_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Presentment tax amount in smallest currency units.
+             */
+            presentment_tax_amount?: null | number;
+            /** @description Formatted string representation of the presentment tax amount. */
+            readonly presentment_tax_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Presentment total amount in smallest currency units.
+             */
+            presentment_total_amount?: null | number;
+            /** @description Formatted string representation of the presentment total amount. */
+            readonly presentment_total_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment discount amount in smallest currency units for the first billing cycle.
+             */
+            initial_presentment_discount_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment discount amount. */
+            readonly initial_presentment_discount_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment subtotal amount in smallest currency units for the first billing cycle.
+             */
+            initial_presentment_subtotal_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment subtotal amount. */
+            readonly initial_presentment_subtotal_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment gift card usage amount in smallest currency units.
+             */
+            initial_presentment_giftcard_usage_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment gift card usage amount. */
+            readonly initial_presentment_giftcard_usage_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment tax amount in smallest currency units for the first billing cycle.
+             */
+            initial_presentment_tax_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment tax amount. */
+            readonly initial_presentment_tax_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment total amount in smallest currency units for the first billing cycle.
+             */
+            initial_presentment_total_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment total amount. */
+            readonly initial_presentment_total_amount_str?: null | string;
+            /** @description The foreign exchange rate applied (if presentment currency differs from settlement currency). */
+            fx_rate?: null | string;
             /** @description Identifier for the pricing region associated with this subscription. */
             pricing_region_id?: null | string;
             /**
@@ -5079,6 +5264,7 @@ export interface components {
             show_all_payment_methods_for_subscriptions?: boolean;
             store_tax_inclusive_pricing?: boolean;
             block_prepaid_cards?: components["schemas"]["PrepaidCardsBlockingTypeDto"];
+            adaptive_currency_enabled?: boolean;
         };
         UpdateTrialEligibilityOverrideDto: {
             product_id?: components["schemas"]["FlakeId"];
