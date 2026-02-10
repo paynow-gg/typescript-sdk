@@ -1008,9 +1008,16 @@ export interface components {
             readonly game: string;
             /**
              * @description The three-letter ISO currency code used for pricing in this store.
-             * @example usd
+             *     If using the Adaptive Currency feature, this will be updated to reflect customer's local currency
+             *     (based on passed in IP / country headers).
+             * @example eur
              */
             currency: string;
+            /**
+             * @description The three-letter ISO currency code signifying the main currency of the store.
+             * @example usd
+             */
+            creator_currency: string;
             /** @description A detailed description of the store. Only present for some platform types. */
             description?: null | string;
             /** @description The URL of the store's main website, if not using Hosted Webstores. */
@@ -1638,7 +1645,12 @@ export interface operations {
     Store_GetStorefrontStore: {
         parameters: {
             query?: never;
-            header?: never;
+            header?: {
+                /** @description The IP address (IPv4 or IPv6) of the customer. Required if the request is not being made from the customer's browser. */
+                "x-paynow-customer-ip"?: string;
+                /** @description The customer's country code in ISO 3166-1 alpha-2 format. Optional, but recommended if you have this available. */
+                "x-paynow-customer-countrycode"?: string;
+            };
             path?: never;
             cookie?: never;
         };

@@ -2191,7 +2191,7 @@ export interface components {
         };
         /** @description Represents a line item in a checkout session request.
          *     Opposed to CreateCheckoutSessionLineDto, this is used while creating a checkout session using the Management API,
-         *     and allows for creating inline products (which is subject to special approval) */
+         *     and allows for creating inline products and payout splits (subject to special approval) */
         CreateCheckoutSessionLineManagementDto: {
             /** @description Determines whether this line should create a subscription */
             subscription?: null | boolean;
@@ -2212,11 +2212,31 @@ export interface components {
             };
             product_id?: components["schemas"]["FlakeId"];
             inline_product?: components["schemas"]["InlineProductCreateDto"];
+            /** @description Optional payout splits for line items (requires approval) */
+            payout_splits?: null | components["schemas"]["CreateCheckoutSessionLineManagementPayoutSplitDto"][];
             /** @description Optional metadata to associate with the checkout session line.
              *     Do not store any sensitive information here. */
             metadata?: null | {
                 [key: string]: string;
             };
+        };
+        CreateCheckoutSessionLineManagementPayoutSplitDto: {
+            /** @description The ID of the user's payout balance. */
+            payout_id: string;
+            /**
+             * Format: int64
+             * @description The percentage of the line amount this user receives (in basis points, e.g., 5000 = 50%)
+             *     NOTE: The last payout split needs to have a null percentage set (so the remaining amount gets properly allocated)
+             * @example 5000
+             */
+            percentage?: null | number;
+            /**
+             * Format: int64
+             * @description The platform fee percentage applied to this split (in basis points)
+             *     Only applicable to platforms.
+             * @example 500
+             */
+            platform_fee?: null | number;
         };
         /** @description Request to create a new checkout session from your back-end server using the management API.
          *     `customer_id` needs to be specified explicitly here instead of using a Customer token. */
@@ -2338,6 +2358,7 @@ export interface components {
             store_tax_inclusive_pricing: boolean;
             block_prepaid_cards: components["schemas"]["PrepaidCardsBlockingTypeDto"];
             adaptive_currency_enabled: boolean;
+            show_adaptive_currency_on_storefront: boolean;
         };
         CreateTrialEligibilityOverrideDto: {
             product_id: components["schemas"]["FlakeId"];
@@ -4671,6 +4692,8 @@ export interface components {
             block_prepaid_cards: components["schemas"]["PrepaidCardsBlockingTypeDto"];
             /** @description Whether the 'Adaptive Currency' feature is enabled. */
             adaptive_currency_enabled: boolean;
+            /** @description Whether the displayed currency on the storefront should be the Adaptive Currency by default. */
+            show_adaptive_currency_on_storefront: boolean;
             /**
              * Format: int64
              * @description Maximum checkout amount allowed in cents.
@@ -5265,6 +5288,7 @@ export interface components {
             store_tax_inclusive_pricing?: boolean;
             block_prepaid_cards?: components["schemas"]["PrepaidCardsBlockingTypeDto"];
             adaptive_currency_enabled?: boolean;
+            show_adaptive_currency_on_storefront?: boolean;
         };
         UpdateTrialEligibilityOverrideDto: {
             product_id?: components["schemas"]["FlakeId"];
