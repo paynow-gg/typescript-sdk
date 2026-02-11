@@ -233,6 +233,282 @@ export interface webhooks {
         patch?: never;
         trace?: never;
     };
+    ON_CHARGEBACK: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Triggered when a chargeback is created
+         * @description Webhook for ON_CHARGEBACK
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_CHARGEBACK
+                         */
+                        event_type: components["schemas"]["WebhookEventType"];
+                        /**
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
+                         */
+                        event_id: string;
+                        body: {
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Payment associated with the Payment
+                             * @example 411486491630370816
+                             */
+                            id: string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Store associated with the Payment
+                             * @example 411486491630370816
+                             */
+                            store_id: string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Order associated with Payment
+                             * @example 411486491630370816
+                             */
+                            order_id: string;
+                            customer?: components["schemas"]["CustomerDTO"] | null;
+                            /**
+                             * @description The Payment Gateway of the Payment
+                             * @example stripe
+                             */
+                            gateway: string;
+                            /**
+                             * @description The ISO-4217 Currency Code of the Payment
+                             * @example USD
+                             */
+                            currency: string;
+                            /**
+                             * @description Indicates if the payment was Tax Inclusive
+                             * @example true
+                             */
+                            tax_inclusive: boolean;
+                            /**
+                             * @description The payment amount, represented in cents
+                             * @example 7500
+                             */
+                            amount: number;
+                            /**
+                             * @description The gateway fee  amount, represented in cents
+                             * @example 200
+                             */
+                            gateway_fee_amount: number;
+                            /**
+                             * @description The tax amount, represented in cents
+                             * @example 1200
+                             */
+                            tax_amount: number;
+                            /**
+                             * @description The platform fee amount, represented in cents
+                             * @example 375
+                             */
+                            platform_fee_amount: number;
+                            /**
+                             * @description The net amount recieved by the associated store, represented in cents
+                             * @example 5925
+                             */
+                            store_net_amount: number;
+                            /** @description The status of the payment */
+                            status: string;
+                            /** @description The chargeback outcome */
+                            chargeback_status: string;
+                            /**
+                             * Format: date-time
+                             * @description Indicated when a chargeback was opened for the payment
+                             * @example 2024-01-25T14:45:00Z
+                             */
+                            chargeback_at: string;
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description Webhook processed successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    ON_CHARGEBACK_CLOSED: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Triggered when a chargeback is resolved
+         * @description Webhook for ON_CHARGEBACK_CLOSED
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_CHARGEBACK_CLOSED
+                         */
+                        event_type: components["schemas"]["WebhookEventType"];
+                        /**
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
+                         */
+                        event_id: string;
+                        body: {
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Payment associated with the Payment
+                             * @example 411486491630370816
+                             */
+                            id: string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Store associated with the Payment
+                             * @example 411486491630370816
+                             */
+                            store_id: string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Order associated with Payment
+                             * @example 411486491630370816
+                             */
+                            order_id: string;
+                            customer?: components["schemas"]["CustomerDTO"] | null;
+                            /**
+                             * @description The Payment Gateway of the Payment
+                             * @example stripe
+                             */
+                            gateway: string;
+                            /**
+                             * @description The ISO-4217 Currency Code of the Payment
+                             * @example USD
+                             */
+                            currency: string;
+                            /**
+                             * @description Indicates if the payment was Tax Inclusive
+                             * @example true
+                             */
+                            tax_inclusive: boolean;
+                            /**
+                             * @description The payment amount, represented in cents
+                             * @example 7500
+                             */
+                            amount: number;
+                            /**
+                             * @description The gateway fee  amount, represented in cents
+                             * @example 200
+                             */
+                            gateway_fee_amount: number;
+                            /**
+                             * @description The tax amount, represented in cents
+                             * @example 1200
+                             */
+                            tax_amount: number;
+                            /**
+                             * @description The platform fee amount, represented in cents
+                             * @example 375
+                             */
+                            platform_fee_amount: number;
+                            /**
+                             * @description The net amount recieved by the associated store, represented in cents
+                             * @example 5925
+                             */
+                            store_net_amount: number;
+                            /** @description The status of the payment */
+                            status: string;
+                            /** @description The chargeback outcome */
+                            chargeback_status: string;
+                            /**
+                             * Format: date-time
+                             * @description Indicated when a chargeback was opened for the payment
+                             * @example 2024-01-25T14:45:00Z
+                             */
+                            chargeback_at: string;
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description Webhook processed successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     ON_DISCORD_ACCOUNT_LINKED_TO_CHECKOUT: {
         parameters: {
             query?: never;
@@ -1200,142 +1476,6 @@ export interface webhooks {
                              * @example created
                              */
                             status: string;
-                        };
-                    };
-                };
-            };
-            responses: {
-                /** @description Webhook processed successfully */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-                /** @description Bad request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-                /** @description Internal server error */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    ON_CHARGEBACK: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Triggered when a chargeback is created
-         * @description Webhook for ON_CHARGEBACK
-         */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The type of webhook event
-                         * @example ON_CHARGEBACK
-                         */
-                        event_type: components["schemas"]["WebhookEventType"];
-                        /**
-                         * Format: flake-id
-                         * @description The ID of the Webhook Event
-                         * @example 411486491630370816
-                         */
-                        event_id: string;
-                        body: {
-                            /**
-                             * Format: flake-id
-                             * @description The Flake ID of the Payment associated with the Payment
-                             * @example 411486491630370816
-                             */
-                            id: string;
-                            /**
-                             * Format: flake-id
-                             * @description The Flake ID of the Store associated with the Payment
-                             * @example 411486491630370816
-                             */
-                            store_id: string;
-                            /**
-                             * Format: flake-id
-                             * @description The Flake ID of the Order associated with Payment
-                             * @example 411486491630370816
-                             */
-                            order_id: string;
-                            customer?: components["schemas"]["CustomerDTO"] | null;
-                            /**
-                             * @description The Payment Gateway of the Payment
-                             * @example stripe
-                             */
-                            gateway: string;
-                            /**
-                             * @description The ISO-4217 Currency Code of the Payment
-                             * @example USD
-                             */
-                            currency: string;
-                            /**
-                             * @description Indicates if the payment was Tax Inclusive
-                             * @example true
-                             */
-                            tax_inclusive: boolean;
-                            /**
-                             * @description The payment amount, represented in cents
-                             * @example 7500
-                             */
-                            amount: number;
-                            /**
-                             * @description The gateway fee  amount, represented in cents
-                             * @example 200
-                             */
-                            gateway_fee_amount: number;
-                            /**
-                             * @description The tax amount, represented in cents
-                             * @example 1200
-                             */
-                            tax_amount: number;
-                            /**
-                             * @description The platform fee amount, represented in cents
-                             * @example 375
-                             */
-                            platform_fee_amount: number;
-                            /**
-                             * @description The net amount recieved by the associated store, represented in cents
-                             * @example 5925
-                             */
-                            store_net_amount: number;
-                            /** @description The status of the payment */
-                            status: string;
-                            /**
-                             * Format: date-time
-                             * @description Indicated when a chargeback was opened for the payment
-                             * @example 2024-01-25T14:45:00Z
-                             */
-                            chargeback_at: string;
                         };
                     };
                 };
@@ -2936,7 +3076,7 @@ export interface components {
          * @description The type of webhook event
          * @enum {string}
          */
-        WebhookEventType: "ON_ORDER_COMPLETED" | "ON_REFUND" | "ON_CHARGEBACK" | "ON_DELIVERY_ITEM_ADDED" | "ON_DELIVERY_ITEM_ACTIVATED" | "ON_DELIVERY_ITEM_USED" | "ON_DELIVERY_ITEM_REVOKED" | "ON_SUBSCRIPTION_ACTIVATED" | "ON_SUBSCRIPTION_RENEWED" | "ON_SUBSCRIPTION_CANCELED" | "ON_DISCORD_ACCOUNT_LINKED_TO_CHECKOUT" | "ON_CONNECTED_USER_REGISTERED" | "ON_CONNECTED_USER_BECAME_PAYABLE" | "ON_CONNECTED_USER_PAYOUT_CREATED" | "ON_CONNECTED_USER_PAYOUT_COMPLETED" | "ON_CONNECTED_USER_TRANSACTION_INSERTED" | "ON_CONNECTED_USER_BECAME_UNPAYABLE" | "ON_TRIAL_ACTIVATED" | "ON_TRIAL_COMPLETED" | "ON_TRIAL_CANCELED" | "ON_PURCHASE_FOLLOW_UP_ATTEMPT_EMAIL_SENT" | "ON_PURCHASE_FOLLOW_UP_ATTEMPT_SUCCEEDED" | "ON_ABANDONED_CHECKOUT_RECOVERY_ATTEMPT_EMAIL_SENT" | "ON_ABANDONED_CHECKOUT_RECOVERY_ATTEMPT_SUCCEEDED";
+        WebhookEventType: "ON_ORDER_COMPLETED" | "ON_REFUND" | "ON_CHARGEBACK" | "ON_DELIVERY_ITEM_ADDED" | "ON_DELIVERY_ITEM_ACTIVATED" | "ON_DELIVERY_ITEM_USED" | "ON_DELIVERY_ITEM_REVOKED" | "ON_SUBSCRIPTION_ACTIVATED" | "ON_SUBSCRIPTION_RENEWED" | "ON_SUBSCRIPTION_CANCELED" | "ON_DISCORD_ACCOUNT_LINKED_TO_CHECKOUT" | "ON_CONNECTED_USER_REGISTERED" | "ON_CONNECTED_USER_BECAME_PAYABLE" | "ON_CONNECTED_USER_PAYOUT_CREATED" | "ON_CONNECTED_USER_PAYOUT_COMPLETED" | "ON_CONNECTED_USER_TRANSACTION_INSERTED" | "ON_CONNECTED_USER_BECAME_UNPAYABLE" | "ON_TRIAL_ACTIVATED" | "ON_TRIAL_COMPLETED" | "ON_TRIAL_CANCELED" | "ON_PURCHASE_FOLLOW_UP_ATTEMPT_EMAIL_SENT" | "ON_PURCHASE_FOLLOW_UP_ATTEMPT_SUCCEEDED" | "ON_ABANDONED_CHECKOUT_RECOVERY_ATTEMPT_EMAIL_SENT" | "ON_ABANDONED_CHECKOUT_RECOVERY_ATTEMPT_SUCCEEDED" | "ON_CHARGEBACK_CLOSED";
     };
     responses: never;
     parameters: never;

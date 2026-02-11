@@ -5491,7 +5491,7 @@ export interface components {
             validation: string;
         };
         /** @enum {string} */
-        WebhookEventType: "OnIgnore" | "OnOrderCompleted" | "OnRefund" | "OnChargeback" | "OnDeliveryItemAdded" | "OnDeliveryItemActivated" | "OnDeliveryItemUsed" | "OnDeliveryItemRevoked" | "OnSubscriptionActivated" | "OnSubscriptionRenewed" | "OnSubscriptionCanceled" | "OnDiscordOrderActionsQueued" | "OnConnectedUserRegistered" | "OnConnectedUserBecamePayable" | "OnConnectedUserPayoutCreated" | "OnConnectedUserPayoutCompleted" | "OnConnectedUserTransactionInserted" | "OnConnectedUserBecameUnpayable" | "OnTrialActivated" | "OnTrialCompleted" | "OnTrialCanceled" | "OnPurchaseFollowUpAttemptEmailSent" | "OnPurchaseFollowUpAttemptSucceeded" | "OnAbandonedCheckoutRecoveryAttemptEmailSent" | "OnAbandonedCheckoutRecoveryAttemptSucceeded";
+        WebhookEventType: "OnIgnore" | "OnOrderCompleted" | "OnRefund" | "OnChargeback" | "OnDeliveryItemAdded" | "OnDeliveryItemActivated" | "OnDeliveryItemUsed" | "OnDeliveryItemRevoked" | "OnSubscriptionActivated" | "OnSubscriptionRenewed" | "OnSubscriptionCanceled" | "OnDiscordOrderActionsQueued" | "OnConnectedUserRegistered" | "OnConnectedUserBecamePayable" | "OnConnectedUserPayoutCreated" | "OnConnectedUserPayoutCompleted" | "OnConnectedUserTransactionInserted" | "OnConnectedUserBecameUnpayable" | "OnTrialActivated" | "OnTrialCompleted" | "OnTrialCanceled" | "OnPurchaseFollowUpAttemptEmailSent" | "OnPurchaseFollowUpAttemptSucceeded" | "OnAbandonedCheckoutRecoveryAttemptEmailSent" | "OnAbandonedCheckoutRecoveryAttemptSucceeded" | "OnChargebackClosed";
         WebhookHistoryDto: {
             /** Format: int32 */
             page: number;
