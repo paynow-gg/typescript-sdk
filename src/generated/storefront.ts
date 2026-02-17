@@ -887,6 +887,9 @@ export interface components {
              * @example 500
              */
             sale_value?: null | number;
+            upsell_offer_id?: components["schemas"]["FlakeId"];
+            /** Format: int64 */
+            upsell_discount_amount: number;
             vat_rate?: components["schemas"]["VatRateDto"];
             regional_pricing?: components["schemas"]["StorefrontProductPricingDetailsRegionalPricingDto"];
             /**

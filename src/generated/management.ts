@@ -1678,6 +1678,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/stores/{storeId}/upsell-settings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get store upselling settings
+         * @description Retrieves upselling settings for the store.
+         */
+        get: operations["UpsellSettings_GetStoreUpsellSettings"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Updates store upselling settings
+         * @description Updates upselling settings for a store.
+         */
+        patch: operations["UpsellSettings_UpdateStoreUpsellSettings"];
+        trace?: never;
+    };
     "/v1/stores/{storeId}/webhooks": {
         parameters: {
             query?: never;
@@ -2360,6 +2384,12 @@ export interface components {
             adaptive_currency_enabled: boolean;
             show_adaptive_currency_on_storefront: boolean;
         };
+        CreateStoreUpsellSettingsDto: {
+            enabled: boolean;
+            automatic_recommendations_enabled: boolean;
+            recommendation_overrides_enabled: boolean;
+            recommendation_overrides: components["schemas"]["StoreUpsellRecommendationDto"][];
+        };
         CreateTrialEligibilityOverrideDto: {
             product_id: components["schemas"]["FlakeId"];
             /** Format: date-time */
@@ -2980,6 +3010,7 @@ export interface components {
             subscription_interval_value?: null | number;
             subscription_interval_scale?: components["schemas"]["ProductSubscriptionIntervalScale"];
             trial?: components["schemas"]["UpsertProductTrialConfigurationDto"];
+            upselling?: components["schemas"]["UpsertProductUpsellConfigurationDto"];
             /** @description Indicates whether automatic removal is enabled. */
             remove_after_enabled?: null | boolean;
             /**
@@ -4082,6 +4113,7 @@ export interface components {
             subscription_interval_value: number;
             subscription_interval_scale: components["schemas"]["ProductSubscriptionIntervalScale"];
             trial: components["schemas"]["ProductTrialConfigurationDto"];
+            upselling: components["schemas"]["ProductUpsellConfigurationDto"];
             /** @description Indicates whether automatic removal is enabled. */
             remove_after_enabled: boolean;
             /**
@@ -4291,6 +4323,29 @@ export interface components {
              */
             repeat_trial_cooldown_value: number;
             repeat_trial_cooldown_scale: components["schemas"]["ProductSubscriptionIntervalScale"];
+        };
+        ProductUpsellConfigurationDto: {
+            /** @description Indicates if upselling should be enabled for the product.
+             *     If disabled, the product will never be recommended regardless of the global config. */
+            enabled: boolean;
+            /** @description Upselling recommendation for the product. */
+            recommendations: components["schemas"]["ProductUpsellRecommendationDto"][];
+        };
+        ProductUpsellRecommendationDto: {
+            recommended_product_id: components["schemas"]["FlakeId"];
+            type: components["schemas"]["UpsellTypeDto"];
+            /** Format: int32 */
+            priority: number;
+            discount_type: components["schemas"]["UpsellDiscountTypeDto"];
+            /** Format: int64 */
+            discount_amount: number;
+            /** Format: int32 */
+            minimum_base_product_quantity?: null | number;
+            /** Format: int32 */
+            minimum_recommended_product_quantity?: null | number;
+            /** Format: int32 */
+            quantity_to_add?: null | number;
+            prefer_as_subscription: boolean;
         };
         /** @description Represents a command associated with the store-level purchase follow uo configuration. */
         PurchaseFollowUpStoreConfigurationCommandDto: {
@@ -4962,6 +5017,29 @@ export interface components {
             /** @description Reason provided for cancellation. */
             cancel_reason?: null | string;
         };
+        StoreUpsellRecommendationDto: {
+            recommended_product_id: components["schemas"]["FlakeId"];
+            type: components["schemas"]["UpsellTypeDto"];
+            /** Format: int32 */
+            priority: number;
+            discount_type: components["schemas"]["UpsellDiscountTypeDto"];
+            /** Format: int64 */
+            discount_amount: number;
+            /** Format: int32 */
+            minimum_base_product_quantity?: null | number;
+            /** Format: int32 */
+            quantity_to_add?: null | number;
+            prefer_as_subscription: boolean;
+        };
+        StoreUpsellSettingsDto: {
+            enabled: boolean;
+            automatic_recommendations_enabled: boolean;
+            recommendation_overrides_enabled: boolean;
+            recommendation_overrides: components["schemas"]["StoreUpsellRecommendationDto"][];
+            /** Format: date-time */
+            updated_at: string;
+            updated_by: components["schemas"]["ActorDto"];
+        };
         /**
          * @description Represents the current state of a subscription.
          * @enum {string}
@@ -5290,6 +5368,12 @@ export interface components {
             adaptive_currency_enabled?: boolean;
             show_adaptive_currency_on_storefront?: boolean;
         };
+        UpdateStoreUpsellSettingsDto: {
+            enabled?: boolean;
+            automatic_recommendations_enabled?: boolean;
+            recommendation_overrides_enabled?: boolean;
+            recommendation_overrides?: components["schemas"]["StoreUpsellRecommendationDto"][];
+        };
         UpdateTrialEligibilityOverrideDto: {
             product_id?: components["schemas"]["FlakeId"];
             /** Format: date-time */
@@ -5304,6 +5388,10 @@ export interface components {
             discord_title?: null | string;
             discord_color?: null | string;
         };
+        /** @enum {string} */
+        UpsellDiscountTypeDto: "unknown" | "none" | "fixed" | "percentage";
+        /** @enum {string} */
+        UpsellTypeDto: "unknown" | "additional" | "alternative" | "increase_quantity";
         UpsertBanRequestDto: {
             reason?: null | string;
             identities?: null | components["schemas"]["BanIdentityDto"][];
@@ -5382,6 +5470,7 @@ export interface components {
             subscription_interval_value?: null | number;
             subscription_interval_scale?: components["schemas"]["ProductSubscriptionIntervalScale"];
             trial?: components["schemas"]["UpsertProductTrialConfigurationDto"];
+            upselling?: components["schemas"]["UpsertProductUpsellConfigurationDto"];
             /** @description Indicates whether automatic removal is enabled. */
             remove_after_enabled?: null | boolean;
             /**
@@ -5472,6 +5561,26 @@ export interface components {
              */
             repeat_trial_cooldown_value?: null | number;
             repeat_trial_cooldown_scale?: components["schemas"]["ProductSubscriptionIntervalScale"];
+        };
+        UpsertProductUpsellConfigurationDto: {
+            enabled?: null | boolean;
+            recommendations?: null | components["schemas"]["UpsertProductUpsellRecommendationDto"][];
+        };
+        UpsertProductUpsellRecommendationDto: {
+            recommended_product_id: components["schemas"]["FlakeId"];
+            type: components["schemas"]["UpsellTypeDto"];
+            /** Format: int32 */
+            priority: number;
+            discount_type: components["schemas"]["UpsellDiscountTypeDto"];
+            /** Format: int64 */
+            discount_amount: number;
+            /** Format: int32 */
+            minimum_base_product_quantity?: null | number;
+            /** Format: int32 */
+            minimum_recommended_product_quantity?: null | number;
+            /** Format: int32 */
+            quantity_to_add?: null | number;
+            prefer_as_subscription: boolean;
         };
         UpsertTagRequestDto: {
             name?: null | string;
@@ -10059,6 +10168,68 @@ export interface operations {
             };
         };
     };
+    UpsellSettings_GetStoreUpsellSettings: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoreUpsellSettingsDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    UpsellSettings_UpdateStoreUpsellSettings: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["UpdateStoreUpsellSettingsDto"];
+                "text/json": components["schemas"]["UpdateStoreUpsellSettingsDto"];
+                "application/*+json": components["schemas"]["UpdateStoreUpsellSettingsDto"];
+            };
+        };
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
     Webhooks_GetSubscriptions: {
         parameters: {
             query?: never;
@@ -10804,6 +10975,14 @@ export const operationMappings = {
   "Trials_DeleteEligibilityOverrideForCustomer": {
     "method": "DELETE",
     "path": "/v1/stores/{storeId}/customers/{customerId}/trials/eligibility/overrides/{trialEligibilityOverrideId}"
+  },
+  "UpsellSettings_GetStoreUpsellSettings": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/upsell-settings"
+  },
+  "UpsellSettings_UpdateStoreUpsellSettings": {
+    "method": "PATCH",
+    "path": "/v1/stores/{storeId}/upsell-settings"
   },
   "Webhooks_GetSubscriptions": {
     "method": "GET",
