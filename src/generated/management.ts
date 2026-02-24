@@ -2389,6 +2389,7 @@ export interface components {
             automatic_recommendations_enabled: boolean;
             recommendation_overrides_enabled: boolean;
             recommendation_overrides: components["schemas"]["StoreUpsellRecommendationDto"][];
+            checkout_style: components["schemas"]["StoreUpsellCheckoutStyleDto"];
         };
         CreateTrialEligibilityOverrideDto: {
             product_id: components["schemas"]["FlakeId"];
@@ -4334,8 +4335,6 @@ export interface components {
         ProductUpsellRecommendationDto: {
             recommended_product_id: components["schemas"]["FlakeId"];
             type: components["schemas"]["UpsellTypeDto"];
-            /** Format: int32 */
-            priority: number;
             discount_type: components["schemas"]["UpsellDiscountTypeDto"];
             /** Format: int64 */
             discount_amount: number;
@@ -5017,11 +5016,11 @@ export interface components {
             /** @description Reason provided for cancellation. */
             cancel_reason?: null | string;
         };
+        /** @enum {string} */
+        StoreUpsellCheckoutStyleDto: "unknown" | "inline" | "inline_and_prepayment_dialog" | "dedicated_step";
         StoreUpsellRecommendationDto: {
             recommended_product_id: components["schemas"]["FlakeId"];
             type: components["schemas"]["UpsellTypeDto"];
-            /** Format: int32 */
-            priority: number;
             discount_type: components["schemas"]["UpsellDiscountTypeDto"];
             /** Format: int64 */
             discount_amount: number;
@@ -5036,6 +5035,7 @@ export interface components {
             automatic_recommendations_enabled: boolean;
             recommendation_overrides_enabled: boolean;
             recommendation_overrides: components["schemas"]["StoreUpsellRecommendationDto"][];
+            checkout_style: components["schemas"]["StoreUpsellCheckoutStyleDto"];
             /** Format: date-time */
             updated_at: string;
             updated_by: components["schemas"]["ActorDto"];
@@ -5373,6 +5373,7 @@ export interface components {
             automatic_recommendations_enabled?: boolean;
             recommendation_overrides_enabled?: boolean;
             recommendation_overrides?: components["schemas"]["StoreUpsellRecommendationDto"][];
+            checkout_style?: components["schemas"]["StoreUpsellCheckoutStyleDto"];
         };
         UpdateTrialEligibilityOverrideDto: {
             product_id?: components["schemas"]["FlakeId"];
@@ -5569,8 +5570,6 @@ export interface components {
         UpsertProductUpsellRecommendationDto: {
             recommended_product_id: components["schemas"]["FlakeId"];
             type: components["schemas"]["UpsellTypeDto"];
-            /** Format: int32 */
-            priority: number;
             discount_type: components["schemas"]["UpsellDiscountTypeDto"];
             /** Format: int64 */
             discount_amount: number;

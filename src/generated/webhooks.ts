@@ -993,6 +993,7 @@ export interface webhooks {
         put?: never;
         /**
          * Triggered when a delivery item in the customers inventory becomes used
+         * @deprecated
          * @description Webhook for ON_DELIVERY_ITEM_USED
          */
         post: {
@@ -1008,6 +1009,344 @@ export interface webhooks {
                         /**
                          * @description The type of webhook event
                          * @example ON_DELIVERY_ITEM_USED
+                         */
+                        event_type: components["schemas"]["WebhookEventType"];
+                        /**
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
+                         */
+                        event_id: string;
+                        body: {
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Delivery Item
+                             * @example 411486491630370816
+                             */
+                            id: string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Store associated with the Delivery Item
+                             * @example 411486491630370816
+                             */
+                            store_id: string;
+                            customer?: components["schemas"]["CustomerDTO"] | null;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the customer who ordered the delivery item - which may differ to the customer because of gifting
+                             * @example 411486491630370816
+                             */
+                            order_customer_id?: null | string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Checkout associated with the Delivery Item
+                             * @example 411486491630370816
+                             */
+                            checkout_id?: null | string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Order ID associated with the Delivery Item
+                             * @example 411486491630370816
+                             */
+                            order_id?: null | string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake Id of the Order Line ID associated with the Delivery Item
+                             * @example 411486491630370816
+                             */
+                            order_line_id?: null | string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Subscription associated with the Delivery Item
+                             * @example 411486491630370816
+                             */
+                            subscription_id?: null | string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Game Server the Delivery Item is associated with
+                             * @example 411486491630370816
+                             */
+                            execute_on_gameserver_id?: null | string;
+                            execute_on_gameserver?: components["schemas"]["GameServerDTO"] | null;
+                            /**
+                             * Format: flake-id
+                             * @description The associated Product ID of the Delivery Item
+                             * @example 411486491630370816
+                             */
+                            product_id: string;
+                            /**
+                             * Format: flake-id
+                             * @description The associated Product Version ID of the Delivery Item
+                             * @example 411486491630370816
+                             */
+                            product_version_id: string;
+                            product: components["schemas"]["ProductDTO"];
+                            /**
+                             * @description The state of the Delivery Item.  Possible options: usable, active, used, revoked, renewed
+                             * @example usable
+                             */
+                            state: string;
+                            /**
+                             * Format: date-time
+                             * @description Indicates when the Delivery Item was added to the customers inventory
+                             * @example 2024-01-10T08:00:00Z
+                             */
+                            added_at: string;
+                            /**
+                             * Format: date-time
+                             * @description Indicates when the Delivery Item become active
+                             * @example 2024-01-10T09:00:00Z
+                             */
+                            active_at?: null | string;
+                            /**
+                             * Format: date-time
+                             * @description Indicates when the Delivery Item expires
+                             * @example 2024-12-31T23:59:59Z
+                             */
+                            expires_at?: null | string;
+                            /**
+                             * Format: date-time
+                             * @description Indicates when the Delivery Item was removed from the customers inventory
+                             * @example 2024-02-01T10:00:00Z
+                             */
+                            removed_at?: null | string;
+                            /**
+                             * Format: date-time
+                             * @description Indicates when the Delivery Item was revoked from the customers inventory
+                             * @example 2024-02-05T14:30:00Z
+                             */
+                            revoked_at?: null | string;
+                            /** @description Indicates the reason the delivery item was revoked from the customers inventory */
+                            revoke_reason?: null | string;
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description Webhook processed successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    ON_DELIVERY_ITEM_RENEWED: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Triggered when a delivery item in the customers inventory is renewed
+         * @description Webhook for ON_DELIVERY_ITEM_RENEWED
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_DELIVERY_ITEM_RENEWED
+                         */
+                        event_type: components["schemas"]["WebhookEventType"];
+                        /**
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
+                         */
+                        event_id: string;
+                        body: {
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Delivery Item
+                             * @example 411486491630370816
+                             */
+                            id: string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Store associated with the Delivery Item
+                             * @example 411486491630370816
+                             */
+                            store_id: string;
+                            customer?: components["schemas"]["CustomerDTO"] | null;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the customer who ordered the delivery item - which may differ to the customer because of gifting
+                             * @example 411486491630370816
+                             */
+                            order_customer_id?: null | string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Checkout associated with the Delivery Item
+                             * @example 411486491630370816
+                             */
+                            checkout_id?: null | string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Order ID associated with the Delivery Item
+                             * @example 411486491630370816
+                             */
+                            order_id?: null | string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake Id of the Order Line ID associated with the Delivery Item
+                             * @example 411486491630370816
+                             */
+                            order_line_id?: null | string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Subscription associated with the Delivery Item
+                             * @example 411486491630370816
+                             */
+                            subscription_id?: null | string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Game Server the Delivery Item is associated with
+                             * @example 411486491630370816
+                             */
+                            execute_on_gameserver_id?: null | string;
+                            execute_on_gameserver?: components["schemas"]["GameServerDTO"] | null;
+                            /**
+                             * Format: flake-id
+                             * @description The associated Product ID of the Delivery Item
+                             * @example 411486491630370816
+                             */
+                            product_id: string;
+                            /**
+                             * Format: flake-id
+                             * @description The associated Product Version ID of the Delivery Item
+                             * @example 411486491630370816
+                             */
+                            product_version_id: string;
+                            product: components["schemas"]["ProductDTO"];
+                            /**
+                             * @description The state of the Delivery Item.  Possible options: usable, active, used, revoked, renewed
+                             * @example usable
+                             */
+                            state: string;
+                            /**
+                             * Format: date-time
+                             * @description Indicates when the Delivery Item was added to the customers inventory
+                             * @example 2024-01-10T08:00:00Z
+                             */
+                            added_at: string;
+                            /**
+                             * Format: date-time
+                             * @description Indicates when the Delivery Item become active
+                             * @example 2024-01-10T09:00:00Z
+                             */
+                            active_at?: null | string;
+                            /**
+                             * Format: date-time
+                             * @description Indicates when the Delivery Item expires
+                             * @example 2024-12-31T23:59:59Z
+                             */
+                            expires_at?: null | string;
+                            /**
+                             * Format: date-time
+                             * @description Indicates when the Delivery Item was removed from the customers inventory
+                             * @example 2024-02-01T10:00:00Z
+                             */
+                            removed_at?: null | string;
+                            /**
+                             * Format: date-time
+                             * @description Indicates when the Delivery Item was revoked from the customers inventory
+                             * @example 2024-02-05T14:30:00Z
+                             */
+                            revoked_at?: null | string;
+                            /** @description Indicates the reason the delivery item was revoked from the customers inventory */
+                            revoke_reason?: null | string;
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description Webhook processed successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    ON_DELIVERY_ITEM_EXPIRED: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Triggered when a delivery item in the customers inventory expires
+         * @description Webhook for ON_DELIVERY_ITEM_EXPIRED
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_DELIVERY_ITEM_EXPIRED
                          */
                         event_type: components["schemas"]["WebhookEventType"];
                         /**
@@ -3076,7 +3415,7 @@ export interface components {
          * @description The type of webhook event
          * @enum {string}
          */
-        WebhookEventType: "ON_ORDER_COMPLETED" | "ON_REFUND" | "ON_CHARGEBACK" | "ON_DELIVERY_ITEM_ADDED" | "ON_DELIVERY_ITEM_ACTIVATED" | "ON_DELIVERY_ITEM_USED" | "ON_DELIVERY_ITEM_REVOKED" | "ON_SUBSCRIPTION_ACTIVATED" | "ON_SUBSCRIPTION_RENEWED" | "ON_SUBSCRIPTION_CANCELED" | "ON_DISCORD_ACCOUNT_LINKED_TO_CHECKOUT" | "ON_CONNECTED_USER_REGISTERED" | "ON_CONNECTED_USER_BECAME_PAYABLE" | "ON_CONNECTED_USER_PAYOUT_CREATED" | "ON_CONNECTED_USER_PAYOUT_COMPLETED" | "ON_CONNECTED_USER_TRANSACTION_INSERTED" | "ON_CONNECTED_USER_BECAME_UNPAYABLE" | "ON_TRIAL_ACTIVATED" | "ON_TRIAL_COMPLETED" | "ON_TRIAL_CANCELED" | "ON_PURCHASE_FOLLOW_UP_ATTEMPT_EMAIL_SENT" | "ON_PURCHASE_FOLLOW_UP_ATTEMPT_SUCCEEDED" | "ON_ABANDONED_CHECKOUT_RECOVERY_ATTEMPT_EMAIL_SENT" | "ON_ABANDONED_CHECKOUT_RECOVERY_ATTEMPT_SUCCEEDED" | "ON_CHARGEBACK_CLOSED";
+        WebhookEventType: "ON_ORDER_COMPLETED" | "ON_REFUND" | "ON_CHARGEBACK" | "ON_DELIVERY_ITEM_ADDED" | "ON_DELIVERY_ITEM_ACTIVATED" | "ON_DELIVERY_ITEM_USED" | "ON_DELIVERY_ITEM_REVOKED" | "ON_SUBSCRIPTION_ACTIVATED" | "ON_SUBSCRIPTION_RENEWED" | "ON_SUBSCRIPTION_CANCELED" | "ON_DISCORD_ACCOUNT_LINKED_TO_CHECKOUT" | "ON_CONNECTED_USER_REGISTERED" | "ON_CONNECTED_USER_BECAME_PAYABLE" | "ON_CONNECTED_USER_PAYOUT_CREATED" | "ON_CONNECTED_USER_PAYOUT_COMPLETED" | "ON_CONNECTED_USER_TRANSACTION_INSERTED" | "ON_CONNECTED_USER_BECAME_UNPAYABLE" | "ON_TRIAL_ACTIVATED" | "ON_TRIAL_COMPLETED" | "ON_TRIAL_CANCELED" | "ON_PURCHASE_FOLLOW_UP_ATTEMPT_EMAIL_SENT" | "ON_PURCHASE_FOLLOW_UP_ATTEMPT_SUCCEEDED" | "ON_ABANDONED_CHECKOUT_RECOVERY_ATTEMPT_EMAIL_SENT" | "ON_ABANDONED_CHECKOUT_RECOVERY_ATTEMPT_SUCCEEDED" | "ON_CHARGEBACK_CLOSED" | "ON_DELIVERY_ITEM_EXPIRED" | "ON_DELIVERY_ITEM_RENEWED";
     };
     responses: never;
     parameters: never;
