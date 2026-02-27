@@ -300,6 +300,10 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        ActorDto: {
+            type: components["schemas"]["PayNowActorType"];
+            id?: components["schemas"]["FlakeId"];
+        };
         AuthenticateStorefrontCustomerRequestDto: {
             platform: components["schemas"]["CustomerProfilePlatform"];
             /**
@@ -444,6 +448,7 @@ export interface components {
         CustomerDto: {
             id: components["schemas"]["FlakeId"];
             store_id: components["schemas"]["FlakeId"];
+            store?: components["schemas"]["StoreDto"];
             profile?: components["schemas"]["GenericProfileDto"];
             steam_id?: components["schemas"]["SteamId"];
             steam?: components["schemas"]["SteamProfileDto"];
@@ -548,6 +553,8 @@ export interface components {
             /** @description The URL to the player's Minecraft skin rendered as an avatar. */
             avatar_url: string;
         };
+        /** @enum {string} */
+        PayNowActorType: "anonymous" | "user" | "customer" | "api_key" | "game_server" | "admin" | "internal" | "platform" | "global_customer";
         /** @description Represents a PayNow error */
         PayNowError: {
             /**
@@ -574,6 +581,39 @@ export interface components {
             /** @description An array of multiple errors. Only used by some API services. */
             errors?: null | components["schemas"]["ValidationError"][];
         };
+        /** @enum {string} */
+        PlatformCapability: "invalid" | "connected_users";
+        PlatformStoreTypeAssociationDetailsDto: {
+            platform_id: components["schemas"]["FlakeId"];
+            associated_platform?: components["schemas"]["PublicPlatformDto"];
+            /** @description The store platform identifier string (e.g. "rust", "minecraft"). */
+            store_platform: string;
+            /**
+             * Format: int64
+             * @description Overrides the default PayNow platform fee percentage for this association.
+             *     Expressed in basis points (e.g. 250 = 2.50%).
+             */
+            paynow_platform_fee_percentage_override?: null | number;
+            /**
+             * Format: int64
+             * @description The fee percentage charged by the connected platform.
+             *     Expressed in basis points (e.g. 250 = 2.50%).
+             */
+            connected_platform_fee_percentage?: null | number;
+            /**
+             * Format: int64
+             * @description The payout ID associated with the connected platform.
+             */
+            connected_platform_wallet_id?: null | number;
+            /** @description When true, billing plans are disabled for this platform/store type combination. */
+            disable_billing_plans: boolean;
+            /** @description When true, legal or compliance disclaimers should be displayed to the end user. */
+            display_disclaimers: boolean;
+            /** @description Whether the management hides some PayNow UI */
+            full_external_management: boolean;
+        };
+        /** @enum {string} */
+        PlatformType: "invalid" | "marketplace" | "store_platform" | "other";
         ProductDeliverableActionsDto: {
             /** @description Value indicating whether to grant a giftcard with the product with the subtotal amount. */
             grant_giftcard: boolean;
@@ -605,6 +645,25 @@ export interface components {
              */
             name: string;
         };
+        PublicPlatformDto: {
+            id: components["schemas"]["FlakeId"];
+            slug: string;
+            type: components["schemas"]["PlatformType"];
+            country_code: string;
+            business_name: string;
+            name: string;
+            description: string;
+            website_url: string;
+            logo_url: string;
+            accent_color: string;
+            capabilities: components["schemas"]["PlatformCapability"][];
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            updated_at: string;
+            /** Format: date-time */
+            disabled_at?: null | string;
+        };
         /** @enum {string} */
         SaleDiscountType: "percent" | "amount";
         /**
@@ -621,6 +680,126 @@ export interface components {
             /** @description The URL to the user's Steam avatar image. */
             avatar_url: string;
         };
+        /** @description Represents a PayNow store and its associated configuration. */
+        StoreDto: {
+            id: components["schemas"]["FlakeId"];
+            trust?: components["schemas"]["StoreTrustDto"];
+            owner_id: components["schemas"]["FlakeId"];
+            /** @description The URL-safe slug used to identify the store (e.g. "my-rust-server"). */
+            slug: string;
+            /** @description The display name of the store. */
+            name: string;
+            /** @description The platform this store is associated with (e.g. "rust", "minecraft"). */
+            platform: string;
+            /** @description Alias for PayNow.Services.HttpGateway.DataTransferObjects.V1.Stores.StoreDto.Platform. Returns the platform identifier as a game name. */
+            readonly game: string;
+            /** @description The ISO 4217 currency code used by this store for pricing (e.g. "usd", "eur") */
+            currency: string;
+            /** @description A human-readable description of the store shown to customers and PayNow. */
+            description: string;
+            /** @description The store's public website URL. */
+            website_url?: null | string;
+            /** @description General contact email address for the store. */
+            contact_email?: null | string;
+            /** @description Dedicated support email address for customer inquiries. */
+            support_email?: null | string;
+            /** @description URL to the store's support portal or help page. */
+            support_url?: null | string;
+            /** @description The integration type used by the store. */
+            integration_type?: null | string;
+            /** @description When set to true, the store is processing real transactions in live mode. */
+            live_mode: boolean;
+            /** @description URL of the store's full-size logo image. */
+            logo_url?: null | string;
+            /** @description URL of the store's square/icon logo image. */
+            logo_square_url?: null | string;
+            /** @description Username prefix used to identify Minecraft Bedrock players (e.g. "."). */
+            minecraft_bedrock_username_prefix?: null | string;
+            /**
+             * Format: date-time
+             * @description The UTC timestamp when the store was created.
+             */
+            created_at?: null | string;
+            /**
+             * Format: date-time
+             * @description The UTC timestamp when the store was last updated.
+             */
+            updated_at?: null | string;
+            /**
+             * Format: date-time
+             * @description The UTC timestamp when the store completed onboarding.
+             */
+            onboarding_completed_at?: null | string;
+            platform_store_type_association?: components["schemas"]["PlatformStoreTypeAssociationDetailsDto"];
+            /** @description The list of members who have access to manage this store. */
+            members?: null | components["schemas"]["StoreMemberDto"][];
+        };
+        StoreMemberDto: {
+            user: components["schemas"]["StoreMemberUserDto"];
+            /** Format: date-time */
+            added_at?: null | string;
+            added_by?: components["schemas"]["ActorDto"];
+            role_id?: components["schemas"]["FlakeId"];
+        };
+        StoreMemberUserDto: {
+            type: components["schemas"]["PayNowActorType"];
+            id: components["schemas"]["FlakeId"];
+            email: string;
+            first_name: string;
+            last_name: string;
+        };
+        /**
+         * @description Determines the party that needs to perform or requests a verification
+         * @enum {string}
+         */
+        StoreRequirementActionParty: "invalid" | "store" | "paynow" | "payment_processor" | "payout_provider" | "kyc_provider" | "external";
+        /**
+         * @description Represents categories of requirements that must be fulfilled for store setup and compliance in the PayNow platform.
+         * @enum {string}
+         */
+        StoreRequirementCategory: "invalid" | "business" | "kyc" | "compliance" | "risk" | "technical" | "financial" | "legal" | "other";
+        /** @enum {string} */
+        StoreRequirementStatus: "invalid" | "pending" | "under_review" | "requires_revision" | "approved" | "expired" | "waived" | "rejected_final";
+        /** @enum {string} */
+        StoreRestrictionFlagDto: "none" | "payments_disabled" | "payouts_disabled";
+        StoreTrustDto: {
+            store_id: components["schemas"]["FlakeId"];
+            status: components["schemas"]["StoreTrustStatusDto"];
+            status_reason?: null | string;
+            restrictions: components["schemas"]["StoreRestrictionFlagDto"];
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            updated_at?: null | string;
+            onboarding_steps?: components["schemas"]["StoreTrustOnboardingStepsDto"];
+            events: components["schemas"]["StoreTrustEventDto"][];
+            pending_requirements: components["schemas"]["TrustStoreRequirementDto"][];
+        };
+        StoreTrustEventDto: {
+            id: components["schemas"]["FlakeId"];
+            store_id: components["schemas"]["FlakeId"];
+            type: components["schemas"]["StoreTrustEventTypeDto"];
+            description?: null | string;
+            store_requirement_id?: components["schemas"]["FlakeId"];
+            store_review_id?: components["schemas"]["FlakeId"];
+            actor: components["schemas"]["ActorDto"];
+            /** Format: date-time */
+            created_at: string;
+        };
+        /** @enum {string} */
+        StoreTrustEventTypeDto: "invalid" | "onboarded" | "escalated_to_review" | "action_required" | "restricted" | "offboarded" | "reactivated" | "requirement_added" | "requirement_submitted" | "requirement_verified" | "requirement_rejected" | "requirement_deadline_missed" | "requirement_waived" | "requirement_requires_revision" | "restriction_added" | "restriction_lifted" | "review_scheduled" | "review_completed";
+        StoreTrustOnboardingStepsDto: {
+            store_id: components["schemas"]["FlakeId"];
+            store_owner_id: components["schemas"]["FlakeId"];
+            payout_onboarding_completed: boolean;
+            kyc_completed: boolean;
+            products_created: boolean;
+            gameserver_linked: boolean;
+            webhooks_active: boolean;
+            downloadable_files_added: boolean;
+        };
+        /** @enum {string} */
+        StoreTrustStatusDto: "invalid" | "pending_review" | "requires_action" | "under_review" | "active" | "restricted" | "offboarded";
         StorefrontCustomVariableDto: {
             /** @description Unique identifier string used to reference this custom variable programmatically.
              *     Must contain only letters, numbers, underscores, and hyphens. */
@@ -1078,6 +1257,95 @@ export interface components {
              * @description The date and time when the tag was last updated, if applicable.
              */
             updated_at?: null | string;
+        };
+        TrustStoreRequirementDto: {
+            id: components["schemas"]["FlakeId"];
+            store_id: components["schemas"]["FlakeId"];
+            /** @description Template ID if this requirement was created from a template. Null for ad-hoc requirements. */
+            template_id?: null | string;
+            originating_flag_id?: components["schemas"]["FlakeId"];
+            category: components["schemas"]["StoreRequirementCategory"];
+            /** @description Unique code identifying the type of requirement. Copied from template or custom for ad-hoc requirements. */
+            code: string;
+            /** @description Human-readable name of the requirement. Copied from template or custom for ad-hoc requirements. */
+            name: string;
+            /** @description Detailed description explaining what the store needs to provide. Copied from template or custom for ad-hoc requirements. */
+            description?: null | string;
+            /** @description JSON schema defining the form fields, validation rules, and document requirements */
+            schema?: null;
+            /** @description Additional metadata for this requirement (stored as JSON) */
+            metadata: {
+                [key: string]: string;
+            };
+            status: components["schemas"]["StoreRequirementStatus"];
+            requested_by: components["schemas"]["StoreRequirementActionParty"];
+            /** @description Specifies the specific requester entity (e.g., "stripe", "trolley", or admin user ID)
+             *     Free-form string for internal records */
+            requested_by_detail?: null | string;
+            /**
+             * Format: date-time
+             * @description When this requirement was created
+             */
+            created_at: string;
+            /**
+             * Format: date-time
+             * @description When this requirement was last updated
+             */
+            updated_at?: null | string;
+            /**
+             * Format: date-time
+             * @description When this requirement must be completed by (optional)
+             */
+            deadline_at?: null | string;
+            /**
+             * Format: date-time
+             * @description When the store submitted their response to this requirement
+             */
+            submitted_at?: null | string;
+            /**
+             * Format: date-time
+             * @description When this requirement was verified and approved
+             */
+            verified_at?: null | string;
+            /**
+             * Format: date-time
+             * @description When this requirement was rejected for not meeting standards
+             */
+            rejected_at?: null | string;
+            /** @description Store capabilities that are restricted until this requirement is satisfied */
+            restricts_capabilities: string[];
+            /** @description Associated submissions for this requriement. */
+            submissions: components["schemas"]["TrustStoreRequirementSubmissionDto"][];
+        };
+        TrustStoreRequirementSubmissionDto: {
+            id: components["schemas"]["FlakeId"];
+            store_id: components["schemas"]["FlakeId"];
+            store_requirement_id: components["schemas"]["FlakeId"];
+            /** @description The identifier of the specific field within the store requirement. */
+            store_requirement_field_id: string;
+            /** @description The text value submitted for this field, if applicable. */
+            text_value?: null | string;
+            /** @description The identifier of the uploaded file, if a file was submitted. */
+            file_id?: null | string;
+            /** @description The original name of the uploaded file. */
+            file_name?: null | string;
+            /** @description The MIME content type of the uploaded file. */
+            file_content_type?: null | string;
+            /**
+             * Format: int64
+             * @description The size of the uploaded file in bytes.
+             */
+            file_size_bytes?: null | number;
+            /**
+             * Format: date-time
+             * @description The timestamp when this submission was made.
+             */
+            submitted_at: string;
+            submitted_by: components["schemas"]["ActorDto"];
+            /** @description The IP address from which the submission was made. */
+            submitted_by_ip_address?: null | string;
+            /** @description The user agent string of the client that made the submission. */
+            submitted_by_user_agent?: null | string;
         };
         /** @description A validation error. */
         ValidationError: {

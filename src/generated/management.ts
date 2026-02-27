@@ -1411,6 +1411,22 @@ export interface paths {
         patch: operations["Sales_UpdateSale"];
         trace?: never;
     };
+    "/v1/stores/{storeId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Store_GetStore"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/stores/{storeId}/subscriptions": {
         parameters: {
             query?: never;
@@ -1641,22 +1657,6 @@ export interface paths {
          * @description Deletes an existing trial eligibility override.
          */
         delete: operations["Trials_DeleteEligibilityOverrideForCustomer"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/stores/{storeId}/trust/onboarding/status": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -2536,6 +2536,7 @@ export interface components {
         CustomerDto: {
             id: components["schemas"]["FlakeId"];
             store_id: components["schemas"]["FlakeId"];
+            store?: components["schemas"]["StoreDto"];
             profile?: components["schemas"]["GenericProfileDto"];
             steam_id?: components["schemas"]["SteamId"];
             steam?: components["schemas"]["SteamProfileDto"];
@@ -3990,6 +3991,39 @@ export interface components {
              */
             payer_name?: null | string;
         };
+        /** @enum {string} */
+        PlatformCapability: "invalid" | "connected_users";
+        PlatformStoreTypeAssociationDetailsDto: {
+            platform_id: components["schemas"]["FlakeId"];
+            associated_platform?: components["schemas"]["PublicPlatformDto"];
+            /** @description The store platform identifier string (e.g. "rust", "minecraft"). */
+            store_platform: string;
+            /**
+             * Format: int64
+             * @description Overrides the default PayNow platform fee percentage for this association.
+             *     Expressed in basis points (e.g. 250 = 2.50%).
+             */
+            paynow_platform_fee_percentage_override?: null | number;
+            /**
+             * Format: int64
+             * @description The fee percentage charged by the connected platform.
+             *     Expressed in basis points (e.g. 250 = 2.50%).
+             */
+            connected_platform_fee_percentage?: null | number;
+            /**
+             * Format: int64
+             * @description The payout ID associated with the connected platform.
+             */
+            connected_platform_wallet_id?: null | number;
+            /** @description When true, billing plans are disabled for this platform/store type combination. */
+            disable_billing_plans: boolean;
+            /** @description When true, legal or compliance disclaimers should be displayed to the end user. */
+            display_disclaimers: boolean;
+            /** @description Whether the management hides some PayNow UI */
+            full_external_management: boolean;
+        };
+        /** @enum {string} */
+        PlatformType: "invalid" | "marketplace" | "store_platform" | "other";
         /**
          * @description Defines when prepaid cards should be blocked from use.
          * @enum {string}
@@ -4345,6 +4379,25 @@ export interface components {
             /** Format: int32 */
             quantity_to_add?: null | number;
             prefer_as_subscription: boolean;
+        };
+        PublicPlatformDto: {
+            id: components["schemas"]["FlakeId"];
+            slug: string;
+            type: components["schemas"]["PlatformType"];
+            country_code: string;
+            business_name: string;
+            name: string;
+            description: string;
+            website_url: string;
+            logo_url: string;
+            accent_color: string;
+            capabilities: components["schemas"]["PlatformCapability"][];
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            updated_at: string;
+            /** Format: date-time */
+            disabled_at?: null | string;
         };
         /** @description Represents a command associated with the store-level purchase follow uo configuration. */
         PurchaseFollowUpStoreConfigurationCommandDto: {
@@ -4737,6 +4790,74 @@ export interface components {
              */
             price: number;
         };
+        /** @description Represents a PayNow store and its associated configuration. */
+        StoreDto: {
+            id: components["schemas"]["FlakeId"];
+            trust?: components["schemas"]["StoreTrustDto"];
+            owner_id: components["schemas"]["FlakeId"];
+            /** @description The URL-safe slug used to identify the store (e.g. "my-rust-server"). */
+            slug: string;
+            /** @description The display name of the store. */
+            name: string;
+            /** @description The platform this store is associated with (e.g. "rust", "minecraft"). */
+            platform: string;
+            /** @description Alias for PayNow.Services.HttpGateway.DataTransferObjects.V1.Stores.StoreDto.Platform. Returns the platform identifier as a game name. */
+            readonly game: string;
+            /** @description The ISO 4217 currency code used by this store for pricing (e.g. "usd", "eur") */
+            currency: string;
+            /** @description A human-readable description of the store shown to customers and PayNow. */
+            description: string;
+            /** @description The store's public website URL. */
+            website_url?: null | string;
+            /** @description General contact email address for the store. */
+            contact_email?: null | string;
+            /** @description Dedicated support email address for customer inquiries. */
+            support_email?: null | string;
+            /** @description URL to the store's support portal or help page. */
+            support_url?: null | string;
+            /** @description The integration type used by the store. */
+            integration_type?: null | string;
+            /** @description When set to true, the store is processing real transactions in live mode. */
+            live_mode: boolean;
+            /** @description URL of the store's full-size logo image. */
+            logo_url?: null | string;
+            /** @description URL of the store's square/icon logo image. */
+            logo_square_url?: null | string;
+            /** @description Username prefix used to identify Minecraft Bedrock players (e.g. "."). */
+            minecraft_bedrock_username_prefix?: null | string;
+            /**
+             * Format: date-time
+             * @description The UTC timestamp when the store was created.
+             */
+            created_at?: null | string;
+            /**
+             * Format: date-time
+             * @description The UTC timestamp when the store was last updated.
+             */
+            updated_at?: null | string;
+            /**
+             * Format: date-time
+             * @description The UTC timestamp when the store completed onboarding.
+             */
+            onboarding_completed_at?: null | string;
+            platform_store_type_association?: components["schemas"]["PlatformStoreTypeAssociationDetailsDto"];
+            /** @description The list of members who have access to manage this store. */
+            members?: null | components["schemas"]["StoreMemberDto"][];
+        };
+        StoreMemberDto: {
+            user: components["schemas"]["StoreMemberUserDto"];
+            /** Format: date-time */
+            added_at?: null | string;
+            added_by?: components["schemas"]["ActorDto"];
+            role_id?: components["schemas"]["FlakeId"];
+        };
+        StoreMemberUserDto: {
+            type: components["schemas"]["PayNowActorType"];
+            id: components["schemas"]["FlakeId"];
+            email: string;
+            first_name: string;
+            last_name: string;
+        };
         /** @description Store payment configuration settings. */
         StorePaymentSettingsDto: {
             /** @description Whether to show all available payment methods for subscription purchases. */
@@ -4781,6 +4902,8 @@ export interface components {
         StoreRequirementCategory: "invalid" | "business" | "kyc" | "compliance" | "risk" | "technical" | "financial" | "legal" | "other";
         /** @enum {string} */
         StoreRequirementStatus: "invalid" | "pending" | "under_review" | "requires_revision" | "approved" | "expired" | "waived" | "rejected_final";
+        /** @enum {string} */
+        StoreRestrictionFlagDto: "none" | "payments_disabled" | "payouts_disabled";
         /** @description Data transfer object representing a store subscription. */
         StoreSubscriptionDto: {
             id: components["schemas"]["FlakeId"];
@@ -5016,6 +5139,44 @@ export interface components {
             /** @description Reason provided for cancellation. */
             cancel_reason?: null | string;
         };
+        StoreTrustDto: {
+            store_id: components["schemas"]["FlakeId"];
+            status: components["schemas"]["StoreTrustStatusDto"];
+            status_reason?: null | string;
+            restrictions: components["schemas"]["StoreRestrictionFlagDto"];
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            updated_at?: null | string;
+            onboarding_steps?: components["schemas"]["StoreTrustOnboardingStepsDto"];
+            events: components["schemas"]["StoreTrustEventDto"][];
+            pending_requirements: components["schemas"]["TrustStoreRequirementDto"][];
+        };
+        StoreTrustEventDto: {
+            id: components["schemas"]["FlakeId"];
+            store_id: components["schemas"]["FlakeId"];
+            type: components["schemas"]["StoreTrustEventTypeDto"];
+            description?: null | string;
+            store_requirement_id?: components["schemas"]["FlakeId"];
+            store_review_id?: components["schemas"]["FlakeId"];
+            actor: components["schemas"]["ActorDto"];
+            /** Format: date-time */
+            created_at: string;
+        };
+        /** @enum {string} */
+        StoreTrustEventTypeDto: "invalid" | "onboarded" | "escalated_to_review" | "action_required" | "restricted" | "offboarded" | "reactivated" | "requirement_added" | "requirement_submitted" | "requirement_verified" | "requirement_rejected" | "requirement_deadline_missed" | "requirement_waived" | "requirement_requires_revision" | "restriction_added" | "restriction_lifted" | "review_scheduled" | "review_completed";
+        StoreTrustOnboardingStepsDto: {
+            store_id: components["schemas"]["FlakeId"];
+            store_owner_id: components["schemas"]["FlakeId"];
+            payout_onboarding_completed: boolean;
+            kyc_completed: boolean;
+            products_created: boolean;
+            gameserver_linked: boolean;
+            webhooks_active: boolean;
+            downloadable_files_added: boolean;
+        };
+        /** @enum {string} */
+        StoreTrustStatusDto: "invalid" | "pending_review" | "requires_action" | "under_review" | "active" | "restricted" | "offboarded";
         /** @enum {string} */
         StoreUpsellCheckoutStyleDto: "unknown" | "inline" | "inline_and_prepayment_dialog" | "dedicated_step";
         StoreUpsellRecommendationDto: {
@@ -5158,24 +5319,6 @@ export interface components {
         };
         /** @enum {string} */
         TrialStatusDto: "created" | "active" | "canceled" | "completed";
-        TrustStoreOnboardingDto: {
-            store_id: components["schemas"]["FlakeId"];
-            user_id: components["schemas"]["FlakeId"];
-            status: components["schemas"]["TrustStoreOnboardingStatus"];
-            payout_onboarding_completed: boolean;
-            kyc_completed: boolean;
-            requires_approval: boolean;
-            manually_approved: boolean;
-            decline_reason?: null | string;
-            requires_action_text?: null | string;
-            products_created: boolean;
-            kyc_required: boolean;
-            gameserver_linked: boolean;
-            webhooks_active: boolean;
-            downloadable_files_added: boolean;
-        };
-        /** @enum {string} */
-        TrustStoreOnboardingStatus: "invalid" | "pending" | "approved" | "declined" | "requires_action" | "under_review";
         TrustStoreRequirementDto: {
             id: components["schemas"]["FlakeId"];
             store_id: components["schemas"]["FlakeId"];
@@ -9584,6 +9727,33 @@ export interface operations {
             };
         };
     };
+    Store_GetStore: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
     Subscriptions_GetSubscriptions: {
         parameters: {
             query?: {
@@ -10910,6 +11080,10 @@ export const operationMappings = {
   "Sales_UpdateSale": {
     "method": "PATCH",
     "path": "/v1/stores/{storeId}/sales/{saleId}"
+  },
+  "Store_GetStore": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}"
   },
   "Subscriptions_GetSubscriptions": {
     "method": "GET",
