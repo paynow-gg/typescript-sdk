@@ -2387,6 +2387,9 @@ export interface components {
         CreateStoreUpsellSettingsDto: {
             enabled: boolean;
             automatic_recommendations_enabled: boolean;
+            automatic_recommendations_discount_type: components["schemas"]["UpsellDiscountType"];
+            /** Format: int64 */
+            automatic_recommendations_discount_amount: number;
             recommendation_overrides_enabled: boolean;
             recommendation_overrides: components["schemas"]["StoreUpsellRecommendationDto"][];
             checkout_style: components["schemas"]["StoreUpsellCheckoutStyleDto"];
@@ -5194,6 +5197,9 @@ export interface components {
         StoreUpsellSettingsDto: {
             enabled: boolean;
             automatic_recommendations_enabled: boolean;
+            automatic_recommendations_discount_type: components["schemas"]["UpsellDiscountType"];
+            /** Format: int64 */
+            automatic_recommendations_discount_amount: number;
             recommendation_overrides_enabled: boolean;
             recommendation_overrides: components["schemas"]["StoreUpsellRecommendationDto"][];
             checkout_style: components["schemas"]["StoreUpsellCheckoutStyleDto"];
@@ -5514,6 +5520,9 @@ export interface components {
         UpdateStoreUpsellSettingsDto: {
             enabled?: boolean;
             automatic_recommendations_enabled?: boolean;
+            automatic_recommendations_discount_type?: components["schemas"]["UpsellDiscountType"];
+            /** Format: int64 */
+            automatic_recommendations_discount_amount?: number;
             recommendation_overrides_enabled?: boolean;
             recommendation_overrides?: components["schemas"]["StoreUpsellRecommendationDto"][];
             checkout_style?: components["schemas"]["StoreUpsellCheckoutStyleDto"];
@@ -5532,6 +5541,8 @@ export interface components {
             discord_title?: null | string;
             discord_color?: null | string;
         };
+        /** @enum {string} */
+        UpsellDiscountType: "unknown" | "none" | "fixed" | "percentage";
         /** @enum {string} */
         UpsellDiscountTypeDto: "unknown" | "none" | "fixed" | "percentage";
         /** @enum {string} */
