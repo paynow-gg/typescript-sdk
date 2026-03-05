@@ -1411,6 +1411,30 @@ export interface paths {
         patch: operations["Sales_UpdateSale"];
         trace?: never;
     };
+    "/v1/stores": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get stores
+         * @description Retrieves all stores accessible to the authenticated user or API key.
+         */
+        get: operations["Store_GetStores"];
+        put?: never;
+        /**
+         * Create a store
+         * @description Creates a new store for the authenticated user.
+         */
+        post: operations["Store_CreateStore"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/stores/{storeId}": {
         parameters: {
             query?: never;
@@ -1418,13 +1442,85 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /**
+         * Get a store
+         * @description Retrieves a single store by its ID.
+         */
         get: operations["Store_GetStore"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
+        /**
+         * Update a store
+         * @description Partially updates a store's configuration using the provided fields.
+         */
+        patch: operations["Store_UpdateStore"];
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/members": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List store members
+         * @description Retrieves all members who have access to the specified store.
+         */
+        get: operations["Store_GetStoreMembers"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
         patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/members/{memberId}/permissions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get store member permissions
+         * @description Retrieves the resolved permissions map for a specific member of a store.
+         */
+        get: operations["Store_GetStoreMemberPermissions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/members/{memberId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Remove a store member
+         * @description Removes the specified member from the store, revoking their access.
+         */
+        delete: operations["Store_KickStoreMember"];
+        options?: never;
+        head?: never;
+        /**
+         * Update a store member
+         * @description Updates the role assigned to a specific member of the store.
+         */
+        patch: operations["Store_UpdateStoreMember"];
         trace?: never;
     };
     "/v1/stores/{storeId}/subscriptions": {
@@ -2376,6 +2472,20 @@ export interface components {
             begins_at: string;
             /** Format: date-time */
             ends_at?: null | string;
+        };
+        CreateStoreDto: {
+            slug: string;
+            name: string;
+            platform: string;
+            game: string;
+            currency: string;
+            description: string;
+            website_url?: string;
+            contact_email?: string;
+            support_email?: string;
+            support_url?: string;
+            integration_type?: string;
+            minecraft_bedrock_username_prefix?: string;
         };
         CreateStorePaymentSettingsDto: {
             show_all_payment_methods_for_subscriptions: boolean;
@@ -3594,7 +3704,7 @@ export interface components {
             payer_name?: null | string;
         };
         /** @enum {string} */
-        PayNowActorType: "anonymous" | "user" | "customer" | "api_key" | "game_server" | "admin" | "internal" | "platform" | "global_customer";
+        PayNowActorType: "anonymous" | "user" | "api_key" | "customer" | "game_server" | "internal" | "admin" | "platform" | "global_customer";
         /** @description Represents a PayNow error */
         PayNowError: {
             /**
@@ -4847,19 +4957,34 @@ export interface components {
             /** @description The list of members who have access to manage this store. */
             members?: null | components["schemas"]["StoreMemberDto"][];
         };
+        /** @description Represents a member of a PayNow store. */
         StoreMemberDto: {
+            id: components["schemas"]["FlakeId"];
+            user_id: components["schemas"]["FlakeId"];
             user: components["schemas"]["StoreMemberUserDto"];
-            /** Format: date-time */
+            /**
+             * Format: date-time
+             * @description The UTC timestamp when the member was added to the store.
+             */
             added_at?: null | string;
             added_by?: components["schemas"]["ActorDto"];
             role_id?: components["schemas"]["FlakeId"];
         };
+        /** @description Represents identity and profile information for a store member. */
         StoreMemberUserDto: {
             type: components["schemas"]["PayNowActorType"];
             id: components["schemas"]["FlakeId"];
-            email: string;
-            first_name: string;
-            last_name: string;
+            /** @description The email address associated with the user.
+             *     Only visible if you are the store owner. */
+            email?: null | string;
+            /** @description The first name of the actor.
+             *     Hidden if the user has a set nickname, and you are not the store owner. */
+            first_name?: null | string;
+            /** @description The last name of the actor.
+             *     Hidden if the user has a set nickname, and you are not the store owner. */
+            last_name?: null | string;
+            /** @description The nickname of the user. */
+            nickname?: null | string;
         };
         /** @description Store payment configuration settings. */
         StorePaymentSettingsDto: {
@@ -5509,6 +5634,23 @@ export interface components {
             begins_at?: string;
             /** Format: date-time */
             ends_at?: null | string;
+        };
+        UpdateStoreDto: {
+            slug?: string;
+            name?: string;
+            platform?: string;
+            game?: string;
+            description?: string;
+            website_url?: string;
+            contact_email?: string;
+            support_email?: string;
+            support_url?: string;
+            integration_type?: string;
+            live_mode?: boolean;
+            minecraft_bedrock_username_prefix?: string;
+        };
+        UpdateStoreMemberDto: {
+            role_id: components["schemas"]["FlakeId"];
         };
         UpdateStorePaymentSettingsDto: {
             show_all_payment_methods_for_subscriptions?: boolean;
@@ -9738,6 +9880,70 @@ export interface operations {
             };
         };
     };
+    Store_GetStores: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoreDto"][];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Store_CreateStore: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["CreateStoreDto"];
+                "text/json": components["schemas"]["CreateStoreDto"];
+                "application/*+json": components["schemas"]["CreateStoreDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoreDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
     Store_GetStore: {
         parameters: {
             query?: never;
@@ -9749,6 +9955,169 @@ export interface operations {
         responses: {
             /** @description OK */
             200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoreDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Store_UpdateStore: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["UpdateStoreDto"];
+                "text/json": components["schemas"]["UpdateStoreDto"];
+                "application/*+json": components["schemas"]["UpdateStoreDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoreDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Store_GetStoreMembers: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoreMemberDto"][];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Store_GetStoreMemberPermissions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                memberId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: boolean;
+                    };
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Store_KickStoreMember: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                memberId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Store_UpdateStoreMember: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                memberId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["UpdateStoreMemberDto"];
+                "text/json": components["schemas"]["UpdateStoreMemberDto"];
+                "application/*+json": components["schemas"]["UpdateStoreMemberDto"];
+            };
+        };
+        responses: {
+            /** @description No Content */
+            204: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -11092,9 +11461,37 @@ export const operationMappings = {
     "method": "PATCH",
     "path": "/v1/stores/{storeId}/sales/{saleId}"
   },
+  "Store_CreateStore": {
+    "method": "POST",
+    "path": "/v1/stores"
+  },
+  "Store_GetStores": {
+    "method": "GET",
+    "path": "/v1/stores"
+  },
+  "Store_UpdateStore": {
+    "method": "PATCH",
+    "path": "/v1/stores/{storeId}"
+  },
   "Store_GetStore": {
     "method": "GET",
     "path": "/v1/stores/{storeId}"
+  },
+  "Store_GetStoreMembers": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/members"
+  },
+  "Store_GetStoreMemberPermissions": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/members/{memberId}/permissions"
+  },
+  "Store_KickStoreMember": {
+    "method": "DELETE",
+    "path": "/v1/stores/{storeId}/members/{memberId}"
+  },
+  "Store_UpdateStoreMember": {
+    "method": "PATCH",
+    "path": "/v1/stores/{storeId}/members/{memberId}"
   },
   "Subscriptions_GetSubscriptions": {
     "method": "GET",

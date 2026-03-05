@@ -554,7 +554,7 @@ export interface components {
             avatar_url: string;
         };
         /** @enum {string} */
-        PayNowActorType: "anonymous" | "user" | "customer" | "api_key" | "game_server" | "admin" | "internal" | "platform" | "global_customer";
+        PayNowActorType: "anonymous" | "user" | "api_key" | "customer" | "game_server" | "internal" | "admin" | "platform" | "global_customer";
         /** @description Represents a PayNow error */
         PayNowError: {
             /**
@@ -734,19 +734,34 @@ export interface components {
             /** @description The list of members who have access to manage this store. */
             members?: null | components["schemas"]["StoreMemberDto"][];
         };
+        /** @description Represents a member of a PayNow store. */
         StoreMemberDto: {
+            id: components["schemas"]["FlakeId"];
+            user_id: components["schemas"]["FlakeId"];
             user: components["schemas"]["StoreMemberUserDto"];
-            /** Format: date-time */
+            /**
+             * Format: date-time
+             * @description The UTC timestamp when the member was added to the store.
+             */
             added_at?: null | string;
             added_by?: components["schemas"]["ActorDto"];
             role_id?: components["schemas"]["FlakeId"];
         };
+        /** @description Represents identity and profile information for a store member. */
         StoreMemberUserDto: {
             type: components["schemas"]["PayNowActorType"];
             id: components["schemas"]["FlakeId"];
-            email: string;
-            first_name: string;
-            last_name: string;
+            /** @description The email address associated with the user.
+             *     Only visible if you are the store owner. */
+            email?: null | string;
+            /** @description The first name of the actor.
+             *     Hidden if the user has a set nickname, and you are not the store owner. */
+            first_name?: null | string;
+            /** @description The last name of the actor.
+             *     Hidden if the user has a set nickname, and you are not the store owner. */
+            last_name?: null | string;
+            /** @description The nickname of the user. */
+            nickname?: null | string;
         };
         /**
          * @description Determines the party that needs to perform or requests a verification
