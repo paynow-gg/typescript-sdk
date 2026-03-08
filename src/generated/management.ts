@@ -1424,11 +1424,7 @@ export interface paths {
          */
         get: operations["Store_GetStores"];
         put?: never;
-        /**
-         * Create a store
-         * @description Creates a new store for the authenticated user.
-         */
-        post: operations["Store_CreateStore"];
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -9909,41 +9905,6 @@ export interface operations {
             };
         };
     };
-    Store_CreateStore: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["CreateStoreDto"];
-                "text/json": components["schemas"]["CreateStoreDto"];
-                "application/*+json": components["schemas"]["CreateStoreDto"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["StoreDto"];
-                };
-            };
-            /** @description Error response */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayNowError"];
-                };
-            };
-        };
-    };
     Store_GetStore: {
         parameters: {
             query?: never;
@@ -11460,10 +11421,6 @@ export const operationMappings = {
   "Sales_UpdateSale": {
     "method": "PATCH",
     "path": "/v1/stores/{storeId}/sales/{saleId}"
-  },
-  "Store_CreateStore": {
-    "method": "POST",
-    "path": "/v1/stores"
   },
   "Store_GetStores": {
     "method": "GET",
