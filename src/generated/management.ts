@@ -778,6 +778,43 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/stores/{storeId}/gameservers/{gameServerId}/console": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get the associated console for a game server. */
+        get: operations["GameServers_GetGameServerConsole"];
+        put?: never;
+        /** Create a console for a game server. */
+        post: operations["GameServers_CreateGameServerConsole"];
+        /** Delete an associated game server console. */
+        delete: operations["GameServers_DeleteGameServerConsole"];
+        options?: never;
+        head?: never;
+        /** Update a console for a game server. */
+        patch: operations["GameServers_UpdateGameServerConsole"];
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/gameservers/{gameServerId}/console/messages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get console messages for a game server. */
+        get: operations["GameServers_GetGameServerConsoleMessages"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/stores/{storeId}/gameservers": {
         parameters: {
             query?: never;
@@ -2422,6 +2459,15 @@ export interface components {
         CreateDownloadableFileDownloadUrlResponseDto: {
             download_signed_url: string;
         };
+        CreateGameServerConsoleDto: {
+            type: components["schemas"]["GameServerConsoleTypeDto"];
+            enabled: boolean;
+            host: string;
+            /** Format: int32 */
+            port: number;
+            password?: string;
+            secure: boolean;
+        };
         CreateGameServerDto: {
             name: string;
             enabled: boolean;
@@ -2928,6 +2974,39 @@ export interface components {
          * @example 411486491630370816
          */
         FlakeId: string;
+        /** @enum {string} */
+        GameServerConsoleConnectionStatusDto: "unknown" | "disconnected" | "connecting" | "connected" | "backoff";
+        GameServerConsoleDto: {
+            game_server_id: components["schemas"]["FlakeId"];
+            store_id: components["schemas"]["FlakeId"];
+            type: components["schemas"]["GameServerConsoleTypeDto"];
+            enabled: boolean;
+            assigned_runner_id: string;
+            connection_status: components["schemas"]["GameServerConsoleConnectionStatusDto"];
+            /** Format: date-time */
+            last_heartbeat_at?: null | string;
+            host: string;
+            /** Format: int32 */
+            port: number;
+            password?: null | string;
+            secure: boolean;
+            /** Format: date-time */
+            created_at: string;
+            created_by: components["schemas"]["ActorDto"];
+            /** Format: date-time */
+            updated_at?: null | string;
+            updated_by?: components["schemas"]["ActorDto"];
+        };
+        GameServerConsoleMessageDto: {
+            type: components["schemas"]["GameServerConsoleMessageTypeDto"];
+            message: string;
+            /** Format: date-time */
+            time: string;
+        };
+        /** @enum {string} */
+        GameServerConsoleMessageTypeDto: "unknown" | "output" | "command" | "response" | "system";
+        /** @enum {string} */
+        GameServerConsoleTypeDto: "unknown" | "rust";
         /** @description Represents a game server in the PayNow system with authentication tokens and linking information. */
         GameServerDto: {
             id: components["schemas"]["FlakeId"];
@@ -5262,6 +5341,8 @@ export interface components {
             canceled_at?: null | string;
             /** @description Reason provided for cancellation. */
             cancel_reason?: null | string;
+            /** @description Associated subscription lines. */
+            readonly lines: components["schemas"]["SubscriptionLineDto"][];
         };
         StoreTrustDto: {
             store_id: components["schemas"]["FlakeId"];
@@ -5327,6 +5408,162 @@ export interface components {
             /** Format: date-time */
             updated_at: string;
             updated_by: components["schemas"]["ActorDto"];
+        };
+        /** @description Represents a line item within a subscription. */
+        SubscriptionLineDto: {
+            id: components["schemas"]["FlakeId"];
+            subscription_id: components["schemas"]["FlakeId"];
+            checkout_line_id?: components["schemas"]["FlakeId"];
+            initial_order_line_id?: components["schemas"]["FlakeId"];
+            /** @description Identifier for the pricing region associated with this subscription line. */
+            pricing_region_id?: null | string;
+            gift_to_customer_id?: components["schemas"]["FlakeId"];
+            selected_gameserver_id?: components["schemas"]["FlakeId"];
+            sale_id?: components["schemas"]["FlakeId"];
+            trial_id?: components["schemas"]["FlakeId"];
+            product_id: components["schemas"]["FlakeId"];
+            product_version_id: components["schemas"]["FlakeId"];
+            /** @description Name of the product associated with this subscription line. */
+            product_name: string;
+            /** @description URL for the product image. */
+            product_image_url?: null | string;
+            /** @description Indicates whether tax is included in the base price itself. */
+            tax_inclusive: boolean;
+            /** @description Currency code for this subscription line. */
+            currency: string;
+            /**
+             * Format: int64
+             * @description Base price of the subscription line in smallest currency units (e.g., cents).
+             */
+            price: number;
+            /**
+             * Format: int64
+             * @description Amount of discount applied in smallest currency units.
+             */
+            discount_amount: number;
+            /** @description Formatted string representation of the discount amount. */
+            readonly discount_amount_str: string;
+            /**
+             * Format: int64
+             * @description Subtotal amount in smallest currency units.
+             */
+            subtotal_amount: number;
+            /** @description Formatted string representation of the subtotal amount. */
+            readonly subtotal_amount_str: string;
+            /**
+             * Format: int64
+             * @description Tax amount in smallest currency units.
+             */
+            tax_amount: number;
+            /** @description Formatted string representation of the tax amount. */
+            readonly tax_amount_str: string;
+            /**
+             * Format: int64
+             * @description Total amount in smallest currency units.
+             */
+            total_amount: number;
+            /** @description Formatted string representation of the total amount. */
+            readonly total_amount_str: string;
+            /**
+             * Format: int64
+             * @description Initial discount amount in smallest currency units for the first billing cycle.
+             */
+            initial_discount_amount: number;
+            /** @description Formatted string representation of the initial discount amount. */
+            readonly initial_discount_amount_str: string;
+            /**
+             * Format: int64
+             * @description Initial subtotal amount in smallest currency units for the first billing cycle.
+             */
+            initial_subtotal_amount: number;
+            /** @description Formatted string representation of the initial subtotal amount. */
+            readonly initial_subtotal_amount_str: string;
+            /**
+             * Format: int64
+             * @description Initial gift card usage amount in smallest currency units.
+             */
+            initial_giftcard_usage_amount: number;
+            /** @description Formatted string representation of the initial gift card usage amount. */
+            readonly initial_giftcard_usage_amount_str: string;
+            /**
+             * Format: int64
+             * @description Initial tax amount in smallest currency units for the first billing cycle.
+             */
+            initial_tax_amount: number;
+            /** @description Formatted string representation of the initial tax amount. */
+            readonly initial_tax_amount_str: string;
+            /**
+             * Format: int64
+             * @description Initial total amount in smallest currency units for the first billing cycle.
+             */
+            initial_total_amount: number;
+            /** @description Formatted string representation of the initial total amount. */
+            readonly initial_total_amount_str: string;
+            /** @description Presentment currency code (currency shown to customer). */
+            presentment_currency?: null | string;
+            /**
+             * Format: int64
+             * @description Presentment subtotal amount in smallest currency units.
+             */
+            presentment_subtotal_amount?: null | number;
+            /** @description Formatted string representation of the presentment subtotal amount. */
+            readonly presentment_subtotal_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Presentment discount amount in smallest currency units.
+             */
+            presentment_discount_amount?: null | number;
+            /** @description Formatted string representation of the presentment discount amount. */
+            readonly presentment_discount_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Presentment tax amount in smallest currency units.
+             */
+            presentment_tax_amount?: null | number;
+            /** @description Formatted string representation of the presentment tax amount. */
+            readonly presentment_tax_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Presentment total amount in smallest currency units.
+             */
+            presentment_total_amount?: null | number;
+            /** @description Formatted string representation of the presentment total amount. */
+            readonly presentment_total_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment discount amount in smallest currency units for the first billing cycle.
+             */
+            initial_presentment_discount_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment discount amount. */
+            readonly initial_presentment_discount_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment subtotal amount in smallest currency units for the first billing cycle.
+             */
+            initial_presentment_subtotal_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment subtotal amount. */
+            readonly initial_presentment_subtotal_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment gift card usage amount in smallest currency units.
+             */
+            initial_presentment_giftcard_usage_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment gift card usage amount. */
+            readonly initial_presentment_giftcard_usage_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment tax amount in smallest currency units for the first billing cycle.
+             */
+            initial_presentment_tax_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment tax amount. */
+            readonly initial_presentment_tax_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment total amount in smallest currency units for the first billing cycle.
+             */
+            initial_presentment_total_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment total amount. */
+            readonly initial_presentment_total_amount_str?: null | string;
         };
         /**
          * @description Represents the current state of a subscription.
@@ -5585,6 +5822,14 @@ export interface components {
             usable_at?: null | string;
             /** Format: date-time */
             expires_at?: null | string;
+        };
+        UpdateGameServerConsoleDto: {
+            enabled?: boolean;
+            host?: string;
+            /** Format: int32 */
+            port?: number;
+            password?: string;
+            secure?: boolean;
         };
         UpdateGameServerDto: {
             name?: string;
@@ -7995,6 +8240,171 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    GameServers_GetGameServerConsole: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                gameServerId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameServerConsoleDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    GameServers_CreateGameServerConsole: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                gameServerId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["CreateGameServerConsoleDto"];
+                "text/json": components["schemas"]["CreateGameServerConsoleDto"];
+                "application/*+json": components["schemas"]["CreateGameServerConsoleDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameServerConsoleDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    GameServers_DeleteGameServerConsole: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                gameServerId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    GameServers_UpdateGameServerConsole: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                gameServerId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["UpdateGameServerConsoleDto"];
+                "text/json": components["schemas"]["UpdateGameServerConsoleDto"];
+                "application/*+json": components["schemas"]["UpdateGameServerConsoleDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameServerConsoleDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    GameServers_GetGameServerConsoleMessages: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                gameServerId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameServerConsoleMessageDto"][];
+                };
             };
             /** @description Error response */
             default: {
@@ -11205,6 +11615,26 @@ export const operationMappings = {
   "DownloadableFiles_DeleteDownloadableFile": {
     "method": "DELETE",
     "path": "/v1/stores/{storeId}/products/{productId}/downloadable-files/{downloadableFileId}"
+  },
+  "GameServers_GetGameServerConsole": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/gameservers/{gameServerId}/console"
+  },
+  "GameServers_CreateGameServerConsole": {
+    "method": "POST",
+    "path": "/v1/stores/{storeId}/gameservers/{gameServerId}/console"
+  },
+  "GameServers_UpdateGameServerConsole": {
+    "method": "PATCH",
+    "path": "/v1/stores/{storeId}/gameservers/{gameServerId}/console"
+  },
+  "GameServers_DeleteGameServerConsole": {
+    "method": "DELETE",
+    "path": "/v1/stores/{storeId}/gameservers/{gameServerId}/console"
+  },
+  "GameServers_GetGameServerConsoleMessages": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/gameservers/{gameServerId}/console/messages"
   },
   "GameServers_GetGameServers": {
     "method": "GET",
