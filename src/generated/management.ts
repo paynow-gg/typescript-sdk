@@ -5136,14 +5136,23 @@ export interface components {
             tax_jurisdictions: components["schemas"]["SalesTaxJurisdictionDto"][];
             /** @description IP address of the customer at the time of subscription. */
             customer_ip?: null | string;
-            /** @description Indicates whether this subscription is a gift. */
+            /**
+             * @deprecated
+             * @description Indicates whether this subscription is a gift.
+             */
             gift: boolean;
             gift_to_customer?: components["schemas"]["CustomerDto"];
             product_id: components["schemas"]["FlakeId"];
             product_version_id: components["schemas"]["FlakeId"];
-            /** @description Name of the product associated with this subscription. */
+            /**
+             * @deprecated
+             * @description Name of the product associated with this subscription.
+             */
             product_name: string;
-            /** @description URL for the product image. */
+            /**
+             * @deprecated
+             * @description URL for the product image.
+             */
             product_image_url?: null | string;
             /**
              * Format: int32
@@ -5153,14 +5162,21 @@ export interface components {
             interval_scale: components["schemas"]["ProductSubscriptionIntervalScale"];
             /** @description Currency code used for billing this subscription. */
             currency: string;
-            /** @description Indicates whether tax is included in the base price itself. */
+            /**
+             * @deprecated
+             * @description Indicates whether tax is included in the base price itself.
+             */
             tax_inclusive: boolean;
             /**
              * Format: int64
+             * @deprecated
              * @description Base price of the subscription in smallest currency units (e.g., cents).
              */
             price: number;
-            /** @description Formatted string representation of the price. */
+            /**
+             * @deprecated
+             * @description Formatted string representation of the price.
+             */
             price_str: string;
             /**
              * Format: int64
@@ -5292,7 +5308,10 @@ export interface components {
             readonly initial_presentment_total_amount_str?: null | string;
             /** @description The foreign exchange rate applied (if presentment currency differs from settlement currency). */
             fx_rate?: null | string;
-            /** @description Identifier for the pricing region associated with this subscription. */
+            /**
+             * @deprecated
+             * @description Identifier for the pricing region associated with this subscription.
+             */
             pricing_region_id?: null | string;
             /**
              * Format: date-time
