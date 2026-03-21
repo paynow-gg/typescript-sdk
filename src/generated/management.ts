@@ -378,7 +378,11 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /**
+         * Get all delivery items
+         * @description Retrieves all delivery items associated with this store (paginated)
+         */
+        get: operations["Delivery_GetStoreDeliveryItems"];
         put?: never;
         /**
          * Assign delivery items in bulk
@@ -7382,6 +7386,55 @@ export interface operations {
             };
         };
     };
+    Delivery_GetStoreDeliveryItems: {
+        parameters: {
+            query?: {
+                /** @description The maximum number of items to return in a single request. */
+                limit?: number;
+                /**
+                 * @description Returns items after the specified ID.
+                 *     Used for forward pagination through results.
+                 * @example null
+                 */
+                after?: components["schemas"]["FlakeId"];
+                /**
+                 * @description Returns items before the specified ID.
+                 *     Used for backward pagination through results.
+                 * @example null
+                 */
+                before?: components["schemas"]["FlakeId"];
+                /** @description Determines the sort order of returned items.
+                 *     When true, items are returned in ascending order.
+                 *     When false, items are returned in descending order. */
+                asc?: boolean;
+                activeOnly?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeliveryItemDto"][];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
     Delivery_AssignDeliveryItemsBulk: {
         parameters: {
             query?: never;
@@ -11530,6 +11583,10 @@ export const operationMappings = {
   "Delivery_GetOrderDeliveryItems": {
     "method": "GET",
     "path": "/v1/stores/{storeId}/orders/{orderId}/delivery/items"
+  },
+  "Delivery_GetStoreDeliveryItems": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/delivery/items"
   },
   "Delivery_AssignDeliveryItemsBulk": {
     "method": "POST",
