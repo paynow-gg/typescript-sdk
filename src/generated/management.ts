@@ -1620,6 +1620,80 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/stores/{storeId}/subscriptions/{subscriptionId}/change": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Update items on a subscription
+         * @description Updates the subscription lines, including the pricing, on an active subscription. The subscription must not be within 1 hour of its
+         *     next renewal, and only one change can be pending at a time.
+         *
+         *     **Access**
+         *
+         *     This endpoint requires the Subscription Updates API feature flag to be enabled on your store. Contact
+         *     PayNow to request access.
+         *
+         *     **Proration behavior**
+         *
+         *     Controlled by the `proration_behavior` field on the request:
+         *
+         *     - `immediate` - the change is applied as soon as possible.
+         *       Proration is calculated for the remaining period. If the prorated amount is ≥ $0.50 (or equivalent in other currencies), an order is
+         *       initiated against the subscription's payment method; the change is applied once the payment succeeds.
+         *       If the prorated amount is below $0.50, no order is created and the change is
+         *       applied instantly.
+         *       Only one proration order is allowed per billing cycle - a second immediate change in the same
+         *       period will be rejected if a proration was already charged.
+         *       When a payment is triggered, the response will include a `pending_payment` object. The payment result
+         *       is synchronous - check `pending_payment.declined` to determine whether the charge succeeded. If
+         *       declined, `pending_payment.decline_code` contains the reason.
+         *
+         *     - `next_billing_period` - no payment is created. The change is queued and will be applied automatically
+         *       at the start of the next renewal cycle. Ideal for downgrades.
+         *
+         *     - `none` - the change is applied instantly with no proration calculated or charged.
+         *
+         *     **Reverting a pending change**
+         *
+         *     If a `next_billing_period` change is pending and the new request specifies the same product versions
+         *     that are already on the subscription (i.e. reverting back to the current state), the pending change
+         *     is canceled rather than rejected. The canceled change record is returned in the response.
+         */
+        post: operations["Subscriptions_UpdateSubscription"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/subscriptions/{subscriptionId}/change/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Preview a subscription change
+         * @description Simulates a subscription change and returns the pricing breakdown without creating any records or
+         *     initiating a payment. Accepts the same request body as `POST change` — see that endpoint for
+         *     full parameter documentation. Does not return the `pending_payment` field.
+         */
+        post: operations["Subscriptions_PreviewSubscriptionChange"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/stores/{storeId}/tags": {
         parameters: {
             query?: never;
@@ -2191,6 +2265,16 @@ export interface components {
         CheckForBanIDByIdentitiesResponseDto: {
             is_banned: boolean;
             ban_id?: components["schemas"]["FlakeId"];
+        };
+        /** @description Payment outcome information returned after a subscription change triggers an immediate charge. */
+        CheckoutPaymentInfoDto: {
+            /** @description Status string from the payment provider. */
+            status: string;
+            /** @description Indicates whether the payment was declined. */
+            declined: boolean;
+            decline_code: components["schemas"]["PaymentDeclineCode"];
+            /** @description Client-side payment token for completing 3DS or other redirect-based flows. */
+            payment_token?: null | string;
         };
         CommandAttemptDto: {
             id: components["schemas"]["FlakeId"];
@@ -3547,7 +3631,7 @@ export interface components {
         /** @description Represents an order line item in a customer's order */
         OrderLineDto: {
             id: components["schemas"]["FlakeId"];
-            checkout_line_id: components["schemas"]["FlakeId"];
+            checkout_line_id?: components["schemas"]["FlakeId"];
             product_id: components["schemas"]["FlakeId"];
             product_version_id: components["schemas"]["FlakeId"];
             /**
@@ -3560,9 +3644,13 @@ export interface components {
              * @example https://cdn.example.com/images/premium-game-pass.jpg
              */
             product_image_url?: null | string;
+            /** @description Customer-presentable description of the order line. */
+            description?: null | string;
             /** @description The Gift Card ID of that product in this order line */
             created_giftcard_id?: null | string;
             subscription_id?: components["schemas"]["FlakeId"];
+            subscription_line_id?: components["schemas"]["FlakeId"];
+            subscription_change_line_id?: components["schemas"]["FlakeId"];
             trial_id?: components["schemas"]["FlakeId"];
             /**
              * Format: int32
@@ -3745,7 +3833,7 @@ export interface components {
          * @description Defines the type of items contained in an order
          * @enum {string}
          */
-        OrderType: "one_time" | "subscription" | "mixed";
+        OrderType: "one_time" | "subscription_initial" | "subscription_renewal" | "subscription_proration" | "mixed";
         /** @description Przelewy24 payment method details */
         P24DetailsDto: {
             /**
@@ -4572,6 +4660,11 @@ export interface components {
             quantity_to_add?: null | number;
             prefer_as_subscription: boolean;
         };
+        /**
+         * @description Describes how proration is handled when a subscription change is applied.
+         * @enum {string}
+         */
+        ProrationBehaviorDto: "invalid" | "immediate" | "next_billing_period" | "none";
         PublicPlatformDto: {
             id: components["schemas"]["FlakeId"];
             slug: string;
@@ -5111,15 +5204,314 @@ export interface components {
         StoreRequirementStatus: "invalid" | "pending" | "under_review" | "requires_revision" | "approved" | "expired" | "waived" | "rejected_final";
         /** @enum {string} */
         StoreRestrictionFlagDto: "none" | "payments_disabled" | "payouts_disabled";
+        StoreTrustDto: {
+            store_id: components["schemas"]["FlakeId"];
+            status: components["schemas"]["StoreTrustStatusDto"];
+            status_reason?: null | string;
+            restrictions: components["schemas"]["StoreRestrictionFlagDto"];
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            updated_at?: null | string;
+            onboarding_steps?: components["schemas"]["StoreTrustOnboardingStepsDto"];
+            events: components["schemas"]["StoreTrustEventDto"][];
+            pending_requirements: components["schemas"]["TrustStoreRequirementDto"][];
+        };
+        StoreTrustEventDto: {
+            id: components["schemas"]["FlakeId"];
+            store_id: components["schemas"]["FlakeId"];
+            type: components["schemas"]["StoreTrustEventTypeDto"];
+            description?: null | string;
+            store_requirement_id?: components["schemas"]["FlakeId"];
+            store_review_id?: components["schemas"]["FlakeId"];
+            actor: components["schemas"]["ActorDto"];
+            /** Format: date-time */
+            created_at: string;
+        };
+        /** @enum {string} */
+        StoreTrustEventTypeDto: "invalid" | "onboarded" | "escalated_to_review" | "action_required" | "restricted" | "offboarded" | "reactivated" | "requirement_added" | "requirement_submitted" | "requirement_verified" | "requirement_rejected" | "requirement_deadline_missed" | "requirement_waived" | "requirement_requires_revision" | "restriction_added" | "restriction_lifted" | "review_scheduled" | "review_completed";
+        StoreTrustOnboardingStepsDto: {
+            store_id: components["schemas"]["FlakeId"];
+            store_owner_id: components["schemas"]["FlakeId"];
+            payout_onboarding_completed: boolean;
+            kyc_completed: boolean;
+            products_created: boolean;
+            gameserver_linked: boolean;
+            webhooks_active: boolean;
+            downloadable_files_added: boolean;
+        };
+        /** @enum {string} */
+        StoreTrustStatusDto: "invalid" | "pending_review" | "requires_action" | "under_review" | "active" | "restricted" | "offboarded";
+        /** @enum {string} */
+        StoreUpsellCheckoutStyleDto: "unknown" | "inline" | "inline_and_prepayment_dialog" | "dedicated_step";
+        StoreUpsellRecommendationDto: {
+            recommended_product_id: components["schemas"]["FlakeId"];
+            type: components["schemas"]["UpsellTypeDto"];
+            discount_type: components["schemas"]["UpsellDiscountTypeDto"];
+            /** Format: int64 */
+            discount_amount: number;
+            /** Format: int32 */
+            minimum_base_product_quantity?: null | number;
+            /** Format: int32 */
+            quantity_to_add?: null | number;
+            prefer_as_subscription: boolean;
+        };
+        StoreUpsellSettingsDto: {
+            enabled: boolean;
+            automatic_recommendations_enabled: boolean;
+            automatic_recommendations_discount_type: components["schemas"]["UpsellDiscountType"];
+            /** Format: int64 */
+            automatic_recommendations_discount_amount: number;
+            recommendation_overrides_enabled: boolean;
+            recommendation_overrides: components["schemas"]["StoreUpsellRecommendationDto"][];
+            checkout_style: components["schemas"]["StoreUpsellCheckoutStyleDto"];
+            /** Format: date-time */
+            updated_at: string;
+            updated_by: components["schemas"]["ActorDto"];
+        };
+        /** @description Represents a store entity within the storefront system. */
+        StorefrontStoreDto: {
+            id: components["schemas"]["FlakeId"];
+            /**
+             * @description The URL-friendly identifier for the store, used in store URLs.
+             * @example m0ukas-awesome-store
+             */
+            slug: string;
+            /**
+             * @description The display name of the store shown to customers.
+             * @example m0uka's awesome store
+             */
+            name: string;
+            /**
+             * @description The platform or the game of the store.
+             * @example rust
+             */
+            platform: string;
+            /** @description The game of the store. Equivalent to the `platform` for backwards compatibility. */
+            readonly game: string;
+            /**
+             * @description The three-letter ISO currency code used for pricing in this store.
+             *     If using the Adaptive Currency feature, this will be updated to reflect customer's local currency
+             *     (based on passed in IP / country headers).
+             * @example eur
+             */
+            currency: string;
+            /**
+             * @description The three-letter ISO currency code signifying the main currency of the store.
+             * @example usd
+             */
+            creator_currency: string;
+            /** @description A detailed description of the store. Only present for some platform types. */
+            description?: null | string;
+            /** @description The URL of the store's main website, if not using Hosted Webstores. */
+            website_url?: null | string;
+            /**
+             * @description The email address customers can use to contact store support.
+             * @example support@example.com
+             */
+            support_email?: null | string;
+            /** @description The URL of the store's support page. */
+            support_url?: null | string;
+            /** @description The type of integration this store uses with external systems. */
+            integration_type?: null | string;
+            /** @description Indicates whether the store is in live mode (true) or test mode (false). */
+            live_mode: boolean;
+            /** @description The URL to the store's main logo image. */
+            logo_url?: null | string;
+            /** @description The URL to the store's square logo image. */
+            logo_square_url?: null | string;
+            /**
+             * Format: date-time
+             * @description The date and time when the store was created.
+             */
+            created_at?: null | string;
+            /**
+             * Format: date-time
+             * @description The date and time when the store was last updated.
+             */
+            updated_at?: null | string;
+        };
+        /** @description Represents a billing amount breakdown for a subscription. */
+        SubscriptionBillingAmountDto: {
+            /** @description ISO 4217 currency code, in lowercase. */
+            currency: string;
+            /**
+             * Format: int64
+             * @description Base amount before discounts or tax, in smallest currency units.
+             */
+            subtotal: number;
+            /**
+             * Format: int64
+             * @description Total discount applied, in smallest currency units.
+             */
+            discount: number;
+            /**
+             * Format: int64
+             * @description Tax amount, in smallest currency units.
+             */
+            tax: number;
+            /**
+             * Format: int64
+             * @description Amount due after discounts and tax, in smallest currency units.
+             */
+            total: number;
+        };
+        /** @description Pricing breakdown for a subscription change, in the smallest units of the given currency (e.g. cents). */
+        SubscriptionChangeAmountDto: {
+            /** @description ISO 4217 currency code, in lowercase. */
+            currency: string;
+            /**
+             * Format: int64
+             * @description Base amount before discounts or tax, in smallest currency units.
+             */
+            subtotal: number;
+            /**
+             * Format: int64
+             * @description Total discount applied, in smallest currency units.
+             */
+            discount: number;
+            /**
+             * Format: int64
+             * @description Tax amount, in smallest currency units.
+             */
+            tax: number;
+            /**
+             * Format: int64
+             * @description Amount due after discounts and tax, in smallest currency units.
+             */
+            total: number;
+        };
+        /** @description A pending or applied change to a subscription. */
+        SubscriptionChangeDto: {
+            id: components["schemas"]["FlakeId"];
+            subscription_id: components["schemas"]["FlakeId"];
+            prorated_order_id?: components["schemas"]["FlakeId"];
+            status: components["schemas"]["SubscriptionChangeStatusDto"];
+            proration_behavior: components["schemas"]["ProrationBehaviorDto"];
+            /** @description Whether this change was initiated without active customer interaction. */
+            off_session: boolean;
+            prorated_amount: components["schemas"]["SubscriptionChangeProratedAmountDto"];
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            applied_at?: null | string;
+            lines: components["schemas"]["SubscriptionChangeLineDto"][];
+            next_billing_amount: components["schemas"]["SubscriptionChangeAmountDto"];
+            next_billing_presentment_amount: components["schemas"]["SubscriptionChangeAmountDto"];
+        };
+        /** @description Pricing breakdown for a single subscription change line, in the smallest units of the given currency (e.g. cents). */
+        SubscriptionChangeLineAmountDto: {
+            /** @description ISO 4217 currency code in lowercase. */
+            currency: string;
+            /**
+             * Format: int64
+             * @description Base amount before discounts or tax, in smallest currency units.
+             */
+            subtotal: number;
+            /**
+             * Format: int64
+             * @description Total discount applied, in smallest currency units.
+             */
+            discount: number;
+            /**
+             * Format: int64
+             * @description Tax amount, in smallest currency units.
+             */
+            tax: number;
+            /**
+             * Format: int64
+             * @description Amount due after discounts and tax, in smallest currency units.
+             */
+            total: number;
+        };
+        /** @description A single line item within a subscription change. */
+        SubscriptionChangeLineDto: {
+            id: components["schemas"]["FlakeId"];
+            subscription_line_id?: components["schemas"]["FlakeId"];
+            /** @description Whether this line is being removed by the change. */
+            is_deleted: boolean;
+            /** @description Whether tax is included in the base price. */
+            tax_inclusive: boolean;
+            /**
+             * Format: int64
+             * @description Base price in smallest settlement currency units.
+             */
+            price: number;
+            product: components["schemas"]["SubscriptionChangeLineProductDto"];
+            amount: components["schemas"]["SubscriptionChangeLineAmountDto"];
+            presentment_amount: components["schemas"]["SubscriptionChangeLineAmountDto"];
+            /**
+             * Format: int64
+             * @description Prorated charge for this line in smallest settlement currency units.
+             */
+            prorated_amount: number;
+            /**
+             * Format: int64
+             * @description Prorated charge for this line in smallest presentment currency units.
+             */
+            prorated_presentment_amount: number;
+            /**
+             * Format: int64
+             * @description Minutes remaining in the billing period at the time of change - used to calculate proration.
+             */
+            remaining_minutes: number;
+            /**
+             * Format: int64
+             * @description Total minutes in the billing period - used to calculate proration.
+             */
+            total_minutes: number;
+        };
+        /** @description The product associated with a subscription change line. */
+        SubscriptionChangeLineProductDto: {
+            id: components["schemas"]["FlakeId"];
+            version_id: components["schemas"]["FlakeId"];
+            /** @description Display name of the product. */
+            name: string;
+            /** @description URL of the product image, if set. */
+            image_url?: null | string;
+            selected_gameserver_id?: components["schemas"]["FlakeId"];
+            /** @description The pricing region used to determine the price, if applicable. */
+            pricing_region_id?: null | string;
+            /** @description Custom variables set on this line item, keyed by variable identifier. */
+            custom_variables: {
+                [key: string]: components["schemas"]["CustomVariableLineItemDto"];
+            };
+        };
+        /** @description The total prorated charge for a subscription change, expressed in both settlement and presentment currencies. */
+        SubscriptionChangeProratedAmountDto: {
+            /** @description ISO 4217 settlement currency code, in lowercase. */
+            currency: string;
+            /**
+             * Format: int64
+             * @description Total prorated charge in smallest settlement currency units, including tax.
+             */
+            prorated_amount: number;
+            /** @description ISO 4217 presentment currency code, in lowercase. */
+            presentment_currency: string;
+            /**
+             * Format: int64
+             * @description Total prorated charge in smallest presentment currency units, including tax.
+             */
+            presentment_prorated_amount: number;
+        };
+        /**
+         * @description Represents the status of a subscription change.
+         * @enum {string}
+         */
+        SubscriptionChangeStatusDto: "invalid" | "pending_payment" | "pending_renewal" | "applied" | "canceled";
         /** @description Data transfer object representing a store subscription. */
-        StoreSubscriptionDto: {
+        SubscriptionDto: {
             id: components["schemas"]["FlakeId"];
             /** @description Human-readable identifier for the subscription. */
             pretty_id: string;
             store_id: components["schemas"]["FlakeId"];
+            store?: components["schemas"]["StorefrontStoreDto"];
             customer: components["schemas"]["CustomerDto"];
             payment_method_id?: components["schemas"]["FlakeId"];
             payment_method?: components["schemas"]["PaymentMethodDto"];
+            pending_change?: components["schemas"]["SubscriptionChangeDto"];
+            next_billing_amount: components["schemas"]["SubscriptionBillingAmountDto"];
+            next_billing_presentment_amount: components["schemas"]["SubscriptionBillingAmountDto"];
             status: components["schemas"]["SubscriptionStatus"];
             coupon_id?: components["schemas"]["FlakeId"];
             /**
@@ -5144,20 +5536,21 @@ export interface components {
              * @deprecated
              * @description Indicates whether this subscription is a gift.
              */
-            gift: boolean;
+            readonly gift: boolean;
+            gift_to_customer_id?: components["schemas"]["FlakeId"];
             gift_to_customer?: components["schemas"]["CustomerDto"];
-            product_id: components["schemas"]["FlakeId"];
-            product_version_id: components["schemas"]["FlakeId"];
+            product_id?: components["schemas"]["FlakeId"];
+            product_version_id?: components["schemas"]["FlakeId"];
             /**
              * @deprecated
              * @description Name of the product associated with this subscription.
              */
-            product_name: string;
+            readonly product_name?: null | string;
             /**
              * @deprecated
              * @description URL for the product image.
              */
-            product_image_url?: null | string;
+            readonly product_image_url?: null | string;
             /**
              * Format: int32
              * @description Numeric value of the billing interval.
@@ -5170,81 +5563,81 @@ export interface components {
              * @deprecated
              * @description Indicates whether tax is included in the base price itself.
              */
-            tax_inclusive: boolean;
+            readonly tax_inclusive: boolean;
             /**
              * Format: int64
              * @deprecated
              * @description Base price of the subscription in smallest currency units (e.g., cents).
              */
-            price: number;
+            readonly price: number;
             /**
              * @deprecated
              * @description Formatted string representation of the price.
              */
-            price_str: string;
+            readonly price_str?: null | string;
             /**
              * Format: int64
              * @description Amount of discount applied in smallest currency units.
              */
             discount_amount: number;
             /** @description Formatted string representation of the discount amount. */
-            discount_amount_str: string;
+            readonly discount_amount_str: string;
             /**
              * Format: int64
              * @description Subtotal amount in smallest currency units.
              */
             subtotal_amount: number;
             /** @description Formatted string representation of the subtotal amount. */
-            subtotal_amount_str: string;
+            readonly subtotal_amount_str: string;
             /**
              * Format: int64
              * @description Tax amount in smallest currency units.
              */
             tax_amount: number;
             /** @description Formatted string representation of the tax amount. */
-            tax_amount_str: string;
+            readonly tax_amount_str: string;
             /**
              * Format: int64
              * @description Total amount in smallest currency units.
              */
             total_amount: number;
             /** @description Formatted string representation of the total amount. */
-            total_amount_str: string;
+            readonly total_amount_str: string;
             /**
              * Format: int64
              * @description Initial discount amount in smallest currency units for the first billing cycle.
              */
             initial_discount_amount: number;
             /** @description Formatted string representation of the initial discount amount. */
-            initial_discount_amount_str: string;
+            readonly initial_discount_amount_str: string;
             /**
              * Format: int64
              * @description Initial subtotal amount in smallest currency units for the first billing cycle.
              */
             initial_subtotal_amount: number;
             /** @description Formatted string representation of the initial subtotal amount. */
-            initial_subtotal_amount_str: string;
+            readonly initial_subtotal_amount_str: string;
             /**
              * Format: int64
              * @description Initial gift card usage amount in smallest currency units.
              */
             initial_giftcard_usage_amount: number;
             /** @description Formatted string representation of the initial gift card usage amount. */
-            initial_giftcard_usage_amount_str: string;
+            readonly initial_giftcard_usage_amount_str: string;
             /**
              * Format: int64
              * @description Initial tax amount in smallest currency units for the first billing cycle.
              */
             initial_tax_amount: number;
             /** @description Formatted string representation of the initial tax amount. */
-            initial_tax_amount_str: string;
+            readonly initial_tax_amount_str: string;
             /**
              * Format: int64
              * @description Initial total amount in smallest currency units for the first billing cycle.
              */
             initial_total_amount: number;
             /** @description Formatted string representation of the initial total amount. */
-            initial_total_amount_str: string;
+            readonly initial_total_amount_str: string;
             /** @description Presentment currency code (currency shown to customer). */
             presentment_currency?: null | string;
             /**
@@ -5316,7 +5709,7 @@ export interface components {
              * @deprecated
              * @description Identifier for the pricing region associated with this subscription.
              */
-            pricing_region_id?: null | string;
+            readonly pricing_region_id?: null | string;
             /**
              * Format: date-time
              * @description Start date of the current billing period.
@@ -5364,73 +5757,8 @@ export interface components {
             canceled_at?: null | string;
             /** @description Reason provided for cancellation. */
             cancel_reason?: null | string;
-            /** @description Associated subscription lines. */
-            readonly lines: components["schemas"]["SubscriptionLineDto"][];
-        };
-        StoreTrustDto: {
-            store_id: components["schemas"]["FlakeId"];
-            status: components["schemas"]["StoreTrustStatusDto"];
-            status_reason?: null | string;
-            restrictions: components["schemas"]["StoreRestrictionFlagDto"];
-            /** Format: date-time */
-            created_at: string;
-            /** Format: date-time */
-            updated_at?: null | string;
-            onboarding_steps?: components["schemas"]["StoreTrustOnboardingStepsDto"];
-            events: components["schemas"]["StoreTrustEventDto"][];
-            pending_requirements: components["schemas"]["TrustStoreRequirementDto"][];
-        };
-        StoreTrustEventDto: {
-            id: components["schemas"]["FlakeId"];
-            store_id: components["schemas"]["FlakeId"];
-            type: components["schemas"]["StoreTrustEventTypeDto"];
-            description?: null | string;
-            store_requirement_id?: components["schemas"]["FlakeId"];
-            store_review_id?: components["schemas"]["FlakeId"];
-            actor: components["schemas"]["ActorDto"];
-            /** Format: date-time */
-            created_at: string;
-        };
-        /** @enum {string} */
-        StoreTrustEventTypeDto: "invalid" | "onboarded" | "escalated_to_review" | "action_required" | "restricted" | "offboarded" | "reactivated" | "requirement_added" | "requirement_submitted" | "requirement_verified" | "requirement_rejected" | "requirement_deadline_missed" | "requirement_waived" | "requirement_requires_revision" | "restriction_added" | "restriction_lifted" | "review_scheduled" | "review_completed";
-        StoreTrustOnboardingStepsDto: {
-            store_id: components["schemas"]["FlakeId"];
-            store_owner_id: components["schemas"]["FlakeId"];
-            payout_onboarding_completed: boolean;
-            kyc_completed: boolean;
-            products_created: boolean;
-            gameserver_linked: boolean;
-            webhooks_active: boolean;
-            downloadable_files_added: boolean;
-        };
-        /** @enum {string} */
-        StoreTrustStatusDto: "invalid" | "pending_review" | "requires_action" | "under_review" | "active" | "restricted" | "offboarded";
-        /** @enum {string} */
-        StoreUpsellCheckoutStyleDto: "unknown" | "inline" | "inline_and_prepayment_dialog" | "dedicated_step";
-        StoreUpsellRecommendationDto: {
-            recommended_product_id: components["schemas"]["FlakeId"];
-            type: components["schemas"]["UpsellTypeDto"];
-            discount_type: components["schemas"]["UpsellDiscountTypeDto"];
-            /** Format: int64 */
-            discount_amount: number;
-            /** Format: int32 */
-            minimum_base_product_quantity?: null | number;
-            /** Format: int32 */
-            quantity_to_add?: null | number;
-            prefer_as_subscription: boolean;
-        };
-        StoreUpsellSettingsDto: {
-            enabled: boolean;
-            automatic_recommendations_enabled: boolean;
-            automatic_recommendations_discount_type: components["schemas"]["UpsellDiscountType"];
-            /** Format: int64 */
-            automatic_recommendations_discount_amount: number;
-            recommendation_overrides_enabled: boolean;
-            recommendation_overrides: components["schemas"]["StoreUpsellRecommendationDto"][];
-            checkout_style: components["schemas"]["StoreUpsellCheckoutStyleDto"];
-            /** Format: date-time */
-            updated_at: string;
-            updated_by: components["schemas"]["ActorDto"];
+            /** @description Line items associated with this subscription. */
+            lines: components["schemas"]["SubscriptionLineDto"][];
         };
         /** @description Represents a line item within a subscription. */
         SubscriptionLineDto: {
@@ -5441,6 +5769,7 @@ export interface components {
             /** @description Identifier for the pricing region associated with this subscription line. */
             pricing_region_id?: null | string;
             gift_to_customer_id?: components["schemas"]["FlakeId"];
+            gift_to_customer?: components["schemas"]["CustomerDto"];
             selected_gameserver_id?: components["schemas"]["FlakeId"];
             sale_id?: components["schemas"]["FlakeId"];
             trial_id?: components["schemas"]["FlakeId"];
@@ -5592,7 +5921,7 @@ export interface components {
          * @description Represents the current state of a subscription.
          * @enum {string}
          */
-        SubscriptionStatus: "created" | "active" | "canceled";
+        SubscriptionStatus: "invalid" | "created" | "active" | "canceled";
         TagDto: {
             id: components["schemas"]["FlakeId"];
             store_id: components["schemas"]["FlakeId"];
@@ -5932,6 +6261,25 @@ export interface components {
             recommendation_overrides_enabled?: boolean;
             recommendation_overrides?: components["schemas"]["StoreUpsellRecommendationDto"][];
             checkout_style?: components["schemas"]["StoreUpsellCheckoutStyleDto"];
+        };
+        UpdateSubscriptionLineRequestDto: {
+            product_id?: components["schemas"]["FlakeId"];
+            product_version_id?: components["schemas"]["FlakeId"];
+            /** @description Custom variable values keyed by variable name. */
+            custom_variables: {
+                [key: string]: string;
+            };
+            selected_gameserver_id?: components["schemas"]["FlakeId"];
+        };
+        UpdateSubscriptionRequestDto: {
+            /** @description The line items describing the desired state of the subscription after the change. */
+            lines: components["schemas"]["UpdateSubscriptionLineRequestDto"][];
+            proration_behavior: components["schemas"]["ProrationBehaviorDto"];
+        };
+        /** @description Response returned after a subscription change is initiated. */
+        UpdateSubscriptionResponseDto: {
+            subscription_change: components["schemas"]["SubscriptionChangeDto"];
+            pending_payment?: components["schemas"]["CheckoutPaymentInfoDto"];
         };
         UpdateTrialEligibilityOverrideDto: {
             product_id?: components["schemas"]["FlakeId"];
@@ -10618,7 +10966,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["StoreSubscriptionDto"][];
+                    "application/json": components["schemas"]["SubscriptionDto"][];
                 };
             };
             /** @description Error response */
@@ -10650,7 +10998,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["StoreSubscriptionDto"];
+                    "application/json": components["schemas"]["SubscriptionDto"];
                 };
             };
             /** @description Error response */
@@ -10682,6 +11030,80 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Subscriptions_UpdateSubscription: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                subscriptionId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["UpdateSubscriptionRequestDto"];
+                "text/json": components["schemas"]["UpdateSubscriptionRequestDto"];
+                "application/*+json": components["schemas"]["UpdateSubscriptionRequestDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UpdateSubscriptionResponseDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Subscriptions_PreviewSubscriptionChange: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                subscriptionId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["UpdateSubscriptionRequestDto"];
+                "text/json": components["schemas"]["UpdateSubscriptionRequestDto"];
+                "application/*+json": components["schemas"]["UpdateSubscriptionRequestDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UpdateSubscriptionResponseDto"];
+                };
             };
             /** @description Error response */
             default: {
@@ -11967,6 +12389,14 @@ export const operationMappings = {
   "Subscriptions_CancelSubscription": {
     "method": "POST",
     "path": "/v1/stores/{storeId}/subscriptions/{subscriptionId}/cancel"
+  },
+  "Subscriptions_UpdateSubscription": {
+    "method": "POST",
+    "path": "/v1/stores/{storeId}/subscriptions/{subscriptionId}/change"
+  },
+  "Subscriptions_PreviewSubscriptionChange": {
+    "method": "POST",
+    "path": "/v1/stores/{storeId}/subscriptions/{subscriptionId}/change/preview"
   },
   "Tags_GetTags": {
     "method": "GET",

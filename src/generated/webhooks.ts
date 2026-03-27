@@ -1,238 +1,5 @@
 export type paths = Record<string, never>;
 export interface webhooks {
-    ON_SUBSCRIPTION_RENEWED: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Triggered when a subscription is renewed
-         * @description Webhook for ON_SUBSCRIPTION_RENEWED
-         */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        /**
-                         * @description The type of webhook event
-                         * @example ON_SUBSCRIPTION_RENEWED
-                         */
-                        event_type: components["schemas"]["WebhookEventType"];
-                        /**
-                         * Format: flake-id
-                         * @description The ID of the Webhook Event
-                         * @example 411486491630370816
-                         */
-                        event_id: string;
-                        body: {
-                            /**
-                             * Format: flake-id
-                             * @description The Flake ID of the Subscription
-                             * @example 411486491630370816
-                             */
-                            id: string;
-                            /**
-                             * Format: flake-id
-                             * @description The Flake ID of the Store associated with the Subscription
-                             * @example 411486491630370816
-                             */
-                            store_id: string;
-                            /**
-                             * Format: flake-id
-                             * @description The Flake ID of the Customer associated with the Subscription
-                             * @example 411486491630370816
-                             */
-                            customer_id: string;
-                            customer: components["schemas"]["CustomerDTO"];
-                            checkout: components["schemas"]["CheckoutDTO"];
-                            /**
-                             * @description The current billing cycle number
-                             * @example 2
-                             */
-                            billing_cycle_sequence: number;
-                            /**
-                             * @description The billing email address of the customer associated with the Subscription
-                             * @example john@doe.com
-                             */
-                            billing_email: string;
-                            /**
-                             * @description The subtotal amount of the Subscription represented in cents
-                             * @example 8999
-                             */
-                            subtotal_amount: number;
-                            /**
-                             * @description The tax amount of the Subscription represented in cents
-                             * @example 1350
-                             */
-                            tax_amount: number;
-                            /**
-                             * @description The discount amount applied to the Subscription represented in cents
-                             * @example 0
-                             */
-                            discount_amount: number;
-                            /**
-                             * @description The total amount of the Subscription represented in cents
-                             * @example 10349
-                             */
-                            total_amount: number;
-                            /**
-                             * @description The currency code of the Subscription
-                             * @example USD
-                             */
-                            currency: string;
-                            /**
-                             * @description The interval value of the billing cycle
-                             * @example 1
-                             */
-                            interval_value: number;
-                            /**
-                             * @description The interval scale of the billing cycle
-                             * @example month
-                             */
-                            interval_scale: string;
-                            /**
-                             * Format: flake-id
-                             * @description The Flake ID of the Product associated with the Subscription
-                             * @example 411486491630370816
-                             */
-                            product_id: string;
-                            /**
-                             * Format: flake-id
-                             * @description The Flake ID of the Product Version associated with the Subscription
-                             * @example 411486491630370816
-                             */
-                            product_version_id: string;
-                            /**
-                             * @description The name of the Product associated with the Subscription
-                             * @example Example Product
-                             */
-                            product_name: string;
-                            /**
-                             * @description The image URL of the Product associated with the Subscription
-                             * @example https://example.com/biz.jpg
-                             */
-                            product_image_url?: null | string;
-                            product: components["schemas"]["ProductDTO"];
-                            /**
-                             * @description The ISO-3166 country code of customer associated with the Subscription
-                             * @example US
-                             */
-                            billing_country: string;
-                            /**
-                             * @description The initial subtotal amount of the Subscription represented in cents
-                             * @example 8999
-                             */
-                            initial_subtotal_amount: number;
-                            /**
-                             * @description The initial tax amount of the Subscription represented in cents
-                             * @example 1350
-                             */
-                            initial_tax_amount: number;
-                            /**
-                             * @description The initial discount amount applied to the Subscription represented in cents
-                             * @example 1500
-                             */
-                            initial_discount_amount: number;
-                            /**
-                             * @description The initial gift card usage amount applied to the Subscription represented in cents
-                             * @example 0
-                             */
-                            initial_giftcard_usage_amount: number;
-                            /**
-                             * @description The initial total amount of the Subscription represented in cents
-                             * @example 8849
-                             */
-                            initial_total_amount: number;
-                            /**
-                             * @description The IP address of the Customer
-                             * @example 127.0.0.1/24
-                             */
-                            customer_ip: string;
-                            /**
-                             * Format: date-time
-                             * @description The start date of the current billing period
-                             * @example 2024-03-01T00:00:00Z
-                             */
-                            current_period_start?: null | string;
-                            /**
-                             * Format: date-time
-                             * @description The end date of the current billing period
-                             * @example 2024-06-01T00:00:00Z
-                             */
-                            current_period_end?: null | string;
-                            /**
-                             * Format: date-time
-                             * @description The date and time when the Subscription was created
-                             * @example 2024-03-01T11:00:00Z
-                             */
-                            created_at?: null | string;
-                            /**
-                             * Format: date-time
-                             * @description Indicates when the subscription was active
-                             * @example 2024-03-01T11:05:00Z
-                             */
-                            active_at?: null | string;
-                            /**
-                             * Format: flake-id
-                             * @description The Flake ID of the Checkout associated with the Subscription
-                             * @example 411486491630370816
-                             */
-                            checkout_id: string;
-                            /**
-                             * Format: flake-id
-                             * @description The Flake ID of the Checkout Line associated with the Subscription
-                             * @example 411486491630370816
-                             */
-                            checkout_line_id: string;
-                            /**
-                             * @description The current status of the Subscription.  Possible options: created, active, canceled
-                             * @example created
-                             */
-                            status: string;
-                        };
-                    };
-                };
-            };
-            responses: {
-                /** @description Webhook processed successfully */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-                /** @description Bad request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-                /** @description Internal server error */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     ON_CHARGEBACK: {
         parameters: {
             query?: never;
@@ -1727,6 +1494,11 @@ export interface webhooks {
                              */
                             coupon_id?: null | string;
                             /**
+                             * @description The type of the order
+                             * @example one_time
+                             */
+                            type: string;
+                            /**
                              * @description The ISO-4217 Currency Code of the order
                              * @example USD
                              */
@@ -2143,7 +1915,7 @@ export interface webhooks {
                             product_image_url?: null | string;
                             product: components["schemas"]["ProductDTO"];
                             /**
-                             * @description The ISO-3166 Country Code of customer associated with the Subscription
+                             * @description The ISO-3166 Country Code of the customer associated with the Subscription
                              * @example US
                              */
                             billing_country: string;
@@ -2214,10 +1986,12 @@ export interface webhooks {
                              */
                             checkout_line_id: string;
                             /**
-                             * @description The current status of the Subscription.  Possible options: created, active, canceled
+                             * @description The current status of the Subscription. Possible options: created, active, canceled
                              * @example created
                              */
                             status: string;
+                            /** @description The lines of the Subscription */
+                            lines: components["schemas"]["SubscriptionLineDTO"][];
                         };
                     };
                 };
@@ -2288,6 +2062,17 @@ export interface webhooks {
                         event_id: string;
                         body: {
                             /**
+                             * Format: date-time
+                             * @description Indicates when the subscription was canceled
+                             * @example 2024-05-15T14:20:00Z
+                             */
+                            canceled_at?: null | string;
+                            /**
+                             * @description The reason for the subscription cancellation
+                             * @example customer_request
+                             */
+                            cancel_reason?: null | string;
+                            /**
                              * Format: flake-id
                              * @description The Flake ID of the Subscription
                              * @example 411486491630370816
@@ -2314,27 +2099,27 @@ export interface webhooks {
                             billing_cycle_sequence: number;
                             /**
                              * @description The billing email address of the customer associated with the Subscription
-                             * @example cancel@example.com
+                             * @example john@doe.com
                              */
                             billing_email: string;
                             /**
                              * @description The subtotal amount of the Subscription represented in cents
-                             * @example 4999
+                             * @example 9999
                              */
                             subtotal_amount: number;
                             /**
                              * @description The tax amount of the Subscription represented in cents
-                             * @example 750
+                             * @example 1500
                              */
                             tax_amount: number;
                             /**
                              * @description The discount amount applied to the Subscription represented in cents
-                             * @example 0
+                             * @example 1000
                              */
                             discount_amount: number;
                             /**
                              * @description The total amount of the Subscription represented in cents
-                             * @example 5749
+                             * @example 10499
                              */
                             total_amount: number;
                             /**
@@ -2349,7 +2134,7 @@ export interface webhooks {
                             interval_value: number;
                             /**
                              * @description The interval scale of the billing cycle
-                             * @example annually
+                             * @example month
                              */
                             interval_scale: string;
                             /**
@@ -2366,33 +2151,33 @@ export interface webhooks {
                             product_version_id: string;
                             /**
                              * @description The name of the Product associated with the Subscription
-                             * @example Starter Plan
+                             * @example Example Product
                              */
                             product_name: string;
                             /**
                              * @description The image URL of the Product associated with the Subscription
-                             * @example https://example.com/starter.jpg
+                             * @example https://example.com/image.jpg
                              */
                             product_image_url?: null | string;
                             product: components["schemas"]["ProductDTO"];
                             /**
-                             * @description The ISO-3166 country code of customer associated with the Subscription
+                             * @description The ISO-3166 Country Code of the customer associated with the Subscription
                              * @example US
                              */
                             billing_country: string;
                             /**
                              * @description The initial subtotal amount of the Subscription represented in cents
-                             * @example 4999
+                             * @example 9999
                              */
                             initial_subtotal_amount: number;
                             /**
                              * @description The initial tax amount of the Subscription represented in cents
-                             * @example 750
+                             * @example 1500
                              */
                             initial_tax_amount: number;
                             /**
                              * @description The initial discount amount applied to the Subscription represented in cents
-                             * @example 500
+                             * @example 2000
                              */
                             initial_discount_amount: number;
                             /**
@@ -2402,7 +2187,7 @@ export interface webhooks {
                             initial_giftcard_usage_amount: number;
                             /**
                              * @description The initial total amount of the Subscription represented in cents
-                             * @example 5249
+                             * @example 9499
                              */
                             initial_total_amount: number;
                             /**
@@ -2413,38 +2198,27 @@ export interface webhooks {
                             /**
                              * Format: date-time
                              * @description The start date of the current billing period
-                             * @example 2024-04-01T00:00:00Z
+                             * @example 2024-02-01T00:00:00Z
                              */
                             current_period_start?: null | string;
                             /**
                              * Format: date-time
                              * @description The end date of the current billing period
-                             * @example 2025-04-01T00:00:00Z
+                             * @example 2024-03-01T00:00:00Z
                              */
                             current_period_end?: null | string;
                             /**
                              * Format: date-time
                              * @description The date and time when the Subscription was created
-                             * @example 2024-04-01T09:30:00Z
+                             * @example 2024-02-01T10:15:00Z
                              */
                             created_at?: null | string;
                             /**
                              * Format: date-time
                              * @description Indicates when the subscription was active
-                             * @example 2024-04-01T09:35:00Z
+                             * @example 2024-02-01T10:20:00Z
                              */
                             active_at?: null | string;
-                            /**
-                             * Format: date-time
-                             * @description Indicates when the subscription was canceled
-                             * @example 2024-05-15T14:20:00Z
-                             */
-                            canceled_at?: null | string;
-                            /**
-                             * @description The reason for the subscription cancellation
-                             * @example customer_request
-                             */
-                            cancel_reason?: null | string;
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Checkout associated with the Subscription
@@ -2458,10 +2232,247 @@ export interface webhooks {
                              */
                             checkout_line_id: string;
                             /**
-                             * @description The current status of the Subscription.  Possible options: created, active, canceled
+                             * @description The current status of the Subscription. Possible options: created, active, canceled
                              * @example created
                              */
                             status: string;
+                            /** @description The lines of the Subscription */
+                            lines: components["schemas"]["SubscriptionLineDTO"][];
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description Webhook processed successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Internal server error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    ON_SUBSCRIPTION_RENEWED: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Triggered when a subscription is renewed
+         * @description Webhook for ON_SUBSCRIPTION_RENEWED
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /**
+                         * @description The type of webhook event
+                         * @example ON_SUBSCRIPTION_RENEWED
+                         */
+                        event_type: components["schemas"]["WebhookEventType"];
+                        /**
+                         * Format: flake-id
+                         * @description The ID of the Webhook Event
+                         * @example 411486491630370816
+                         */
+                        event_id: string;
+                        body: {
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Subscription
+                             * @example 411486491630370816
+                             */
+                            id: string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Store associated with the Subscription
+                             * @example 411486491630370816
+                             */
+                            store_id: string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Customer associated with the Subscription
+                             * @example 411486491630370816
+                             */
+                            customer_id: string;
+                            customer: components["schemas"]["CustomerDTO"];
+                            checkout: components["schemas"]["CheckoutDTO"];
+                            /**
+                             * @description The current billing cycle number
+                             * @example 1
+                             */
+                            billing_cycle_sequence: number;
+                            /**
+                             * @description The billing email address of the customer associated with the Subscription
+                             * @example john@doe.com
+                             */
+                            billing_email: string;
+                            /**
+                             * @description The subtotal amount of the Subscription represented in cents
+                             * @example 9999
+                             */
+                            subtotal_amount: number;
+                            /**
+                             * @description The tax amount of the Subscription represented in cents
+                             * @example 1500
+                             */
+                            tax_amount: number;
+                            /**
+                             * @description The discount amount applied to the Subscription represented in cents
+                             * @example 1000
+                             */
+                            discount_amount: number;
+                            /**
+                             * @description The total amount of the Subscription represented in cents
+                             * @example 10499
+                             */
+                            total_amount: number;
+                            /**
+                             * @description The currency code of the Subscription
+                             * @example USD
+                             */
+                            currency: string;
+                            /**
+                             * @description The interval value of the billing cycle
+                             * @example 1
+                             */
+                            interval_value: number;
+                            /**
+                             * @description The interval scale of the billing cycle
+                             * @example month
+                             */
+                            interval_scale: string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Product associated with the Subscription
+                             * @example 411486491630370816
+                             */
+                            product_id: string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Product Version associated with the Subscription
+                             * @example 411486491630370816
+                             */
+                            product_version_id: string;
+                            /**
+                             * @description The name of the Product associated with the Subscription
+                             * @example Example Product
+                             */
+                            product_name: string;
+                            /**
+                             * @description The image URL of the Product associated with the Subscription
+                             * @example https://example.com/image.jpg
+                             */
+                            product_image_url?: null | string;
+                            product: components["schemas"]["ProductDTO"];
+                            /**
+                             * @description The ISO-3166 Country Code of the customer associated with the Subscription
+                             * @example US
+                             */
+                            billing_country: string;
+                            /**
+                             * @description The initial subtotal amount of the Subscription represented in cents
+                             * @example 9999
+                             */
+                            initial_subtotal_amount: number;
+                            /**
+                             * @description The initial tax amount of the Subscription represented in cents
+                             * @example 1500
+                             */
+                            initial_tax_amount: number;
+                            /**
+                             * @description The initial discount amount applied to the Subscription represented in cents
+                             * @example 2000
+                             */
+                            initial_discount_amount: number;
+                            /**
+                             * @description The initial gift card usage amount applied to the Subscription represented in cents
+                             * @example 0
+                             */
+                            initial_giftcard_usage_amount: number;
+                            /**
+                             * @description The initial total amount of the Subscription represented in cents
+                             * @example 9499
+                             */
+                            initial_total_amount: number;
+                            /**
+                             * @description The IP address of the Customer
+                             * @example 127.0.0.1/24
+                             */
+                            customer_ip: string;
+                            /**
+                             * Format: date-time
+                             * @description The start date of the current billing period
+                             * @example 2024-02-01T00:00:00Z
+                             */
+                            current_period_start?: null | string;
+                            /**
+                             * Format: date-time
+                             * @description The end date of the current billing period
+                             * @example 2024-03-01T00:00:00Z
+                             */
+                            current_period_end?: null | string;
+                            /**
+                             * Format: date-time
+                             * @description The date and time when the Subscription was created
+                             * @example 2024-02-01T10:15:00Z
+                             */
+                            created_at?: null | string;
+                            /**
+                             * Format: date-time
+                             * @description Indicates when the subscription was active
+                             * @example 2024-02-01T10:20:00Z
+                             */
+                            active_at?: null | string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Checkout associated with the Subscription
+                             * @example 411486491630370816
+                             */
+                            checkout_id: string;
+                            /**
+                             * Format: flake-id
+                             * @description The Flake ID of the Checkout Line associated with the Subscription
+                             * @example 411486491630370816
+                             */
+                            checkout_line_id: string;
+                            /**
+                             * @description The current status of the Subscription. Possible options: created, active, canceled
+                             * @example created
+                             */
+                            status: string;
+                            /** @description The lines of the Subscription */
+                            lines: components["schemas"]["SubscriptionLineDTO"][];
                         };
                     };
                 };
@@ -3095,6 +3106,11 @@ export interface components {
              */
             coupon_id?: null | string;
             /**
+             * @description The type of the order
+             * @example one_time
+             */
+            type: string;
+            /**
              * @description The ISO-4217 Currency Code of the order
              * @example USD
              */
@@ -3196,7 +3212,7 @@ export interface components {
              * @description The Flake ID of the Checkout Line associated with this Order Line
              * @example 411486491630370816
              */
-            checkout_line_id: string;
+            checkout_line_id?: null | string;
             /**
              * Format: flake-id
              * @description The Flake ID of the Product ID associated with this Order Line
@@ -3220,6 +3236,12 @@ export interface components {
              * @example 411486491630370816
              */
             subscription_id?: null | string;
+            /**
+             * Format: flake-id
+             * @description The Flake ID of the Subscription Line associated with this Order Line
+             * @example 411486491630370816
+             */
+            subscription_line_id?: null | string;
             /**
              * @description The value of the interval in which the subscription associated with this Order Line renews at
              * @example 1
@@ -3410,6 +3432,190 @@ export interface components {
             name: string;
             /** @description The Steam Avatar URL */
             avatar_url: string;
+        };
+        SubscriptionLineDTO: {
+            /**
+             * Format: flake-id
+             * @description The Flake ID of the Subscription Line
+             * @example 411486491630370816
+             */
+            id: string;
+            /**
+             * Format: flake-id
+             * @description The Flake ID of the Subscription associated with this Subscription Line
+             * @example 411486491630370816
+             */
+            subscription_id: string;
+            /**
+             * Format: flake-id
+             * @description The Flake ID of the Checkout Line associated with this Subscription Line
+             * @example 411486491630370816
+             */
+            checkout_line_id?: null | string;
+            /**
+             * Format: flake-id
+             * @description The Flake ID of the initial Order Line associated with this Subscription Line
+             * @example 411486491630370816
+             */
+            initial_order_line_id?: null | string;
+            /**
+             * Format: flake-id
+             * @description The Flake ID of the customer this Subscription Line was gifted to
+             * @example 411486491630370816
+             */
+            gift_to_customer_id?: null | string;
+            gift_to_customer?: components["schemas"]["CustomerDTO"] | null;
+            /**
+             * Format: flake-id
+             * @description The Flake ID of the selected Game Server for this Subscription Line
+             * @example 411486491630370816
+             */
+            selected_gameserver_id?: null | string;
+            /**
+             * Format: flake-id
+             * @description The Flake ID of the Sale associated with this Subscription Line
+             * @example 411486491630370816
+             */
+            sale_id?: null | string;
+            /**
+             * Format: flake-id
+             * @description The Flake ID of the Trial associated with this Subscription Line
+             * @example 411486491630370816
+             */
+            trial_id?: null | string;
+            /**
+             * Format: flake-id
+             * @description The Flake ID of the Product associated with this Subscription Line
+             * @example 411486491630370816
+             */
+            product_id: string;
+            /**
+             * Format: flake-id
+             * @description The Flake ID of the Product Version associated with this Subscription Line
+             * @example 411486491630370816
+             */
+            product_version_id: string;
+            /**
+             * @description The name of the Product associated with this Subscription Line
+             * @example Example Product
+             */
+            product_name: string;
+            /**
+             * @description The image URL of the Product associated with this Subscription Line
+             * @example https://example.com/image.jpg
+             */
+            product_image_url?: null | string;
+            product?: components["schemas"]["ProductDTO"] | null;
+            /**
+             * @description Whether the price of this Subscription Line is tax inclusive
+             * @example false
+             */
+            tax_inclusive: boolean;
+            /**
+             * @description The price of this Subscription Line represented in cents
+             * @example 9999
+             */
+            price: number;
+            /**
+             * @description The discount amount applied to this Subscription Line represented in cents
+             * @example 1000
+             */
+            discount_amount: number;
+            /**
+             * @description The subtotal amount of this Subscription Line represented in cents
+             * @example 8999
+             */
+            subtotal_amount: number;
+            /**
+             * @description The tax amount of this Subscription Line represented in cents
+             * @example 1350
+             */
+            tax_amount: number;
+            /**
+             * @description The total amount of this Subscription Line represented in cents
+             * @example 10349
+             */
+            total_amount: number;
+            /**
+             * @description The initial discount amount applied to this Subscription Line represented in cents
+             * @example 2000
+             */
+            initial_discount_amount: number;
+            /**
+             * @description The initial subtotal amount of this Subscription Line represented in cents
+             * @example 7999
+             */
+            initial_subtotal_amount: number;
+            /**
+             * @description The initial gift card usage amount applied to this Subscription Line represented in cents
+             * @example 0
+             */
+            initial_giftcard_usage_amount: number;
+            /**
+             * @description The initial tax amount of this Subscription Line represented in cents
+             * @example 1200
+             */
+            initial_tax_amount: number;
+            /**
+             * @description The initial total amount of this Subscription Line represented in cents
+             * @example 9199
+             */
+            initial_total_amount: number;
+            /**
+             * @description The currency code of this Subscription Line
+             * @example USD
+             */
+            currency: string;
+            /**
+             * @description The presentment currency code of this Subscription Line
+             * @example EUR
+             */
+            presentment_currency?: null | string;
+            /**
+             * @description The presentment subtotal amount of this Subscription Line represented in cents
+             * @example 8299
+             */
+            presentment_subtotal_amount?: null | number;
+            /**
+             * @description The presentment discount amount of this Subscription Line represented in cents
+             * @example 0
+             */
+            presentment_discount_amount?: null | number;
+            /**
+             * @description The presentment tax amount of this Subscription Line represented in cents
+             * @example 1245
+             */
+            presentment_tax_amount?: null | number;
+            /**
+             * @description The presentment total amount of this Subscription Line represented in cents
+             * @example 9544
+             */
+            presentment_total_amount?: null | number;
+            /**
+             * @description The initial presentment discount amount of this Subscription Line represented in cents
+             * @example 0
+             */
+            initial_presentment_discount_amount?: null | number;
+            /**
+             * @description The initial presentment subtotal amount of this Subscription Line represented in cents
+             * @example 7359
+             */
+            initial_presentment_subtotal_amount?: null | number;
+            /**
+             * @description The initial presentment gift card usage amount of this Subscription Line represented in cents
+             * @example 0
+             */
+            initial_presentment_giftcard_usage_amount?: null | number;
+            /**
+             * @description The initial presentment tax amount of this Subscription Line represented in cents
+             * @example 1104
+             */
+            initial_presentment_tax_amount?: null | number;
+            /**
+             * @description The initial presentment total amount of this Subscription Line represented in cents
+             * @example 8463
+             */
+            initial_presentment_total_amount?: null | number;
         };
         /**
          * @description The type of webhook event

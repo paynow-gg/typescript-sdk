@@ -87,6 +87,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/store/customer/auth": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Authenticate customer
+         * @description Creates a customer and returns a customer token from a platform account.
+         */
+        post: operations["Customer_AuthenticateStorefrontCustomer"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/store/customer": {
         parameters: {
             query?: never;
@@ -118,26 +138,6 @@ export interface paths {
         get: operations["Customer_GetStorefrontGiftCard"];
         put?: never;
         post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/store/customer/auth": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Authenticate customer
-         * @description Creates a customer and returns a customer token from a platform account.
-         */
-        post: operations["Customer_AuthenticateStorefrontCustomer"];
         delete?: never;
         options?: never;
         head?: never;
@@ -276,6 +276,59 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/store/customer/subscriptions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get subscriptions
+         * @description Retrieves all subscriptions for the specified customer token.
+         *     {% hint style="warning" %}
+         *     This endpoint is only available for stores that use Steam based authentication.
+         *     {% endhint %}
+         */
+        get: operations["Subscriptions_GetSubscriptions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/store/customer/subscriptions/{subscriptionId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get subscription by ID
+         * @description Retrieves a subscription for the specified store by the supplied customer token.
+         *     {% hint style="warning" %}
+         *     This endpoint is only available for stores that use Steam based authentication.
+         *     {% endhint %}
+         */
+        get: operations["Subscriptions_GetSubscriptionById"];
+        put?: never;
+        post?: never;
+        /**
+         * Cancel subscription by ID
+         * @description Cancels a subscription for the specified store by the supplied customer token.
+         *     {% hint style="warning" %}
+         *     This endpoint is only available for stores that use Steam based authentication.
+         *     {% endhint %}
+         */
+        delete: operations["Subscriptions_CancelSubscription"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/store/tags": {
         parameters: {
             query?: never;
@@ -304,6 +357,19 @@ export interface components {
             type: components["schemas"]["PayNowActorType"];
             id?: components["schemas"]["FlakeId"];
         };
+        /** @description Alipay payment method details */
+        AlipayDetailsDto: {
+            /**
+             * @description The Alipay buyer identifier
+             * @example buyer_abc123
+             */
+            buyer_id?: null | string;
+            /**
+             * @description A unique fingerprint for this Alipay account
+             * @example fingerprint_xyz789
+             */
+            fingerprint?: null | string;
+        };
         AuthenticateStorefrontCustomerRequestDto: {
             platform: components["schemas"]["CustomerProfilePlatform"];
             /**
@@ -315,6 +381,101 @@ export interface components {
         AuthenticateStorefrontCustomerResponseDto: {
             /** @description The token for the Customer */
             customer_token: string;
+        };
+        /** @description Bancontact payment method details */
+        BancontactDetailsDto: {
+            /**
+             * @description The bank identifier
+             * @example bnp_paribas
+             */
+            bank?: null | string;
+            /**
+             * @description The bank name
+             * @example BNP Paribas
+             */
+            bank_name?: null | string;
+            /**
+             * @description The Bank Identifier Code
+             * @example GEBABEBB
+             */
+            bic?: null | string;
+            /**
+             * @description The last 4 digits of the IBAN
+             * @example 3456
+             */
+            iban_last4?: null | string;
+            /**
+             * @description The payer name
+             * @example Jean Dupont
+             */
+            payer_name?: null | string;
+        };
+        /** @description Card payment method details */
+        CardDetailsDto: {
+            /**
+             * @description The card brand
+             * @example visa
+             */
+            brand: string;
+            /**
+             * @description The country code where the card was issued
+             * @example US
+             */
+            country: string;
+            /**
+             * Format: int32
+             * @description The card expiration month
+             * @example 12
+             */
+            exp_month: number;
+            /**
+             * Format: int32
+             * @description The card expiration year
+             * @example 2028
+             */
+            exp_year: number;
+            /**
+             * @description A unique fingerprint for this card
+             * @example abc123def456
+             */
+            fingerprint: string;
+            /**
+             * @description The card funding type
+             * @example credit
+             */
+            funding: string;
+            /**
+             * @description The last 4 digits of the card number
+             * @example 4242
+             */
+            last4: string;
+            /**
+             * @description The Bank Identification Number (first 6/8 digits of card).
+             *     Only available internally.
+             * @example 424242
+             */
+            bin?: null | string;
+            /**
+             * @description The card issuer/bank name.
+             *     Only available internally.
+             * @example Chase Bank
+             */
+            issuer?: null | string;
+            /**
+             * @description The card description.
+             *     Only available internally.
+             * @example Visa Signature
+             */
+            description?: null | string;
+            wallet?: components["schemas"]["CardWalletDto"];
+        };
+        /** @description Digital wallet details for a card */
+        CardWalletDto: {
+            /**
+             * @description The type of digital wallet
+             * @example apple_pay
+             */
+            type: string;
         };
         /** @description Represents a customer's shopping cart */
         CartDto: {
@@ -378,6 +539,19 @@ export interface components {
             gift_to_customer?: components["schemas"]["CustomerDto"];
             gift_to_customer_id?: components["schemas"]["FlakeId"];
         };
+        /** @description Cash App payment method details */
+        CashAppDetailsDto: {
+            /**
+             * @description The Cash App buyer identifier
+             * @example buyer_abc123
+             */
+            buyer_id: string;
+            /**
+             * @description The Cash App cashtag
+             * @example $johndoe
+             */
+            cashtag: string;
+        };
         /** @description Request to create a new checkout session from a cart */
         CreateCartCheckoutSessionDto: {
             coupon_id?: components["schemas"]["FlakeId"];
@@ -438,6 +612,46 @@ export interface components {
             token: string;
             /** @description The URL to redirect the customer to complete checkout */
             url: string;
+        };
+        /** @description Cryptocurrency payment method details */
+        CryptoDetailsDto: {
+            /**
+             * @description The cryptocurrency used
+             * @example BTC
+             */
+            crypto_currency: string;
+            /**
+             * @description The amount in cryptocurrency
+             * @example 0.00150000
+             */
+            crypto_amount: string;
+            /**
+             * @description The total amount paid in cryptocurrency
+             * @example 0.00150000
+             */
+            total_paid: string;
+            /**
+             * Format: int32
+             * @description The number of blockchain confirmations
+             * @example 6
+             */
+            confirmations: number;
+        };
+        CustomVariableLineItemDto: {
+            id: components["schemas"]["FlakeId"];
+            /** @description The identifier used to reference this custom variable (e.g., "color", "size"). */
+            identifier: string;
+            /** @description The display name of the custom variable shown to users. */
+            name: string;
+            /** @description A detailed description of what this custom variable represents. */
+            description: string;
+            /**
+             * Format: int64
+             * @description The price associated with this custom variable in the smallest currency unit (e.g., cents).
+             */
+            price: number;
+            /** @description The selected value for this custom variable. */
+            value: string;
         };
         /**
          * @description Defines the type of input method for a custom variable.
@@ -536,6 +750,50 @@ export interface components {
             /** @description The URL to the user's avatar image on this platform. */
             avatar_url?: null | string;
         };
+        /** @description iDEAL payment method details */
+        IdealDetailsDto: {
+            /**
+             * @description The bank identifier
+             * @example abn_amro
+             */
+            bank: string;
+            /**
+             * @description The Bank Identifier Code
+             * @example ABNANL2A
+             */
+            bic: string;
+            /**
+             * @description The last 4 digits of the IBAN
+             * @example 1234
+             */
+            iban_last4?: null | string;
+            /**
+             * @description The payer name
+             * @example John Doe
+             */
+            payer_name?: null | string;
+        };
+        /** @description Klarna payment method details */
+        KlarnaDetailsDto: {
+            /**
+             * @description The country code
+             * @example SE
+             */
+            country?: null | string;
+            /**
+             * @description The Klarna payment method category
+             * @example pay_later
+             */
+            method_category?: null | string;
+        };
+        /** @description Link payment method details */
+        LinkDetailsDto: {
+            /**
+             * @description The email associated with the Link account
+             * @example john.doe@example.com
+             */
+            email: string;
+        };
         /** @description Represents a Minecraft profile for a customer. */
         MinecraftProfileDto: {
             /**
@@ -552,6 +810,42 @@ export interface components {
             name: string;
             /** @description The URL to the player's Minecraft skin rendered as an avatar. */
             avatar_url: string;
+        };
+        /** @description Przelewy24 payment method details */
+        P24DetailsDto: {
+            /**
+             * @description The bank identifier
+             * @example ing
+             */
+            bank: string;
+            /**
+             * @description The payer name
+             * @example Jan Kowalski
+             */
+            payer_name?: null | string;
+        };
+        /** @description Pay by Bank payment method details */
+        PayByBankDetailsDto: {
+            /**
+             * @description The bank name
+             * @example Chase Bank
+             */
+            bank_name?: null | string;
+            /**
+             * @description The Bank Identifier Code
+             * @example CHASUS33
+             */
+            bic?: null | string;
+            /**
+             * @description The country code
+             * @example US
+             */
+            country?: null | string;
+            /**
+             * @description The payer name
+             * @example John Smith
+             */
+            payer_name?: null | string;
         };
         /** @enum {string} */
         PayNowActorType: "anonymous" | "user" | "api_key" | "customer" | "game_server" | "internal" | "admin" | "platform" | "global_customer";
@@ -580,6 +874,115 @@ export interface components {
             trace_id?: null | string;
             /** @description An array of multiple errors. Only used by some API services. */
             errors?: null | components["schemas"]["ValidationError"][];
+        };
+        /** @description PayPal payment method details */
+        PayPalDetailsDto: {
+            /**
+             * @description The PayPal payer identifier
+             * @example PAYERID123
+             */
+            payer_id: string;
+            /**
+             * @description The PayPal account email
+             * @example john.doe@example.com
+             */
+            payer_email: string;
+            /**
+             * @description The PayPal account holder name
+             * @example John Doe
+             */
+            payer_name: string;
+            /**
+             * @description The country code of the PayPal account
+             * @example US
+             */
+            country: string;
+            /**
+             * @description Indicates if this PayPal account is vaulted
+             * @example true
+             */
+            vault: boolean;
+            /**
+             * @description Indicates if vault approval is pending
+             * @example false
+             */
+            pending_vault_approval?: null | boolean;
+            /**
+             * @description Indicates if this is a standalone setup
+             * @example false
+             */
+            standalone_setup?: null | boolean;
+        };
+        /** @description Contains detailed information about a payment method.
+         *     DISCLAIMER: These fields are not guaranteed to be backwards compatible and may change or be removed without notice. */
+        PaymentMethodDetailsDto: {
+            card?: components["schemas"]["CardDetailsDto"];
+            cashapp?: components["schemas"]["CashAppDetailsDto"];
+            paypal?: components["schemas"]["PayPalDetailsDto"];
+            link?: components["schemas"]["LinkDetailsDto"];
+            crypto?: components["schemas"]["CryptoDetailsDto"];
+            steamskins?: components["schemas"]["SteamSkinsDetailsDto"];
+            ideal?: components["schemas"]["IdealDetailsDto"];
+            p24?: components["schemas"]["P24DetailsDto"];
+            bancontact?: components["schemas"]["BancontactDetailsDto"];
+            klarna?: components["schemas"]["KlarnaDetailsDto"];
+            alipay?: components["schemas"]["AlipayDetailsDto"];
+            pay_by_bank?: components["schemas"]["PayByBankDetailsDto"];
+            pix?: components["schemas"]["PixDetailsDto"];
+        };
+        /** @description Represents a stored payment method */
+        PaymentMethodDto: {
+            id: components["schemas"]["FlakeId"];
+            customer_id: components["schemas"]["FlakeId"];
+            /** @description The payment gateway provider */
+            gateway: string;
+            /** @description The gateway's identifier for this payment method */
+            gateway_id: string;
+            /** @description The gateway's customer identifier */
+            gateway_customer_id: string;
+            /**
+             * @description The gateway-specific type identifier
+             * @example card
+             */
+            gateway_type: string;
+            /**
+             * @description The payment method type
+             * @example card
+             */
+            method_type: string;
+            method_details: components["schemas"]["PaymentMethodDetailsDto"];
+            /**
+             * Format: date-time
+             * @description The date and time when this payment method was created
+             * @example 2025-03-15T10:20:30Z
+             */
+            created_at: string;
+            /** @description The gateway entity identifier */
+            gateway_entity_identifier: string;
+            /**
+             * Format: date-time
+             * @description The date and time when this payment method was last updated
+             * @example 2025-03-20T14:30:00Z
+             */
+            updated_at?: null | string;
+        };
+        /** @description Pix payment method details */
+        PixDetailsDto: {
+            /**
+             * @description The bank name
+             * @example Banco do Brasil
+             */
+            bank_name?: null | string;
+            /**
+             * @description The bank account number
+             * @example 12345-6
+             */
+            bank_account_number?: null | string;
+            /**
+             * @description The payer name
+             * @example João Silva
+             */
+            payer_name?: null | string;
         };
         /** @enum {string} */
         PlatformCapability: "invalid" | "connected_users";
@@ -645,6 +1048,11 @@ export interface components {
              */
             name: string;
         };
+        /**
+         * @description Describes how proration is handled when a subscription change is applied.
+         * @enum {string}
+         */
+        ProrationBehaviorDto: "invalid" | "immediate" | "next_billing_period" | "none";
         PublicPlatformDto: {
             id: components["schemas"]["FlakeId"];
             slug: string;
@@ -666,6 +1074,30 @@ export interface components {
         };
         /** @enum {string} */
         SaleDiscountType: "percent" | "amount";
+        /** @description Object representing a sales tax jurisdiction and its associated taxes. */
+        SalesTaxJurisdictionDto: {
+            /**
+             * @description The name of the tax jurisdiction.
+             * @example EU OSS
+             */
+            name: string;
+            /** @description List of taxes applied within this jurisdiction. */
+            taxes: components["schemas"]["SalesTaxJurisdictionTaxDto"][];
+            /** @description Explanation for why taxes are not applied, if applicable.
+             *     This property is null when taxes are applied. */
+            not_taxed_reason?: null | string;
+        };
+        /** @description Object representing a specific tax within a sales tax jurisdiction. */
+        SalesTaxJurisdictionTaxDto: {
+            /** @description The name of the tax. */
+            tax_name: string;
+            /** @description The amount subject to taxation, formatted as a string. */
+            taxable_amount: string;
+            /** @description The calculated tax amount, formatted as a string. */
+            tax_amount: string;
+            /** @description The rate at which the tax is applied, formatted as a string. */
+            tax_rate: string;
+        };
         /**
          * Format: steam-id
          * @description A 64-bit Steam account identifier. Accepts string or numeric format.
@@ -679,6 +1111,32 @@ export interface components {
             name: string;
             /** @description The URL to the user's Steam avatar image. */
             avatar_url: string;
+        };
+        /** @description Steam Skins payment method details */
+        SteamSkinsDetailsDto: {
+            /** @description The list of Steam inventory items used for payment */
+            items: components["schemas"]["SteamSkinsInventoryItemDetailsDto"][];
+        };
+        SteamSkinsInventoryItemDetailsDto: {
+            /** @description The unique identifier of the Steam item */
+            id: string;
+            /**
+             * Format: int32
+             * @description The Steam app ID
+             * @example 730
+             */
+            app_id: number;
+            /**
+             * @description The name of the item
+             * @example AK-47 | Redline
+             */
+            name: string;
+            /**
+             * Format: int32
+             * @description The price of the item in the smallest currency unit
+             * @example 2500
+             */
+            price: number;
         };
         /** @description Represents a PayNow store and its associated configuration. */
         StoreDto: {
@@ -1273,6 +1731,597 @@ export interface components {
              */
             updated_at?: null | string;
         };
+        /** @description Represents a billing amount breakdown for a subscription. */
+        SubscriptionBillingAmountDto: {
+            /** @description ISO 4217 currency code, in lowercase. */
+            currency: string;
+            /**
+             * Format: int64
+             * @description Base amount before discounts or tax, in smallest currency units.
+             */
+            subtotal: number;
+            /**
+             * Format: int64
+             * @description Total discount applied, in smallest currency units.
+             */
+            discount: number;
+            /**
+             * Format: int64
+             * @description Tax amount, in smallest currency units.
+             */
+            tax: number;
+            /**
+             * Format: int64
+             * @description Amount due after discounts and tax, in smallest currency units.
+             */
+            total: number;
+        };
+        /** @description Pricing breakdown for a subscription change, in the smallest units of the given currency (e.g. cents). */
+        SubscriptionChangeAmountDto: {
+            /** @description ISO 4217 currency code, in lowercase. */
+            currency: string;
+            /**
+             * Format: int64
+             * @description Base amount before discounts or tax, in smallest currency units.
+             */
+            subtotal: number;
+            /**
+             * Format: int64
+             * @description Total discount applied, in smallest currency units.
+             */
+            discount: number;
+            /**
+             * Format: int64
+             * @description Tax amount, in smallest currency units.
+             */
+            tax: number;
+            /**
+             * Format: int64
+             * @description Amount due after discounts and tax, in smallest currency units.
+             */
+            total: number;
+        };
+        /** @description A pending or applied change to a subscription. */
+        SubscriptionChangeDto: {
+            id: components["schemas"]["FlakeId"];
+            subscription_id: components["schemas"]["FlakeId"];
+            prorated_order_id?: components["schemas"]["FlakeId"];
+            status: components["schemas"]["SubscriptionChangeStatusDto"];
+            proration_behavior: components["schemas"]["ProrationBehaviorDto"];
+            /** @description Whether this change was initiated without active customer interaction. */
+            off_session: boolean;
+            prorated_amount: components["schemas"]["SubscriptionChangeProratedAmountDto"];
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            applied_at?: null | string;
+            lines: components["schemas"]["SubscriptionChangeLineDto"][];
+            next_billing_amount: components["schemas"]["SubscriptionChangeAmountDto"];
+            next_billing_presentment_amount: components["schemas"]["SubscriptionChangeAmountDto"];
+        };
+        /** @description Pricing breakdown for a single subscription change line, in the smallest units of the given currency (e.g. cents). */
+        SubscriptionChangeLineAmountDto: {
+            /** @description ISO 4217 currency code in lowercase. */
+            currency: string;
+            /**
+             * Format: int64
+             * @description Base amount before discounts or tax, in smallest currency units.
+             */
+            subtotal: number;
+            /**
+             * Format: int64
+             * @description Total discount applied, in smallest currency units.
+             */
+            discount: number;
+            /**
+             * Format: int64
+             * @description Tax amount, in smallest currency units.
+             */
+            tax: number;
+            /**
+             * Format: int64
+             * @description Amount due after discounts and tax, in smallest currency units.
+             */
+            total: number;
+        };
+        /** @description A single line item within a subscription change. */
+        SubscriptionChangeLineDto: {
+            id: components["schemas"]["FlakeId"];
+            subscription_line_id?: components["schemas"]["FlakeId"];
+            /** @description Whether this line is being removed by the change. */
+            is_deleted: boolean;
+            /** @description Whether tax is included in the base price. */
+            tax_inclusive: boolean;
+            /**
+             * Format: int64
+             * @description Base price in smallest settlement currency units.
+             */
+            price: number;
+            product: components["schemas"]["SubscriptionChangeLineProductDto"];
+            amount: components["schemas"]["SubscriptionChangeLineAmountDto"];
+            presentment_amount: components["schemas"]["SubscriptionChangeLineAmountDto"];
+            /**
+             * Format: int64
+             * @description Prorated charge for this line in smallest settlement currency units.
+             */
+            prorated_amount: number;
+            /**
+             * Format: int64
+             * @description Prorated charge for this line in smallest presentment currency units.
+             */
+            prorated_presentment_amount: number;
+            /**
+             * Format: int64
+             * @description Minutes remaining in the billing period at the time of change - used to calculate proration.
+             */
+            remaining_minutes: number;
+            /**
+             * Format: int64
+             * @description Total minutes in the billing period - used to calculate proration.
+             */
+            total_minutes: number;
+        };
+        /** @description The product associated with a subscription change line. */
+        SubscriptionChangeLineProductDto: {
+            id: components["schemas"]["FlakeId"];
+            version_id: components["schemas"]["FlakeId"];
+            /** @description Display name of the product. */
+            name: string;
+            /** @description URL of the product image, if set. */
+            image_url?: null | string;
+            selected_gameserver_id?: components["schemas"]["FlakeId"];
+            /** @description The pricing region used to determine the price, if applicable. */
+            pricing_region_id?: null | string;
+            /** @description Custom variables set on this line item, keyed by variable identifier. */
+            custom_variables: {
+                [key: string]: components["schemas"]["CustomVariableLineItemDto"];
+            };
+        };
+        /** @description The total prorated charge for a subscription change, expressed in both settlement and presentment currencies. */
+        SubscriptionChangeProratedAmountDto: {
+            /** @description ISO 4217 settlement currency code, in lowercase. */
+            currency: string;
+            /**
+             * Format: int64
+             * @description Total prorated charge in smallest settlement currency units, including tax.
+             */
+            prorated_amount: number;
+            /** @description ISO 4217 presentment currency code, in lowercase. */
+            presentment_currency: string;
+            /**
+             * Format: int64
+             * @description Total prorated charge in smallest presentment currency units, including tax.
+             */
+            presentment_prorated_amount: number;
+        };
+        /**
+         * @description Represents the status of a subscription change.
+         * @enum {string}
+         */
+        SubscriptionChangeStatusDto: "invalid" | "pending_payment" | "pending_renewal" | "applied" | "canceled";
+        /** @description Data transfer object representing a store subscription. */
+        SubscriptionDto: {
+            id: components["schemas"]["FlakeId"];
+            /** @description Human-readable identifier for the subscription. */
+            pretty_id: string;
+            store_id: components["schemas"]["FlakeId"];
+            store?: components["schemas"]["StorefrontStoreDto"];
+            customer: components["schemas"]["CustomerDto"];
+            payment_method_id?: components["schemas"]["FlakeId"];
+            payment_method?: components["schemas"]["PaymentMethodDto"];
+            pending_change?: components["schemas"]["SubscriptionChangeDto"];
+            next_billing_amount: components["schemas"]["SubscriptionBillingAmountDto"];
+            next_billing_presentment_amount: components["schemas"]["SubscriptionBillingAmountDto"];
+            status: components["schemas"]["SubscriptionStatus"];
+            coupon_id?: components["schemas"]["FlakeId"];
+            /**
+             * Format: date-time
+             * @description Date when a repeating coupon ends for this subscription.
+             */
+            coupon_repeating_ends_at?: null | string;
+            affiliate_id?: components["schemas"]["FlakeId"];
+            checkout_id?: components["schemas"]["FlakeId"];
+            checkout_line_id?: components["schemas"]["FlakeId"];
+            /** @description Name used for billing purposes. */
+            billing_name?: null | string;
+            /** @description Email used for billing purposes. */
+            billing_email?: null | string;
+            /** @description Country code used for billing purposes. */
+            billing_country?: null | string;
+            /** @description List of tax jurisdictions applicable to this subscription. */
+            tax_jurisdictions: components["schemas"]["SalesTaxJurisdictionDto"][];
+            /** @description IP address of the customer at the time of subscription. */
+            customer_ip?: null | string;
+            /**
+             * @deprecated
+             * @description Indicates whether this subscription is a gift.
+             */
+            readonly gift: boolean;
+            gift_to_customer_id?: components["schemas"]["FlakeId"];
+            gift_to_customer?: components["schemas"]["CustomerDto"];
+            product_id?: components["schemas"]["FlakeId"];
+            product_version_id?: components["schemas"]["FlakeId"];
+            /**
+             * @deprecated
+             * @description Name of the product associated with this subscription.
+             */
+            readonly product_name?: null | string;
+            /**
+             * @deprecated
+             * @description URL for the product image.
+             */
+            readonly product_image_url?: null | string;
+            /**
+             * Format: int32
+             * @description Numeric value of the billing interval.
+             */
+            interval_value: number;
+            interval_scale: components["schemas"]["ProductSubscriptionIntervalScale"];
+            /** @description Currency code used for billing this subscription. */
+            currency: string;
+            /**
+             * @deprecated
+             * @description Indicates whether tax is included in the base price itself.
+             */
+            readonly tax_inclusive: boolean;
+            /**
+             * Format: int64
+             * @deprecated
+             * @description Base price of the subscription in smallest currency units (e.g., cents).
+             */
+            readonly price: number;
+            /**
+             * @deprecated
+             * @description Formatted string representation of the price.
+             */
+            readonly price_str?: null | string;
+            /**
+             * Format: int64
+             * @description Amount of discount applied in smallest currency units.
+             */
+            discount_amount: number;
+            /** @description Formatted string representation of the discount amount. */
+            readonly discount_amount_str: string;
+            /**
+             * Format: int64
+             * @description Subtotal amount in smallest currency units.
+             */
+            subtotal_amount: number;
+            /** @description Formatted string representation of the subtotal amount. */
+            readonly subtotal_amount_str: string;
+            /**
+             * Format: int64
+             * @description Tax amount in smallest currency units.
+             */
+            tax_amount: number;
+            /** @description Formatted string representation of the tax amount. */
+            readonly tax_amount_str: string;
+            /**
+             * Format: int64
+             * @description Total amount in smallest currency units.
+             */
+            total_amount: number;
+            /** @description Formatted string representation of the total amount. */
+            readonly total_amount_str: string;
+            /**
+             * Format: int64
+             * @description Initial discount amount in smallest currency units for the first billing cycle.
+             */
+            initial_discount_amount: number;
+            /** @description Formatted string representation of the initial discount amount. */
+            readonly initial_discount_amount_str: string;
+            /**
+             * Format: int64
+             * @description Initial subtotal amount in smallest currency units for the first billing cycle.
+             */
+            initial_subtotal_amount: number;
+            /** @description Formatted string representation of the initial subtotal amount. */
+            readonly initial_subtotal_amount_str: string;
+            /**
+             * Format: int64
+             * @description Initial gift card usage amount in smallest currency units.
+             */
+            initial_giftcard_usage_amount: number;
+            /** @description Formatted string representation of the initial gift card usage amount. */
+            readonly initial_giftcard_usage_amount_str: string;
+            /**
+             * Format: int64
+             * @description Initial tax amount in smallest currency units for the first billing cycle.
+             */
+            initial_tax_amount: number;
+            /** @description Formatted string representation of the initial tax amount. */
+            readonly initial_tax_amount_str: string;
+            /**
+             * Format: int64
+             * @description Initial total amount in smallest currency units for the first billing cycle.
+             */
+            initial_total_amount: number;
+            /** @description Formatted string representation of the initial total amount. */
+            readonly initial_total_amount_str: string;
+            /** @description Presentment currency code (currency shown to customer). */
+            presentment_currency?: null | string;
+            /**
+             * Format: int64
+             * @description Presentment subtotal amount in smallest currency units.
+             */
+            presentment_subtotal_amount?: null | number;
+            /** @description Formatted string representation of the presentment subtotal amount. */
+            readonly presentment_subtotal_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Presentment discount amount in smallest currency units.
+             */
+            presentment_discount_amount?: null | number;
+            /** @description Formatted string representation of the presentment discount amount. */
+            readonly presentment_discount_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Presentment tax amount in smallest currency units.
+             */
+            presentment_tax_amount?: null | number;
+            /** @description Formatted string representation of the presentment tax amount. */
+            readonly presentment_tax_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Presentment total amount in smallest currency units.
+             */
+            presentment_total_amount?: null | number;
+            /** @description Formatted string representation of the presentment total amount. */
+            readonly presentment_total_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment discount amount in smallest currency units for the first billing cycle.
+             */
+            initial_presentment_discount_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment discount amount. */
+            readonly initial_presentment_discount_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment subtotal amount in smallest currency units for the first billing cycle.
+             */
+            initial_presentment_subtotal_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment subtotal amount. */
+            readonly initial_presentment_subtotal_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment gift card usage amount in smallest currency units.
+             */
+            initial_presentment_giftcard_usage_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment gift card usage amount. */
+            readonly initial_presentment_giftcard_usage_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment tax amount in smallest currency units for the first billing cycle.
+             */
+            initial_presentment_tax_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment tax amount. */
+            readonly initial_presentment_tax_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment total amount in smallest currency units for the first billing cycle.
+             */
+            initial_presentment_total_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment total amount. */
+            readonly initial_presentment_total_amount_str?: null | string;
+            /** @description The foreign exchange rate applied (if presentment currency differs from settlement currency). */
+            fx_rate?: null | string;
+            /**
+             * @deprecated
+             * @description Identifier for the pricing region associated with this subscription.
+             */
+            readonly pricing_region_id?: null | string;
+            /**
+             * Format: date-time
+             * @description Start date of the current billing period.
+             */
+            current_period_start?: null | string;
+            /**
+             * Format: date-time
+             * @description End date of the current billing period.
+             */
+            current_period_end?: null | string;
+            /**
+             * Format: int32
+             * @description Sequence number of the current billing cycle.
+             */
+            billing_cycle_sequence?: null | number;
+            /**
+             * Format: date-time
+             * @description Date and time when the next payment attempt will occur.
+             */
+            next_attempt_at?: null | string;
+            /**
+             * Format: int32
+             * @description Number of payment attempts made for the current billing cycle.
+             */
+            attempt_count?: null | number;
+            /**
+             * Format: date-time
+             * @description Date and time when the subscription was created.
+             */
+            created_at: string;
+            /**
+             * Format: date-time
+             * @description Date and time when the subscription was last updated.
+             */
+            updated_at?: null | string;
+            /**
+             * Format: date-time
+             * @description Date and time when the subscription became active.
+             */
+            active_at?: null | string;
+            /**
+             * Format: date-time
+             * @description Date and time when the subscription was canceled.
+             */
+            canceled_at?: null | string;
+            /** @description Reason provided for cancellation. */
+            cancel_reason?: null | string;
+            /** @description Line items associated with this subscription. */
+            lines: components["schemas"]["SubscriptionLineDto"][];
+        };
+        /** @description Represents a line item within a subscription. */
+        SubscriptionLineDto: {
+            id: components["schemas"]["FlakeId"];
+            subscription_id: components["schemas"]["FlakeId"];
+            checkout_line_id?: components["schemas"]["FlakeId"];
+            initial_order_line_id?: components["schemas"]["FlakeId"];
+            /** @description Identifier for the pricing region associated with this subscription line. */
+            pricing_region_id?: null | string;
+            gift_to_customer_id?: components["schemas"]["FlakeId"];
+            gift_to_customer?: components["schemas"]["CustomerDto"];
+            selected_gameserver_id?: components["schemas"]["FlakeId"];
+            sale_id?: components["schemas"]["FlakeId"];
+            trial_id?: components["schemas"]["FlakeId"];
+            product_id: components["schemas"]["FlakeId"];
+            product_version_id: components["schemas"]["FlakeId"];
+            /** @description Name of the product associated with this subscription line. */
+            product_name: string;
+            /** @description URL for the product image. */
+            product_image_url?: null | string;
+            /** @description Indicates whether tax is included in the base price itself. */
+            tax_inclusive: boolean;
+            /** @description Currency code for this subscription line. */
+            currency: string;
+            /**
+             * Format: int64
+             * @description Base price of the subscription line in smallest currency units (e.g., cents).
+             */
+            price: number;
+            /**
+             * Format: int64
+             * @description Amount of discount applied in smallest currency units.
+             */
+            discount_amount: number;
+            /** @description Formatted string representation of the discount amount. */
+            readonly discount_amount_str: string;
+            /**
+             * Format: int64
+             * @description Subtotal amount in smallest currency units.
+             */
+            subtotal_amount: number;
+            /** @description Formatted string representation of the subtotal amount. */
+            readonly subtotal_amount_str: string;
+            /**
+             * Format: int64
+             * @description Tax amount in smallest currency units.
+             */
+            tax_amount: number;
+            /** @description Formatted string representation of the tax amount. */
+            readonly tax_amount_str: string;
+            /**
+             * Format: int64
+             * @description Total amount in smallest currency units.
+             */
+            total_amount: number;
+            /** @description Formatted string representation of the total amount. */
+            readonly total_amount_str: string;
+            /**
+             * Format: int64
+             * @description Initial discount amount in smallest currency units for the first billing cycle.
+             */
+            initial_discount_amount: number;
+            /** @description Formatted string representation of the initial discount amount. */
+            readonly initial_discount_amount_str: string;
+            /**
+             * Format: int64
+             * @description Initial subtotal amount in smallest currency units for the first billing cycle.
+             */
+            initial_subtotal_amount: number;
+            /** @description Formatted string representation of the initial subtotal amount. */
+            readonly initial_subtotal_amount_str: string;
+            /**
+             * Format: int64
+             * @description Initial gift card usage amount in smallest currency units.
+             */
+            initial_giftcard_usage_amount: number;
+            /** @description Formatted string representation of the initial gift card usage amount. */
+            readonly initial_giftcard_usage_amount_str: string;
+            /**
+             * Format: int64
+             * @description Initial tax amount in smallest currency units for the first billing cycle.
+             */
+            initial_tax_amount: number;
+            /** @description Formatted string representation of the initial tax amount. */
+            readonly initial_tax_amount_str: string;
+            /**
+             * Format: int64
+             * @description Initial total amount in smallest currency units for the first billing cycle.
+             */
+            initial_total_amount: number;
+            /** @description Formatted string representation of the initial total amount. */
+            readonly initial_total_amount_str: string;
+            /** @description Presentment currency code (currency shown to customer). */
+            presentment_currency?: null | string;
+            /**
+             * Format: int64
+             * @description Presentment subtotal amount in smallest currency units.
+             */
+            presentment_subtotal_amount?: null | number;
+            /** @description Formatted string representation of the presentment subtotal amount. */
+            readonly presentment_subtotal_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Presentment discount amount in smallest currency units.
+             */
+            presentment_discount_amount?: null | number;
+            /** @description Formatted string representation of the presentment discount amount. */
+            readonly presentment_discount_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Presentment tax amount in smallest currency units.
+             */
+            presentment_tax_amount?: null | number;
+            /** @description Formatted string representation of the presentment tax amount. */
+            readonly presentment_tax_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Presentment total amount in smallest currency units.
+             */
+            presentment_total_amount?: null | number;
+            /** @description Formatted string representation of the presentment total amount. */
+            readonly presentment_total_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment discount amount in smallest currency units for the first billing cycle.
+             */
+            initial_presentment_discount_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment discount amount. */
+            readonly initial_presentment_discount_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment subtotal amount in smallest currency units for the first billing cycle.
+             */
+            initial_presentment_subtotal_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment subtotal amount. */
+            readonly initial_presentment_subtotal_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment gift card usage amount in smallest currency units.
+             */
+            initial_presentment_giftcard_usage_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment gift card usage amount. */
+            readonly initial_presentment_giftcard_usage_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment tax amount in smallest currency units for the first billing cycle.
+             */
+            initial_presentment_tax_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment tax amount. */
+            readonly initial_presentment_tax_amount_str?: null | string;
+            /**
+             * Format: int64
+             * @description Initial presentment total amount in smallest currency units for the first billing cycle.
+             */
+            initial_presentment_total_amount?: null | number;
+            /** @description Formatted string representation of the initial presentment total amount. */
+            readonly initial_presentment_total_amount_str?: null | string;
+        };
+        /**
+         * @description Represents the current state of a subscription.
+         * @enum {string}
+         */
+        SubscriptionStatus: "invalid" | "created" | "active" | "canceled";
         TrustStoreRequirementDto: {
             id: components["schemas"]["FlakeId"];
             store_id: components["schemas"]["FlakeId"];
@@ -1640,6 +2689,46 @@ export interface operations {
             };
         };
     };
+    Customer_AuthenticateStorefrontCustomer: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description The IP address (IPv4 or IPv6) of the customer. Required if the request is not being made from the customer's browser. */
+                "x-paynow-customer-ip"?: string;
+                /** @description The customer's country code in ISO 3166-1 alpha-2 format. Optional, but recommended if you have this available. */
+                "x-paynow-customer-countrycode"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["AuthenticateStorefrontCustomerRequestDto"];
+                "text/json": components["schemas"]["AuthenticateStorefrontCustomerRequestDto"];
+                "application/*+json": components["schemas"]["AuthenticateStorefrontCustomerRequestDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuthenticateStorefrontCustomerResponseDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
     Customer_GetStorefrontCustomer: {
         parameters: {
             query?: never;
@@ -1687,46 +2776,6 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["StorefrontGiftCardDto"];
-                };
-            };
-            /** @description Error response */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PayNowError"];
-                };
-            };
-        };
-    };
-    Customer_AuthenticateStorefrontCustomer: {
-        parameters: {
-            query?: never;
-            header?: {
-                /** @description The IP address (IPv4 or IPv6) of the customer. Required if the request is not being made from the customer's browser. */
-                "x-paynow-customer-ip"?: string;
-                /** @description The customer's country code in ISO 3166-1 alpha-2 format. Optional, but recommended if you have this available. */
-                "x-paynow-customer-countrycode"?: string;
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["AuthenticateStorefrontCustomerRequestDto"];
-                "text/json": components["schemas"]["AuthenticateStorefrontCustomerRequestDto"];
-                "application/*+json": components["schemas"]["AuthenticateStorefrontCustomerRequestDto"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AuthenticateStorefrontCustomerResponseDto"];
                 };
             };
             /** @description Error response */
@@ -1962,6 +3011,121 @@ export interface operations {
             };
         };
     };
+    Subscriptions_GetSubscriptions: {
+        parameters: {
+            query?: {
+                customer_id?: components["schemas"]["FlakeId"];
+                subscription_id?: components["schemas"]["FlakeId"];
+                billing_email?: string;
+                payment_method_id?: components["schemas"]["FlakeId"];
+                checkout_id?: components["schemas"]["FlakeId"];
+                trial_id?: components["schemas"]["FlakeId"];
+                status?: components["schemas"]["SubscriptionStatus"][];
+                /** @description The maximum number of items to return in a single request. */
+                limit?: number;
+                /**
+                 * @description Returns items after the specified ID.
+                 *     Used for forward pagination through results.
+                 * @example null
+                 */
+                after?: components["schemas"]["FlakeId"];
+                /**
+                 * @description Returns items before the specified ID.
+                 *     Used for backward pagination through results.
+                 * @example null
+                 */
+                before?: components["schemas"]["FlakeId"];
+                /** @description Determines the sort order of returned items.
+                 *     When true, items are returned in ascending order.
+                 *     When false, items are returned in descending order. */
+                asc?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SubscriptionDto"][];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Subscriptions_GetSubscriptionById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                subscriptionId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SubscriptionDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    Subscriptions_CancelSubscription: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                subscriptionId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
     Tags_GetStorefrontTags: {
         parameters: {
             query?: never;
@@ -2015,6 +3179,10 @@ export const operationMappings = {
     "method": "POST",
     "path": "/v1/checkouts"
   },
+  "Customer_AuthenticateStorefrontCustomer": {
+    "method": "POST",
+    "path": "/v1/store/customer/auth"
+  },
   "Customer_GetStorefrontCustomer": {
     "method": "GET",
     "path": "/v1/store/customer"
@@ -2022,10 +3190,6 @@ export const operationMappings = {
   "Customer_GetStorefrontGiftCard": {
     "method": "GET",
     "path": "/v1/store/customer/giftcards/lookup/{code}"
-  },
-  "Customer_AuthenticateStorefrontCustomer": {
-    "method": "POST",
-    "path": "/v1/store/customer/auth"
   },
   "Delivery_GetStorefrontCustomerDeliveryItems": {
     "method": "GET",
@@ -2050,6 +3214,18 @@ export const operationMappings = {
   "Store_GetStorefrontStore": {
     "method": "GET",
     "path": "/v1/store"
+  },
+  "Subscriptions_GetSubscriptions": {
+    "method": "GET",
+    "path": "/v1/store/customer/subscriptions"
+  },
+  "Subscriptions_GetSubscriptionById": {
+    "method": "GET",
+    "path": "/v1/store/customer/subscriptions/{subscriptionId}"
+  },
+  "Subscriptions_CancelSubscription": {
+    "method": "DELETE",
+    "path": "/v1/store/customer/subscriptions/{subscriptionId}"
   },
   "Tags_GetStorefrontTags": {
     "method": "GET",
