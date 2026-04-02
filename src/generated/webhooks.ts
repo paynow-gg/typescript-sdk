@@ -1487,12 +1487,16 @@ export interface webhooks {
                              * @example 411486491630370816
                              */
                             subscription_id?: null | string;
+                            /** @description Applied coupons to this order */
+                            applied_coupons: components["schemas"]["OrderCouponUsageDTO"][];
+                            /** @description Applied gift cards to this order */
+                            applied_giftcards: components["schemas"]["OrderGiftCardUsageDTO"][];
                             /**
                              * Format: flake-id
                              * @description The Flake ID of the Coupon associated with the order
                              * @example 411486491630370816
                              */
-                            coupon_id?: null | string;
+                            coupon_id: string;
                             /**
                              * @description The type of the order
                              * @example one_time
@@ -3072,6 +3076,14 @@ export interface components {
             name: string;
             avatar_url: string;
         };
+        OrderCouponUsageDTO: {
+            /**
+             * Format: flake-id
+             * @example 411486491630370816
+             */
+            coupon_id: string;
+            usage_amount: number;
+        };
         OrderDTO: {
             /**
              * Format: flake-id
@@ -3099,12 +3111,16 @@ export interface components {
              * @example 411486491630370816
              */
             subscription_id?: null | string;
+            /** @description Applied coupons to this order */
+            applied_coupons: components["schemas"]["OrderCouponUsageDTO"][];
+            /** @description Applied gift cards to this order */
+            applied_giftcards: components["schemas"]["OrderGiftCardUsageDTO"][];
             /**
              * Format: flake-id
              * @description The Flake ID of the Coupon associated with the order
              * @example 411486491630370816
              */
-            coupon_id?: null | string;
+            coupon_id: string;
             /**
              * @description The type of the order
              * @example one_time
@@ -3199,6 +3215,14 @@ export interface components {
              * @example created
              */
             status: string;
+        };
+        OrderGiftCardUsageDTO: {
+            /**
+             * Format: flake-id
+             * @example 411486491630370816
+             */
+            giftcard_id: string;
+            usage_amount: number;
         };
         OrderLineDTO: {
             /**

@@ -1914,8 +1914,11 @@ export interface components {
             next_billing_presentment_amount: components["schemas"]["SubscriptionBillingAmountDto"];
             status: components["schemas"]["SubscriptionStatus"];
             coupon_id?: components["schemas"]["FlakeId"];
+            /** @description Identifiers of coupons applied to this subscription. */
+            coupon_ids: components["schemas"]["FlakeId"][];
             /**
              * Format: date-time
+             * @deprecated
              * @description Date when a repeating coupon ends for this subscription.
              */
             coupon_repeating_ends_at?: null | string;

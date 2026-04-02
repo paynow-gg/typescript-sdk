@@ -2621,6 +2621,7 @@ export interface components {
             show_all_payment_methods_for_subscriptions: boolean;
             store_tax_inclusive_pricing: boolean;
             block_prepaid_cards: components["schemas"]["PrepaidCardsBlockingTypeDto"];
+            promo_code_stacking_behavior: components["schemas"]["StorePromoCodeStackingBehaviorDto"];
             adaptive_currency_enabled: boolean;
             show_adaptive_currency_on_storefront: boolean;
         };
@@ -3440,6 +3441,11 @@ export interface components {
             /** Format: int32 */
             order?: null | number;
         };
+        OrderCouponUsageDto: {
+            coupon_id: components["schemas"]["FlakeId"];
+            /** Format: int64 */
+            usage_amount: number;
+        };
         /** @description Represents a customer order */
         OrderDto: {
             id: components["schemas"]["FlakeId"];
@@ -3463,7 +3469,11 @@ export interface components {
             /** @description Signifies if the order is a subscription order */
             readonly is_subscription: boolean;
             coupon_id?: components["schemas"]["FlakeId"];
+            /** @description Applied coupons to this order */
+            applied_coupons: components["schemas"]["OrderCouponUsageDto"][];
             giftcard_id?: components["schemas"]["FlakeId"];
+            /** @description Applied gift cards to this order */
+            applied_giftcards: components["schemas"]["OrderGiftCardUsageDto"][];
             affiliate_id?: components["schemas"]["FlakeId"];
             /**
              * @description The billing name for this order
@@ -3627,6 +3637,11 @@ export interface components {
             /** @description A list of all tax jurisdictions that were involved in the taxation of this order. */
             tax_jurisdictions?: null | components["schemas"]["SalesTaxJurisdictionDto"][];
             last_payment_error?: components["schemas"]["LastPaymentErrorDto"];
+        };
+        OrderGiftCardUsageDto: {
+            giftcard_id: components["schemas"]["FlakeId"];
+            /** Format: int64 */
+            usage_amount: number;
         };
         /** @description Represents an order line item in a customer's order */
         OrderLineDto: {
@@ -5165,6 +5180,7 @@ export interface components {
             /** @description Whether store pricing is tax-inclusive. */
             store_tax_inclusive_pricing: boolean;
             block_prepaid_cards: components["schemas"]["PrepaidCardsBlockingTypeDto"];
+            promo_code_stacking_behavior: components["schemas"]["StorePromoCodeStackingBehaviorDto"];
             /** @description Whether the 'Adaptive Currency' feature is enabled. */
             adaptive_currency_enabled: boolean;
             /** @description Whether the displayed currency on the storefront should be the Adaptive Currency by default. */
@@ -5190,6 +5206,11 @@ export interface components {
             currency?: null | string;
             tax_inclusive?: null | boolean;
         };
+        /**
+         * @description Defines the behavior of promo code stacking.
+         * @enum {string}
+         */
+        StorePromoCodeStackingBehaviorDto: "invalid" | "disabled" | "enabled" | "gift_cards_only";
         /**
          * @description Determines the party that needs to perform or requests a verification
          * @enum {string}
@@ -5514,8 +5535,11 @@ export interface components {
             next_billing_presentment_amount: components["schemas"]["SubscriptionBillingAmountDto"];
             status: components["schemas"]["SubscriptionStatus"];
             coupon_id?: components["schemas"]["FlakeId"];
+            /** @description Identifiers of coupons applied to this subscription. */
+            coupon_ids: components["schemas"]["FlakeId"][];
             /**
              * Format: date-time
+             * @deprecated
              * @description Date when a repeating coupon ends for this subscription.
              */
             coupon_repeating_ends_at?: null | string;
@@ -6249,6 +6273,7 @@ export interface components {
             show_all_payment_methods_for_subscriptions?: boolean;
             store_tax_inclusive_pricing?: boolean;
             block_prepaid_cards?: components["schemas"]["PrepaidCardsBlockingTypeDto"];
+            promo_code_stacking_behavior?: components["schemas"]["StorePromoCodeStackingBehaviorDto"];
             adaptive_currency_enabled?: boolean;
             show_adaptive_currency_on_storefront?: boolean;
         };
