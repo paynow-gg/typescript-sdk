@@ -349,6 +349,66 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/store/tier-groups": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get customer tier groups
+         * @description Retrieves tier group state for a logged in customer. Returns an empty array if not logged in.
+         */
+        get: operations["TierGroups_GetCustomerTierGroups"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/store/tier-groups/{id}/change": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Update subscription tier group
+         * @description Upgrades or downgrades an existing subscription tier group. The customer must have an active subscription within this tier group.
+         */
+        post: operations["TierGroups_UpdateSubscriptionTierGroup"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/store/tier-groups/{id}/change/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Preview update subscription tier group
+         * @description Previews an upgrade or a downgrade an existing subscription tier group. The customer must have an active subscription within this tier group.
+         */
+        post: operations["TierGroups_UpdateSubscriptionTierGroupPreview"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -552,6 +612,17 @@ export interface components {
              */
             cashtag: string;
         };
+        /** @description Payment outcome information returned after a subscription change triggers an immediate charge. */
+        CheckoutPaymentInfoDto: {
+            /** @description Status string from the payment provider. */
+            status: string;
+            /** @description Indicates whether the payment was declined. */
+            declined: boolean;
+            /** @description The customer readable decline reason, if the payment was declined. */
+            decline_message?: null | string;
+            /** @description Checkout URL to redirect to for on-session payments. */
+            checkout_url?: null | string;
+        };
         /** @description Request to create a new checkout session from a cart */
         CreateCartCheckoutSessionDto: {
             coupon_id?: components["schemas"]["FlakeId"];
@@ -710,6 +781,30 @@ export interface components {
         };
         /** @enum {string} */
         CustomerProfilePlatform: "invalid" | "steam" | "minecraft" | "paynow_name" | "paynow" | "minecraft_java_name" | "minecraft_bedrock_name" | "xbox_xuid" | "minecraft_uuid";
+        CustomerTierGroupDto: {
+            tier_group_id: components["schemas"]["FlakeId"];
+            active_product_id: components["schemas"]["FlakeId"];
+            pending_change_product_id?: components["schemas"]["FlakeId"];
+            /**
+             * Format: date-time
+             * @description The date and time of the next subscription renewal for this tier group.
+             */
+            next_renewal_at: string;
+            /**
+             * Format: int64
+             * @description The next billing amount in the smallest currency unit (e.g., cents) in the settlement currency.
+             */
+            next_billing_amount: number;
+            /**
+             * Format: int64
+             * @description The next billing amount in the smallest currency unit (e.g., cents) in the customer-facing presentment currency.
+             */
+            next_billing_presentment_amount: number;
+            /** @description The settlement currency code (e.g., "usd"). */
+            currency: string;
+            /** @description The customer-facing presentment currency code (e.g., "eur"). */
+            presentment_currency: string;
+        };
         /** @description Represents the product information for a delivery item */
         DeliveryItemProductDto: {
             id: components["schemas"]["FlakeId"];
@@ -1529,6 +1624,8 @@ export interface components {
              * @description The date and time when the product was last updated.
              */
             updated_at?: null | string;
+            tier_group_id?: components["schemas"]["FlakeId"];
+            active_tier_group?: components["schemas"]["CustomerTierGroupDto"];
         };
         /** @description The pricing details for the product in the storefront. */
         StorefrontProductPricingDetailsDto: {
@@ -1898,7 +1995,7 @@ export interface components {
          * @description Represents the status of a subscription change.
          * @enum {string}
          */
-        SubscriptionChangeStatusDto: "invalid" | "pending_payment" | "pending_renewal" | "applied" | "canceled";
+        SubscriptionChangeStatusDto: "invalid" | "pending_payment" | "pending_renewal" | "applied" | "canceled" | "pending_verification";
         /** @description Data transfer object representing a store subscription. */
         SubscriptionDto: {
             id: components["schemas"]["FlakeId"];
@@ -2166,6 +2263,7 @@ export interface components {
         /** @description Represents a line item within a subscription. */
         SubscriptionLineDto: {
             id: components["schemas"]["FlakeId"];
+            store_id: components["schemas"]["FlakeId"];
             subscription_id: components["schemas"]["FlakeId"];
             checkout_line_id?: components["schemas"]["FlakeId"];
             initial_order_line_id?: components["schemas"]["FlakeId"];
@@ -2413,6 +2511,17 @@ export interface components {
             submitted_by_ip_address?: null | string;
             /** @description The user agent string of the client that made the submission. */
             submitted_by_user_agent?: null | string;
+        };
+        /** @description Response returned after a subscription change is initiated. */
+        UpdateSubscriptionResponseDto: {
+            subscription_change: components["schemas"]["SubscriptionChangeDto"];
+            pending_payment?: components["schemas"]["CheckoutPaymentInfoDto"];
+        };
+        UpdateSubscriptionTierRequestDto: {
+            target_product_id: components["schemas"]["FlakeId"];
+            /** @description A verification code sent to the customer's subscription billing e-mail.
+             *     Pass this if the `status` field on the `subscription_change` object equals `pending_verification`. */
+            verification_code?: null | string;
         };
         /** @description A validation error. */
         ValidationError: {
@@ -3158,6 +3267,109 @@ export interface operations {
             };
         };
     };
+    TierGroups_GetCustomerTierGroups: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerTierGroupDto"][];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    TierGroups_UpdateSubscriptionTierGroup: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["UpdateSubscriptionTierRequestDto"];
+                "text/json": components["schemas"]["UpdateSubscriptionTierRequestDto"];
+                "application/*+json": components["schemas"]["UpdateSubscriptionTierRequestDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UpdateSubscriptionResponseDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    TierGroups_UpdateSubscriptionTierGroupPreview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["UpdateSubscriptionTierRequestDto"];
+                "text/json": components["schemas"]["UpdateSubscriptionTierRequestDto"];
+                "application/*+json": components["schemas"]["UpdateSubscriptionTierRequestDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UpdateSubscriptionResponseDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
 }
 
 
@@ -3233,5 +3445,17 @@ export const operationMappings = {
   "Tags_GetStorefrontTags": {
     "method": "GET",
     "path": "/v1/store/tags"
+  },
+  "TierGroups_GetCustomerTierGroups": {
+    "method": "GET",
+    "path": "/v1/store/tier-groups"
+  },
+  "TierGroups_UpdateSubscriptionTierGroup": {
+    "method": "POST",
+    "path": "/v1/store/tier-groups/{id}/change"
+  },
+  "TierGroups_UpdateSubscriptionTierGroupPreview": {
+    "method": "POST",
+    "path": "/v1/store/tier-groups/{id}/change/preview"
   }
 } as const;

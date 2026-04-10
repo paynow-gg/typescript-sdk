@@ -1791,6 +1791,43 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/stores/{storeId}/tier-groups": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List all tier groups for a store */
+        get: operations["TierGroups_ListTierGroups"];
+        put?: never;
+        /** Create a new tier group */
+        post: operations["TierGroups_CreateTierGroup"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/stores/{storeId}/tier-groups/{tierGroupId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get a tier group by ID */
+        get: operations["TierGroups_GetTierGroup"];
+        put?: never;
+        post?: never;
+        /** Delete a tier group by ID */
+        delete: operations["TierGroups_DeleteTierGroup"];
+        options?: never;
+        head?: never;
+        /** Update a tier group by ID */
+        patch: operations["TierGroups_UpdateTierGroup"];
+        trace?: never;
+    };
     "/v1/stores/{storeId}/trials": {
         parameters: {
             query?: never;
@@ -2272,9 +2309,10 @@ export interface components {
             status: string;
             /** @description Indicates whether the payment was declined. */
             declined: boolean;
-            decline_code: components["schemas"]["PaymentDeclineCode"];
-            /** @description Client-side payment token for completing 3DS or other redirect-based flows. */
-            payment_token?: null | string;
+            /** @description The customer readable decline reason, if the payment was declined. */
+            decline_message?: null | string;
+            /** @description Checkout URL to redirect to for on-session payments. */
+            checkout_url?: null | string;
         };
         CommandAttemptDto: {
             id: components["schemas"]["FlakeId"];
@@ -2634,6 +2672,10 @@ export interface components {
             recommendation_overrides_enabled: boolean;
             recommendation_overrides: components["schemas"]["StoreUpsellRecommendationDto"][];
             checkout_style: components["schemas"]["StoreUpsellCheckoutStyleDto"];
+        };
+        CreateTierGroupRequestDto: {
+            /** @description The name of the tier group. */
+            name: string;
         };
         CreateTrialEligibilityOverrideDto: {
             product_id: components["schemas"]["FlakeId"];
@@ -3347,6 +3389,7 @@ export interface components {
             is_coupons_disabled?: null | boolean;
             /** @description Indicates if applying affiliate links should be disabled on the product. */
             is_affiliate_links_disabled?: null | boolean;
+            tier_group_id?: components["schemas"]["FlakeId"];
         };
         /** @description Klarna payment method details */
         KlarnaDetailsDto: {
@@ -4511,6 +4554,7 @@ export interface components {
             is_coupons_disabled?: null | boolean;
             /** @description Indicates if applying affiliate links should be disabled on the product. */
             is_affiliate_links_disabled?: null | boolean;
+            tier_group_id?: components["schemas"]["FlakeId"];
         };
         ProductGameServerDto: {
             id: components["schemas"]["FlakeId"];
@@ -5519,7 +5563,7 @@ export interface components {
          * @description Represents the status of a subscription change.
          * @enum {string}
          */
-        SubscriptionChangeStatusDto: "invalid" | "pending_payment" | "pending_renewal" | "applied" | "canceled";
+        SubscriptionChangeStatusDto: "invalid" | "pending_payment" | "pending_renewal" | "applied" | "canceled" | "pending_verification";
         /** @description Data transfer object representing a store subscription. */
         SubscriptionDto: {
             id: components["schemas"]["FlakeId"];
@@ -5787,6 +5831,7 @@ export interface components {
         /** @description Represents a line item within a subscription. */
         SubscriptionLineDto: {
             id: components["schemas"]["FlakeId"];
+            store_id: components["schemas"]["FlakeId"];
             subscription_id: components["schemas"]["FlakeId"];
             checkout_line_id?: components["schemas"]["FlakeId"];
             initial_order_line_id?: components["schemas"]["FlakeId"];
@@ -5968,6 +6013,24 @@ export interface components {
             /**
              * Format: date-time
              * @description When the tag was last updated.
+             */
+            updated_at?: null | string;
+            updated_by?: components["schemas"]["ActorDto"];
+        };
+        TierGroupDto: {
+            id: components["schemas"]["FlakeId"];
+            store_id: components["schemas"]["FlakeId"];
+            /** @description The name of the tier group. */
+            name: string;
+            /**
+             * Format: date-time
+             * @description When the tier group was created.
+             */
+            created_at: string;
+            created_by: components["schemas"]["ActorDto"];
+            /**
+             * Format: date-time
+             * @description When was the tier group last updated.
              */
             updated_at?: null | string;
             updated_by?: components["schemas"]["ActorDto"];
@@ -6306,6 +6369,10 @@ export interface components {
             subscription_change: components["schemas"]["SubscriptionChangeDto"];
             pending_payment?: components["schemas"]["CheckoutPaymentInfoDto"];
         };
+        UpdateTierGroupRequestDto: {
+            /** @description The name of the tier group. */
+            name: string;
+        };
         UpdateTrialEligibilityOverrideDto: {
             product_id?: components["schemas"]["FlakeId"];
             /** Format: date-time */
@@ -6462,6 +6529,7 @@ export interface components {
             is_coupons_disabled?: null | boolean;
             /** @description Indicates if applying affiliate links should be disabled on the product. */
             is_affiliate_links_disabled?: null | boolean;
+            tier_group_id?: components["schemas"]["FlakeId"];
         };
         /** @description Represents the configuration for trials of a product */
         UpsertProductTrialConfigurationDto: {
@@ -11397,6 +11465,167 @@ export interface operations {
             };
         };
     };
+    TierGroups_ListTierGroups: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TierGroupDto"][];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    TierGroups_CreateTierGroup: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["CreateTierGroupRequestDto"];
+                "text/json": components["schemas"]["CreateTierGroupRequestDto"];
+                "application/*+json": components["schemas"]["CreateTierGroupRequestDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TierGroupDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    TierGroups_GetTierGroup: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tierGroupId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TierGroupDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    TierGroups_DeleteTierGroup: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tierGroupId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
+    TierGroups_UpdateTierGroup: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tierGroupId: components["schemas"]["FlakeId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["UpdateTierGroupRequestDto"];
+                "text/json": components["schemas"]["UpdateTierGroupRequestDto"];
+                "application/*+json": components["schemas"]["UpdateTierGroupRequestDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TierGroupDto"];
+                };
+            };
+            /** @description Error response */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PayNowError"];
+                };
+            };
+        };
+    };
     Trials_GetTrials: {
         parameters: {
             query?: {
@@ -12454,6 +12683,26 @@ export const operationMappings = {
   "Tags_DeleteTagImage": {
     "method": "DELETE",
     "path": "/v1/stores/{storeId}/tags/{tagId}/image"
+  },
+  "TierGroups_ListTierGroups": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/tier-groups"
+  },
+  "TierGroups_CreateTierGroup": {
+    "method": "POST",
+    "path": "/v1/stores/{storeId}/tier-groups"
+  },
+  "TierGroups_GetTierGroup": {
+    "method": "GET",
+    "path": "/v1/stores/{storeId}/tier-groups/{tierGroupId}"
+  },
+  "TierGroups_UpdateTierGroup": {
+    "method": "PATCH",
+    "path": "/v1/stores/{storeId}/tier-groups/{tierGroupId}"
+  },
+  "TierGroups_DeleteTierGroup": {
+    "method": "DELETE",
+    "path": "/v1/stores/{storeId}/tier-groups/{tierGroupId}"
   },
   "Trials_GetTrials": {
     "method": "GET",
