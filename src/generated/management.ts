@@ -4134,7 +4134,7 @@ export interface components {
             last_payment_error?: components["schemas"]["LastPaymentErrorDto"];
         };
         /** @enum {string} */
-        PaymentGatewayDto: "invalid" | "stripe" | "paypal" | "forumpay" | "steamskins" | "nuvei" | "pagseguro" | "tazapay";
+        PaymentGatewayDto: "invalid" | "stripe" | "paypal" | "forumpay" | "steamskins" | "nuvei" | "pagseguro" | "tazapay" | "paysafecard";
         /** @description Contains detailed information about a payment method.
          *     DISCLAIMER: These fields are not guaranteed to be backwards compatible and may change or be removed without notice. */
         PaymentMethodDetailsDto: {
@@ -4151,6 +4151,7 @@ export interface components {
             alipay?: components["schemas"]["AlipayDetailsDto"];
             pay_by_bank?: components["schemas"]["PayByBankDetailsDto"];
             pix?: components["schemas"]["PixDetailsDto"];
+            paysafecard?: components["schemas"]["PaysafeCardDetailsDto"];
         };
         /** @description Represents a stored payment method */
         PaymentMethodDto: {
@@ -4305,6 +4306,37 @@ export interface components {
          * @enum {string}
          */
         PaymentStatusDto: "unknown" | "created" | "pending" | "completed" | "canceled" | "failed" | "refunded" | "chargeback" | "refund_failed" | "refund_processing";
+        /** @description A single paysafecard card */
+        PaysafeCardCardDto: {
+            /**
+             * @description The card serial number
+             * @example 1234567890123456
+             */
+            serial: string;
+            /**
+             * @description The currency code
+             * @example eur
+             */
+            currency: string;
+            /**
+             * Format: int64
+             * @description The amount in minor units
+             * @example 1000
+             */
+            amount: number;
+            /** @description The card type */
+            type: string;
+            /**
+             * @description The country code
+             * @example DE
+             */
+            country: string;
+        };
+        /** @description Paysafecard payment method details */
+        PaysafeCardDetailsDto: {
+            /** @description The paysafecard cards used for payment */
+            cards?: null | components["schemas"]["PaysafeCardCardDto"][];
+        };
         /**
          * Format: period
          * @description ISO 8601 duration format
