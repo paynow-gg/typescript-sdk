@@ -733,7 +733,6 @@ export interface components {
         CustomerDto: {
             id: components["schemas"]["FlakeId"];
             store_id: components["schemas"]["FlakeId"];
-            store?: components["schemas"]["StoreDto"];
             profile?: components["schemas"]["GenericProfileDto"];
             steam_id?: components["schemas"]["SteamId"];
             steam?: components["schemas"]["SteamProfileDto"];
@@ -1062,36 +1061,12 @@ export interface components {
              */
             updated_at?: null | string;
         };
-        /** @description A single paysafecard card */
-        PaysafeCardCardDto: {
-            /**
-             * @description The card serial number
-             * @example 1234567890123456
-             */
-            serial: string;
-            /**
-             * @description The currency code
-             * @example eur
-             */
-            currency: string;
-            /**
-             * Format: int64
-             * @description The amount in minor units
-             * @example 1000
-             */
-            amount: number;
-            /** @description The card type */
-            type: string;
-            /**
-             * @description The country code
-             * @example DE
-             */
-            country: string;
-        };
         /** @description Paysafecard payment method details */
         PaysafeCardDetailsDto: {
-            /** @description The paysafecard cards used for payment */
-            cards?: null | components["schemas"]["PaysafeCardCardDto"][];
+            first_name?: null | string;
+            last_name?: null | string;
+            psc_id?: null | string;
+            association_id?: null | string;
         };
         /** @description Pix payment method details */
         PixDetailsDto: {
@@ -1268,7 +1243,6 @@ export interface components {
         /** @description Represents a PayNow store and its associated configuration. */
         StoreDto: {
             id: components["schemas"]["FlakeId"];
-            trust?: components["schemas"]["StoreTrustDto"];
             owner_id: components["schemas"]["FlakeId"];
             /** @description The URL-safe slug used to identify the store (e.g. "my-rust-server"). */
             slug: string;
@@ -1316,8 +1290,6 @@ export interface components {
              */
             onboarding_completed_at?: null | string;
             platform_store_type_association?: components["schemas"]["PlatformStoreTypeAssociationDetailsDto"];
-            /** @description The list of members who have access to manage this store. */
-            members?: null | components["schemas"]["StoreMemberDto"][];
         };
         /** @description Represents a member of a PayNow store. */
         StoreMemberDto: {
@@ -2034,7 +2006,6 @@ export interface components {
             /** @description Human-readable identifier for the subscription. */
             pretty_id: string;
             store_id: components["schemas"]["FlakeId"];
-            store?: components["schemas"]["StorefrontStoreDto"];
             customer: components["schemas"]["CustomerDto"];
             payment_method_id?: components["schemas"]["FlakeId"];
             payment_method?: components["schemas"]["PaymentMethodDto"];
@@ -2302,7 +2273,6 @@ export interface components {
             /** @description Identifier for the pricing region associated with this subscription line. */
             pricing_region_id?: null | string;
             gift_to_customer_id?: components["schemas"]["FlakeId"];
-            gift_to_customer?: components["schemas"]["CustomerDto"];
             selected_gameserver_id?: components["schemas"]["FlakeId"];
             sale_id?: components["schemas"]["FlakeId"];
             trial_id?: components["schemas"]["FlakeId"];
