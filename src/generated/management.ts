@@ -4671,7 +4671,7 @@ export interface components {
          *     Contact support for help with setting the correct tax code.
          * @enum {string}
          */
-        ProductTaxCode: "unknown" | "digital_goods_subscription" | "digital_goods_permanent" | "saas" | "downloaded_software" | "digital_goods_subscription_gaming" | "digital_goods_permanent_gaming";
+        ProductTaxCode: "unknown" | "digital_goods_subscription" | "digital_goods_permanent" | "saas" | "downloaded_software" | "digital_goods_subscription_gaming" | "digital_goods_permanent_gaming" | "iaas" | "paas" | "saas_security" | "saas_storage";
         /** @description Represents the configuration for trials of a product */
         ProductTrialConfigurationDto: {
             /** @description Indicates if trials should be enabled for the product. */
