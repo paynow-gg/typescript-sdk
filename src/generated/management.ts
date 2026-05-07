@@ -2690,6 +2690,7 @@ export interface components {
             discord_description_template?: null | string;
             discord_title?: null | string;
             discord_color?: null | string;
+            discord_format?: components["schemas"]["WebhookDiscordFormatDto"];
         };
         /** @description Cryptocurrency payment method details */
         CryptoDetailsDto: {
@@ -6388,6 +6389,7 @@ export interface components {
             discord_description_template?: null | string;
             discord_title?: null | string;
             discord_color?: null | string;
+            discord_format?: components["schemas"]["WebhookDiscordFormatDto"];
         };
         /** @enum {string} */
         UpsellDiscountType: "unknown" | "none" | "fixed" | "percentage";
@@ -6602,6 +6604,8 @@ export interface components {
             validation: string;
         };
         /** @enum {string} */
+        WebhookDiscordFormatDto: "Invalid" | "Embed" | "Text";
+        /** @enum {string} */
         WebhookEventType: "OnIgnore" | "OnOrderCompleted" | "OnRefund" | "OnChargeback" | "OnDeliveryItemAdded" | "OnDeliveryItemActivated" | "OnDeliveryItemUsed" | "OnDeliveryItemRevoked" | "OnSubscriptionActivated" | "OnSubscriptionRenewed" | "OnSubscriptionCanceled" | "OnDiscordOrderActionsQueued" | "OnConnectedUserRegistered" | "OnConnectedUserBecamePayable" | "OnConnectedUserPayoutCreated" | "OnConnectedUserPayoutCompleted" | "OnConnectedUserTransactionInserted" | "OnConnectedUserBecameUnpayable" | "OnTrialActivated" | "OnTrialCompleted" | "OnTrialCanceled" | "OnPurchaseFollowUpAttemptEmailSent" | "OnPurchaseFollowUpAttemptSucceeded" | "OnAbandonedCheckoutRecoveryAttemptEmailSent" | "OnAbandonedCheckoutRecoveryAttemptSucceeded" | "OnChargebackClosed";
         WebhookHistoryDto: {
             /** Format: int32 */
@@ -6619,6 +6623,7 @@ export interface components {
             discord_description_template?: null | string;
             discord_title?: null | string;
             discord_color?: null | string;
+            discord_format?: components["schemas"]["WebhookDiscordFormatDto"];
         };
         /** @enum {string} */
         WebhookType: "json_v1" | "discord_v1";
