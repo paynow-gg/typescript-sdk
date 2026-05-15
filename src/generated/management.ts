@@ -2522,14 +2522,12 @@ export interface components {
         CreateCheckoutSessionManagementDto: {
             /** @description The line items to include in the checkout */
             lines: components["schemas"]["CreateCheckoutSessionLineManagementDto"][];
-            /**
-             * @deprecated
-             * @description Whether this checkout creates a subscription.
-             *     DEPRECATED: Use 'subscription' field in 'lines' array objects instead.
-             */
-            subscription?: null | boolean;
             coupon_id?: components["schemas"]["FlakeId"];
-            /** @description Optional affiliate code to track referrals */
+            /** @description Optional array of promo codes (coupons, gift cards, affiliates) to apply.
+             *     An invalid promo code will cause an error. */
+            promo_codes?: null | string[];
+            /** @description Optional affiliate code to track referrals.
+             *     An invalid affiliate code will NOT cause an error. */
             affiliate_code?: null | string;
             /** @description Optional URL to redirect to after successful checkout */
             return_url?: null | string;
