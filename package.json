@@ -1,29 +1,88 @@
 {
   "name": "@paynow-gg/typescript-sdk",
-  "version": "1.0.61",
+  "version": "2.0.0",
+  "description": "Official TypeScript SDK for the PayNow API - providing type-safe access to storefront and management endpoints",
+  "author": "PayNow Services Inc",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PayNow-gg/typescript-sdk.git"
+  },
+  "keywords": [
+    "paynow",
+    "sdk",
+    "api",
+    "typescript",
+    "storefront",
+    "management"
+  ],
+  "type": "commonjs",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/cjs/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    },
+    "./management": {
+      "import": {
+        "types": "./dist/esm/management.d.ts",
+        "default": "./dist/esm/management.js"
+      },
+      "require": {
+        "types": "./dist/cjs/management.d.ts",
+        "default": "./dist/cjs/management.js"
+      }
+    },
+    "./storefront": {
+      "import": {
+        "types": "./dist/esm/storefront.d.ts",
+        "default": "./dist/esm/storefront.js"
+      },
+      "require": {
+        "types": "./dist/cjs/storefront.d.ts",
+        "default": "./dist/cjs/storefront.js"
+      }
+    },
+    "./webhooks": {
+      "import": {
+        "types": "./dist/esm/webhooks.d.ts",
+        "default": "./dist/esm/webhooks.js"
+      },
+      "require": {
+        "types": "./dist/cjs/webhooks.d.ts",
+        "default": "./dist/cjs/webhooks.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
     "dist"
   ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "lint": "biome lint --write --unsafe ./src/",
-    "format": "biome format --write ./src/",
-    "check": "biome check --write --unsafe ./src/",
-    "generate": "npx tsx src/generate.ts"
+  "engines": {
+    "node": ">=20.3.0"
   },
-  "author": "PayNow Services Inc",
-  "license": "MIT",
-  "description": "Official TypeScript SDK for the PayNow API - providing type-safe access to storefront and management endpoints",
+  "sideEffects": false,
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "generate": "tsx src/generate.ts",
+    "typecheck": "tsc --noEmit",
+    "check": "biome check --write ./src/",
+    "prepack": "node scripts/build.mjs"
+  },
+  "dependencies": {},
   "devDependencies": {
     "@biomejs/biome": "2.1.1",
     "@types/node": "^24.5.2",
-    "openapi-typescript": "^7.9.1",
+    "tsx": "^4.20.6",
     "typescript": "^5.8.3"
-  },
-  "dependencies": {
-    "axios": "^1.12.2"
   },
   "packageManager": "pnpm@10.20.0"
 }

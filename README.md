@@ -8,18 +8,57 @@ A TypeScript/JavaScript SDK for the [PayNow.gg API](https://paynow.gitbook.io/pa
 npm install @paynow-gg/typescript-sdk
 ```
 
-## Quick Start
+## Management API
+
+```typescript
+import { createManagementClient, type Management } from "@paynow-gg/typescript-sdk";
+
+const management = createManagementClient({
+  apiKey: process.env.PAYNOW_API_KEY!,
+  storeId: "411486491630370816",
+});
+
+const bans: Management.BanDto[] = await management.bans.getBans({ limit: 50, ban_type: "steam" });
+const ban = await management.bans.getBan("411486491630370816");
+
+await management.bans.updateBan(ban.id, { reason: "chargeback" });
+await management.bans.deleteBan(ban.id);
+```
+
+## Storefront API
 
 ```typescript
 import { createStorefrontClient } from "@paynow-gg/typescript-sdk";
 
-const storefront = createStorefrontClient("411486491630370816");
+const storefront = createStorefrontClient({
+  storeId: "411486491630370816",
+  customerToken: process.env.PAYNOW_CUSTOMER_TOKEN, // optional
+});
 
-storefront.store.getStorefrontStore().then((res) => console.log(res.data));
+const store = await storefront.store.getStorefrontStore();
+const cart = await storefront.cart.getCart();
+
+await storefront.cart.addLine(
+  { product_id: "411486491630370816", quantity: 1 },
+  { headers: { "x-paynow-customer-ip": "127.0.0.1" } },
+);
 ```
 
-For issues with the SDK, please open an issue on GitHub.
-For PayNow API documentation and support, visit the PayNow developer portal.
+## Error handling
+
+```typescript
+import { isPayNowApiError } from "@paynow-gg/typescript-sdk";
+
+try {
+  await management.bans.getBan("nope");
+} catch (error) {
+  if (isPayNowApiError(error)) {
+    console.error(error.status, error.code, error.message, error.traceId);
+    console.error(error.errors); // field-level validation failures, when returned
+    console.error(error.response.headers.get("retry-after"));
+  }
+}
+```
 
 ## PayNow.gg Support
 
