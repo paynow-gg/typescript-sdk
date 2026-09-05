@@ -1,102 +1,50 @@
-import fs from "node:fs";
-import openapiTS, { astToString } from "openapi-typescript";
+import { execFileSync } from "node:child_process";
+import { mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { createRequire } from "node:module";
+import { dirname } from "node:path";
+import { OUTPUT_DIR, SPECS } from "./gen/config.js";
+import { emitClient, emitTypes } from "./gen/emit.js";
+import { loadSpec } from "./gen/load.js";
+import { buildModule } from "./gen/normalize.js";
 
-const OPTIONAL_PATH_PARAMS = ["storeId", "store_id"];
-const OPTIONAL_HEADERS = ["x-paynow-store-id"];
+async function generate(): Promise<void> {
+  rmSync(OUTPUT_DIR, { recursive: true, force: true });
 
-async function generate(name: string, endpoint: string) {
-  const specResponse = await fetch(endpoint);
-  const spec = await specResponse.json();
+  for (const config of SPECS) {
+    const spec = await loadSpec(config);
+    const module = buildModule(config, spec.schemas, spec.operations);
 
-  if (spec.paths) {
-    for (const path in spec.paths) {
-      for (const method in spec.paths[path]) {
-        let operation = spec.paths[path][method];
+    write(`${OUTPUT_DIR}/${config.name}/types.ts`, emitTypes(module));
 
-        if (operation.deprecated || operation["x-gitbook-ignore"] === true) {
-          delete spec.paths[path][method];
+    if (module.typesOnly) {
+      console.log(`${config.name}: ${module.types.length} types`);
 
-          continue;
-        }
-
-        // Re-map the Operation ID so it's cleaner...
-
-        if (operation.operationId) {
-          const parts = operation.operationId.split("_");
-
-          const tag = operation.tags[0]
-            .split("-")
-            .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join("");
-
-          operation.operationId = tag + (parts[1] ? `_${parts[1]}` : "");
-        }
-
-        // Filter out the optional headers & paramaters
-
-        if (operation.parameters) {
-          operation.parameters = operation.parameters.filter((param: any) => {
-            if (
-              param.in === "path" &&
-              OPTIONAL_PATH_PARAMS.includes(param.name)
-            ) {
-              return false;
-            }
-
-            if (
-              param.in === "header" &&
-              OPTIONAL_HEADERS.some(
-                (h) => h.toLowerCase() === param.name?.toLowerCase(),
-              )
-            ) {
-              return false;
-            }
-
-            return true;
-          });
-        }
-      }
+      continue;
     }
+
+    write(`${OUTPUT_DIR}/${config.name}/client.ts`, emitClient(module));
+
+    const methods = module.groups.reduce((total, group) => total + group.operations.length, 0);
+
+    console.log(
+      `${config.name}: ${module.types.length} types, ${module.groups.length} groups, ${methods} methods`,
+    );
   }
 
-  const ast = await openapiTS(spec);
-  const output = astToString(ast);
-
-  // Map the operation IDs to the URL
-
-  const operationMapping: Record<string, { method: string; path: string }> = {};
-
-  for (const [path, pathItem] of Object.entries(spec.paths)) {
-    for (const [method, operation] of Object.entries(pathItem as any)) {
-      const operationId = (operation as any).operationId;
-
-      if (operationId) {
-        operationMapping[operationId] = {
-          method: method.toUpperCase(),
-          path: path,
-        };
-      }
-    }
-  }
-
-  const contents =
-    output +
-    `\n\nexport const operationMappings = ${JSON.stringify(operationMapping, null, 2)} as const;\n`;
-
-  fs.writeFileSync(`./src/generated/${name}.ts`, contents);
+  format(OUTPUT_DIR);
 }
 
-generate(
-  "management",
-  "https://api.paynow.gg/swagger/management-api/openapi.json",
-);
+function write(path: string, contents: string): void {
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, `${contents.replace(/\r\n/g, "\n").trimEnd()}\n`, "utf8");
+}
 
-generate(
-  "storefront",
-  "https://api.paynow.gg/swagger/storefront-api/openapi.json",
-);
+function format(path: string): void {
+  const biome = createRequire(__filename).resolve("@biomejs/biome/bin/biome");
+  execFileSync(process.execPath, [biome, "check", "--write", path], { stdio: "inherit" });
+}
 
-generate(
-  "webhooks",
-  "https://api.paynow.gg/swagger/webhook-definitions/openapi.json",
-);
+generate().catch((error: unknown) => {
+  console.error(error instanceof Error ? error.stack : error);
+  process.exitCode = 1;
+});

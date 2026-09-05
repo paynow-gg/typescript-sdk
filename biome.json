@@ -7,13 +7,13 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**", "!src/storefront-client/**", "!src/management-client/**"]
+    "includes": ["**", "!dist/**", "!node_modules/**"]
   },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
     "indentWidth": 2,
-    "lineWidth": 80,
+    "lineWidth": 100,
     "lineEnding": "lf"
   },
   "linter": {
@@ -35,7 +35,7 @@
   "javascript": {
     "formatter": {
       "quoteStyle": "double",
-      "lineWidth": 80
+      "lineWidth": 100
     }
   },
   "assist": {
