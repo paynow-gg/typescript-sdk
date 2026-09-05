@@ -1,6 +1,6 @@
 {
   "name": "@paynow-gg/typescript-sdk",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Official TypeScript SDK for the PayNow API - providing type-safe access to storefront and management endpoints",
   "author": "PayNow Services Inc",
   "license": "MIT",
