@@ -8,5 +8,5 @@
     "moduleResolution": "bundler"
   },
   "include": ["src/**/*"],
-  "exclude": ["src/gen/**", "src/generate.ts"]
+  "exclude": ["src/gen/**", "src/generate.ts", "src/**/*.test.ts"]
 }

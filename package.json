@@ -74,6 +74,7 @@
     "build": "node scripts/build.mjs",
     "generate": "tsx src/generate.ts",
     "typecheck": "tsc --noEmit",
+    "test": "tsx --test src/**/*.test.ts",
     "check": "biome check --write ./src/",
     "prepack": "node scripts/build.mjs"
   },

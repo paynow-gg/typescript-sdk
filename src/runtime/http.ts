@@ -81,7 +81,14 @@ function resolvePath(
       );
     }
 
-    return encodeURIComponent(String(value));
+    const segment = String(value);
+    if (segment === "." || segment === "..") {
+      throw new Error(
+        `Cannot build request path "${template}": invalid value "${segment}" for path parameter "${name}".`,
+      );
+    }
+
+    return encodeURIComponent(segment);
   });
 }
 
